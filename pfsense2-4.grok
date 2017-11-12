@@ -12,17 +12,14 @@
 # - Adjusted IPv6 to accept pfSense 2.4.X
 #
 # TODO: Add/expand support for IPv6 messages.
-#
-# Usage: Use the PFSENSE_LOG_ENTRY pattern
 
-PFSENSE_LOG_ENTRY %{PFSENSE_LOG_DATA}%{PFSENSE_IP_SPECIFIC_DATA}%{PFSENSE_IP_DATA}%{PFSENSE_PROTOCOL_DATA}?
+PFSENSE_LOG_ENTRY %{PFSENSE_LOG_DATA}%{PFSENSE_IP_SPECIFIC_DATA}%{PFSENSE_IP_DATA}%{PFSENSE_PROTOCOL_DATA}%{PFSENSE_PROTOCOL_DATA_IPv6}?
 PFSENSE_LOG_DATA %{INT:rule},%{INT:sub_rule}?,,%{INT:tracker},%{WORD:iface},%{WORD:reason},%{WORD:action},%{WORD:direction},
+PFSENSE_IP_DATA %{INT:length},%{IP:src_ip},%{IP:dest_ip},
 PFSENSE_IP_SPECIFIC_DATA %{PFSENSE_IPv4_SPECIFIC_DATA}|%{PFSENSE_IPv6_SPECIFIC_DATA}
 PFSENSE_IPv4_SPECIFIC_DATA (?<ip_ver>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:id},%{INT:offset},%{WORD:flags},%{INT:proto_id},%{WORD:proto},
-PFSENSE_IPv4_SPECIFIC_DATA_ECN (?<ip_ver>(4)),%{BASE16NUM:tos},%{INT:ecn},%{INT:ttl},%{INT:id},%{INT:offset},%{WORD:flags},%{INT:proto_id},%{WORD:proto},
-PFSENSE_IPv6_SPECIFIC_DATA (?<ip_ver>(6)),%{BASE16NUM:ipv6_Flag1},%{WORD:ipv6_Flag2},%{WORD:flow_label},%{WORD:options},%{INT:protocol_id},%{INT:length},%{IPV6:src_ip},%{IPV6:dest_ip},%{WORD:ipv6_HPH},%{WORD:ipv6_padn},%{WORD:ipv6_Alert},%{BASE16NUM:ipv6_Flag3},
-PFSENSE_IP_DATA %{INT:length},%{IP:src_ip},%{IP:dest_ip},
-PFSENSE_PROTOCOL_DATA %{PFSENSE_TCP_DATA}|%{PFSENSE_UDP_DATA}|%{PFSENSE_ICMP_DATA}|%{PFSENSE_CARP_DATA}|%{PFSENSE_IGMP_DATA}
+PFSENSE_IPv6_SPECIFIC_DATA (?<ip_ver>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:protocol_type},%{INT:protocol_id},
+PFSENSE_PROTOCOL_DATA %{PFSENSE_TCP_DATA}|%{PFSENSE_UDP_DATA}|%{PFSENSE_ICMP_DATA}|%{PFSENSE_IGMP_DATA}
 PFSENSE_TCP_DATA %{INT:src_port},%{INT:dest_port},%{INT:data_length},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{GREEDYDATA:tcp_options}
 PFSENSE_UDP_DATA %{INT:src_port},%{INT:dest_port},%{INT:data_length}
 PFSENSE_IGMP_DATA datalength=%{INT:data_length}
@@ -36,7 +33,13 @@ PFSENSE_ICMP_UNREACHABLE %{GREEDYDATA:icmp_unreachable}
 PFSENSE_ICMP_NEED_FLAG %{IP:icmp_need_flag_ip},%{INT:icmp_need_flag_mtu}
 PFSENSE_ICMP_TSTAMP %{INT:icmp_tstamp_id},%{INT:icmp_tstamp_sequence}
 PFSENSE_ICMP_TSTAMP_REPLY %{INT:icmp_tstamp_reply_id},%{INT:icmp_tstamp_reply_sequence},%{INT:icmp_tstamp_reply_otime},%{INT:icmp_tstamp_reply_rtime},%{INT:icmp_tstamp_reply_ttime}
-PFSENSE_CARP_DATA %{WORD:carp_type},%{INT:carp_ttl},%{INT:carp_vhid},%{INT:carp_version},%{INT:carp_advbase},%{INT:carp_advskew}
+
+# SECTION IN PROGRESS
+PFSENSE_PROTOCOL_DATA_IPv6 %{PFSENSE_TCP_DATA_IPv6}|%{PFSENSE_ICMP_IPv6}
+PFSENSE_ICMP_IPv6
+PFSENSE_TCP_DATA_IPv6
+#PFSENSE_UDP_DATA_IPv6
+#PFSENSE_IGMP_DATA_IPv6
 
 # Optional (Omit or remove the following lines)
 DHCPD (%{DHCPDISCOVER}|%{DHCPOFFER}|%{DHCPREQUEST}|%{DHCPACK}|%{DHCPINFORM}|%{DHCPRELEASE})
