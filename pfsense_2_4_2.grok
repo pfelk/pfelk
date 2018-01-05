@@ -1,0 +1,58 @@
+# GROK Custom Patterns (add to patterns directory and reference in GROK filter for pfSense events):
+# GROK Patterns for pfSense 2.4.2 Logging Format
+#
+# Created 27 Jan 2015 by J. Pisano (Handles TCP, UDP, and ICMP log entries)
+# Edited 14 Feb 2015 by Elijah Paul elijah.paul@gmail.com
+# Edited 10 Mar 2015 by Bernd Zeimetz <bernd@bzed.de>
+# Edited 28 Oct 2017 by Brian Turek <brian.turek@gmail.com>
+# Edited 5 Jan 2017 by Andrew Wilson <andrew@3ilson.com>
+# taken from https://gist.github.com/elijahpaul/3d80030ac3e8138848b5
+#
+# - Adjusted IPv4 to accept pfSense 2.4.2
+# - Adjusted IPv6 to accept pfSense 2.4.2
+#
+# TODO: Add/expand support for IPv6 messages.
+
+PFSENSE_LOG_ENTRY %{PFSENSE_LOG_DATA}%{PFSENSE_IP_SPECIFIC_DATA}%{PFSENSE_IP_DATA}%{PFSENSE_PROTOCOL_DATA}?
+PFSENSE_LOG_DATA %{INT:rule},%{INT:sub_rule}?,,%{INT:tracker},%{WORD:iface},%{WORD:reason},%{WORD:action},%{WORD:direction},
+PFSENSE_IP_DATA %{INT:length},%{IP:src_ip},%{IP:dest_ip},
+PFSENSE_IP_SPECIFIC_DATA %{PFSENSE_IPv4_SPECIFIC_DATA}|%{PFSENSE_IPv6_SPECIFIC_DATA}
+PFSENSE_IPv4_SPECIFIC_DATA (?<ip_ver>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:id},%{INT:offset},%{WORD:flags},%{INT:proto_id},%{WORD:proto},
+PFSENSE_IPv6_SPECIFIC_DATA (?<ip_ver>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:proto_type},%{INT:proto_id},
+PFSENSE_PROTOCOL_DATA %{PFSENSE_UDP_DATA}|%{PFSENSE_TCP_DATA}|%{PFSENSE_ICMP_DATA}|%{PFSENSE_IGMP_DATA}|%{PFSENSE_IPv6_VAR}
+PFSENSE_UDP_DATA %{INT:src_port},%{INT:dest_port},%{INT:data_length}
+PFSENSE_TCP_DATA %{INT:src_port},%{INT:dest_port},%{INT:data_length},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{GREEDYDATA:tcp_options}
+PFSENSE_IGMP_DATA datalength=%{INT:data_length}
+PFSENSE_ICMP_DATA %{PFSENSE_ICMP_TYPE}%{PFSENSE_ICMP_RESPONSE}
+PFSENSE_ICMP_TYPE (?<icmp_type>(request|reply|unreachproto|unreachport|unreach|timeexceed|paramprob|redirect|maskreply|needfrag|tstamp|tstampreply)),
+PFSENSE_ICMP_RESPONSE %{PFSENSE_ICMP_ECHO_REQ_REPLY}|%{PFSENSE_ICMP_UNREACHPORT}| %{PFSENSE_ICMP_UNREACHPROTO}|%{PFSENSE_ICMP_UNREACHABLE}|%{PFSENSE_ICMP_NEED_FLAG}|%{PFSENSE_ICMP_TSTAMP}|%{PFSENSE_ICMP_TSTAMP_REPLY}
+PFSENSE_ICMP_ECHO_REQ_REPLY %{INT:icmp_echo_id},%{INT:icmp_echo_sequence}
+PFSENSE_ICMP_UNREACHPORT %{IP:icmp_unreachport_dest_ip},%{WORD:icmp_unreachport_protocol},%{INT:icmp_unreachport_port}
+PFSENSE_ICMP_UNREACHPROTO %{IP:icmp_unreach_dest_ip},%{WORD:icmp_unreachproto_protocol}
+PFSENSE_ICMP_UNREACHABLE %{GREEDYDATA:icmp_unreachable}
+PFSENSE_ICMP_NEED_FLAG %{IP:icmp_need_flag_ip},%{INT:icmp_need_flag_mtu}
+PFSENSE_ICMP_TSTAMP %{INT:icmp_tstamp_id},%{INT:icmp_tstamp_sequence}
+PFSENSE_ICMP_TSTAMP_REPLY %{INT:icmp_tstamp_reply_id},%{INT:icmp_tstamp_reply_sequence},%{INT:icmp_tstamp_reply_otime},%{INT:icmp_tstamp_reply_rtime},%{INT:icmp_tstamp_reply_ttime}
+
+PFSENSE_IPv6_VAR %{WORD:Type},%{WORD:Option},%{WORD:Flags},%{WORD:Flags}
+
+# DHCP (Optional)
+DHCPD (%{DHCPDISCOVER}|%{DHCPOFFER}|%{DHCPREQUEST}|%{DHCPACK}|%{DHCPINFORM}|%{DHCPRELEASE})
+DHCPDISCOVER %{WORD:dhcp_action} from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)(: %{GREEDYDATA:dhcp_load_balance})?
+DHCPOFFER %{WORD:dhcp_action} on %{IPV4:dhcp_client_ip} to %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)
+DHCPREQUEST %{WORD:dhcp_action} for %{IPV4:dhcp_client_ip}%{SPACE}(\(%{IPV4:dhcp_ip_unknown}\))? from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)(: %{GREEDYDATA:dhcp_request_message})?
+DHCPACK %{WORD:dhcp_action} on %{IPV4:dhcp_client_ip} to %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)
+DHCPINFORM %{WORD:dhcp_action} from %{IPV4:dhcp_client_ip} via %(?<dhcp_client_vlan>[0-9a-z_]*)
+DHCPRELEASE %{WORD:dhcp_action} of %{IPV4:dhcp_client_ip} from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via
+
+# PFSENSE
+PFSENSE_CARP_DATA (%{WORD:carp_type}),(%{INT:carp_ttl}),(%{INT:carp_vhid}),(%{INT:carp_version}),(%{INT:carp_advbase}),(%{INT:carp_advskew})
+PFSENSE_APP (%{DATA:pfsense_APP}):
+PFSENSE_APP_DATA (%{PFSENSE_APP_LOGOUT}|%{PFSENSE_APP_LOGIN}|%{PFSENSE_APP_ERROR}|%{PFSENSE_APP_GEN})
+PFSENSE_APP_LOGIN (%{DATA:pfsense_ACTION}) for user \'(%{DATA:pfsense_USER})\' from: (%{GREEDYDATA:pfsense_REMOTE_IP})
+PFSENSE_APP_LOGOUT User (%{DATA:pfsense_ACTION}) for user \'(%{DATA:pfsense_USER})\' from: (%{GREEDYDATA:pfsense_REMOTE_IP})
+PFSENSE_APP_ERROR webConfigurator (%{DATA:pfsense_ACTION}) for \'(%{DATA:pfsense_USER})\' from (%{GREEDYDATA:pfsense_REMOTE_IP})
+PFSENSE_APP_GEN (%{GREEDYDATA:pfsense_ACTION})
+
+# SURICATA
+PFSENSE_SURICATA %{SPACE}\[%{NUMBER:ids_gen_id}:%{NUMBER:ids_sig_id}:%{NUMBER:ids_sig_rev}\]%{SPACE}%{GREEDYDATA:ids_desc}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:ids_class}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:ids_pri}\]%{SPACE}{%{WORD:ids_proto}}%{SPACE}%{IP:ids_src_ip}:%{NUMBER:ids_src_port}%{SPACE}->%{SPACE}%{IP:ids_dest_ip}:%{NUMBER:ids_dest_port}
