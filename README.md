@@ -1,6 +1,6 @@
 ## Welcome to pfSense + ELK
 
-You can view installation guide guide on [3ilson.org YouTube Channel ](https://www.youtube.com/3ilsonorg).
+You can view installation guide guide on [3ilson.org YouTube Chanel ](https://www.youtube.com/3ilsonorg).
 
 
 
