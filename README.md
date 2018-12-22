@@ -9,12 +9,10 @@ You can view installation guide guide on [3ilson.org YouTube Channel ](https://w
 # Preparation
 
 ### 1. Add Oracle Java Repository
-```
-'sudo add-apt-repository ppa:webupd8team/java'
+'''sudo add-apt-repository ppa:webupd8team/java
 
 ### 2. Download and install the public GPG signing key
-```
-'wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -'
+'''wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 
 ### 3. Download and install apt-transport-https package 
 ```
