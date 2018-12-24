@@ -105,7 +105,7 @@ sudo nano /etc/logstash/conf.d/10-syslog.conf
 ### 17. Revise/Update w/pfsense IP address (10-syslog.conf)
 ```
 Change line 3; the "if [host]..." should point to your pfSense IP address
-Change line 9 to point to your second PfSense IP address of comment out
+Change line 9 to point to your second PfSense IP address or comment out
 ```
 
 ### 18. Edit (11-pfsense.conf)
