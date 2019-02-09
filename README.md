@@ -4,7 +4,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel ](https://w
 
 ### Prerequisites 
 - Ubuntu Server v18.04+
-- pfSense v2.4.4+
+- pfSense v2.4.4+ or OPNsense 19.1.1+
 
 # Preparation
 
