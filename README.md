@@ -120,7 +120,8 @@ _Note if the timezone is offset or mismatched, you may not see any logs_
 ```
 
 ### 20. Download and install the MaxMind GeoIP database
-```cd /etc/logstash
+```
+cd /etc/logstash
 ```
 
 ### 21. Download and install the MaxMind GeoIP database
