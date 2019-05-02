@@ -6,6 +6,7 @@
 # Edited 10 Mar 2015 by Bernd Zeimetz <bernd@bzed.de>
 # Edited 28 Oct 2017 by Brian Turek <brian.turek@gmail.com>
 # Edited 5 Jan 2017 by Andrew Wilson <andrew@3ilson.com>
+# Edited 30 Apr 2019 by Mike Eriksson <mike@swedishmike.org>
 # taken from https://gist.github.com/elijahpaul/3d80030ac3e8138848b5
 #
 # - Adjusted IPv4 to accept pfSense 2.4.2
@@ -14,7 +15,7 @@
 # TODO: Add/expand support for IPv6 messages.
 
 PFSENSE_LOG_ENTRY %{PFSENSE_LOG_DATA}%{PFSENSE_IP_SPECIFIC_DATA}%{PFSENSE_IP_DATA}%{PFSENSE_PROTOCOL_DATA}?
-PFSENSE_LOG_DATA %{INT:rule},%{INT:sub_rule}?,,%{INT:tracker},%{WORD:iface},%{WORD:reason},%{WORD:action},%{WORD:direction},
+PFSENSE_LOG_DATA %{INT:rule},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:iface},%{WORD:reason},%{WORD:action},%{WORD:direction},
 PFSENSE_IP_DATA %{INT:length},%{IP:src_ip},%{IP:dest_ip},
 PFSENSE_IP_SPECIFIC_DATA %{PFSENSE_IPv4_SPECIFIC_DATA}|%{PFSENSE_IPv6_SPECIFIC_DATA}
 PFSENSE_IPv4_SPECIFIC_DATA (?<ip_ver>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:id},%{INT:offset},%{WORD:flags},%{INT:proto_id},%{WORD:proto},
