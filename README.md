@@ -23,9 +23,9 @@ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
 sudo apt-get install apt-transport-https
 ```
 
-### 4. Add Elasticsearch|Logstash|Kibana Repositories (version 6+) 
+### 4. Add Elasticsearch|Logstash|Kibana Repositories (version 7+) 
 ```
-echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 ```
 
 ### 5. Update
@@ -33,20 +33,20 @@ echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee 
 sudo apt-get update
 ```
 
-### 6. Install Java 8
+### 6. Install Java 11
 ```
 sudo apt install oracle-java11-installer
 ```
 
 # Install
-- Elasticsearch v6.6+ | Kibana v6.6+ | Logstash v6.6+
+- Elasticsearch v7+ | Kibana v7+ | Logstash v7+
 
 ### 8. Install Elasticsearch|Kibana|Logstash
 ```
 sudo apt-get install elasticsearch && sudo apt-get install kibana && sudo apt-get install logstash
 ```
 
-# Configure Kibana|v6.6+
+# Configure Kibana|v7+
 
 ### 9. Configure Kibana
 ```
@@ -59,7 +59,7 @@ server.port: 5601
 server.host: "0.0.0.0"
 ```
 
-# Configure Logstash|v6.6+
+# Configure Logstash|v7+
 
 ### 11. Change Directory
 ```
