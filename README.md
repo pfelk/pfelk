@@ -10,7 +10,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel ](https://w
 
 ### 1. Add Oracle Java Repository
 ```
-sudo add-apt-repository ppa:webupd8team/java
+sudo add-apt-repository ppa:linuxuprising/java
 ```
 
 ### 2. Download and install the public GPG signing key
@@ -35,7 +35,7 @@ sudo apt-get update
 
 ### 6. Install Java 8
 ```
-sudo apt-get install oracle-java8-installer
+sudo apt install oracle-java11-installer
 ```
 
 # Install
@@ -54,7 +54,8 @@ sudo nano /etc/kibana/kibana.yml
 ```
 
 ### 10. Amend host file (/etc/kibana/kibana.yml)
-```server.port: 5601
+```
+server.port: 5601
 server.host: "0.0.0.0"
 ```
 
