@@ -116,7 +116,7 @@ sudo nano /etc/logstash/conf.d/11-pf.conf
 
 ### 18. Resive/Update timezone
 ```
-Change line 12 to the same timezone as your ph configruation
+Change line 12 to the same timezone as your pf configruation
 _Note if the timezone is offset or mismatched, you may not see any logs_
 ```
 
