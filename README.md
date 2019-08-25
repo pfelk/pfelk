@@ -1,4 +1,4 @@
-## Welcome to pfSense + ELK
+## Welcome to (pfSense/OpnSense) + ELK
 
 You can view installation guide guide on [3ilson.org YouTube Channel ](https://www.youtube.com/3ilsonorg).
 
@@ -76,7 +76,7 @@ sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/10-syslog.conf
 ```
 
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/11-pfsense.conf
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/11-pf.conf
 ```
 
 ```
@@ -95,7 +95,7 @@ cd /etc/logstash/conf.d/patterns/
 
 ### 14. Download the following configuration file
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pfsense_2_4_2.grok
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pfv100.grok
 ```
 
 ### 15. Edit (10-syslog.conf)arkdown
@@ -103,20 +103,20 @@ sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pfsense_2_4_2.g
 sudo nano /etc/logstash/conf.d/10-syslog.conf
 ```
 
-### 16. Revise/Update w/pfsense IP address (10-syslog.conf)
+### 16. Revise/Update w/pf IP address (10-syslog.conf)
 ```
 Change line 3; the "if [host]..." should point to your pfSense IP address
 Change line 9 to point to your second PfSense IP address or comment out
 ```
 
-### 17. Edit (11-pfsense.conf)
+### 17. Edit (11-pf.conf)
 ```
-sudo nano /etc/logstash/conf.d/11-pfsense.conf
+sudo nano /etc/logstash/conf.d/11-pf.conf
 ```
 
 ### 18. Resive/Update timezone
 ```
-Change line 12 to the same timezone as your phSense configruation
+Change line 12 to the same timezone as your ph configruation
 _Note if the timezone is offset or mismatched, you may not see any logs_
 ```
 
