@@ -98,7 +98,7 @@ cd /etc/logstash/conf.d/patterns/
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pfv100.grok
 ```
 
-### 15. Edit (10-syslog.conf)arkdown
+### 15. Edit (10-syslog.conf)
 ```
 sudo nano /etc/logstash/conf.d/10-syslog.conf
 ```
