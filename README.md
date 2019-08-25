@@ -35,25 +35,25 @@ sudo apt-get update
 
 ### 6. Install Java 11
 ```
-sudo apt install oracle-java11-installer
+sudo apt-get install oracle-java11-installer-local
 ```
 
 # Install
 - Elasticsearch v7+ | Kibana v7+ | Logstash v7+
 
-### 8. Install Elasticsearch|Kibana|Logstash
+### 7. Install Elasticsearch|Kibana|Logstash
 ```
 sudo apt-get install elasticsearch && sudo apt-get install kibana && sudo apt-get install logstash
 ```
 
 # Configure Kibana|v7+
 
-### 9. Configure Kibana
+### 8. Configure Kibana
 ```
 sudo nano /etc/kibana/kibana.yml
 ```
 
-### 10. Amend host file (/etc/kibana/kibana.yml)
+### 9. Amend host file (/etc/kibana/kibana.yml)
 ```
 server.port: 5601
 server.host: "0.0.0.0"
@@ -61,12 +61,12 @@ server.host: "0.0.0.0"
 
 # Configure Logstash|v7+
 
-### 11. Change Directory
+### 10. Change Directory
 ```
 cd /etc/logstash/conf.d
 ```
 
-### 12. Download the following configuration files
+### 11. Download the following configuration files
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/01-inputs.conf
 ```
@@ -83,54 +83,54 @@ sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/11-pfsense.conf
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/30-outputs.conf
 ```
 
-### 13. Make Patterns Folder
+### 12. Make Patterns Folder
 ```
 sudo mkdir /etc/logstash/conf.d/patterns
 ```
 
-### 14. Navigate to Patterns Folder
+### 13. Navigate to Patterns Folder
 ```
 cd /etc/logstash/conf.d/patterns/
 ```
 
-### 15. Download the following configuration file
+### 14. Download the following configuration file
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pfsense_2_4_2.grok
 ```
 
-### 16. Edit (10-syslog.conf)arkdown
+### 15. Edit (10-syslog.conf)arkdown
 ```
 sudo nano /etc/logstash/conf.d/10-syslog.conf
 ```
 
-### 17. Revise/Update w/pfsense IP address (10-syslog.conf)
+### 16. Revise/Update w/pfsense IP address (10-syslog.conf)
 ```
 Change line 3; the "if [host]..." should point to your pfSense IP address
 Change line 9 to point to your second PfSense IP address or comment out
 ```
 
-### 18. Edit (11-pfsense.conf)
+### 17. Edit (11-pfsense.conf)
 ```
 sudo nano /etc/logstash/conf.d/11-pfsense.conf
 ```
 
-### 19. Resive/Update timezone
+### 18. Resive/Update timezone
 ```
 Change line 12 to the same timezone as your phSense configruation
 _Note if the timezone is offset or mismatched, you may not see any logs_
 ```
 
-### 20. Download and install the MaxMind GeoIP database
+### 19. Download and install the MaxMind GeoIP database
 ```
 cd /etc/logstash
 ```
 
-### 21. Download and install the MaxMind GeoIP database
+### 20. Download and install the MaxMind GeoIP database
 ```
 sudo wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
 ```
 
-### 22. Download and install the MaxMind GeoIP database
+### 21. Download and install the MaxMind GeoIP database
 ```
 sudo gunzip GeoLite2-City.mmdb.gz
 ```
