@@ -33,9 +33,9 @@ echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee 
 sudo apt-get update
 ```
 
-### 6. Install Java 11
+### 6. Install Java 12
 ```
-sudo apt install openjdk-11-jre-headless
+sudo apt-get install oracle-java12-installer
 ```
 
 # Install
