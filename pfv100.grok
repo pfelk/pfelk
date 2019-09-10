@@ -50,7 +50,7 @@ PF_APP_ERROR webConfigurator (%{DATA:pf_ACTION}) for \'(%{DATA:pf_USER})\' from 
 PF_APP_GEN (%{GREEDYDATA:pf_ACTION})
 
 # OPENVPN
-PF_OPENVPN_CONNECTION %{IP:vpn_src_ip}\:%{INT:vpn_src_port}%{SPACE}\[%{DATA:vpn_client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
+OPENVPN %{IP:vpn_src_ip}\:%{INT:vpn_src_port}%{SPACE}\[%{DATA:vpn_client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
 
 # SURICATA
 SURICATA %{SPACE}\[%{NUMBER:ids_gen_id}:%{NUMBER:ids_sig_id}:%{NUMBER:ids_sig_rev}\]%{SPACE}%{GREEDYDATA:ids_desc}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:ids_class}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:ids_pri}\]%{SPACE}{%{WORD:ids_proto}}%{SPACE}%{IP:ids_src_ip}:%{NUMBER:ids_src_port}%{SPACE}->%{SPACE}%{IP:ids_dest_ip}:%{NUMBER:ids_dest_port}
