@@ -54,3 +54,6 @@ OPENVPN %{IP:vpn_src_ip}\:%{INT:vpn_src_port}%{SPACE}\[%{DATA:vpn_client}\]%{SPA
 
 # SURICATA
 SURICATA %{SPACE}\[%{NUMBER:ids_gen_id}:%{NUMBER:ids_sig_id}:%{NUMBER:ids_sig_rev}\]%{SPACE}%{GREEDYDATA:ids_desc}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:ids_class}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:ids_pri}\]%{SPACE}{%{WORD:ids_proto}}%{SPACE}%{IP:ids_src_ip}:%{NUMBER:ids_src_port}%{SPACE}->%{SPACE}%{IP:ids_dest_ip}:%{NUMBER:ids_dest_port}
+
+# SNORT
+SNORT \[%{INT:ids_gen_id}\:%{INT:ids_sig_id}\:%{INT:ids_sig_rev}\].%{GREEDYDATA:ids_desc}.\[Classification\: %{DATA:ids_class}\].\[Priority\: %{INT:ids_pri}\].\{%{DATA:ids_proto}\}.%{IP:ids_src_ip}\:%{INT:ids_src_port}.->.%{IP:ids_dest_ip}\:%{INT:ids_dest_port}
