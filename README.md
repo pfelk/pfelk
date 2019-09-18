@@ -2,7 +2,7 @@
 
 You can view installation guide guide on [3ilson.org YouTube Channel](https://www.youtube.com/3ilsonorg).
 
-### Prerequisites 
+### Prerequisites
 - Ubuntu Server v18.04+
 - pfSense v2.4.4+ or OPNsense 19.7.3+
 
@@ -18,12 +18,12 @@ sudo add-apt-repository ppa:linuxuprising/java
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 ```
 
-### 3. Download and install apt-transport-https package 
+### 3. Download and install apt-transport-https package
 ```
 sudo apt-get install apt-transport-https
 ```
 
-### 4. Add Elasticsearch|Logstash|Kibana Repositories (version 7+) 
+### 4. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
 ```
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 ```
@@ -78,7 +78,7 @@ sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/10-syslog.conf
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/11-pf.conf
 ```
-- Commit either line 6 or 8 depending on PFsense or OPNsense 
+- Commit either line 6 or 8 depending on PFsense or OPNsense
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/30-outputs.conf
 ```
@@ -114,9 +114,9 @@ Change line 9 to point to your second Pf IP address or comment out
 sudo nano /etc/logstash/conf.d/11-pf.conf
 ```
 
-### 18. Resive/Update timezone
+### 18. Revise/Update timezone
 ```
-Change line 12 to the same timezone as your pf configruation
+Change line 12 to the same timezone as your pf configuration
 _Note if the timezone is offset or mismatched, you may not see any logs_
 ```
 
@@ -125,15 +125,38 @@ _Note if the timezone is offset or mismatched, you may not see any logs_
 cd /etc/logstash
 ```
 
-### 20. Download and install the MaxMind GeoIP database
+### 20. Download and install the MaxMind GeoIP City database
 ```
 sudo wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
 ```
 
-### 21. Download and install the MaxMind GeoIP database
+### 21. Download and install the MaxMind GeoIP City database
 ```
 sudo gunzip GeoLite2-City.mmdb.gz
 ```
+
+### 22. Download and install the MaxMind GeoIP ASN database
+```
+sudo wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.gz
+```
+
+### 23. Download and install the MaxMind GeoIP ASN database
+```
+sudo tar -xvzf GeoLite2-City.mmdb.gz
+```
+
+### 24. Download and install the MaxMind GeoIP ASN database
+##### Replace YYYYMMDD below with the correct date from your extracted directory
+```
+sudo mv GeoLite2-ASN_YYYYMMDD/GeoLite2-ASN.mmdb .
+```
+
+### 25. Download and install the MaxMind GeoIP ASN database
+##### Replace YYYYMMDD below with the correct date from your extracted directory
+```
+sudo rm -rf GeoLite2-ASN_YYYYMMDD
+```
+
 
 # Configure Services
 
