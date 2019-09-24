@@ -148,7 +148,7 @@ sudo tar -xvzf GeoLite2-City.mmdb.gz
 ### 24. Download and install the MaxMind GeoIP ASN database
 ##### Replace YYYYMMDD below with the correct date from your extracted directory
 ```
-sudo mv GeoLite2-ASN_YYYYMMDD/GeoLite2-ASN.mmdb .
+sudo mv GeoLite2-ASN_YYYYMMDD/GeoLite2-ASN.mmdb
 ```
 
 ### 25. Download and install the MaxMind GeoIP ASN database
