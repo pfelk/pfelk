@@ -109,9 +109,9 @@ Change line 3; the "if [host]..." should point to your pf IP address
 Change line 9 to point to your second Pf IP address or comment out
 ```
 
-### 17. Edit (11-pf.conf)
+### 17. Edit (10-pf.conf)
 ```
-sudo nano /etc/logstash/conf.d/11-pf.conf
+sudo nano /etc/logstash/conf.d/10-pf.conf
 ```
 
 ### 18. Revise/Update timezone
