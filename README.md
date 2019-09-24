@@ -142,7 +142,7 @@ sudo wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.g
 
 ### 23. Download and install the MaxMind GeoIP ASN database
 ```
-sudo tar -xvzf GeoLite2-City.mmdb.gz
+sudo tar -xvzf GeoLite2-ASN.tar.gz
 ```
 
 ### 24. Download and install the MaxMind GeoIP ASN database
