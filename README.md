@@ -95,7 +95,7 @@ cd /etc/logstash/conf.d/patterns/
 
 ### 14. Download the following configuration file
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pfv100.grok
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pf-09.2019.grok
 ```
 
 ### 15. Edit (10-syslog.conf)
