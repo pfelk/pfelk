@@ -72,15 +72,15 @@ sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/01-inputs.conf
 ```
 
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/10-syslog.conf
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/05-syslog.conf
 ```
 
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/11-pf.conf
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/10-pf.conf
 ```
 - Commit either line 6 or 8 depending on PFsense or OPNsense
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/30-outputs.conf
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/50-outputs.conf
 ```
 
 ### 12. Make Patterns Folder
