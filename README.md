@@ -98,12 +98,12 @@ cd /etc/logstash/conf.d/patterns/
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pf-09.2019.grok
 ```
 
-### 15. Edit (10-syslog.conf)
+### 15. Edit (05-syslog.conf)
 ```
-sudo nano /etc/logstash/conf.d/10-syslog.conf
+sudo nano /etc/logstash/conf.d/05-syslog.conf
 ```
 
-### 16. Revise/Update w/pf IP address (10-syslog.conf)
+### 16. Revise/Update w/pf IP address (05-syslog.conf)
 ```
 Change line 3; the "if [host]..." should point to your pf IP address
 Change line 9 to point to your second Pf IP address or comment out
