@@ -18,7 +18,7 @@ PF_PROTOCOL_DATA %{PF_UDP_DATA}|%{PF_TCP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%
 PF_UDP_DATA %{INT:src_port},%{INT:dest_port},%{INT:data_length}
 PF_TCP_DATA %{INT:src_port},%{INT:dest_port},%{INT:data_length},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{GREEDYDATA:tcp_options}
 PF_IGMP_DATA datalength=%{INT:data_length}
-PF_ICMP_DATA %{PF_ICMP_TYPE}%{PF_ICMP_RESPONSE}
+PF_ICMP_DATA %{PF_ICMP_TYPE},%{PF_ICMP_RESPONSE}
 PF_ICMP_TYPE (?<icmp_type>(request|reply|unreachproto|unreachport|unreach|timeexceed|paramprob|redirect|maskreply|needfrag|tstamp|tstampreply)),
 PF_ICMP_RESPONSE %{PF_ICMP_ECHO_REQ_REPLY}|%{PF_ICMP_UNREACHPORT}| %{PF_ICMP_UNREACHPROTO}|%{PF_ICMP_UNREACHABLE}|%{PF_ICMP_NEED_FLAG}|%{PF_ICMP_TSTAMP}|%{PF_ICMP_TSTAMP_REPLY}
 PF_ICMP_ECHO_REQ_REPLY %{INT:icmp_echo_id},%{INT:icmp_echo_sequence}
