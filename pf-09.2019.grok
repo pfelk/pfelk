@@ -14,7 +14,7 @@ PF_IP_DATA %{INT:length},%{IP:src_ip},%{IP:dest_ip},
 PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
 PF_IPv4_SPECIFIC_DATA (?<ip_ver>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:id},%{INT:offset},%{WORD:flags},%{INT:proto_id},%{WORD:proto},
 PF_IPv6_SPECIFIC_DATA (?<ip_ver>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:proto_type},%{INT:proto_id},
-PF_PROTOCOL_DATA %{PF_UDP_DATA}|%{PF_TCP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}
+PF_PROTOCOL_DATA %{PF_UDP_DATA}|%{PF_TCP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP} 
 PF_UDP_DATA %{INT:src_port},%{INT:dest_port},%{INT:data_length}
 PF_TCP_DATA %{INT:src_port},%{INT:dest_port},%{INT:data_length},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{GREEDYDATA:tcp_options}
 PF_IGMP_DATA datalength=%{INT:data_length}
@@ -30,6 +30,7 @@ PF_ICMP_TSTAMP %{INT:icmp_tstamp_id},%{INT:icmp_tstamp_sequence}
 PF_ICMP_TSTAMP_REPLY %{INT:icmp_tstamp_reply_id},%{INT:icmp_tstamp_reply_sequence},%{INT:icmp_tstamp_reply_otime},%{INT:icmp_tstamp_reply_rtime},%{INT:icmp_tstamp_reply_ttime}
 
 PF_IPv6_VAR %{WORD:Type},%{WORD:Option},%{WORD:Flags},%{WORD:Flags}
+PF_IPv6_ICMP 
 
 # DHCP (Optional)
 DHCPD (%{DHCPDISCOVER}|%{DHCPOFFER}|%{DHCPREQUEST}|%{DHCPACK}|%{DHCPINFORM}|%{DHCPRELEASE})
