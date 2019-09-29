@@ -12,21 +12,21 @@ PFSENSE %{MONTH}.%{MONTHDAY}.*%{TIME}.%{WORD:application}:.%{GREEDYDATA:msg}
 OPNSENSE %{MONTH}.%{MONTHDAY}.*%{TIME}.%{HOSTNAME}.%{WORD:application}:.%{GREEDYDATA:msg}
 
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
-PF_LOG_DATA %{INT:event.code},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:interface},%{WORD:event.outcome},%{WORD:event.action},%{WORD:network.direction},
-PF_IP_DATA %{INT:length},%{IP:source.ip},%{IP:destination.ip},
+PF_LOG_DATA %{INT:[event][code]},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:interface},%{WORD:[event][outcome]},%{WORD:[event][action]},%{WORD:[network][direction]},
+PF_IP_DATA %{INT:length},%{IP:[source][ip]},%{IP:[destination][ip]},
 PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
-PF_IPv4_SPECIFIC_DATA (?<network.type>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:event.id},%{INT:offset},%{WORD:flags},%{INT:network.transport_id},%{WORD:network.transport},
-PF_IPv6_SPECIFIC_DATA (?<network.type>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:proto_type},%{INT:network.iana_number},
+PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:[event][id]},%{INT:offset},%{WORD:flags},%{INT:[network][transport_id]},%{WORD:[network][transport]},
+PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:proto_type},%{INT:[network][iana_number]},
 PF_PROTOCOL_DATA %{PF_UDP_DATA}|%{PF_TCP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP} 
-PF_UDP_DATA %{INT:source.port},%{INT:destination.port},%{INT:network.packets}
-PF_TCP_DATA %{INT:source.port},%{INT:destination.port},%{INT:network.packets},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{GREEDYDATA:tcp_options}
-PF_IGMP_DATA datalength=%{INT:network.packets}
+PF_UDP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[network][packets]}
+PF_TCP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[network][packets]},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{GREEDYDATA:tcp_options}
+PF_IGMP_DATA datalength=%{INT:[network][packets]}
 PF_ICMP_DATA %{PF_ICMP_TYPE},%{PF_ICMP_RESPONSE}
 PF_ICMP_TYPE (?<icmp_type>(request|reply|unreachproto|unreachport|unreach|timeexceed|paramprob|redirect|maskreply|needfrag|tstamp|tstampreply)),
-PF_ICMP_RESPONSE %{PF_ICMP_ECHO_REQ_REPLY}|%{PF_ICMP_UNREACHPORT}| %{PF_ICMP_UNREACHPROTO}|%{PF_ICMP_UNREACHABLE}|%{PF_ICMP_NEED_FLAG}|%{PF_ICMP_TSTAMP}|%{PF_ICMP_TSTAMP_REPLY}
+PF_ICMP_RESPONSE %{PF_ICMP_ECHO_REQ_REPLY}|%{PF_ICMP_UNREACHPORT}|%{PF_ICMP_UNREACHPROTO}|%{PF_ICMP_UNREACHABLE}|%{PF_ICMP_NEED_FLAG}|%{PF_ICMP_TSTAMP}|%{PF_ICMP_TSTAMP_REPLY}
 PF_ICMP_ECHO_REQ_REPLY %{INT:icmp_echo_id},%{INT:icmp_echo_sequence}
-PF_ICMP_UNREACHPORT %{IP:icmp_unreachport_destination.ip},%{WORD:icmp_unreachport_protocol},%{INT:icmp_unreachport_port}
-PF_ICMP_UNREACHPROTO %{IP:icmp_unreach_destination.ip},%{WORD:icmp_unreach_network.transport}
+PF_ICMP_UNREACHPORT %{IP:[icmp_unreachport_destination][ip]},%{WORD:icmp_unreachport_protocol},%{INT:icmp_unreachport_port}
+PF_ICMP_UNREACHPROTO %{IP:[icmp_unreach_destination][ip]},%{WORD:[icmp_unreach_network][transport]}
 PF_ICMP_UNREACHABLE %{GREEDYDATA:icmp_unreachable}
 PF_ICMP_NEED_FLAG %{IP:icmp_need_flag_ip},%{INT:icmp_need_flag_mtu}
 PF_ICMP_TSTAMP %{INT:icmp_tstamp_id},%{INT:icmp_tstamp_sequence}
@@ -54,10 +54,10 @@ PF_APP_ERROR webConfigurator (%{DATA:pf_ACTION}) for \'(%{DATA:pf_USER})\' from 
 PF_APP_GEN (%{GREEDYDATA:pf_ACTION})
 
 # OPENVPN
-OPENVPN %{IP:vpn_source.ip}\:%{INT:vpn_source.port}%{SPACE}\[%{DATA:vpn_client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
+OPENVPN %{IP:[vpn_source][ip]}\:%{INT:[vpn_source][port]}%{SPACE}\[%{DATA:vpn_client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
 
 # SURICATA
-SURICATA %{SPACE}\[%{NUMBER:ids_gen_id}:%{NUMBER:ids_sig_id}:%{NUMBER:ids_sig_rev}\]%{SPACE}%{GREEDYDATA:ids_desc}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:ids_class}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:ids_pri}\]%{SPACE}{%{WORD:ids_network.transport}}%{SPACE}%{IP:ids_source.ip}:%{NUMBER:ids_source.port}%{SPACE}->%{SPACE}%{IP:ids_destination.ip}:%{NUMBER:ids_destination.port}
+SURICATA %{SPACE}\[%{NUMBER:ids_gen_id}:%{NUMBER:ids_sig_id}:%{NUMBER:ids_sig_rev}\]%{SPACE}%{GREEDYDATA:ids_desc}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:ids_class}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:ids_pri}\]%{SPACE}{%{WORD:[ids_network[transport]}}%{SPACE}%{IP:[ids_source][ip]}:%{NUMBER:[ids_source][port]}%{SPACE}->%{SPACE}%{IP:[ids_destination][ip]}:%{NUMBER:[ids_destination][port]}
 
 # SNORT
-SNORT \[%{INT:ids_gen_id}\:%{INT:ids_sig_id}\:%{INT:ids_sig_rev}\].%{GREEDYDATA:ids_desc}.\[Classification\: %{DATA:ids_class}\].\[Priority\: %{INT:ids_pri}\].\{%{DATA:ids_network.transport}\}.%{IP:ids_source.ip}\:%{INT:ids_source.port}.->.%{IP:ids_destination.ip}\:%{INT:ids_destination.port}
+SNORT \[%{INT:ids_gen_id}\:%{INT:ids_sig_id}\:%{INT:ids_sig_rev}\].%{GREEDYDATA:ids_desc}.\[Classification\: %{DATA:ids_class}\].\[Priority\: %{INT:ids_pri}\].\{%{DATA:[ids_network][transport]}\}.%{IP:ids_source][ip]}\:%{INT:[ids_source][port]}.->.%{IP:[ids_destination][ip]}\:%{INT:[ids_destination][port]}
