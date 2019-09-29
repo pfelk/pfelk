@@ -70,7 +70,7 @@ sudo nano /etc/cron.weekly/geoipupdate
 ```
 - Add the following and save/exit
 ```
-00 17 * * 0 geoipupdatey
+00 17 * * 0 geoipupdate
 ```
 
 # Install
