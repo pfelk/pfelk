@@ -115,7 +115,7 @@ sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/11-firew
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/50-outputs.conf
 ```
---Optional
+### 14a. (Optional) Download the following configuration files
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/12-suricata.conf
 ```
