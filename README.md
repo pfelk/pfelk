@@ -15,47 +15,80 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 sudo add-apt-repository ppa:linuxuprising/java
 ```
 
-### 2. Download and install the public GPG signing key
+### 2. Add Maxmind Repository
+```
+sudo add-apt-repository ppa:maxmind/ppa
+```
+
+### 3. Download and install the public GPG signing key
 ```
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 ```
 
-### 3. Download and install apt-transport-https package
+### 4. Download and install apt-transport-https package
 ```
 sudo apt-get install apt-transport-https
 ```
 
-### 4. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
+### 5. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
 ```
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 ```
 
-### 5. Update
+### 6. Update
 ```
 sudo apt-get update
 ```
 
-### 6. Install Java 12
+### 7. Install Java 12
 ```
 sudo apt-get install oracle-java12-installer
+```
+
+### 8. Install Maxmind
+```
+sudo apt install geoipupdate
+```
+
+### 9. Configure Maxmind
+```
+sudo nano /etc/GeoIP.conf
+```
+Append line 13 as follows:
+```
+EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
+```
+
+### 8. Download Maxmind Databases
+```
+sudo geoipupdate
+```
+
+### 9. Add cron (automatically updates Maxmind everyweek on Sunday at 1700hrs)
+```
+sudo nano /etc/cron.weekly/geoipupdate
+```
+Add the following and save/exit
+```
+00 17 * * 0 geoipupdatey
 ```
 
 # Install
 - Elasticsearch v7+ | Kibana v7+ | Logstash v7+
 
-### 7. Install Elasticsearch|Kibana|Logstash
+### 10. Install Elasticsearch|Kibana|Logstash
 ```
 sudo apt-get install elasticsearch && sudo apt-get install kibana && sudo apt-get install logstash
 ```
 
 # Configure Kibana|v7+
 
-### 8. Configure Kibana
+### 11. Configure Kibana
 ```
 sudo nano /etc/kibana/kibana.yml
 ```
 
-### 9. Amend host file (/etc/kibana/kibana.yml)
+### 12. Amend host file (/etc/kibana/kibana.yml)
 ```
 server.port: 5601
 server.host: "0.0.0.0"
@@ -63,12 +96,12 @@ server.host: "0.0.0.0"
 
 # Configure Logstash|v7+
 
-### 10. Change Directory
+### 13. Change Directory
 ```
 cd /etc/logstash/conf.d
 ```
 
-### 11. Download the following configuration files
+### 14. Download the following configuration files
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/01-inputs.conf
 ```
@@ -80,85 +113,36 @@ sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/05-syslog.conf
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/10-pf.conf
 ```
-- Commit either line 6 or 8 depending on PFsense or OPNsense
+
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/50-outputs.conf
 ```
 
-### 12. Make Patterns Folder
+### 15. Make Patterns Folder
 ```
 sudo mkdir /etc/logstash/conf.d/patterns
 ```
 
-### 13. Navigate to Patterns Folder
+### 16. Navigate to Patterns Folder
 ```
 cd /etc/logstash/conf.d/patterns/
 ```
 
-### 14. Download the following configuration file
+### 17. Download the following configuration file
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pf-09.2019.grok
 ```
 
-### 15. Edit (05-syslog.conf)
+### 18. Edit (05-syslog.conf)
 ```
 sudo nano /etc/logstash/conf.d/05-syslog.conf
 ```
 
-### 16. Revise/Update w/pf IP address (05-syslog.conf)
+### 19. Revise/Update w/pf IP address (05-syslog.conf)
 ```
 Change line 3; the "if [host]..." should point to your pf IP address
 Change line 9 to point to your second Pf IP address or comment out
 ```
-
-### 17. Edit (10-pf.conf)
-```
-sudo nano /etc/logstash/conf.d/10-pf.conf
-```
-
-### 18. Revise/Update timezone
-```
-Change line 12 to the same timezone as your pf configuration
-_Note if the timezone is offset or mismatched, you may not see any logs_
-```
-
-### 19. Download and install the MaxMind GeoIP database
-```
-cd /etc/logstash
-```
-
-### 20. Download and install the MaxMind GeoIP City database
-```
-sudo wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
-```
-
-### 21. Download and install the MaxMind GeoIP City database
-```
-sudo gunzip GeoLite2-City.mmdb.gz
-```
-
-### 22. Download and install the MaxMind GeoIP ASN database
-```
-sudo wget https://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.gz
-```
-
-### 23. Download and install the MaxMind GeoIP ASN database
-```
-sudo tar -xvzf GeoLite2-ASN.tar.gz
-```
-
-### 24. Download and install the MaxMind GeoIP ASN database
-##### Replace YYYYMMDD below with the correct date from your extracted directory
-```
-sudo mv GeoLite2-ASN_YYYYMMDD/GeoLite2-ASN.mmdb
-```
-
-### 25. Download and install the MaxMind GeoIP ASN database
-##### Replace YYYYMMDD below with the correct date from your extracted directory
-```
-sudo rm -rf GeoLite2-ASN_YYYYMMDD
-```
-
 
 # Configure Services
 
