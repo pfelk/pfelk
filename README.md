@@ -54,7 +54,7 @@ sudo apt install geoipupdate
 ```
 sudo nano /etc/GeoIP.conf
 ```
-- Append line 13 as follows:
+- Append line 25 as follows:
 ```
 EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
 ```
