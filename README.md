@@ -6,7 +6,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 
 ### Prerequisites
 - Ubuntu Server v18.04+
-- pfSense v2.4.4+ or OPNsense 19.7.3+
+- pfSense v2.4.4+ or OPNsense 19.7.4+
 
 # Preparation
 
@@ -101,16 +101,16 @@ cd /etc/logstash/conf.d
 
 ### 14. Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/01-inputs.conf
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/01-inputs.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/05-syslog.conf
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/05-syslog.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/10-pf.conf
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/10-pf.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/50-outputs.conf
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/50-outputs.conf
 ```
 
 ### 15. Make Patterns Folder
@@ -125,7 +125,7 @@ cd /etc/logstash/conf.d/patterns/
 
 ### 17. Download the following configuration file
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/pf-09.2019.grok
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/patterns/pf-09.2019.grok
 ```
 
 ### 18. Edit (05-syslog.conf)
