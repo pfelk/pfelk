@@ -54,7 +54,7 @@ sudo apt install geoipupdate
 ```
 sudo nano /etc/GeoIP.conf
 ```
-Append line 13 as follows:
+- Append line 13 as follows:
 ```
 EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
 ```
@@ -68,7 +68,7 @@ sudo geoipupdate
 ```
 sudo nano /etc/cron.weekly/geoipupdate
 ```
-Add the following and save/exit
+- Add the following and save/exit
 ```
 00 17 * * 0 geoipupdatey
 ```
@@ -89,10 +89,8 @@ sudo nano /etc/kibana/kibana.yml
 ```
 
 ### 12. Amend host file (/etc/kibana/kibana.yml)
-```
-server.port: 5601
-server.host: "0.0.0.0"
-```
+- server.port: 5601
+- server.host: "0.0.0.0"
 
 # Configure Logstash|v7+
 
@@ -105,15 +103,12 @@ cd /etc/logstash/conf.d
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/01-inputs.conf
 ```
-
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/05-syslog.conf
 ```
-
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/10-pf.conf
 ```
-
 ```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/50-outputs.conf
 ```
@@ -139,10 +134,9 @@ sudo nano /etc/logstash/conf.d/05-syslog.conf
 ```
 
 ### 19. Revise/Update w/pf IP address (05-syslog.conf)
-```
-Change line 3; the "if [host]..." should point to your pf IP address
-Change line 9 to point to your second Pf IP address or comment out
-```
+- Change line 3; the "if [host]..." should point to your pf IP address
+- Change line 9 to point to your second Pf IP address or comment out
+
 
 # Configure Services
 
