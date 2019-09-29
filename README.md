@@ -110,8 +110,22 @@ sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/05-syslo
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/10-pf.conf
 ```
 ```
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/11-firewall.conf
+```
+```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/50-outputs.conf
 ```
+--Optional
+```
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/12-suricata.conf
+```
+```
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/13-snort.conf
+```
+```
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/15-others.conf
+```
+
 
 ### 15. Make Patterns Folder
 ```
