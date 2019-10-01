@@ -8,9 +8,6 @@
 # Edited 2017-2019 by Andrew Wilson <andrew@3ilson.com>
 # Edited 30 Apr 2019 by Mike Eriksson <mike@swedishmike.org>
 
-PFSENSE %{MONTH}.%{MONTHDAY}.*%{TIME}.%{WORD:application}(?<pid>(\[[0-9]*\])?):.%{GREEDYDATA:msg}
-OPNSENSE %{MONTH}.%{MONTHDAY}.*%{TIME}.%{HOSTNAME}.%{WORD:application}:.%{GREEDYDATA:msg}
-
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
 PF_LOG_DATA %{INT:[event][code]},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:interface},%{WORD:[event][outcome]},%{WORD:[event][action]},%{WORD:[network][direction]},
 PF_IP_DATA %{INT:length},%{IP:[source][ip]},%{IP:[destination][ip]},
