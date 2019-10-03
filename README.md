@@ -181,5 +181,6 @@ systemctl status logstash.service
 ```/var/log/logstash
 cat/nano/vi the files within this location to view Logstash logs
 ```
+If this helped, feel free to donate:
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KA7KSUM22FW7Q&currency_code=USD&source=url)
