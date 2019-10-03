@@ -1,7 +1,6 @@
 ## Welcome to (pfSense/OpnSense) + ELK
 
 ![pfelk dashboard](https://github.com/a3ilson/pfelk/raw/master/pf%2BELK.png)
-
 You can view installation guide guide on [3ilson.org YouTube Channel](https://www.youtube.com/3ilsonorg).
 
 ### Prerequisites
