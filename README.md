@@ -3,7 +3,8 @@
 ![pfelk dashboard](https://github.com/a3ilson/pfelk/raw/master/pf%2BELK.png)
 You can view installation guide guide on [3ilson.org YouTube Channel](https://www.youtube.com/3ilsonorg).
 
-[!Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KA7KSUM22FW7Q&currency_code=USD&source=url)
+<a href=https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KA7KSUM22FW7Q&currency_code=USD&source=url><img id="im" src=https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif></a>
+
 
 ### Prerequisites
 - Ubuntu Server v18.04+
