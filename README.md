@@ -150,7 +150,7 @@ sudo nano /etc/logstash/conf.d/05-syslog.conf
 ### 19. Revise/Update w/pf IP address (05-syslog.conf)
 ```
 Change line 3; the "if [host]..." should point to your pf IP address
-Change line 9 to point to your second PF IP address or comment out
+Change line 9 to point to your second PF IP address or ignore
 ```
 
 # Configure Services
