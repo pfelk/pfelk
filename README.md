@@ -165,9 +165,9 @@ sudo /bin/systemctl enable logstash.service
 
 ### Start Services Manually
 ```
-sudo -i service elasticsearch start
-sudo -i service kibana start
-sudo -i service logstash start
+systemctl start elasticsearch 
+systemctl start kibana 
+systemctl start logstash 
 ```
 
 ### Status
@@ -181,6 +181,6 @@ systemctl status logstash.service
 ```/var/log/logstash
 cat/nano/vi the files within this location to view Logstash logs
 ```
-If this helped, feel free to donate:
+If this helped, feel free to donate a drink:
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KA7KSUM22FW7Q&currency_code=USD&source=url)
