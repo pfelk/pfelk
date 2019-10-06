@@ -7,7 +7,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 ### Prerequisites
 - Ubuntu Server v18.04+
 - pfSense v2.4.4+ or OPNsense 19.7.4+
-The following was tested with Java v12 and Elastic Stack v7.4
+- The following was tested with Java v12 and Elastic Stack v7.4
 
 # Preparation
 
