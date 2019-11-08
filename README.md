@@ -41,9 +41,9 @@ echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee 
 sudo apt-get update
 ```
 
-### 7. Install Java 12
+### 7. Install Java 13
 ```
-sudo apt-get install oracle-java12-installer
+sudo apt-get install oracle-java13-installer
 ```
 
 ### 8. Install Maxmind
