@@ -205,6 +205,8 @@ systemctl start logstash
 sudo vi /var/log/logstash/logstash-plain.log
 sudo vi /var/log/elasticsearch/elasticsearch.log
 (Press Shift + G to scroll to bottom, Escape then type ":q!" to exit)
+```
+
 If this helped, feel free to donate a drink:
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KA7KSUM22FW7Q&currency_code=USD&source=url)
