@@ -1,0 +1,5 @@
+Update Notes:
+
+	12.2019
+		- Revere521			Improvement to Snort.conf; added ASN data to Snort logs
+		- nmortezaei 		Improvement to grok pattern;  corrected grok pattern to parse TCP, DATA and ICMP elements
