@@ -140,7 +140,7 @@ cd /etc/logstash/conf.d/patterns/
 
 ### 17. Download the following configuration file
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/patterns/pf-09.2019.grok
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/patterns/pf-12.2019.grok
 ```
 
 ### 18. Enter your pfSense/OPNsense IP address (05-syslog.conf)
