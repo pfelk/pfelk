@@ -16,9 +16,9 @@ PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{IN
 PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:proto_type},%{INT:[network][iana_number]},
 PF_PROTOCOL_DATA %{PF_UDP_DATA}|%{PF_TCP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP} 
 PF_UDP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[network][packets]}
-PF_TCP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[network][packets]},%{WORD:tcp_flags},%{INT:sequence_number},%{INT:ack_number},%{INT:tcp_window},%{DATA:urg_data},%{GREEDYDATA:tcp_options}
+PF_TCP_DATA %{INT:[transport][source_port]},%{INT:[transport][destination_port]},%{INT:[transport][data_lenght]},(?<tcp_flags>(\w*)?),(?<sequence_number>(\d*)?),(?<ack_number>(\d*)?),(?<window_size>(\d*)?),(?<tcp_urg_data>(\w*)?),%{GREEDYDATA:tcp_options}
 PF_IGMP_DATA datalength=%{INT:[network][packets]}
-PF_ICMP_DATA %{PF_ICMP_TYPE},%{PF_ICMP_RESPONSE}
+PF_ICMP_DATA %{PF_ICMP_TYPE}%{PF_ICMP_RESPONSE}
 PF_ICMP_TYPE (?<icmp_type>(request|reply|unreachproto|unreachport|unreach|timeexceed|paramprob|redirect|maskreply|needfrag|tstamp|tstampreply)),
 PF_ICMP_RESPONSE %{PF_ICMP_ECHO_REQ_REPLY}|%{PF_ICMP_UNREACHPORT}|%{PF_ICMP_UNREACHPROTO}|%{PF_ICMP_UNREACHABLE}|%{PF_ICMP_NEED_FLAG}|%{PF_ICMP_TSTAMP}|%{PF_ICMP_TSTAMP_REPLY}
 PF_ICMP_ECHO_REQ_REPLY %{INT:icmp_echo_id},%{INT:icmp_echo_sequence}
