@@ -105,12 +105,6 @@ cd /etc/logstash/conf.d
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/01-inputs.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/05-syslog.conf
-```
-```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/10-pf.conf
-```
-```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/11-firewall.conf
 ```
 ```
@@ -143,15 +137,16 @@ cd /etc/logstash/conf.d/patterns/
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/patterns/pf-12.2019.grok
 ```
 
-### 18. Enter your pfSense/OPNsense IP address (05-syslog.conf)
+### 18. Enter your pfSense/OPNsense IP address (01-inputs.conf)
 ```
-sudo nano /etc/logstash/conf.d/05-syslog.conf
+Change line 9; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
+Change line 12-16; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
-### 19. Revise/Update w/pf IP address (05-syslog.conf)
+### 19. Revise/Update w/pf IP address (01-inputs.conf)
 ```
-Change line 5; the "if [host] =~ ..." should point to your pfSense IP address
-Change line 12-16; (OPTIONAL) to point to your second PF IP address or ignore
+For pfSense uncommit line 28 and commit out line 25
+For OPNsense uncommit line 25 and commit out line 28
 ```
 
 # Configure Services
@@ -180,14 +175,16 @@ systemctl start logstash
 - Click Save
 
 ### 23. Set-up Kibana
-- In your web browser go to the ELK local IP using port 5601
-- Click the gear icon in the bottom left
+- In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
+- Click the wrench (Dev Tools) icon in the left pannel 
+- Input the following and press the click to send request button (triangle)
+-- https://raw.githubusercontent.com/a3ilson/pfelk/master/Dashboard/GeoIP(Template)
+- Click the gear icon (management) in the lower left
 - Click Kibana -> Index Patters
 - Click Create New Index Pattern
 - Type "pf*" into the input box, then click Next Step
 - In the Time Filter drop down select "@timestamp"
 - Click Create then verify you have data showing up under the Discover tab
-
 
 ### Troubleshooting
 - Restart services:
