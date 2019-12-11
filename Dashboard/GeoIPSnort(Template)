@@ -1,0 +1,41 @@
+PUT _template/pf-location-template2
+{
+  "pf-location-template2" : {
+    "order" : 0,
+    "index_patterns" : [
+      "pf-*"
+    ],
+    "settings" : { },
+    "mappings" : {
+      "properties" : {
+        "ids_source" : {
+          "properties" : {
+            "geo" : {
+              "dynamic" : true,
+              "properties" : {
+                "ip" : {
+                  "type" : "ip"
+                },
+                "location" : {
+                  "type" : "geo_point"
+                }
+              }
+            },
+            "as" : {
+              "dynamic" : true,
+              "properties" : {
+                "ip" : {
+                  "type" : "ip"
+                },
+                "location" : {
+                  "type" : "geo_point"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "aliases" : { }
+  }
+}
