@@ -1,5 +1,5 @@
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
-PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:interface},%{WORD:reason},%{WORD:action},%{WORD:direction},
+PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:interface},(?<reason>\b[\w\-]+\b),%{WORD:action},%{WORD:direction},
 PF_IP_DATA %{INT:length},%{IP:[source][ip]},%{IP:[destination][ip]},
 PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
 PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:id},%{INT:offset},%{WORD:flags},%{INT:[protocol][id]},%{WORD:[protocol][type]},
