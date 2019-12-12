@@ -210,6 +210,7 @@ sudo vi /var/log/elasticsearch/elasticsearch.log
 ```
 
 - Check the Pipeline Viewer UI to visualize your pipeline
+
 This feature is part of the (free) X-Pack addons.
 You only need to enable monitoring for Logstash. 
 To do this uncomment the following lines in `/etc/logstash/logstash.yml`:
