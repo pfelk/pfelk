@@ -46,8 +46,11 @@ PF_APP_GEN (%{GREEDYDATA:pf_ACTION})
 # OPENVPN
 OPENVPN %{IP:[vpn_source][ip]}\:%{INT:[vpn_source][port]}%{SPACE}\[%{DATA:vpn_client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
 
+# UNBOUND (Optional)
+UNBOUND (\[%{GREEDYDATA:unbound_pid}]\s+)%{WORD:unbound_log_level}:%{SPACE}%{GREEDYDATA:unbound_log_message}
+
 # SURICATA
-SURICATA %{SPACE}\[%{NUMBER:ids_gen_id}:%{NUMBER:ids_sig_id}:%{NUMBER:ids_sig_rev}\]%{SPACE}%{GREEDYDATA:ids_desc}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:ids_class}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:ids_pri}\]%{SPACE}{%{WORD:[ids_network][transport]}}%{SPACE}%{IP:[ids_source][ip]}:%{NUMBER:[ids_source][port]}%{SPACE}->%{SPACE}%{IP:[ids_destination][ip]}:%{NUMBER:[ids_destination][port]}
+SURICATA %{SPACE}\[%{NUMBER:ids_gen_id}:%{NUMBER:ids_sig_id}:%{NUMBER:ids_sig_rev}\]%{SPACE}%{GREEDYDATA:ids_desc}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:ids_class}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:ids_pri}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
 
 # SNORT
-SNORT \[%{INT:ids_gen_id}\:%{INT:ids_sig_id}\:%{INT:ids_sig_rev}\].%{GREEDYDATA:ids_desc}.\[Classification\: %{DATA:ids_class}\].\[Priority\: %{INT:ids_pri}\].\{%{DATA:[ids_network][transport]}\}.%{IP:[ids_source][ip]}(\:%{INT:[ids_source][port]})?.->.%{IP:[ids_destination][ip]}(\:%{INT:[ids_destination][port]})?
+SNORT \[%{INT:ids_gen_id}\:%{INT:ids_sig_id}\:%{INT:ids_sig_rev}\].%{GREEDYDATA:ids_desc}.\[Classification\: %{DATA:ids_class}\].\[Priority\: %{INT:ids_pri}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
