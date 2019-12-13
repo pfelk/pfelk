@@ -137,18 +137,13 @@ cd /etc/logstash/conf.d/patterns/
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/patterns/pf-12.2019.grok
 ```
 
-### 18. Add GeoIP template to parse all fields
-Paste the content of `https://raw.githubusercontent.com/a3ilson/pfelk/master/Dashboard/GeoIP(Template)` into Dev Tools, then click to send request.
-This would apply to your `pf-*` indices.
-
-
-### 19. Enter your pfSense/OPNsense IP address (01-inputs.conf)
+### 18. Enter your pfSense/OPNsense IP address (01-inputs.conf)
 ```
 Change line 9; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
 Change line 12-16; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
-### 20. Revise/Update w/pf IP address (01-inputs.conf)
+### 19. Revise/Update w/pf IP address (01-inputs.conf)
 ```
 For pfSense uncommit line 28 and commit out line 25
 For OPNsense uncommit line 25 and commit out line 28
@@ -156,7 +151,7 @@ For OPNsense uncommit line 25 and commit out line 28
 
 # Configure Services
 
-### 21. Start Services on Boot as Services (you'll need to reboot or start manually to proceed)
+### 20. Start Services on Boot as Services (you'll need to reboot or start manually to proceed)
 ```
 sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl enable elasticsearch.service
@@ -164,14 +159,14 @@ sudo /bin/systemctl enable kibana.service
 sudo /bin/systemctl enable logstash.service
 ```
 
-### 22. Start Services Manually
+### 21. Start Services Manually
 ```
 systemctl start elasticsearch 
 systemctl start kibana 
 systemctl start logstash 
 ```
 
-### 23. Login to pfSense and Forward syslogs
+### 22. Login to pfSense and Forward syslogs
 - In pfSense navigate to Status->System Logs, then click on Settings.
 - At the bottom check "Enable Remote Logging"
 - (Optional) Select a specific interface to use for forwarding
@@ -179,7 +174,7 @@ systemctl start logstash
 - Under "Remote Syslog Contents" check "Everything"
 - Click Save
 
-### 24. Set-up Kibana
+### 23. Set-up Kibana
 - In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
 - Click the wrench (Dev Tools) icon in the left pannel 
 - Input the following and press the click to send request button (triangle)
@@ -213,7 +208,7 @@ sudo vi /var/log/elasticsearch/elasticsearch.log
 
 This feature is part of the (free) X-Pack addons.
 You only need to enable monitoring for Logstash. 
-To do this uncomment the following lines in `/etc/logstash/logstash.yml`:
+To do this have the following lines in `/etc/logstash/logstash.yml`:
 ```
 xpack.monitoring.enabled: true
 xpack.monitoring.elasticsearch.hosts: [ "http://your-elasticsearch-instance:9200" ]
