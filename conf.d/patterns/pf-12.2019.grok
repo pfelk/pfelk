@@ -2,7 +2,7 @@ PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA
 PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:interface},(?<reason>\b[\w\-]+\b),%{WORD:action},%{WORD:direction},
 PF_IP_DATA %{INT:length},%{IP:[source][ip]},%{IP:[destination][ip]},
 PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
-PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:id},%{INT:offset},%{WORD:flags},%{INT:[protocol][id]},%{WORD:[protocol][type]},
+PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:id},%{INT:offset},(?:%{WORD:flags}|%{PF_SPEC:flags}),%{INT:[protocol][id]},%{WORD:[protocol][type]},
 PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:[protocol][type]},%{INT:[protocol][id]},
 PF_PROTOCOL_DATA %{PF_TCP_DATA}|%{PF_UDP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP}
 
@@ -24,6 +24,7 @@ PF_ICMP_UNREACHABLE %{GREEDYDATA:icmp_unreachable}
 PF_ICMP_NEED_FLAG %{IP:icmp_need_flag_ip},%{INT:icmp_need_flag_mtu}
 PF_ICMP_TSTAMP %{INT:icmp_tstamp_id},%{INT:icmp_tstamp_sequence}
 PF_ICMP_TSTAMP_REPLY %{INT:icmp_tstamp_reply_id},%{INT:icmp_tstamp_reply_sequence},%{INT:icmp_tstamp_reply_otime},%{INT:icmp_tstamp_reply_rtime},%{INT:icmp_tstamp_reply_ttime}
+PF_SPEC \+
 
 # DHCP (Optional)
 DHCPD (%{DHCPDISCOVER}|%{DHCPOFFER}|%{DHCPREQUEST}|%{DHCPACK}|%{DHCPINFORM}|%{DHCPRELEASE})
