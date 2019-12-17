@@ -108,6 +108,9 @@ sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/01-input
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/11-firewall.conf
 ```
 ```
+sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/20-geoip.conf
+```
+```
 sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/50-outputs.conf
 ```
 ### 14a. (Optional) Download the following configuration files
@@ -174,17 +177,30 @@ systemctl start logstash
 - Under "Remote Syslog Contents" check "Everything"
 - Click Save
 
+### (Optional) Configure Suricata for log forwarding
+ - On your pfSense web UI got to Services / Suricata / Interfaces, and enable Suricata on desired interfaces
+ - You can have separate configuration on each of your interfaces, you can edit them via clicking on the pencil icon
+ - You sould enable the EVE JSON output format for log forwarding, you should have the following options enabled at the EVE Output Settings section:
+   - Eve JSON log: Suricata will output selected info in JSON format to a single file or to syslog. 
+   - EVE Output type: SYSLOG
+   - EVE Syslog Output Facility: AUTH
+   - EVE Syslog Output Priority: NOTICE 
+   - EVE Log Alerts: Suricata will output Alerts via EVE
+ - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility here should be LOCAL1, and the Log Priority should be NOTICE.
+ 
+
 ### 23. Set-up Kibana
 - In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
-- Click the wrench (Dev Tools) icon in the left pannel 
-- Input the following and press the click to send request button (triangle)
-- https://raw.githubusercontent.com/a3ilson/pfelk/master/Dashboard/GeoIP(Template)
-- Click the gear icon (management) in the lower left
 - Click Kibana -> Index Patters
 - Click Create New Index Pattern
 - Type "pf*" into the input box, then click Next Step
 - In the Time Filter drop down select "@timestamp"
 - Click Create then verify you have data showing up under the Discover tab
+
+### 24. Import dashboards
+ - In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
+ - Click Management -> Saved Objects
+ - You can import the dashboards found in the `Dashboard` folder via the Import buttom in the top-right corner.
 
 ### Troubleshooting
 - Restart services:
