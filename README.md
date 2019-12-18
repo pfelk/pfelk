@@ -62,7 +62,7 @@ EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
 
 ### 8. Download Maxmind Databases
 ```
-sudo geoipupdate
+sudo geoipupdate -d /usr/share/GeoIP/
 ```
 
 ### 9. Add cron (automatically updates Maxmind everyweek on Sunday at 1700hrs)
@@ -71,7 +71,7 @@ sudo nano /etc/cron.weekly/geoipupdate
 ```
 - Add the following and save/exit
 ```
-00 17 * * 0 geoipupdate
+00 17 * * 0 geoipupdate -d /usr/share/GeoIP
 ```
 
 # Install
