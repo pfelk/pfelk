@@ -62,7 +62,7 @@ EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
 
 ### 8. Download Maxmind Databases
 ```
-sudo geoipupdate
+sudo geoipupdate -d /usr/share/GeoIP/
 ```
 
 ### 9. Add cron (automatically updates Maxmind everyweek on Sunday at 1700hrs)
@@ -71,7 +71,7 @@ sudo nano /etc/cron.weekly/geoipupdate
 ```
 - Add the following and save/exit
 ```
-00 17 * * 0 geoipupdate
+00 17 * * 0 geoipupdate -d /usr/share/GeoIP
 ```
 
 # Install
@@ -178,15 +178,15 @@ systemctl start logstash
 - Click Save
 
 ### (Optional) Configure Suricata for log forwarding
- - On your pfSense web UI got to Services / Suricata / Interfaces, and enable Suricata on desired interfaces
+ - On your pfSense web UI go to Services / Suricata / Interfaces, and enable Suricata on desired interfaces
  - You can have separate configuration on each of your interfaces, you can edit them via clicking on the pencil icon
- - You sould enable the EVE JSON output format for log forwarding, you should have the following options enabled at the EVE Output Settings section:
-   - Eve JSON log: Suricata will output selected info in JSON format to a single file or to syslog. 
+ - You should enable the EVE JSON output format for log forwarding, you should have the following options enabled at the EVE Output Settings section:
+   - Eve JSON log: Suricata will output selected info in JSON format to a single file or to syslog 
    - EVE Output type: SYSLOG
    - EVE Syslog Output Facility: AUTH
    - EVE Syslog Output Priority: NOTICE 
    - EVE Log Alerts: Suricata will output Alerts via EVE
- - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility here should be LOCAL1, and the Log Priority should be NOTICE.
+ - After saving this will get a notification about auto-enabling settings at the Logging Settings menu: the Log Facility here should be set to LOCAL1, and the Log Priority should be set to NOTICE.
  
 
 ### 23. Set-up Kibana
