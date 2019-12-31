@@ -52,8 +52,15 @@ sudo apt install geoipupdate
 ```
 
 ### 9. Configure Maxmind
+- Create a Max Mind Account @ https://www.maxmind.com/en/geolite2/signup
+- Login to your Max Mind Account; navigate to "My License Key" under "Services" and Generate new license key
 ```
 sudo nano /etc/GeoIP.conf
+```
+- Modify lines 7 & 8 as follows (without < >):
+```
+AccountID <Input Your Account ID>
+LicenseKey <Input Your LicenseKey>
 ```
 - Modify line 13 as follows:
 ```
