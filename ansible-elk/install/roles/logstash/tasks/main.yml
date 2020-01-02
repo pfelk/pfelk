@@ -14,7 +14,7 @@
 
 - name: Copy logstash configuration files
   copy:
-    src: "../files/{{ item }}
+    src: "../files/{{ item }}"
     dest: "/etc/logstash/conf.d/"
     owner: root
     group: root
@@ -36,7 +36,7 @@
 
 - name: Copy pattern file
   copy:
-    src: "../files/patterns/pf-12.2019.grok
+    src: "../files/patterns/pf-12.2019.grok"
     dest: "/etc/logstash/conf.d/patterns/pf-12.2019.grok"
     owner: root
     group: root
