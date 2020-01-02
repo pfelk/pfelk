@@ -1,0 +1,28 @@
+--- 
+
+- name: Install apt-transport-https to support https APT downloads
+  apt: name=apt-transport-https state=present
+
+- name: Add Elasticsearch repository key
+  apt_key: url="{{ es_apt_key }}" state=present
+
+- name: Add elasticsearch repository
+  apt_repository: repo={{ es_apt_url }} state=present 
+
+- name: Install kibana
+  apt: name=kibana state=present
+
+- name: Copy kibana configuration
+  copy:
+    src: "../files/kibana.yml"
+    dest: "/etc/kibana/kibana.yml"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start kibana
+  systemd:
+    name: kibana
+    daemon_reload: yes
+    state: started
+    enabled: yes

@@ -1,0 +1,57 @@
+PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
+PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:interface},(?<reason>\b[\w\-]+\b),%{WORD:action},%{WORD:direction},
+PF_IP_DATA %{INT:length},%{IP:[source][ip]},%{IP:[destination][ip]},
+PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
+PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:id},%{INT:offset},(?:%{WORD:flags}|%{PF_SPEC:flags}),%{INT:[protocol][id]},%{WORD:[protocol][type]},
+PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:[protocol][type]},%{INT:[protocol][id]},
+PF_PROTOCOL_DATA %{PF_TCP_DATA}|%{PF_UDP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP}
+
+# IPv6
+PF_IPv6_VAR %{WORD:Type},%{WORD:Option},%{WORD:Flags},%{WORD:Flags}
+PF_IPv6_ICMP
+
+# PROTOCOL
+PF_TCP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[transport][data_length]},(?<tcp_flags>(\w*)?),(?<sequence_number>(\d*)?),(?<ack_number>(\d*)?),(?<window_size>(\d*)?),(?<tcp_urg_data>(\w*)?),%{GREEDYDATA:tcp_options}
+PF_UDP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[transport][data_length]}
+PF_IGMP_DATA datalength=%{INT:[network][packets]}
+PF_ICMP_DATA %{PF_ICMP_TYPE}%{PF_ICMP_RESPONSE}
+PF_ICMP_TYPE (?<icmp_type>(request|reply|unreachproto|unreachport|unreach|timeexceed|paramprob|redirect|maskreply|needfrag|tstamp|tstampreply)),
+PF_ICMP_RESPONSE %{PF_ICMP_ECHO_REQ_REPLY}|%{PF_ICMP_UNREACHPORT}|%{PF_ICMP_UNREACHPROTO}|%{PF_ICMP_UNREACHABLE}|%{PF_ICMP_NEED_FLAG}|%{PF_ICMP_TSTAMP}|%{PF_ICMP_TSTAMP_REPLY}
+PF_ICMP_ECHO_REQ_REPLY %{INT:icmp_echo_id},%{INT:icmp_echo_sequence}
+PF_ICMP_UNREACHPORT %{IP:[icmp_unreachport_destination][ip]},%{WORD:icmp_unreachport_protocol},%{INT:icmp_unreachport_port}
+PF_ICMP_UNREACHPROTO %{IP:[icmp_unreach_destination][ip]},%{WORD:[icmp_unreach_network][transport]}
+PF_ICMP_UNREACHABLE %{GREEDYDATA:icmp_unreachable}
+PF_ICMP_NEED_FLAG %{IP:icmp_need_flag_ip},%{INT:icmp_need_flag_mtu}
+PF_ICMP_TSTAMP %{INT:icmp_tstamp_id},%{INT:icmp_tstamp_sequence}
+PF_ICMP_TSTAMP_REPLY %{INT:icmp_tstamp_reply_id},%{INT:icmp_tstamp_reply_sequence},%{INT:icmp_tstamp_reply_otime},%{INT:icmp_tstamp_reply_rtime},%{INT:icmp_tstamp_reply_ttime}
+PF_SPEC \+
+
+# DHCP (Optional)
+DHCPD (%{DHCPDISCOVER}|%{DHCPOFFER}|%{DHCPREQUEST}|%{DHCPACK}|%{DHCPINFORM}|%{DHCPRELEASE})
+DHCPDISCOVER %{WORD:dhcp_action} from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)(: %{GREEDYDATA:dhcp_load_balance})?
+DHCPOFFER %{WORD:dhcp_action} on %{IPV4:dhcp_client_ip} to %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)
+DHCPREQUEST %{WORD:dhcp_action} for %{IPV4:dhcp_client_ip}%{SPACE}(\(%{IPV4:dhcp_ip_unknown}\))? from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)(: %{GREEDYDATA:dhcp_request_message})?
+DHCPACK %{WORD:dhcp_action} on %{IPV4:dhcp_client_ip} to %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)
+DHCPINFORM %{WORD:dhcp_action} from %{IPV4:dhcp_client_ip} via %(?<dhcp_client_vlan>[0-9a-z_]*)
+DHCPRELEASE %{WORD:dhcp_action} of %{IPV4:dhcp_client_ip} from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via
+
+# PF
+PF_CARP_DATA (%{WORD:carp_type}),(%{INT:carp_ttl}),(%{INT:carp_vhid}),(%{INT:carp_version}),(%{INT:carp_advbase}),(%{INT:carp_advskew})
+PF_APP (%{DATA:pf_APP}):
+PF_APP_DATA (%{PF_APP_LOGOUT}|%{PF_APP_LOGIN}|%{PF_APP_ERROR}|%{PF_APP_GEN})
+PF_APP_LOGIN (%{DATA:pf_ACTION}) for user \'(%{DATA:pf_USER})\' from: (%{GREEDYDATA:pf_REMOTE_IP})
+PF_APP_LOGOUT User (%{DATA:pf_ACTION}) for user \'(%{DATA:pf_USER})\' from: (%{GREEDYDATA:pf_REMOTE_IP})
+PF_APP_ERROR webConfigurator (%{DATA:pf_ACTION}) for \'(%{DATA:pf_USER})\' from (%{GREEDYDATA:pf_REMOTE_IP})
+PF_APP_GEN (%{GREEDYDATA:pf_ACTION})
+
+# OPENVPN
+OPENVPN %{IP:[vpn_source][ip]}\:%{INT:[vpn_source][port]}%{SPACE}\[%{DATA:vpn_client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
+
+# UNBOUND (Optional)
+UNBOUND (\[%{GREEDYDATA:unbound_pid}]\s+)%{WORD:unbound_log_level}:%{SPACE}%{GREEDYDATA:unbound_log_message}
+
+# SURICATA
+SURICATA \[%{NUMBER:ids_gen_id}:%{NUMBER:ids_sig_id}:%{NUMBER:ids_sig_rev}\]%{SPACE}%{GREEDYDATA:ids_desc}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:ids_class}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:ids_pri}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
+
+# SNORT
+SNORT \[%{INT:ids_gen_id}\:%{INT:ids_sig_id}\:%{INT:ids_sig_rev}\].%{GREEDYDATA:ids_desc}.\[Classification\: %{DATA:ids_class}\].\[Priority\: %{INT:ids_pri}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
