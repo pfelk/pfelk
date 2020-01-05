@@ -1,0 +1,19 @@
+---
+
+download_url: http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz
+download_folder: /opt
+java_name: "{{download_folder}}/jdk1.8.0_131"
+java_archive: "{{download_folder}}/jdk-8u131-linux-x64.tar.gz"
+
+es_apt_key: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+es_apt_url: "deb https://artifacts.elastic.co/packages/7.x/apt stable main"
+es_cluster_name: "elk"
+es_network_host: "0.0.0.0"
+es_http_port: "9200"
+es_http_cors_enabled: "true"
+es_http_cors_allow_origin: "*"
+es_minimum_master_nodes: 1
+es_path_logs: /var/log/elasticsearch
+es_path_data: /var/lib/elasticsearch
+
+kibana_server_port: 5601

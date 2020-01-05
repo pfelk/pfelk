@@ -1,0 +1,50 @@
+--- 
+
+- name: Install apt-transport-https to support https APT downloads
+  apt: name=apt-transport-https state=present
+
+- name: Add Elasticsearch repository key
+  apt_key: url="{{ es_apt_key }}" state=present
+
+- name: Add elasticsearch repository
+  apt_repository: repo={{ es_apt_url }} state=present 
+
+- name: Install logstash
+  apt: name=logstash state=present
+
+- name: Copy logstash configuration files
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/logstash/conf.d/"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - 01-inputs.conf
+    - 11-firewall.conf
+    #- 12-suricata.conf
+    #- 13-snort.conf
+    #- 15-others.conf
+    - 20-geoip.conf
+    - 50-outputs.conf
+
+- name: Create patterns directory
+  file:
+    path: /etc/logstash/conf.d/patterns
+    state: directory
+    mode: 0644
+
+- name: Copy pattern file
+  copy:
+    src: "../files/patterns/pf-12.2019.grok"
+    dest: "/etc/logstash/conf.d/patterns/pf-12.2019.grok"
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start logstash
+  systemd:
+    name: logstash
+    daemon_reload: yes
+    state: started
+    enabled: yes

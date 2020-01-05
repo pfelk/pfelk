@@ -1,0 +1,2 @@
+server.port: 5601
+server.host: localhost
