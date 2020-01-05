@@ -1,4 +1,4 @@
-## Installation Guide (pfSense/OPNsense) + Elastic Stack 
+## Custom Installation Guide (pfSense/OPNsense) + Elastic Stack 
 
 ### Prerequisites
 - Ubuntu Server v18.04+
