@@ -245,7 +245,3 @@ Restart Logstash
 systemctl restart logstash
 ```
 Go to Stack Monitoring / Logstash / Pipelines / Choose the ID of your relevant pipelines.
-
-If this helped, feel free to make a contribution:
-
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KA7KSUM22FW7Q&currency_code=USD&source=url)
