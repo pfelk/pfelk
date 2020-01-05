@@ -160,4 +160,4 @@ Change line 12-16; (OPTIONAL) to point to your second PF IP address or ignore
 For pfSense uncommit line 28 and commit out line 25
 For OPNsense uncommit line 25 and commit out line 28
 ```
-### 20. Complete Configuration --> [Configuration](https://github.com/a3ilson/pfelk/wiki/2---%5BConfiguration%5D)
+### 20. Complete Configuration --> [Configuration](install/configuration.md)
