@@ -2,10 +2,6 @@
 - [x] Automate Installation
 - [ ] Automate Configuration 
 - [ ] Build Repository (RPM) Installation
-### Prerequisites
-- Ubuntu Server v18.04+ (Centos 8+ - Coming Soon)
-- pfSense v2.4.4+ or OPNsense 19.7.4+
-- The following was tested with Java v13 and Elasticstack v7.5.1
 
 ## Table of Contents
 - [Installation](#installation)
