@@ -4,7 +4,7 @@
 
 ### Questions :question:
 
-* Visit our [FAQs](#) <<<coming soon>>>
+* Visit our [FAQs](#) <<<-coming soon->>>
 * <<<Discussion Forum>>>
 
 ---
@@ -32,7 +32,7 @@ Please help improve documentation with your inputs to our READMEs, examples, and
 **Before submitting a bug report:**
 * Ensure the bug was not already reported by searching for [existing issues in pfELK](https://github.com/a3ilson/pfelk/issues)
   * If an issues is already open, comment to that issue and provide any additional details, to assit.
-* Check the [FAQs](#) for common questions and problems <<<comming soon>>>
+* Check the [FAQs](#) for common questions and problems <<<-comming soon->>>
 
 Bugs and issues are tracked as [GitHub Issues](https://github.com/a3ilson/pfelk/issues).
 **Please follow these guidelines when submitting a bug request:**
