@@ -4,6 +4,7 @@
 - [Date/Time](#time)
 - [Services](#services)
 - [Firewall](#firewall)
+- [Kibana](#kibana)
 # Swap
 #### - 1. Disabling Swap
 If Elasticsearch (Elasticstack) is the only service running; there should be no need to have swap enabled.
