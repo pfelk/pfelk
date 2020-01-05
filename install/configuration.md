@@ -39,3 +39,17 @@ systemctl start logstash
 - Enter the ELK local IP into the field "Remote log servers" with port 5140 (eg 192.168.100.50:5140)
 - Under "Remote Syslog Contents" check "Everything"
 - Click Save
+# Kibana 
+#### - 5a. Configuring Patterns
+- In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
+- Click the wrench (Dev Tools) icon in the left pannel 
+- Input the following and press the click to send request button (triangle)
+- https://raw.githubusercontent.com/a3ilson/pfelk/master/Dashboard/GeoIP(Template)
+- Click the gear icon (management) in the lower left
+- Click Kibana -> Index Patters
+- Click Create New Index Pattern
+- Type "pf-*" into the input box, then click Next Step
+#### - 5b. Import dashboards
+ - In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
+ - Click Management -> Saved Objects
+ - You can import the dashboards found in the `Dashboard` folder via the Import buttom in the top-right corner.
