@@ -1,0 +1,34 @@
+---
+
+# Add Maxmind repository
+- apt_repository:
+    repo: ppa:maxmind/ppa
+
+# Install geoipupdate
+- name: Install geoipupdate
+  apt:
+    name: geoipupdate
+
+# Add a new line to GeoIP.conf
+- name: Add references to dbs
+  lineinfile:
+    path: /etc/GeoIP.conf
+    line: EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
+    create: yes
+
+# Download the databases
+- name: Download Maxmind dbs
+  shell:
+    cmd: geoipupdate -d /usr/share/GeoIP/
+
+# Add cron job
+- name: Creates a cron file under /etc/cron.d
+  cron:
+    name: geoip autoupdate
+    weekday: "7"
+    minute: "0"
+    hour: "17"
+    user: root
+    job: "geoipupdate -d /usr/share/GeoIP"
+    cron_file: ansible_geoip-autoupdate
+
