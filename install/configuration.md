@@ -32,7 +32,7 @@ systemctl start kibana
 systemctl start logstash 
 ```
 # Firewall 
-#### - 4. Login to pfSense/OPNsense and forward syslogs
+#### - 4a. Login to pfSense/OPNsense and forward syslogs
 - In pfSense navigate to Status->System Logs, then click on Settings.
 - In OPNsense navigate to System->Settings->Logging
 - At the bottom check "Enable Remote Logging"
@@ -40,6 +40,16 @@ systemctl start logstash
 - Enter the ELK local IP into the field "Remote log servers" with port 5140 (eg 192.168.100.50:5140)
 - Under "Remote Syslog Contents" check "Everything"
 - Click Save
+#### - 4b. (Optional) Configure Suricata for log forwarding
+ - On your pfSense web UI got to Services / Suricata / Interfaces, and enable Suricata on desired interfaces
+ - You can have separate configuration on each of your interfaces, you can edit them via clicking on the pencil icon
+ - You sould enable the EVE JSON output format for log forwarding, you should have the following options enabled at the EVE Output Settings section:
+   - Eve JSON log: Suricata will output selected info in JSON format to a single file or to syslog. 
+   - EVE Output type: SYSLOG
+   - EVE Syslog Output Facility: AUTH
+   - EVE Syslog Output Priority: NOTICE 
+   - EVE Log Alerts: Suricata will output Alerts via EVE
+   - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility here should be LOCAL1, and the Log Priority should be NOTICE.
 # Kibana 
 #### - 5a. Configuring Patterns
 - In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
