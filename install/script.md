@@ -1,4 +1,4 @@
-## Installation Guide (pfSense/OPNsense) + Elastic Stack 
+## Scripted Installation Guide (pfSense/OPNsense) + Elastic Stack 
 - [x] Automate Installation
 - [ ] Automate Configuration 
 - [ ] Build Repository (RPM) Installation
@@ -79,4 +79,4 @@ sudo nano /etc/kibana/kibana.yml
 - server.port: 5601
 - server.host: "0.0.0.0"
 
-### 4. Complete Configuration --> [Configuration](https://github.com/a3ilson/pfelk/wiki/2---%5BConfiguration%5D)
+### 4. Complete Configuration --> [Configuration](configuration.md))
