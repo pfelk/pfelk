@@ -75,4 +75,4 @@ sudo nano /etc/kibana/kibana.yml
 - server.port: 5601
 - server.host: "0.0.0.0"
 
-### 4. Complete Configuration --> [Configuration](configuration.md))
+### 4. Complete Configuration --> [Configuration](configuration.md)
