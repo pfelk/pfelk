@@ -19,9 +19,6 @@ First, checkout the [pfELK README](README.md) for information on how to configur
 * All required dependencies were installed and/or configured
 
 > :clock1: _For more complex instalaltions please reach out for assistance (i.e. multiple firewalls, sending firewall logs through VPN etc..._
-
-For more information about pfELK, visit the [README](README.md).
-
 ---
 
 ### How to contribute 
@@ -44,7 +41,7 @@ Bugs and issues are tracked as [GitHub Issues](https://github.com/a3ilson/pfelk/
 * Explain the issue(s)
 * Fill out the [Bug/Error template](https://github.com/a3ilson/pfelk/issues/new/choose) 
 
-#### Feature Requests 
+#### Feature Requests :sparkles:
 
 Feature requests include new features and minor improvements to existing functionality.
 
@@ -64,7 +61,6 @@ Feature requests are tracked as [GitHub Issues](https://github.com/a3ilson/pfelk
 * Reference and include the issue number(s)
 * Verify iany and all changes were extensively tested
 
-:sparkles:
 If this helped, feel free to make a contribution:
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KA7KSUM22FW7Q&currency_code=USD&source=url)
