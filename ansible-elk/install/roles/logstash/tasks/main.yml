@@ -22,9 +22,9 @@
   with_items:
     - 01-inputs.conf
     - 11-firewall.conf
-    #- 12-suricata.conf
-    #- 13-snort.conf
-    #- 15-others.conf
+    - 12-suricata.conf
+    - 13-snort.conf
+    - 15-others.conf
     - 20-geoip.conf
     - 50-outputs.conf
 
