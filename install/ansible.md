@@ -8,7 +8,7 @@
 
 # Prerequisites 
 
-## Prerequisites on managed nodes
+## Prerequisites on control nodes
 
 Currently Ansible can be run from any machine with Python 2 (version 2.7) or Python 3 (versions 3.5 and higher) installed. Windows is not supported for the control node.
 
@@ -76,7 +76,7 @@ ansible-elk/
 ## Clone the repository
 
 ```
-git clone https://github.com/a3ilson/pfelk.git master
+git clone https://github.com/a3ilson/pfelk.git
 ```
 
 ## Define the host you want to deploy the ELK stack to
@@ -119,7 +119,7 @@ LicenseKey <Input Your LicenseKey>
  - run `ansible-playbook -i hosts --check install/install.yml`
 
 ### Deploying to localhost
-To deploy the playbook on your local machine you need the following:
+To deploy the playbook on your local machine you need the do following:
  - install and setup `openssh`
  - if you choose not to use ssh keys, install `sshpass` for auth purposes
  - under `ansible-elk/hosts` define your IP as `localhost`
