@@ -125,7 +125,7 @@ $ sudo nano /etc/GeoIP.conf
 AccountID <Input Your Account ID>
 LicenseKey <Input Your LicenseKey>
 ```
-##Of course, Finish the configuration
+## Of course, Finish the configuration
 
 You can follow the steps starting with the Firewall section at https://github.com/a3ilson/pfelk/blob/master/install/configuration.md
 
