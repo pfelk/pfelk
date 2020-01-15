@@ -1,6 +1,4 @@
 # Ansible Installation Guide (pfSense/OPNsense) + Elastic Stack 
-- [x] Automate Installation
-- [x] Automate Configuration 
 
 # Table of Contents
 - [Installation](#installation)
@@ -79,8 +77,9 @@ ansible-elk/
 git clone https://github.com/a3ilson/pfelk.git
 ```
 
+
 ## Define the host you want to deploy the ELK stack to
-Provide your desired IP address in `ansible-elk/hosts` under `elk`
+Provide your target IP address in `ansible-elk/hosts` under `elk`, the ELK stak will be installed to this target.
 
 ## Change current folder to ansible-elk/ then deploy the playbook
 ```
@@ -111,6 +110,9 @@ sudo nano /etc/GeoIP.conf
 AccountID <Input Your Account ID>
 LicenseKey <Input Your LicenseKey>
 ```
+# Finish the configuration
+
+You can follow the steps starting with the Firewall section at https://github.com/a3ilson/pfelk/blob/master/install/configuration.md
 
 ## Troubleshooting
 
