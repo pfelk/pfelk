@@ -132,16 +132,16 @@ You can follow the steps starting with the Firewall section at https://github.co
 ### Troubleshooting
 
 ### Testing the playbook with dry-mode
- - include `--check` option
+ - include `--check` flag
  - run `ansible-playbook -i hosts --check install/install.yml`
 
-### Deploying to localhost
-To deploy the playbook on your local machine you need the do following:
- - install and setup `openssh`
+### Deploy to localhost
+To deploy the playbook to your local machine you need the do following:
+ - install and setup `openssh`on your machine
  - if you choose not to use ssh keys, install `sshpass` for auth purposes
  - under `ansible-elk/hosts` define your IP as `localhost`
  - run the playbook with: `ansible-playbook -i hosts --ask-pass --ask-become install/install.yml`
  
 ### Enable verbose mode to debug problems
- - include `-vvvv` option
+ - include `-vvvv` flag
  - run `ansible-playbook -i hosts --ask-pass --ask-become -vvvv install/install.yml`
