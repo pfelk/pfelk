@@ -110,7 +110,7 @@ This will take care of the following tasks:
  - install elasticsearch
  - install kibana
  - install logstash
-   - copy the conf files and patterns to their correspoding places
+   - copy the `.conf` files and patterns to their corresponding locations
 
 ### Manually register and configure Maxmind
 
