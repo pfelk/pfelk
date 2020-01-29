@@ -41,7 +41,7 @@ On the managed nodes, you need a way to communicate, which is normally ssh. By d
 
 ### Tree of Ansible setup
 ```
-ansible-elk/
+ansible-pfelk/
 ├── hosts
 └── install
     ├── group_vars
@@ -98,7 +98,7 @@ Provide your target IP address in `ansible-elk/hosts` under `elk`, the ELK stak 
 
 ### Change current folder to ansible-elk/ then deploy the playbook
 ```
-$ cd ansible-elk/
+$ cd ansible-pfelk/
 $ ansible-playbook -i hosts --ask-become install/install.yml
 ```
 
@@ -139,7 +139,7 @@ You can follow the steps starting with the Firewall section at https://github.co
 To deploy the playbook to your local machine you need the do following:
  - install and setup `openssh`on your machine
  - if you choose not to use ssh keys, install `sshpass` for auth purposes
- - under `ansible-elk/hosts` define your IP as `localhost`
+ - under `ansible-pfelk/hosts` define your IP as `localhost`
  - run the playbook with: `ansible-playbook -i hosts --ask-pass --ask-become install/install.yml`
  
 ### Enable verbose mode to debug problems
