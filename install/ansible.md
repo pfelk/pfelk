@@ -94,7 +94,7 @@ $ git clone https://github.com/a3ilson/pfelk.git
 
 
 ### Define the host you want to deploy the ELK stack to
-Provide your target IP address in `ansible-elk/hosts` under `elk`, the ELK stak will be installed to this target.
+Provide your target IP address in `ansible-pfelk/hosts` under `elk`, the ELK stak will be installed to this target.
 
 ### Change current folder to ansible-elk/ then deploy the playbook
 ```
