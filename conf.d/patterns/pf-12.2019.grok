@@ -46,8 +46,9 @@ PF_APP_ERROR webConfigurator (%{DATA:pf_ACTION}) for \'(%{DATA:pf_USER})\' from 
 PF_APP_GEN (%{GREEDYDATA:pf_ACTION})
 
 # OPENVPN
-OPENVPN (%{OPENVPNIP}|%{OPENVPNLOG})
+OPENVPN (%{OPENVPNIP}|%{OPENVPNUSER}|%{OPENVPNLOG})
 OPENVPNIP %{IP:[vpn_source][ip]}\:%{INT:[vpn_source][port]}%{SPACE}\[%{DATA:vpn_client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
+OPENVPNUSER (%{WORD:openvpn_domain}?\\)?(?<openvpn_user>\b[+\w\.-]+\b)?/?%{IP:[vpn_source][ip]}:%{INT:[vpn_source][port]} peer info: IV_PLAT=%{WORD:openvpn_plat}
 OPENVPNLOG %{GREEDYDATA:openvpn_message}
 
 # UNBOUND (Optional)
