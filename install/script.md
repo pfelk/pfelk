@@ -53,26 +53,26 @@ sudo nano /etc/cron.weekly/geoipupdate
 00 17 * * 0 geoipupdate -d /usr/share/GeoIP
 ```
 ## 2. Configure Logstash|v7.5+
-### 2a. Enter your pfSense/OPNsense IP address 
+#### 2a. Enter your pfSense/OPNsense IP address 
 `sudo nano /etc/logstash/conf.d/01-inputs.conf`
 ```
 Change line 9; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
 Change line 12-16; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
-### 2b. Revise/Update w/pf IP address 
+#### 2b. Revise/Update w/pf IP address 
 `sudo nano /etc/logstash/conf.d/01-inputs.conf`
 ```
 For pfSense uncomment line 28 and commit out line 25
 For OPNsense uncomment line 25 and commit out line 28
 ```
 ## 3. Configure Kibana|v7.5+
-### 3a. Configure Kibana
+#### 3a. Configure Kibana
 ```
 sudo nano /etc/kibana/kibana.yml
 ```
-### 3b. Modify host file (/etc/kibana/kibana.yml)
+#### 3b. Modify host file (/etc/kibana/kibana.yml)
 - server.port: 5601
 - server.host: "0.0.0.0"
 
-### 4. Complete Configuration --> [Configuration](configuration.md)
+## 4. Complete Configuration --> [Configuration](configuration.md)
