@@ -1,7 +1,11 @@
 ## Welcome to (pfSense/OPNsense) + Elastic Stack 
 
-![pfelk dashboard](https://github.com/a3ilson/pfelk/raw/master/pf%2BELK.png)
+![pfelk dashboard](https://github.com/a3ilson/pfelk/raw/master/Images/pfelkdashboard.png)
+
 You can view installation guide guide on [3ilson.org YouTube Channel](https://www.youtube.com/3ilsonorg).
+
+
+![Version badge](https://img.shields.io/badge/ELK-7.5.2-blue.svg)
 
 ### Prerequisites
 - Ubuntu Server v18.04+
@@ -22,7 +26,7 @@ pfELK was created in 2016 after spending hours researching firewall visualizatio
 pfELK is comprised of Java, Elasticstack, and a number and dependencies. Your firewall logs are parsed through various patterns simplifying firewall log analysis.  Currently, pfSense and OPNsense are supported with extensive testing
 
 ## Install
-Please forgive our progress as we modernize the installation process.  There are currently three installation options as we seek to automate the installtion process.
+Please forgive our progress as we modernize the installation process.  There are currently three installation options as we seek to automate the installation process.
 - 1. [Manual (custom) Installation](install/custom.md)
 - 2. [Scripted Installation](install/script.md)
 - 3. [Ansible Installation](install/ansible.md)
