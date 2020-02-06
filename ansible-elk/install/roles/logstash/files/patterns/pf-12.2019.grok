@@ -27,13 +27,14 @@ PF_ICMP_TSTAMP_REPLY %{INT:icmp_tstamp_reply_id},%{INT:icmp_tstamp_reply_sequenc
 PF_SPEC \+
 
 # DHCP (Optional)
-DHCPD (%{DHCPDISCOVER}|%{DHCPOFFER}|%{DHCPREQUEST}|%{DHCPACK}|%{DHCPINFORM}|%{DHCPRELEASE})
+DHCPD (%{DHCPDISCOVER}|%{DHCPOFFER}|%{DHCPREQUEST}|%{DHCPACK}|%{DHCPINFORM}|%{DHCPRELEASE}|%{DHCPGENERAL})
 DHCPDISCOVER %{WORD:dhcp_action} from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)(: %{GREEDYDATA:dhcp_load_balance})?
 DHCPOFFER %{WORD:dhcp_action} on %{IPV4:dhcp_client_ip} to %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)
 DHCPREQUEST %{WORD:dhcp_action} for %{IPV4:dhcp_client_ip}%{SPACE}(\(%{IPV4:dhcp_ip_unknown}\))? from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)(: %{GREEDYDATA:dhcp_request_message})?
 DHCPACK %{WORD:dhcp_action} on %{IPV4:dhcp_client_ip} to %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)
 DHCPINFORM %{WORD:dhcp_action} from %{IPV4:dhcp_client_ip} via %(?<dhcp_client_vlan>[0-9a-z_]*)
 DHCPRELEASE %{WORD:dhcp_action} of %{IPV4:dhcp_client_ip} from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via
+DHCPGENERAL %{GREEDYDATA:dhcp_message}
 
 # PF
 PF_CARP_DATA (%{WORD:carp_type}),(%{INT:carp_ttl}),(%{INT:carp_vhid}),(%{INT:carp_version}),(%{INT:carp_advbase}),(%{INT:carp_advskew})
@@ -45,7 +46,9 @@ PF_APP_ERROR webConfigurator (%{DATA:pf_ACTION}) for \'(%{DATA:pf_USER})\' from 
 PF_APP_GEN (%{GREEDYDATA:pf_ACTION})
 
 # OPENVPN
-OPENVPN %{IP:[vpn_source][ip]}\:%{INT:[vpn_source][port]}%{SPACE}\[%{DATA:vpn_client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
+OPENVPN (%{OPENVPNIP}|%{OPENVPNLOG})
+OPENVPNIP %{IP:[vpn_source][ip]}\:%{INT:[vpn_source][port]}%{SPACE}\[%{DATA:vpn_client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
+OPENVPNLOG %{GREEDYDATA:openvpn_message}
 
 # UNBOUND (Optional)
 UNBOUND (\[%{GREEDYDATA:unbound_pid}]\s+)%{WORD:unbound_log_level}:%{SPACE}%{GREEDYDATA:unbound_log_message}
