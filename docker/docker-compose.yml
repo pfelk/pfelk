@@ -20,7 +20,7 @@ services:
         soft: 65536
         hard: 65536
     volumes:
-       - pfelk01:/usr/share/elasticsearch/data
+      - pfelk01:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
     networks:
@@ -46,7 +46,7 @@ services:
         soft: 65536
         hard: 65536
     volumes:
-       - pfelk02:/usr/share/elasticsearch/data
+      - pfelk02:/usr/share/elasticsearch/data
     networks:
       - pfelk
 
@@ -70,7 +70,7 @@ services:
         soft: 65536
         hard: 65536
     volumes:
-       - pfelk02:/usr/share/elasticsearch/data
+      - pfelk03:/usr/share/elasticsearch/data
     networks:
       - pfelk
 
@@ -122,8 +122,8 @@ volumes:
     driver: local
   pfelk02:
     driver: local
+  pfelk03:
+    driver: local
 networks:
   pfelk:
     driver: bridge
-
-    # Reference https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
