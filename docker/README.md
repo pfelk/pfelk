@@ -36,7 +36,7 @@ sudo unzip pfelk.zip
 - [X] GeoLite2-City.mmdb
 - [X] GeoLite2-Country.mmdb 
 ```
-sudo cp XXXX pfelk.zip:/logstash/GeoIP
+sudo cp usr/share/GeoIP/[Files List Above] --> pfelk.zip:/logstash/GeoIP
 ```
 ### (3) Memory 
 #### (3a) Set vm.max_map_count to no less than 262144 (must run each time host is booted)
