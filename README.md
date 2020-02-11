@@ -5,7 +5,7 @@
 You can view installation guide guide on [3ilson.org YouTube Channel](https://www.youtube.com/3ilsonorg).
 
 
-![Version badge](https://img.shields.io/badge/ELK-7.5.2-blue.svg)
+![Version badge](https://img.shields.io/badge/ELK-7.6.0-blue.svg)
 
 ### Prerequisites
 - Ubuntu Server v18.04+
