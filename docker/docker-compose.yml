@@ -1,14 +1,14 @@
 version: '3.2'
 services:
   pfelk01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
-    container_name: pkelk01
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    container_name: pfelk01
     restart: unless-stopped
-    hostname: elasticsearch
+    hostname: pfelk01
     environment:
        - node.name=pfelk01
        - cluster.name=pfelk-docker-cluster
-       - discovery.seed_hosts=pfelk02
+       - discovery.seed_hosts=pfelk02,pfelk03
        - cluster.initial_master_nodes=pfelk01,pfelk02
        - bootstrap.memory_lock=true
        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -27,13 +27,39 @@ services:
       - pfelk
 
   pfelk02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
     container_name: pfelk02
+    restart: unless-stopped
+    hostname: pfelk02
     environment:
        - node.name=pfelk02
        - cluster.name=pfelk-docker-cluster
-       - discovery.seed_hosts=pfelk01
-       - cluster.initial_master_nodes=pfelk01,pfelk02
+       - discovery.seed_hosts=pfelk01,pfelk03
+       - cluster.initial_master_nodes=pfelk01,pfelk02,pfelk03
+       - bootstrap.memory_lock=true
+       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+       - pfelk02:/usr/share/elasticsearch/data
+    networks:
+      - pfelk
+
+  pfelk03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.0
+    container_name: pfelk03
+    restart: unless-stopped
+    hostname: pfelk03
+    environment:
+       - node.name=pfelk03
+       - cluster.name=pfelk-docker-cluster
+       - discovery.seed_hosts=pfelk01,pfelk02
+       - cluster.initial_master_nodes=pfelk01,pfelk02,pfelk03
        - bootstrap.memory_lock=true
        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -61,7 +87,7 @@ services:
         read_only: true
       - ./logstash/pipeline/:/usr/share/logstash/pipeline/
       - ./logstash/patterns/:/usr/share/logstash/patterns/
-      - ./logstash/GeoIP/:/usr/share/GeoIP/
+      - ./logstash/GeoIP/:/usr/share/logstash/GeoIP/
     ports:
       - "5000:5000"
       - "9600:9600"
@@ -70,6 +96,8 @@ services:
       LS_JAVA_OPTS: "-Xmx1G -Xms1G"
     networks:
       - pfelk
+#    depends_on:
+#      - pfelk01,pfelk02
 
   kibana:
     build:
