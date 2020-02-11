@@ -28,7 +28,7 @@ services:
 
   pfelk02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
-    container_name: pkelk02
+    container_name: pfelk02
     environment:
        - node.name=pfelk02
        - cluster.name=pfelk-docker-cluster
