@@ -30,6 +30,7 @@ Please forgive our progress as we modernize the installation process.  There are
 - 1. [Manual (custom) Installation](install/custom.md)
 - 2. [Scripted Installation](install/script.md)
 - 3. [Ansible Installation](install/ansible.md)
+- 4. [Docker Installation](docker/README.md)
 
 ## Usage
 Once pfELK is running, point your browser to "http://pfELK's-IP:5601" to access the Kibana interface.  
