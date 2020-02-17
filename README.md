@@ -1,4 +1,4 @@
-## Welcome to (pfSense/OPNsense) + Elastic Stack 
+## Welcome to (pfSense/OPNsense) + Elastic Stack  
 
 ![pfelk dashboard](https://github.com/a3ilson/pfelk/raw/master/Images/pfelkdashboard.png)
 
@@ -6,6 +6,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 
 
 ![Version badge](https://img.shields.io/badge/ELK-7.6.0-blue.svg)
+[![Build Status](https://travis-ci.org/3ilson/pfelk.svg?branch=master)](https://travis-ci.org/3ilson/pfelk)
 
 ### Prerequisites
 - Ubuntu Server v18.04+
