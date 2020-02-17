@@ -1,0 +1,33 @@
+language: minimal
+services: docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.4.2
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -y expect jq
+
+install:
+  # Install Docker Compose
+  - curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o "$HOME/bin/docker-compose"
+  - chmod +x "$HOME/bin/docker-compose"
+  - docker-compose --version
+
+before_script:
+  # Build images
+  - cd docker/
+  - docker-compose build
+
+script:
+  # Compose
+  - docker-compose up -d
+  - docker-compose ps
+  - docker-compose logs pfelk01
+  - docker-compose logs pfelk02
+  - docker-compose logs pfelk03
+  - docker-compose logs logstash
+  - docker-compose logs kibana
+  - docker-compose down -v
+
+
