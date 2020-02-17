@@ -129,7 +129,7 @@ LicenseKey <Input Your LicenseKey>
 
 You can follow the steps starting with the Firewall section at https://github.com/a3ilson/pfelk/blob/master/install/configuration.md
 
-### Troubleshooting
+## Troubleshooting
 
 ### Testing the playbook with dry-mode
  - include `--check` flag
