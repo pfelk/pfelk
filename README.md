@@ -6,8 +6,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 
 
 ![Version badge](https://img.shields.io/badge/ELK-7.6.0-blue.svg)
-[![Build Status](https://travis-ci.org/3ilson/pfelk.svg?branch=master)](https://travis-ci.org/3ilson/pfelk)
-
+![Travis (.org)](https://img.shields.io/travis/3ilson/ansible-pfelk?label=Ansible-playbook) ![Travis (.org)](https://img.shields.io/travis/3ilson/docker-pfelk?label=Docker-compose)
 ### Prerequisites
 - Ubuntu Server v18.04+
 - pfSense v2.4.4+ or OPNsense 19.7.4+
