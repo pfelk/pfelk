@@ -1,3 +1,0 @@
-server.port: 5601
-server.host: "0"
-elasticsearch.hosts: [ "http://pfelk01:9200" ]
