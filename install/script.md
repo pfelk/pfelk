@@ -63,8 +63,8 @@ Change line 12-16; (OPTIONAL) to point to your second PF IP address or ignore
 #### 2b. Revise/Update w/pf IP address 
 `sudo nano /etc/logstash/conf.d/01-inputs.conf`
 ```
-For pfSense uncomment line 28 and commit out line 25
-For OPNsense uncomment line 25 and commit out line 28
+For pfSense uncomment line 28 and comment out line 25
+For OPNsense uncomment line 25 and comment out line 28
 ```
 ## 3. Configure Kibana|v7.5+
 #### 3a. Configure Kibana
