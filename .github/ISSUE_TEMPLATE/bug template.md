@@ -26,6 +26,11 @@ If applicable, add screenshots to help explain your problem.
  
 **Elastic, Logstash, Kibana (please complete the following information):**
  - Version [e.g. v7.3.2]
+ 
+ **Elasticsearch, Logstash, Kibana logs:**
+  - Elasticsearch logs (`tail -f /var/log/elasticsearch/[your-elk-cluster-name].log`)
+  - Logstash logs (`tail -f /var/log/logstash/logstash-plain.log`)
+  - Kibana logs (`journalctl -u kibana.service`)
 
 **Additional context**
 Add any other context about the problem here.
