@@ -11,7 +11,7 @@
 
 ## 0. Download and Run Script
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/ez-pfelk-installer.sh
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/ez-pfelk-installer.sh
 ```
 - Make the script executable 
 ```
@@ -52,7 +52,7 @@ sudo nano /etc/cron.weekly/geoipupdate
 ```
 00 17 * * 0 geoipupdate -d /usr/share/GeoIP
 ```
-## 2. Configure Logstash|v7.5+
+## 2. Configure Logstash|v7.6+
 #### 2a. Enter your pfSense/OPNsense IP address 
 `sudo nano /etc/logstash/conf.d/01-inputs.conf`
 ```
@@ -66,7 +66,7 @@ Change line 12-16; (OPTIONAL) to point to your second PF IP address or ignore
 For pfSense uncomment line 28 and comment out line 25
 For OPNsense uncomment line 25 and comment out line 28
 ```
-## 3. Configure Kibana|v7.5+
+## 3. Configure Kibana|v7.6+
 #### 3a. Configure Kibana
 ```
 sudo nano /etc/kibana/kibana.yml
