@@ -55,7 +55,7 @@ systemctl start logstash
 - In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
 - Click the wrench (Dev Tools) icon in the left pannel 
 - Input the following and press the click to send request button (triangle)
-- https://raw.githubusercontent.com/a3ilson/pfelk/master/Dashboard/GeoIP(Template)
+- https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/GeoIP(Template)
 - Click the gear icon (management) in the lower left
 - Click Kibana -> Index Patters
 - Click Create New Index Pattern
