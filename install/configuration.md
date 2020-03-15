@@ -27,9 +27,9 @@ sudo /bin/systemctl enable logstash.service
 ```
 #### - 3b. Start Services Manually
 ```
-systemctl start elasticsearch 
-systemctl start kibana 
-systemctl start logstash 
+systemctl start elasticsearch.service 
+systemctl start kibana.service
+systemctl start logstash.service
 ```
 # Firewall 
 #### - 4a. Login to pfSense/OPNsense and forward syslogs
