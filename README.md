@@ -23,7 +23,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 ## Background
 pfELK was created in 2016 after spending hours researching firewall visualization.  After stumbling across Elasticstack (formerly known as ELK stack) with weeks of troubleshooting and research.  The process was refined and shared to aid others in leveraging the awesome power of Elasticsearch through the visualization of firewall events.
 
-pfELK is comprised of Java, Elasticstack, and a number and dependencies. Your firewall logs are parsed through various patterns simplifying firewall log analysis.  Currently, pfSense and OPNsense are supported with extensive testing
+pfELK is comprised of Java, Elasticstack, and a number of dependencies. Your firewall logs are parsed through various patterns simplifying firewall log analysis.  Currently, pfSense and OPNsense are supported with extensive testing.
 
 ## Install
 Please forgive our progress as we modernize the installation process.  There are currently three installation options as we seek to automate the installation process.
