@@ -106,26 +106,26 @@ cd /etc/logstash/conf.d
 
 ### 14. Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/01-inputs.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/01-inputs.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/11-firewall.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/11-firewall.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/20-geoip.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/20-geoip.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/50-outputs.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/50-outputs.conf
 ```
 ### 14a. (Optional) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/12-suricata.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/12-suricata.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/13-snort.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/13-snort.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/15-others.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/15-others.conf
 ```
 
 
@@ -141,7 +141,7 @@ cd /etc/logstash/conf.d/patterns/
 
 ### 17. Download the following configuration file
 ```
-sudo wget https://raw.githubusercontent.com/a3ilson/pfelk/master/conf.d/patterns/pf-12.2019.grok
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-12.2019.grok
 ```
 
 ### 18. Enter your pfSense/OPNsense IP address (01-inputs.conf)
