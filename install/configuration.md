@@ -59,4 +59,4 @@ systemctl start logstash.service
 #### - 5b. Import dashboards
  - In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
  - Click Management -> Saved Objects
- - You can import the dashboards found in the `Dashboard` folder via the Import buttom in the top-right corner.
+ - You can import the dashboards found in the `Dashboard` folder via the Import button in the top-right corner.
