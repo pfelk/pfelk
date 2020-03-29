@@ -140,7 +140,7 @@ cd /etc/logstash/conf.d/patterns/
 
 ### 17. Download the grok pattern file
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-04.2020.grok
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-patterns.grok
 ```
 
 ### 18. Make Template Folder
