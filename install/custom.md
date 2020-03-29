@@ -128,7 +128,6 @@ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/13-snort.
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/15-others.conf
 ```
 
-
 ### 15. Make Patterns Folder
 ```
 sudo mkdir /etc/logstash/conf.d/patterns
@@ -139,24 +138,24 @@ sudo mkdir /etc/logstash/conf.d/patterns
 cd /etc/logstash/conf.d/patterns/
 ```
 
-### 17. Make Template Folder
+### 17. Download the grok pattern file
+```
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-04.2020.grok
+```
+
+### 18. Make Template Folder
 ```
 sudo mkdir /etc/logstash/conf.d/template
 ```
 
-### 18. Navigate to Template Folder
+### 19. Navigate to Template Folder
 ```
 cd /etc/logstash/conf.d/template/
 ```
 
-### 19. Download Template
+### 20. Download Template
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/template/pf-geoip-template.json
-```
-
-### 20. Download the grok pattern file
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-04.2020.grok
 ```
 
 ### 21. Enter your pfSense/OPNsense IP address (01-inputs.conf)
