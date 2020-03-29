@@ -139,21 +139,36 @@ sudo mkdir /etc/logstash/conf.d/patterns
 cd /etc/logstash/conf.d/patterns/
 ```
 
-### 17. Download the following configuration file
+### 17. Make Template Folder
+```
+sudo mkdir /etc/logstash/conf.d/template
+```
+
+### 18. Navigate to Template Folder
+```
+cd /etc/logstash/conf.d/template/
+```
+
+### 19. Download Template
+```
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/template/pf-geoip-template.json
+```
+
+### 20. Download the grok pattern file
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-04.2020.grok
 ```
 
-### 18. Enter your pfSense/OPNsense IP address (01-inputs.conf)
+### 21. Enter your pfSense/OPNsense IP address (01-inputs.conf)
 ```
 Change line 9; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
 Change line 12; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
 Change line 15-22; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
-### 19. Revise/Update w/pf IP address (01-inputs.conf)
+### 22. Revise/Update w/pf IP address (01-inputs.conf)
 ```
 For pfSense uncommit line 30 and commit out line 27
 For OPNsense uncommit line 27 and commit out line 30
 ```
-### 20. Complete Configuration --> [Configuration](configuration.md)
+### 23. Complete Configuration --> [Configuration](configuration.md)
