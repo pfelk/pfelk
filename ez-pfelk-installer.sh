@@ -3,7 +3,7 @@
 
 # This script will
 # * use apt-get/yum to install OS dependancies
-# * download known working versions of pfELK dependancies
+# * download known working versions of pfELK dependencies
 # * configure pfELK <-- In Work... Configuration Script
 # * install Elasticstack
 # * install Java
