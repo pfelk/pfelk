@@ -147,12 +147,13 @@ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/
 ### 18. Enter your pfSense/OPNsense IP address (01-inputs.conf)
 ```
 Change line 9; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
-Change line 12-16; (OPTIONAL) to point to your second PF IP address or ignore
+Change line 12; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
+Change line 15-22; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
 ### 19. Revise/Update w/pf IP address (01-inputs.conf)
 ```
-For pfSense uncommit line 28 and commit out line 25
-For OPNsense uncommit line 25 and commit out line 28
+For pfSense uncommit line 30 and commit out line 27
+For OPNsense uncommit line 27 and commit out line 30
 ```
 ### 20. Complete Configuration --> [Configuration](configuration.md)
