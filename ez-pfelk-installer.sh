@@ -100,8 +100,8 @@ sudo swapoff -a
   cd /etc/logstash/conf.d/patterns
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-12.2019.grok
 
-# Add Configuraiton Script Here
+# Add Configuration Script Here
 
-# Install/Troubleshoot Success Mesaage 
+# Install/Troubleshoot Success Message 
 
 exit 0
