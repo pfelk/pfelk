@@ -98,7 +98,7 @@ sudo swapoff -a
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/13-snort.conf
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/15-others.conf
   cd /etc/logstash/conf.d/patterns
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-04-2020.grok
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-patterns.grok
   cd /etc/logstash/conf.d/template
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/template/pf-geoip-template.json
   
