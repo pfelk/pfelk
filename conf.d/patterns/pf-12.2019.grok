@@ -1,8 +1,8 @@
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
-PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:interface},(?<reason>\b[\w\-]+\b),%{WORD:action},%{WORD:direction},
-PF_IP_DATA %{INT:length},%{IP:[source][ip]},%{IP:[destination][ip]},
+PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:[interface][name]},(?<reason>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
+PF_IP_DATA %{INT:[packet][length]},%{IP:[source][ip]},%{IP:[destination][ip]},
 PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
-PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:id},%{INT:offset},(?:%{WORD:flags}|%{PF_SPEC:flags}),%{INT:[protocol][id]},%{WORD:[protocol][type]},
+PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:[packet][id]},%{INT:offset},(?:%{WORD:[ip][flags]}|%{PF_SPEC:[ip][flags]}),%{INT:[network][iana_number]},%{WORD:[network][transport]},
 PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:[protocol][type]},%{INT:[protocol][id]},
 PF_PROTOCOL_DATA %{PF_TCP_DATA}|%{PF_UDP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP}
 
@@ -28,13 +28,13 @@ PF_SPEC \+
 
 # DHCP (Optional)
 DHCPD (%{DHCPDISCOVER}|%{DHCPOFFER}|%{DHCPREQUEST}|%{DHCPACK}|%{DHCPINFORM}|%{DHCPRELEASE}|%{DHCPGENERAL})
-DHCPDISCOVER %{WORD:dhcp_action} from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)(: %{GREEDYDATA:dhcp_load_balance})?
-DHCPOFFER %{WORD:dhcp_action} on %{IPV4:dhcp_client_ip} to %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)
-DHCPREQUEST %{WORD:dhcp_action} for %{IPV4:dhcp_client_ip}%{SPACE}(\(%{IPV4:dhcp_ip_unknown}\))? from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)(: %{GREEDYDATA:dhcp_request_message})?
-DHCPACK %{WORD:dhcp_action} on %{IPV4:dhcp_client_ip} to %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via (?<dhcp_client_vlan>[0-9a-z_]*)
-DHCPINFORM %{WORD:dhcp_action} from %{IPV4:dhcp_client_ip} via %(?<dhcp_client_vlan>[0-9a-z_]*)
-DHCPRELEASE %{WORD:dhcp_action} of %{IPV4:dhcp_client_ip} from %{COMMONMAC:dhcp_client_mac}%{SPACE}(\(%{GREEDYDATA:dhcp_client_hostname}\))? via
-DHCPGENERAL %{GREEDYDATA:dhcp_message}
+DHCPDISCOVER %{WORD:[dhcp][action]} from %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via (?<[dhcp][client][vlan]>[0-9a-z_]*)(: %{GREEDYDATA:[dhcp][load][balance]})?
+DHCPOFFER %{WORD:[dhcp][action]} on %{IPV4:[dhcp][client][ip]} to %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via (?<[dhcp][client][vlan]>[0-9a-z_]*)
+DHCPREQUEST %{WORD:[dhcp][action]} for %{IPV4:[dhcp][client][ip]}%{SPACE}(\(%{IPV4:[dhcp][ip][unknown]}\))? from %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via $DHCPACK %{WORD:[dhcp][action]} on %{IPV4:[dhcp][client][ip]} to %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via (?<[dhcp][client][vlan]>[0-9a-z_]*)
+DHCPACK %{WORD:[dhcp][action]} on %{IPV4:[dhcp][client][ip]} to %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via (?<[dhcp][client][vlan]>[0-9a-z_]*)
+DHCPINFORM %{WORD:[dhcp][action]} from %{IPV4:[dhcp][client][ip]} via %(?<[dhcp][client][vlan]>[0-9a-z_]*)
+DHCPRELEASE %{WORD:[dhcp][action]} of %{IPV4:[dhcp][client][ip]} from %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via
+DHCPGENERAL %{GREEDYDATA:[dhcp][message]}
 
 # PF
 PF_CARP_DATA (%{WORD:carp_type}),(%{INT:carp_ttl}),(%{INT:carp_vhid}),(%{INT:carp_version}),(%{INT:carp_advbase}),(%{INT:carp_advskew})
