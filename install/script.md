@@ -57,14 +57,15 @@ sudo nano /etc/cron.weekly/geoipupdate
 `sudo nano /etc/logstash/conf.d/01-inputs.conf`
 ```
 Change line 9; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
-Change line 12-16; (OPTIONAL) to point to your second PF IP address or ignore
+Change line 12; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
+Change line 15-22; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
 #### 2b. Revise/Update w/pf IP address 
 `sudo nano /etc/logstash/conf.d/01-inputs.conf`
 ```
-For pfSense uncomment line 28 and comment out line 25
-For OPNsense uncomment line 25 and comment out line 28
+For pfSense uncommit line 30 and commit out line 27
+For OPNsense uncommit line 27 and commit out line 30
 ```
 ## 3. Configure Kibana|v7.6+
 #### 3a. Configure Kibana
