@@ -62,5 +62,4 @@ Feature requests are tracked as [GitHub Issues](https://github.com/a3ilson/pfelk
 * Verify any and all changes were extensively tested
 
 If this helped, feel free to make a contribution:
-
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=KA7KSUM22FW7Q&currency_code=USD&source=url).
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson) 
