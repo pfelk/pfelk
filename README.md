@@ -7,6 +7,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 
 ![Version badge](https://img.shields.io/badge/ELK-7.6.1-blue.svg)
 ![Travis (.org)](https://img.shields.io/travis/3ilson/ansible-pfelk?label=Ansible-playbook) ![Travis (.org)](https://img.shields.io/travis/3ilson/docker-pfelk?label=Docker-compose) [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson) 
 ### Prerequisites
 - Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster are tested)
 - pfSense v2.4.4+ or OPNsense 19.7.4+
