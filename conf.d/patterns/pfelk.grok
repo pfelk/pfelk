@@ -1,5 +1,9 @@
-#Version 04.2020
-
+# pfelk.grok
+#######################
+# pfelk GROK Pattern  #
+#                     #
+# Date 4 April 2020   #
+#######################
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
 PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:[interface][name]},(?<reason>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
 PF_IP_DATA %{INT:[packet][length]},%{IP:[source][ip]},%{IP:[destination][ip]},
@@ -28,15 +32,20 @@ PF_ICMP_TSTAMP %{INT:icmp_tstamp_id},%{INT:icmp_tstamp_sequence}
 PF_ICMP_TSTAMP_REPLY %{INT:icmp_tstamp_reply_id},%{INT:icmp_tstamp_reply_sequence},%{INT:icmp_tstamp_reply_otime},%{INT:icmp_tstamp_reply_rtime},%{INT:icmp_tstamp_reply_ttime}
 PF_SPEC \+
 
-# DHCP (Optional)
-DHCPD (%{DHCPDISCOVER}|%{DHCPOFFER}|%{DHCPREQUEST}|%{DHCPACK}|%{DHCPINFORM}|%{DHCPRELEASE}|%{DHCPGENERAL})
-DHCPDISCOVER %{WORD:[dhcp][action]} from %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via (?<[dhcp][client][vlan]>[0-9a-z_]*)(: %{GREEDYDATA:[dhcp][load][balance]})?
-DHCPOFFER %{WORD:[dhcp][action]} on %{IPV4:[dhcp][client][ip]} to %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via (?<[dhcp][client][vlan]>[0-9a-z_]*)
-DHCPREQUEST %{WORD:[dhcp][action]} for %{IPV4:[dhcp][client][ip]}%{SPACE}(\(%{IPV4:[dhcp][ip][unknown]}\))? from %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via $DHCPACK %{WORD:[dhcp][action]} on %{IPV4:[dhcp][client][ip]} to %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via (?<[dhcp][client][vlan]>[0-9a-z_]*)
-DHCPACK %{WORD:[dhcp][action]} on %{IPV4:[dhcp][client][ip]} to %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via (?<[dhcp][client][vlan]>[0-9a-z_]*)
-DHCPINFORM %{WORD:[dhcp][action]} from %{IPV4:[dhcp][client][ip]} via %(?<[dhcp][client][vlan]>[0-9a-z_]*)
-DHCPRELEASE %{WORD:[dhcp][action]} of %{IPV4:[dhcp][client][ip]} from %{COMMONMAC:[dhcp][client][mac]}%{SPACE}(\(%{GREEDYDATA:[dhcp][client][hostname]}\))? via
+# DHCPv4 (Optional)
+DHCPD_VIA via (%{IP:[dhcpv4][relay_ip]}|(?<[interface][name]>[^: ]+))
+DHCPD DHCP(%{DHCPD_DISCOVER}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})(: %{GREEDYDATA:[dhcpv4][option][message]})?
+DHCPD_DISCOVER (?<[dhcp][operation]>DISCOVER) from %{MAC:[dhcpv4][client_mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
+DHCPD_OFFER_ACK (?<[dhcp][operation]>(OFFER|N?ACK)) on %{IP:[dhcpv4][client_ip]} to %{MAC:[dhcpv4][client_mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
+DHCPD_REQUEST (?<[dhcp][operation]>REQUEST) for %{IP:[dhcpv4][client_ip]}( \(%{DATA:[dhcpv4][server_ip]}\))? from %{MAC:[dhcpv4][client_mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
+DHCPD_DECLINE (?<[dhcp][operation]>DECLINE) of %{IP:[dhcpv4][client_ip]} from %{MAC:[dhcpv4][client_mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
+DHCPD_RELEASE (?<[dhcp][operation]>RELEASE) of %{IP:[dhcpv4][client_ip]} from %{MAC:[dhcpv4][client_mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA} \((?<dhcpd_release>(not )?found)\)
+DHCPD_INFORM (?<[dhcp][operation]>INFORM) from %{IP:[dhcpv4][client_ip]}? %{DHCPD_VIA}
+DHCPD_LEASE (?<[dhcp][operation]>LEASE(QUERY|UNKNOWN|ACTIVE|UNASSIGNED)) (from|to) %{IP:[dhcpv4][client_ip]} for (IP %{IP:[dhcpv4][leasequery_ip]}|client-id %{NOTSPACE:[dhcpv4][leasequery_id]}|MAC address %{MAC:[dhcpv4][leasequery_mac]})( \(%{NUMBER:[dhcpv4][leasequery_associated]} associated IPs\))?
 DHCPGENERAL %{GREEDYDATA:[dhcp][message]}
+
+# DHCPv6 (Optional - In Development)
+DHCPDv6 %{GREEDYDATA:[dhcpv6][operation]}
 
 # PF
 PF_CARP_DATA (%{WORD:carp_type}),(%{INT:carp_ttl}),(%{INT:carp_vhid}),(%{INT:carp_version}),(%{INT:carp_advbase}),(%{INT:carp_advskew})
@@ -57,7 +66,7 @@ OPENVPNLOG %{GREEDYDATA:openvpn_message}
 UNBOUND (\[%{GREEDYDATA:unbound_pid}]\s+)%{WORD:unbound_log_level}:%{SPACE}%{GREEDYDATA:unbound_log_message}
 
 # SURICATA
-SURICATA \[%{NUMBER:ids_gen_id}:%{NUMBER:ids_sig_id}:%{NUMBER:ids_sig_rev}\]%{SPACE}%{GREEDYDATA:ids_desc}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:ids_class}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:ids_pri}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
+SURICATA \[%{NUMBER:[suricata][rule][uuid]}:%{NUMBER:[suricata][rule][id]}:%{NUMBER:[suricata][rule][version]}\]%{SPACE}%{GREEDYDATA:[suricata][rule][description]}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:[suricata][rule][category]}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:[suricata][priority]}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
 
 # SNORT
-SNORT \[%{INT:ids_gen_id}\:%{INT:ids_sig_id}\:%{INT:ids_sig_rev}\].%{GREEDYDATA:ids_desc}.\[Classification\: %{DATA:ids_class}\].\[Priority\: %{INT:ids_pri}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
+SNORT \[%{INT:[snort][rule][uuid]}\:%{INT:[snort][rule][reference]}\:%{INT:[snort][rule][version]}\].%{GREEDYDATA:[snort][rule][description]}.\[Classification\: %{DATA:[snort][rule][slassification]}\].\[Priority\: %{INT:[snort][priority]}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
