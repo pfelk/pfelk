@@ -91,14 +91,16 @@ sudo swapoff -a
   sudo mkdir /etc/logstash/conf.d/patterns
   cd /etc/logstash/conf.d
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/01-inputs.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/11-firewall.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/20-geoip.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/05-firewall.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/10-others.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/20-suricata.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/25-snort.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/30-geoip.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/40-dns.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/45-cleanup.conf
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/50-outputs.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/12-suricata.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/13-snort.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/15-others.conf
   cd /etc/logstash/conf.d/patterns
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-patterns.grok
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pfelk.grok
   cd /etc/logstash/conf.d/template
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/template/pf-geoip-template.json
   
