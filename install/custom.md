@@ -109,23 +109,29 @@ cd /etc/logstash/conf.d
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/01-inputs.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/11-firewall.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/05-firewall.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/20-geoip.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/30-geoip.conf
 ```
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/50-outputs.conf
 ```
 ### 14a. (Optional) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/12-suricata.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/10-others.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/13-snort.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/20-suricata.conf
 ```
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/15-others.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/25-snort.conf
+```
+```
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/40-dns.conf
+```
+```
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/45-cleanup.conf
 ```
 
 ### 15. Make Patterns Folder
@@ -140,7 +146,7 @@ cd /etc/logstash/conf.d/patterns/
 
 ### 17. Download the grok pattern file
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pf-patterns.grok
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pfelk.grok
 ```
 
 ### 18. Make Template Folder
