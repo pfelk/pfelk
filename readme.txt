@@ -39,7 +39,7 @@ Basic Installation steps required:
       /var/logs/logstash/
  9) Visit http://PFELKIPADDRESSHERE:5601 with your favorite browser.
 
-This is a basic installation not intended for production.  Highly recommend a customized Elastic Stack confugraiton for production.  For help or assistance with a recommended configuration contact support@pfelk.com   
+This is a basic installation not intended for production.  Highly recommend a customized Elastic Stack configuration for production.  For help or assistance with a recommended configuration contact support@pfelk.com   
 
 Additional information can be found at:
   * https://github.com/3ilson/pfelk
