@@ -107,5 +107,9 @@ sudo swapoff -a
 # Add Configuration Script Here
 
 # Install/Troubleshoot Success Message 
+  sudo mkdir /etc/pfelk
+  cd /etc/pfelk
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
+  cat readme.txt
 
 exit 0
