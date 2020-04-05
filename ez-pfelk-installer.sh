@@ -89,6 +89,7 @@ sudo swapoff -a
 # Download Configuration & Pattern
   echo "pfELK: Retrieving Confguration Files"
   sudo mkdir /etc/logstash/conf.d/patterns
+  sudo mkdir /etc/logstash/conf.d/template
   cd /etc/logstash/conf.d
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/01-inputs.conf
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/05-firewall.conf
