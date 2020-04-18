@@ -12,6 +12,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 - Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster are tested)
 - pfSense v2.4.4+ or OPNsense 19.7.4+
 - The following was tested with Java v13 and Elastic Stack v7.6.0
+- Minimum of 4GB of RAM but recommend 32GB
 
 ## Table of Contents
 
