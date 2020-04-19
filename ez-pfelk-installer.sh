@@ -6,7 +6,7 @@
 # * download known working versions of pfELK dependencies
 # * configure pfELK <-- In Work... Configuration Script
 # * install Elasticstack
-# * install Java
+# * install Java 11 LTS
 # * install Maxmind (GeoIP) <-- In Work... Configuration Script
 # * install apt-trasnport-https (ATH)
 
@@ -16,7 +16,7 @@ command -v sudo >/dev/null 2>&1 || { echo >&2 "pfELK: sudo is required to be ins
 # Installing pfELK dependencies
 echo "pfELK: Installing Inital Dependencies & Added Respositories"
 if [ -f "/etc/redhat-release" ] || [ -f "/etc/system-release" ]; then
-  sudo yum -y install wget apt-transport-https; sudo yum add-apt-repository ppa:linuxuprising/java; sudo yum add-apt-repository ppa:maxmind/ppa; sudo echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list; sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+  sudo yum -y install wget apt-transport-https; sudo yum add-apt-repository ppa:maxmind/ppa; sudo echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list; sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
   if [ $? -ne 0 ]; then
     echo "pfELK: yum failed"
     exit 1
@@ -24,7 +24,7 @@ if [ -f "/etc/redhat-release" ] || [ -f "/etc/system-release" ]; then
 fi
 
 if [ -f "/etc/debian_version" ]; then
-  sudo apt-get -qq install wget apt-transport-https; sudo add-apt-repository ppa:linuxuprising/java; sudo add-apt-repository ppa:maxmind/ppa; sudo echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list; sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+  sudo apt-get -qq install wget apt-transport-https; sudo add-apt-repository ppa:maxmind/ppa; sudo echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list; sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
   if [ $? -ne 0 ]; then
     echo "pfELK: apt-get failed"
     exit 1
@@ -32,7 +32,7 @@ if [ -f "/etc/debian_version" ]; then
 fi
 
 #if [ "$UNAME" = "FreeBSD" ]; then
-#  sudo pkg_add -Fr wget apt-transport-https; sudo add-apt-repository ppa:linuxuprising/java; sudo add-apt-repository ppa:maxmind/ppa; sudo echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list; sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+#  sudo pkg_add -Fr wget apt-transport-https; sudo add-apt-repository ppa:maxmind/ppa; sudo echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list; sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 #  MAKE=gmake
 #fi
 
@@ -62,7 +62,7 @@ fi
 # Install Required Respositories
 echo "pfELK: Installing Required Respositories"
 if [ -f "/etc/redhat-release" ] || [ -f "/etc/system-release" ]; then
-  sudo yum -y install oracle-java13-installer; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
+  sudo yum -y install openjdk-11-jre; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
   if [ $? -ne 0 ]; then
     echo "pfELK: yum failed"
     exit 1
@@ -70,7 +70,7 @@ if [ -f "/etc/redhat-release" ] || [ -f "/etc/system-release" ]; then
 fi
 
 if [ -f "/etc/debian_version" ]; then
-  sudo apt-get -qq install oracle-java13-installer; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
+  sudo apt -qq install openjdk-11-jre; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
   if [ $? -ne 0 ]; then
     echo "pfELK: apt-get failed"
     exit 1
@@ -78,7 +78,7 @@ if [ -f "/etc/debian_version" ]; then
 fi
 
 #if [ "$UNAME" = "FreeBSD" ]; then
-#  sudo pkg_add -Fr install oracle-java13-installer; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
+#  sudo pkg_add -Fr install openjdk-11-jre; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
 #  MAKE=gmake
 #fi
 
@@ -104,7 +104,7 @@ sudo swapoff -a
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pfelk.grok
   cd /etc/logstash/conf.d/template
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/template/pf-geoip-template.json
-  
+
 # Add Configuration Script Here
 
 # Install/Troubleshoot Success Message 
