@@ -7,12 +7,12 @@
 - [Firewall](#firewall)
 - [Kibana](#kibana)
 # Rule
-## 1a Fix rules in pfSense/OPNsense
+#### 1a Fix rules in pfSense/OPNsense
 - Go to your pfSense GUI and go to Firewall -> Rules.
 - Ensure the rules have a description, this is the text you will see in Kibana
 - Block rules normaly have logging on, if you want to see good traffic also, enable logging for pass rules.  
 
-## 1b Extract rule descriptions with associated tracking number
+#### 1b Extract rule descriptions with associated tracking number
 
 - In pfSense/OPNSense and go to diganotics -> commandline
 - Enter the following command in the execute shell command box and click the execute button
@@ -35,14 +35,14 @@ The results will look something like this:
 
 Copy the entire results to your clipboard
 
-## 1c Update the logstash configuration
+#### 1c Update the logstash configuration
 
 - Go back to the server you installed ELK on.
 ```
 sudo nano /etc/logstash/conf.d/35-rules-desc.conf
 ```
 - Paste the the results from pfSense/OPNsense into the first blank line after "1000000003"=> "default_block"
-## You must repeat step 1 (Rules) if you add new rules in pfSense/OPNsense and then restart logstash
+#### You must repeat step 1 (Rules) if you add new rules in pfSense/OPNsense and then restart logstash
 
 # Swap
 #### - 2. Disabling Swap
