@@ -175,19 +175,29 @@ For OPNsense uncommit line 31 and commit out line 34
 ```
 
 # Troubleshooting
-### 27. Navigate to pfELK 
+### 27. Create Logging Directory 
+```
+sudo mkdir /data/pfELK/logs
+```
+
+### 28. Enable Write Permissions for Logging Directory
+```
+sudo chmod 777 /data/pfELK/logs
+```
+
+### 29. Navigate to pfELK 
 ```
 cd /data/pfELK/
 ```
 
-### 28. Download `pfelk-error.sh`
+### 30. Download `pfelk-error.sh`
 ```
 sudo wget wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-error.sh
 ```
 
-### 29. Make `pfelk-error.sh` Executable
+### 31. Make `pfelk-error.sh` Executable
 ```
 sudo chmod +x /data/pfELK/pfelk-error.sh
 ```
 
-### 30. Complete Configuration --> [Configuration](configuration.md)
+### 32. Complete Configuration --> [Configuration](configuration.md)
