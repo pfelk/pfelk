@@ -20,6 +20,10 @@ Steps to reproduce the behavior:
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
+**Firewall System (please complete the following information):**
+ - pfSense or OPNsense
+ - Version 
+ 
 **Operating System (please complete the following information):**
  - OS (`printf "$(uname -srm)\n$(cat /etc/os-release)\n"`):
  
