@@ -15,7 +15,7 @@ Basic Installation steps required:
    b) Input Maxmind (Line 7 & 8) credentials in /etc/GeoIP.conf
    c) Update EditionIDs (Line 13) to include "GeoLite2-City" "GeoLite2-Country" "GeoLite2-ASN"
  4) Update configuration file
-      /etc/logstash/conf.d/01-inputs.conf
+      /data/pfELK/configurations/01-inputs.conf
       - Amend line 12 to match your pfSense/OPNsense IP address
       - Amend lines 34 & 31 
         - For pfSense uncommit line 34 and commit out line 31
@@ -36,7 +36,7 @@ Basic Installation steps required:
       sudo /bin/systemctl enable kibana.service
       sudo /bin/systemctl enable logstash.service
  8) View log files for errors
-      /var/logs/logstash/
+      /data/pfELK/logs/
  9) Visit http://PFELKIPADDRESSHERE:5601 with your favorite browser.
 
 This is a basic installation not intended for production.  Highly recommend a customized Elastic Stack configuration for production.  For help or assistance with a recommended configuration contact support@pfelk.com   
