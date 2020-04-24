@@ -29,7 +29,8 @@ pfELK is comprised of Java, Elasticstack, and a number of dependencies. Your fir
 
 ## Install
 Please forgive our progress as we modernize the installation process.  There are currently three installation options as we seek to automate the installation process.
-- 1. [Manual (custom) Installation](install/custom.md)
+- 1. [Manual (custom) Installation](install/ubuntu.md) - Ubuntu 
+- 1. [Manual (custom) Installation](install/debian.md) - Debian 
 - 2. [Scripted Installation](install/script.md)
 - 3. [Ansible Installation](https://github.com/3ilson/ansible-pfelk)
 - 4. [Docker Installation](https://github.com/3ilson/docker-pfelk)
