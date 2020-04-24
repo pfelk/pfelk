@@ -5,6 +5,7 @@
 - [Preparation](#preparation)
 - [Installation](#installation)
 - [Configuration](#configuration)
+- [Troubleshooting](#troubleshooting)
 
 # Preparation
 
@@ -174,4 +175,21 @@ Change line 18-27; (OPTIONAL) to point to your second PF IP address or ignore
 For pfSense uncommit line 34 and commit out line 31
 For OPNsense uncommit line 31 and commit out line 34
 ```
-### 27. Complete Configuration --> [Configuration](configuration.md)
+
+# Troubleshooting
+### 27. Navigate to pfELK 
+```
+cd /data/pfELK/
+```
+
+### 28. Download pfelk-error.sh
+```
+sudo wget wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-error.sh
+```
+
+### 29. Make pfelk-error.sh Executable
+```
+sudo chmod +x /data/pfELK/pfelk-error.sh
+```
+
+### 30. Complete Configuration --> [Configuration](configuration.md)
