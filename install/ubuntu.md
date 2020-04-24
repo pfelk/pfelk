@@ -9,7 +9,7 @@
 
 # Preparation
 
-### 1. Add Maxmind Repository
+### 1. Add MaxMind Repository
 ```
 sudo add-apt-repository ppa:maxmind/ppa
 ```
@@ -39,14 +39,14 @@ sudo apt-get update
 sudo apt install openjdk-11-jre
 ```
 
-### 7. Install Maxmind
+### 7. Install MaxMind
 ```
 sudo apt install geoipupdate
 ```
 
-### 8. Configure Maxmind
-- Create a Max Mind Account @ https://www.maxmind.com/en/geolite2/signup
-- Login to your Max Mind Account; navigate to "My License Key" under "Services" and Generate new license key
+### 8. Configure MaxMind
+- Create a MaxMind Account @ https://www.maxmind.com/en/geolite2/signup
+- Login to your MaxMind Account; navigate to "My License Key" under "Services" and Generate new license key
 ```
 sudo nano /etc/GeoIP.conf
 ```
