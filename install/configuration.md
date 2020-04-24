@@ -20,8 +20,7 @@
 pfctl -vv -sr | grep USER_RULE | sed 's/[^(]*(\([^)]*\).*"USER_RULE: *\([^"]*\).*/"\1"=> "\2"/' | sort -t ' ' -k 1,1 -u
 ```
 The results will look something like this:
-
-`
+```
 "1570852062"=> "OpenVPN  UDP 1194"
 "1570852366"=> "OpenVPN TCP 444"
 "1570891282"=> "LAN-Default Pass"
@@ -33,8 +32,7 @@ The results will look something like this:
 "1770001239"=> "pfB_DNSBL_Ping"
 "1770001466"=> "pfB_DNSBL_Permit"
 "1770005939"=> "pfB_DNSBLIP_v4 auto rule"
-`
-
+```
 Copy the entire results to your clipboard
 
 ### 1c. Update the logstash configuration
