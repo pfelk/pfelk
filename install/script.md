@@ -1,7 +1,6 @@
 ## Scripted Installation Guide (pfSense/OPNsense) + Elastic Stack 
 - [x] Automate Installation
 - [ ] Automate Configuration 
-- [ ] Build Repository (RPM) Installation
 
 ## Table of Contents
 - [Installation](#installation)
@@ -9,60 +8,59 @@
 
 # Installation
 
-## 0. Download and Run Script
+## 0a. Download and Run Script
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/ez-pfelk-installer.sh
 ```
-- Make the script executable 
+### 0b. Make the script executable 
 ```
 sudo chmod +x ez-pfelk-installer.sh
 ```
-- Execute the script 
+### 0c. Execute the script 
 ```
 sudo ./ez-pfelk-installer.sh
 ```
 
 # Configuration 
 
-## 1. Maxmind
-- Create a Max Mind Account @ https://www.maxmind.com/en/geolite2/signup
-- Login to your Max Mind Account; navigate to "My License Key" under "Services" and Generate new license key
+## 1a. MaxMind
+- Create a MaxMind Account @ https://www.maxmind.com/en/geolite2/signup
+- Login to your MaxMind Account; navigate to "My License Key" under "Services" and Generate new license key
+#### 1b. Edit GeoIP.conf
 ```
 sudo nano /etc/GeoIP.conf
 ```
-- Modify lines 7 & 8 as follows (without < >):
+#### 1c. Modify lines 7 & 8 as follows (without < >):
 ```
 AccountID <Input Your Account ID>
 LicenseKey <Input Your LicenseKey>
 ```
-- Modify line 13 as follows:
+#### 1d. Amend line 13 as follows:
 ```
 EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
 ```
-#### 1a. Download Maxmind Databases
+#### 1e. Download Maxmind Databases
 ```
-sudo geoipupdate -d /usr/share/GeoIP/
+sudo geoipupdate -d /data/pfELK/GeoIP/
 ```
-
-#### 1b. Add cron 
+#### 1f. Add cron 
 ```
 sudo nano /etc/cron.weekly/geoipupdate
 ```
-- Add the following and save/exit (automatically updates Maxmind every week on Sunday at 1700hrs)
+#### 1g. Add the following and save/exit (automatically updates Maxmind every week on Sunday at 1700hrs)
 ```
-00 17 * * 0 geoipupdate -d /usr/share/GeoIP
+00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP
 ```
 ## 2. Configure Logstash|v7.6+
 #### 2a. Enter your pfSense/OPNsense IP address 
-`sudo nano /etc/logstash/conf.d/01-inputs.conf`
+`sudo nano /data/pfELK/configurations/01-inputs.conf`
 ```
 Change line 12; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
 Change line 15; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
 Change line 18-27; (OPTIONAL) to point to your second PF IP address or ignore
 ```
-
 #### 2b. Revise/Update w/pf IP address 
-`sudo nano /etc/logstash/conf.d/01-inputs.conf`
+`sudo nano /data/pfELK/configurations/01-inputs.conf`
 ```
 For pfSense uncommit line 34 and commit out line 31
 For OPNsense uncommit line 31 and commit out line 34
