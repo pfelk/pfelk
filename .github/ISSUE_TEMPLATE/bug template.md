@@ -31,9 +31,12 @@ If applicable, add screenshots to help explain your problem.
  - Version of ELK (`dpkg -l elasticsearch|logstash|kibana`)
  
  **Elasticsearch, Logstash, Kibana logs:**
-  - Elasticsearch logs (`tail -f /var/log/elasticsearch/[your-elk-cluster-name].log`)
-  - Logstash logs (`tail -f /var/log/logstash/logstash-plain.log`)
-  - Kibana logs (`journalctl -u kibana.service`)
+ - Elasticsearch logs (`tail -f /var/log/elasticsearch/[your-elk-cluster-name].log`)
+ - Logstash logs (`tail -f /var/log/logstash/logstash-plain.log`)
+ - Kibana logs (`journalctl -u kibana.service`)
 
 **Additional context**
 Add any other context about the problem here.
+
+**Attach the pfELK Error Log (error.pfelk), for Better Assistance***
+ - Do not copy/paste log; attach as a file
