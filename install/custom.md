@@ -182,12 +182,12 @@ For OPNsense uncommit line 31 and commit out line 34
 cd /data/pfELK/
 ```
 
-### 28. Download pfelk-error.sh
+### 28. Download `pfelk-error.sh`
 ```
 sudo wget wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-error.sh
 ```
 
-### 29. Make pfelk-error.sh Executable
+### 29. Make `pfelk-error.sh` Executable
 ```
 sudo chmod +x /data/pfELK/pfelk-error.sh
 ```
