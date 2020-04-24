@@ -84,8 +84,6 @@ sudo apt-get install elasticsearch && sudo apt-get install kibana && sudo apt-ge
 
 # Configuration
 
-## Configure Kibana|v7+
-
 ### 12. Configure Kibana
 ```
 sudo nano /etc/kibana/kibana.yml
