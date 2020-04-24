@@ -61,7 +61,7 @@ EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
 
 ### 9. Download Maxmind Databases
 ```
-sudo geoipupdate -d /usr/share/GeoIP/
+sudo geoipupdate -d /data/pfELK/GeoIP/
 ```
 
 ### 10. Add cron (automatically updates Maxmind everyweek on Sunday at 1700hrs)
@@ -70,7 +70,7 @@ sudo nano /etc/cron.weekly/geoipupdate
 ```
 - Add the following and save/exit
 ```
-00 17 * * 0 geoipupdate -d /usr/share/GeoIP
+00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP
 ```
 
 # Installation
@@ -81,7 +81,9 @@ sudo nano /etc/cron.weekly/geoipupdate
 sudo apt-get install elasticsearch && sudo apt-get install kibana && sudo apt-get install logstash
 ```
 
-# Configure Kibana|v7+
+# Configuration
+
+## Configure Kibana|v7+
 
 ### 12. Configure Kibana
 ```
@@ -92,83 +94,84 @@ sudo nano /etc/kibana/kibana.yml
 - server.port: 5601
 - server.host: "0.0.0.0"
 
-# Configure Logstash|v7+
-
 ### 14. Change Directory
 ```
-cd /etc/logstash/conf.d
+cd /data/pfELK/configurations
 ```
 
-### 15. Download the following configuration files
+### 15. (Required) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/01-inputs.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/01-inputs.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/05-firewall.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/30-geoip.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/50-outputs.conf
 ```
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/05-firewall.conf
-```
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/30-geoip.conf
-```
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/50-outputs.conf
-```
+
 ### 15a. (Optional) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/10-others.conf
-```
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/20-suricata.conf
-```
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/25-snort.conf
-```
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/40-dns.conf
-```
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/45-cleanup.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/10-others.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/20-suricata.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/25-snort.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/35-rules-desc.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/40-dns.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/45-cleanup.conf
 ```
 
 ### 16. Make Patterns Folder
 ```
-sudo mkdir /etc/logstash/conf.d/patterns
+sudo mkdir /data/pfELK/patterns
 ```
 
 ### 17. Navigate to Patterns Folder
 ```
-cd /etc/logstash/conf.d/patterns/
+cd /data/pfELK/patterns/
 ```
 
-### 18. Download the grok pattern file
+### 18. Download the grok pattern
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pfelk.grok
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/patterns/pfelk.grok
 ```
 
 ### 19. Make Template Folder
 ```
-sudo mkdir /etc/logstash/conf.d/template
+sudo mkdir /data/pfELK/templates
 ```
 
 ### 20. Navigate to Template Folder
 ```
-cd /etc/logstash/conf.d/template/
+cd /data/pfELK/templates/
 ```
 
-### 21. Download Template
+### 21. Download Template(s)
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/template/pf-geoip-template.json
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/templates/pf-geoip-template.json
 ```
 
-### 22. Enter your pfSense/OPNsense IP address (01-inputs.conf)
+### 22. Navigate to Logstash 
+```
+cd /etc/logstash/
+```
+
+### 23. Download pipelines.yml
+```
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pipelines.yml
+```
+
+### 24. Download logstash.yml
+```
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/logstash.yml
+```
+
+### 25. Enter your pfSense/OPNsense IP address (/data/pfELK/configurations/01-inputs.conf)
 ```
 Change line 12; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
 Change line 15; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
 Change line 18-27; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
-### 23. Revise/Update w/pf IP address (01-inputs.conf)
+### 26. Revise/Update w/pf IP address (/data/pfELK/configurations/01-inputs.conf)
 ```
 For pfSense uncommit line 34 and commit out line 31
 For OPNsense uncommit line 31 and commit out line 34
 ```
-### 24. Complete Configuration --> [Configuration](configuration.md)
+### 27. Complete Configuration --> [Configuration](configuration.md)
