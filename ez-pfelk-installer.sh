@@ -86,7 +86,7 @@ fi
 #fi
 
 # Install Required Respositories
-echo "pfELK: Installing Required Respositories - This may take some time, Please be patient"
+echo "pfELK: Installing Required Respositories - This may take some time, please be patient"
 
 #Redhat
 if [ -f "/etc/redhat-release" ] || [ -f "/etc/system-release" ]; then
@@ -128,32 +128,41 @@ sudo swapoff -a
 
 # Download Configuration & Pattern
   echo "pfELK: Retrieving Confguration Files"
-  sudo mkdir /etc/logstash/conf.d/patterns
-  sudo mkdir /etc/logstash/conf.d/template
-  cd /etc/logstash/conf.d
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/01-inputs.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/05-firewall.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/10-others.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/20-suricata.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/25-snort.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/30-geoip.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/35-rules-desc.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/40-dns.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/45-cleanup.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/50-outputs.conf
-  cd /etc/logstash/conf.d/patterns
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/patterns/pfelk.grok
-  cd /etc/logstash/conf.d/template
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/conf.d/template/pf-geoip-template.json
-
+  sudo mkdir /data 
+  sudo mkdir /data/pfELK
+  sudo mkdir /data/pfELK/patterns
+  sudo mkdir /data/pfELK/templates
+  sudo mkdir /data/pfELK/configurations
+  sudo mkdir /data/pfELK/logs
+  sudo mkdir /data/pfELK/GeoIP
+  cd /data/pfELK/configurations
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/01-inputs.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/05-firewall.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/10-others.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/20-suricata.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/25-snort.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/30-geoip.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/35-rules-desc.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/40-dns.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/45-cleanup.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/50-outputs.conf
+  cd /data/pfELK/patterns
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/patterns/pfelk.grok
+  cd /data/pfELK/templates
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/templates/pf-geoip-template.json
 ##
 # Add Configuration Script Here
 ##
 
 # Install/Troubleshoot Success Message
-  sudo mkdir /etc/pfelk
-  cd /etc/pfelk
+echo "pfELK: Finalizing Installtion"
+  cd /etc/logstash
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pipelines.yml
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/logstash.yml
+  cd /data/pfELK
+  sudo wget wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-error.sh
+  sudo chmod +x /data/pfELK/pfelk-error.sh
+  sudo chmod 777 /data/pfELK/logs
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
   cat readme.txt
-
 exit 0
