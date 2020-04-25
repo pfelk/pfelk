@@ -49,7 +49,7 @@ Supported entries include:
 * [License](https://github.com/3ilson/pfelk#license)
 
 ### How pfelk works?
-![How pfelk works](https://github.com/3ilson/pfelk/raw/master/Images/pfelk-how.png)
+![How pfelk works](https://github.com/3ilson/pfelk/raw/master/Images/how-pfelk.png)
 ### Quick start
 
 ### Installation
