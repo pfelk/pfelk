@@ -8,38 +8,73 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 ![Version badge](https://img.shields.io/badge/ELK-7.6.1-blue.svg)
 ![Travis (.org)](https://img.shields.io/travis/3ilson/ansible-pfelk?label=Ansible-playbook) ![Travis (.org)](https://img.shields.io/travis/3ilson/docker-pfelk?label=Docker-compose) [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson) 
+
 ### Prerequisites
 - Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster are tested)
 - pfSense v2.4.4+ or OPNsense 19.7.4+
 - The following was tested with Java v11 LTS and Elastic Stack v7.6.1
 - Minimum of 4GB of RAM but recommend 32GB
 
-## Table of Contents
+**pfelk** is a highly customizable **open-source** tool for ingesting and visualizing your firewall traffic with the full power of Elasticsearch, Logstash and Kibana.
 
-- [Background](#background)
-- [Install](#install)
-- [Usage](#usage)
-- [Contribute](#contribute)
-- [License](#license)
+### Key features:
 
-## Background
-pfELK was created in 2016 after spending hours researching firewall visualization.  After stumbling across Elasticstack (formerly known as ELK stack) with weeks of troubleshooting and research.  The process was refined and shared to aid others in leveraging the awesome power of Elasticsearch through the visualization of firewall events.
+1. **ingest** and **enrich** your pfSense/OPNsense **firewall traffic** logs by leveraging *Logstash*
 
-pfELK is comprised of Java, Elasticstack, and a number of dependencies. Your firewall logs are parsed through various patterns simplifying firewall log analysis.  Currently, pfSense and OPNsense are supported with extensive testing.
+2. **search** your indexed data in *near-real-time* with the full power of the *Elasticsearch*
 
-## Install
-Please forgive our progress as we modernize the installation process.  There are currently three installation options as we seek to automate the installation process.
-- 1. [Manual (custom) Installation](install/ubuntu.md) - Ubuntu 
-- 2. [Manual (custom) Installation](install/debian.md) - Debian 
-- 3. [Scripted Installation](install/script.md) Ubuntu / Debian
-- 4. [Ansible Installation](https://github.com/3ilson/ansible-pfelk)
-- 5. [Docker Installation](https://github.com/3ilson/docker-pfelk)
+3. **visualize** you network traffic with interactive dashboards, Maps, graphs in *Kibana*
 
-## Usage
-Once pfELK is running, point your browser to "http://pfELK's-IP:5601" to access the Kibana interface.  
+Supported entries include:
+ - pfSense/OPNSense setups
+ - TCP/UDP/ICMP protocols
+ - DHCP message types
+ - IPv4/IPv6 mapping
+ - pfSense CARP data
+ - openVPN log parsing
+ - Unbound DNS Resolver
+ - Suricata IDS with dashboards
+ - Snort IDS with dashboards
 
-## Contribute
-Please reference to the [CONTRIBUTING.md](CONTRIBUTING.md). Collectively we can enhance and improve this product.  Issues, feature requests, pulls, and documentation contributions in are encouraged and welcomed!  
+**pfelk** aims to replace the vanilla pfSense/opnSense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
 
-## License
-This project is licensed under the terms of the Apache 2.0 open source license. Please refer to [LICENSE](LICENSE) for the full terms.
+### Contents
+* How pfelk works? 
+* Installation
+  * ansible
+  * docker
+  * manual installation/script
+* Comparison to similar technologies
+* Contributing
+* License
+
+### How pfelk works?
+![How pfelk works](https://github.com/3ilson/pfelk/raw/master/Images/pfelk-how.png)
+### Quick start
+
+### Installation
+#### ansible-playbook
+ * Clone the [ansible-pfelk](https://github.com/3ilson/ansible-pfelk) repository
+ * `$ ansible-playbook -i hosts --ask-become deploy-stack.yml`
+
+#### docker-compose
+ * Clone the [docker-pfelk](https://github.com/3ilson/docker-pfelk) repository
+ * Setup MaxMind
+ * `$ docker-compose up`
+
+#### manual installation/script
+ * Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/ez-pfelk-installer.sh) repository
+ * `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/ez-pfelk-installer.sh`
+* Make script executable 
+* `$ sudo chmod +x ez-pfelk-installer.sh`
+* Run installer script 
+* `$ ./ez-pfelk-installer.sh`
+
+### Comparison to similar technologies
+Coming soon...
+
+### Contributing
+Please reference to the CONTRIBUTING.md. Collectively we can enhance and improve this product. Issues, feature requests, pulls, and documentation contributions in are encouraged and welcomed!
+
+### License
+This project is licensed under the terms of the Apache 2.0 open source license. Please refer to LICENSE for the full terms.
