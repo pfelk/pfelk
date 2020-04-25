@@ -62,13 +62,18 @@ Supported entries include:
  * Setup MaxMind
  * `$ docker-compose up`
 
-#### manual installation/script
+#### manual installation/script - preferred manual method
  * Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/ez-pfelk-installer.sh) repository
  * `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/ez-pfelk-installer.sh`
 * Make script executable 
 * `$ sudo chmod +x ez-pfelk-installer.sh`
 * Run installer script 
 * `$ ./ez-pfelk-installer.sh`
+* Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
+
+#### manual installation
+* [Ubuntu 18.04 / 20.04](https://github.com/3ilson/pfelk/blob/master/install/ubuntu.md)
+* [Debian 9-10.3](https://github.com/3ilson/pfelk/blob/master/install/debian.md)
 
 ### Comparison to similar technologies
 Coming soon...
