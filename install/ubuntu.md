@@ -195,9 +195,9 @@ cd /data/pfELK/
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
 ```
 
-### 31. Make `pfelk-error.sh` Executable
+### 31. Make `error-data.sh` Executable
 ```
-sudo chmod +x /data/pfELK/pfelk-error.sh
+sudo chmod +x /data/pfELK/error-data.sh
 ```
 
 ### 32. Complete Configuration --> [Configuration](configuration.md)
