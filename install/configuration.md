@@ -69,14 +69,14 @@ systemctl start kibana.service
 systemctl start logstash.service
 ```
 # Firewall 
-#### 5a. Login to pfSense and forward syslogs
+### 5a. Login to pfSense and forward syslogs
 - In pfSense navigate to Status->System Logs, then click on Settings.
 - At the bottom check "Enable Remote Logging"
 - (Optional) Select a specific interface to use for forwarding
 - Enter the ELK local IP into the field "Remote log servers" with port 5140 (eg 192.168.100.50:5140)
 - Under "Remote Syslog Contents" check "Everything"
 - Click Save
-#### 5a. Login to OPNsense and forward syslogs
+### 5b. Login to OPNsense and forward syslogs
 - In OPNsense navigate to System->Settings->Logging/Targets
 - Add a new Logging/Target (Click the plus icon)
 ![OPNsense](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-logs.png)
@@ -88,7 +88,7 @@ systemctl start logstash.service
 - Port = 5140
 - Description = pfELK
 ![OPNsense](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-remote.png)
-#### 5c. Configure Suricata for log forwarding - pfSense (Optional) 
+### 5c. Configure Suricata for log forwarding - pfSense (Optional) 
  - On your pfSense web UI got to Services / Suricata / Interfaces, and enable Suricata on desired interfaces
  - You can have separate configuration on each of your interfaces, you can edit them via clicking on the pencil icon
  - You sould enable the EVE JSON output format for log forwarding, you should have the following options enabled at the EVE Output Settings section:
@@ -98,7 +98,7 @@ systemctl start logstash.service
    - EVE Syslog Output Priority: NOTICE 
    - EVE Log Alerts: Suricata will output Alerts via EVE
    - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility here should be LOCAL1, and the Log Priority should be NOTICE.
-#### 5d. Configure Suricata for log forwarding - OPNsense (Optional)    
+### 5d. Configure Suricata for log forwarding - OPNsense (Optional)    
  - In OPNsense navigate to Services->Intrusion Detection->Administration
  - Enable = [X]
  - IPS mode = [ ] or [X]
@@ -111,13 +111,13 @@ systemctl start logstash.service
  - Save logs = Any Value You Desire
 ![OPNsense-Suricata](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-suricata.png)
 # Kibana 
-#### 6a. Configuring Patterns
+### 6a. Configuring Patterns
 [YouTube Guide](https://www.youtube.com/watch?v=uBSRaUOgEz8)
 - Click the gear icon (management) in the lower left
 - Click Kibana -> Index Patters
 - Click Create New Index Pattern
 - Type "pf-*" into the input box, then click Next Step
-#### 6b. Import dashboards
+### 6b. Import dashboards
 [YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  - In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
  - Click Management -> Saved Objects
