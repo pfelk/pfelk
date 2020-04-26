@@ -190,9 +190,9 @@ chmod 777 /data/pfELK/logs
 cd /data/pfELK/
 ```
 
-### 30. Download `pfelk-error.sh`
+### 30. Download `error-data.sh`
 ```
-sudo wget wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-error.sh
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
 ```
 
 ### 31. Make `pfelk-error.sh` Executable
