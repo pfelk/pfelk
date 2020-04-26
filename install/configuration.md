@@ -87,6 +87,7 @@ systemctl start logstash.service
 - Hostname = Enter the IP address of where pfELK is installed (eg 192.168.100.50)
 - Port = 5140
 - Description = pfELK
+- Click Save
 ![OPNsense](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-remote.png)
 ### 5c. Configure Suricata for log forwarding - pfSense (Optional) 
  - On your pfSense web UI got to Services / Suricata / Interfaces, and enable Suricata on desired interfaces
@@ -109,6 +110,7 @@ systemctl start logstash.service
  - Interfaces = Select As Nessessary (must have at least one or nothing will be detected)
  - Rotate log = Default / Weekly / Daily
  - Save logs = Any Value You Desire
+ - Click Apply
 ![OPNsense-Suricata](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-suricata.png)
 # Kibana 
 ### 6a. Configuring Patterns
