@@ -12,12 +12,14 @@ printf "$(uname -srm)\n$(cat /etc/os-release)\n" | cat >> /data/pfELK/error.pfel
 echo "\n#####################################" >> /data/pfELK/error.pfelk.log
 echo "# Listing pfELK Directory Structure #" >> /data/pfELK/error.pfelk.log
 echo "#####################################\n" >> /data/pfELK/error.pfelk.log
-find /data/ | cat >> /data/pfELK/error.pfelk
+find /data/ | cat >> /data/pfELK/error.pfelk.log
 #capture all config files
 echo "\n#####################################" >> /data/pfELK/error.pfelk.log
 echo "# pfELK Config File Details #########" >> /data/pfELK/error.pfelk.log
 echo "#####################################\n" >> /data/pfELK/error.pfelk.log
 cat /data/pfELK/configurations/*.conf >> /data/pfELK/error.pfelk.log
+cat /etc/logstash/pipelines.yml >> /data/pfELK/error.pfelk.log
+cat /etc/logstash/logstash.yml | grep path.logs* >> /data/pfELK/error.pfelk.log
 #attach logstash logs
 echo "\n#####################################" >> /data/pfELK/error.pfelk.log
 echo "# Appending Logstash Logs ###########" >> /data/pfELK/error.pfelk.log
