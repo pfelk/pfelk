@@ -7,7 +7,7 @@
 - [Firewall](#firewall)
 - [Kibana](#kibana)
 # Rule Description (Optional & pfSense Only)
-### 1a. Fix rules in pfSense
+### 1a. Retrieve Rules w/Descriptions (Optional & pfSense Only)
 - Go to your pfSense GUI and go to Firewall -> Rules.
 - Ensure the rules have a description, this is the text you will see in Kibana.
 - Block rules normaly have logging on, if you want to see good traffic also, enable logging for pass rules.  
