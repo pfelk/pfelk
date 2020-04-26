@@ -60,8 +60,12 @@ LicenseKey <Input Your LicenseKey>
 EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
 ```
 
-### 9. Download Maxmind Databases
+### 9. Create Directories and Download Maxmind Databases
 ```
+sudo mkdir /data
+sudo mkdir /data/pfELK
+sudo mkdir /data/pfELK/GeoIP
+
 sudo geoipupdate -d /data/pfELK/GeoIP/
 ```
 
