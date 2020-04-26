@@ -18,7 +18,13 @@ echo "\n#####################################" >> /data/pfELK/error.pfelk.log
 echo "# pfELK Config File Details #########" >> /data/pfELK/error.pfelk.log
 echo "#####################################\n" >> /data/pfELK/error.pfelk.log
 cat /data/pfELK/configurations/*.conf >> /data/pfELK/error.pfelk.log
+echo "\n#####################################" >> /data/pfELK/error.pfelk.log
+echo "# Listing Logstash Pipelines.yml #" >> /data/pfELK/error.pfelk.log
+echo "#####################################\n" >> /data/pfELK/error.pfelk.log
 cat /etc/logstash/pipelines.yml >> /data/pfELK/error.pfelk.log
+echo "\n#####################################" >> /data/pfELK/error.pfelk.log
+echo "# Listing Logstash Logstash.yml Log Path #" >> /data/pfELK/error.pfelk.log
+echo "#####################################\n" >> /data/pfELK/error.pfelk.log
 cat /etc/logstash/logstash.yml | grep path.logs* >> /data/pfELK/error.pfelk.log
 #attach logstash logs
 echo "\n#####################################" >> /data/pfELK/error.pfelk.log
