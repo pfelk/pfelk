@@ -7,7 +7,7 @@
 - [Firewall](#firewall)
 - [Kibana](#kibana)
 # Rule
-### 1a. Fix rules in pfSense/OPNsense
+### 1a. Fix rules in pfSense
 - Go to your pfSense GUI and go to Firewall -> Rules.
 - Ensure the rules have a description, this is the text you will see in Kibana
 - Block rules normaly have logging on, if you want to see good traffic also, enable logging for pass rules.  
