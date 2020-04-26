@@ -160,8 +160,8 @@ echo "pfELK: Finalizing Installtion"
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pipelines.yml
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/logstash.yml
   cd /data/pfELK
-  sudo wget wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-error.sh
-  sudo chmod +x /data/pfELK/pfelk-error.sh
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
+  sudo chmod +x /data/pfELK/error-data.sh
   sudo chmod 777 /data/pfELK/logs
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
   cat readme.txt
