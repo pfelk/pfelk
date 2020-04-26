@@ -39,4 +39,4 @@ systemctl status logstash.service -q | cat >> /data/pfELK/error.pfelk
 echo "\n###Kibana.service:###\n" >> /data/pfELK/error.pfelk
 systemctl status kibana.service -q | cat >> /data/pfELK/error.pfelk
 echo "Error Data Collected Successfully"
-echo "Attach or Copy the contents of /data/pfELK/error.pfelk to your Issue"
+echo "Attach the contents of /data/pfELK/error.pfelk as a file to your Issue in github"
