@@ -43,7 +43,7 @@ sudo nano /data/pfELK/configurations/35-rules-desc.conf
 #### You must repeat step 1 (Rules) if you add new rules in pfSense and then restart logstash
 
 # Swap
-#### 2. Disabling Swap
+### 2. Disabling Swap
 Swapping should be disabled for performance and stability.
 ```
 sudo swapoff -a
