@@ -44,6 +44,7 @@ Supported entries include:
   * [ansible](https://github.com/3ilson/pfelk#ansible-playbook)
   * [docker](https://github.com/3ilson/pfelk#docker-compose)
   * [manual installation/script](https://github.com/3ilson/pfelk#manual-installationscript)
+* [Roadmap](https://github.com/3ilson/pfelk#roadmap)
 * [Comparison to similar technologies](https://github.com/3ilson/pfelk#comparison-to-similar-technologies)
 * [Contributing](https://github.com/3ilson/pfelk#contributing)
 * [License](https://github.com/3ilson/pfelk#license)
@@ -74,6 +75,11 @@ Supported entries include:
 #### manual installation
 * [Ubuntu 18.04 / 20.04](https://github.com/3ilson/pfelk/blob/master/install/ubuntu.md)
 * [Debian 9-10.3](https://github.com/3ilson/pfelk/blob/master/install/debian.md)
+
+### Roadmap
+This is the experimental public roadmap for the pfelk project.
+
+[See the roadmap »](https://github.com/orgs/3ilson/projects)
 
 ### Comparison to similar technologies
 Coming soon...
