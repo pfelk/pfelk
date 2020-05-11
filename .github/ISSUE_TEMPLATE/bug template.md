@@ -27,8 +27,10 @@ If applicable, add screenshots to help explain your problem.
 **Operating System (please complete the following information):**
  - OS (`printf "$(uname -srm)\n$(cat /etc/os-release)\n"`):
  
+ **Installation method (manual, ansible-playbook, docker, script):**
+ 
 **Elasticsearch, Logstash, Kibana (please complete the following information):**
- - Version of ELK (`dpkg -l elasticsearch|logstash|kibana`)
+ - Version of ELK components (`dpkg -l [elasticsearch]|[logstash]|[kibana]`)
  
  **Elasticsearch, Logstash, Kibana logs:**
  - Elasticsearch logs (`tail -f /var/log/elasticsearch/[your-elk-cluster-name].log`)
