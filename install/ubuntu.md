@@ -21,7 +21,7 @@ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add
 
 ### 3. Download and install apt-transport-https package
 ```
-sudo apt-get install apt-transport-https
+sudo apt install apt-transport-https
 ```
 
 ### 4. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
