@@ -83,7 +83,7 @@ sudo nano /etc/cron.weekly/geoipupdate
 
 ### 11. Install Elasticsearch|Kibana|Logstash
 ```
-sudo apt install elasticsearch && sudo apt-get install kibana && sudo apt-get install logstash
+sudo apt install elasticsearch && sudo apt install kibana && sudo apt install logstash
 ```
 
 # Configuration
