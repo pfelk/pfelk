@@ -31,7 +31,7 @@ echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee 
 
 ### 5. Update
 ```
-sudo apt-get update
+sudo apt update
 ```
 
 ### 6. Install Java 11 LTS
@@ -83,7 +83,7 @@ sudo nano /etc/cron.weekly/geoipupdate
 
 ### 11. Install Elasticsearch|Kibana|Logstash
 ```
-sudo apt-get install elasticsearch && sudo apt-get install kibana && sudo apt-get install logstash
+sudo apt install elasticsearch && sudo apt-get install kibana && sudo apt-get install logstash
 ```
 
 # Configuration
