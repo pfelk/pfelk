@@ -7,7 +7,7 @@ sudo touch /data/pfELK/error.pfelk.log
 echo "#####################################" >> /data/pfELK/error.pfelk.log
 echo "# pfELK System Information ##########" >> /data/pfELK/error.pfelk.log
 echo "#####################################\n" >> /data/pfELK/error.pfelk.log
-printf "$(uname -srm)\n$(cat /etc/os-release)\n" | cat >> /data/pfELK/error.pfelk.log
+printf "$(uname -srm)\n$(cat /etc/os-release)\n$(free -hm)\n" | cat >> /data/pfELK/error.pfelk.log
 #capture directory and files structure
 echo "\n#####################################" >> /data/pfELK/error.pfelk.log
 echo "# Listing pfELK Directory Structure #" >> /data/pfELK/error.pfelk.log
