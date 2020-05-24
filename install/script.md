@@ -35,23 +35,11 @@ sudo nano /etc/GeoIP.conf
 AccountID <Input Your Account ID>
 LicenseKey <Input Your LicenseKey>
 ```
-#### 1d. Amend line 13 as follows:
-```
-EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
-```
-#### 1e. Download Maxmind Databases
+#### 1d. Download Maxmind Databases
 ```
 sudo geoipupdate -d /data/pfELK/GeoIP/
 ```
-#### 1f. Add cron 
-```
-sudo nano /etc/cron.weekly/geoipupdate
-```
-#### 1g. Add the following and save/exit (automatically updates Maxmind every week on Sunday at 1700hrs)
-```
-00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP
-```
-## 2. Configure Logstash|v7.6+
+## 2. Configure Logstash|v7.7+
 #### 2a. Enter your pfSense/OPNsense IP address 
 `sudo nano /data/pfELK/configurations/01-inputs.conf`
 ```
@@ -65,7 +53,7 @@ Change line 18-27; (OPTIONAL) to point to your second PF IP address or ignore
 For pfSense uncommit line 34 and commit out line 31
 For OPNsense uncommit line 31 and commit out line 34
 ```
-## 3. Configure Kibana|v7.6+
+## 3. Configure Kibana|v7.7+
 #### 3a. Configure Kibana
 ```
 sudo nano /etc/kibana/kibana.yml
