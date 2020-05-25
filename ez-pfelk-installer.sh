@@ -157,7 +157,7 @@ sudo swapoff -a
 # Install/Troubleshoot Success Message
 echo "pfELK: Finalizing Installtion"
   echo "00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP" > /etc/cron.weekly/geoipupdate
-  sed -i 's/EditionIDs GeoLite2-Country GeoLite2-City/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
+  sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
   cd /etc/logstash
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pipelines.yml
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/logstash.yml
