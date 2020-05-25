@@ -645,7 +645,7 @@ read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd creden
 	 #GeoIP Cron Job.
 	 echo 00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP > /etc/cron.weekly/geoipupdate
 	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
-	 sed -i "1 s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
+	 #sed -i "1 s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
 	 maxmind_username=$(echo "${maxmind_username}")
 	 maxmind_password=$(echo "${maxmind_password}")
 	 read -p "Enter your MaxMind Account ID: " maxmind_username
@@ -653,7 +653,7 @@ read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd creden
 	 sed -i "s/AccountID.*/AccountID ${maxmind_username}/g" /etc/GeoIP.conf
 	 sed -i "s/LicenseKey.*/LicenseKey ${maxmind_password}/g" /etc/GeoIP.conf
 	 echo -e "\\n";
-	 geoipupdate
+	 geoipupdate -d /usr/share/GeoIP
 	 sleep 3
 	 echo -e "\\n";;
    [No]*|"") 
@@ -1259,6 +1259,7 @@ sleep 3
 
 download_pfelk() {
   cd /etc/kibana
+  rm /etc/kibana/kibana.yml
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
   cd /etc/logstash/conf.d/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
