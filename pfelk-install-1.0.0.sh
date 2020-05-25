@@ -1182,7 +1182,7 @@ sleep 3
 
 # Check if Elasticsearch service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  if [ "${mongodb_version::2}" -ge '26' ]; then
+  if [ "${elasticsearch_version::2}" -ge '26' ]; then
     SERVICE_ELASTIC=$(systemctl is-enabled elasticsearch)
     if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
       systemctl enable elasticsearch 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Elasticsearch"; sleep 3; }
@@ -1202,7 +1202,7 @@ fi
 
 # Check if Logstash service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  if [ "${mongodb_version::2}" -ge '26' ]; then
+  if [ "${logstash_version::2}" -ge '26' ]; then
     SERVICE_LOGSTASH=$(systemctl is-enabled logstash)
     if [ "$SERVICE_LOGSTASH" = 'disabled' ]; then
       systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Logstash"; sleep 3; }
@@ -1222,7 +1222,7 @@ fi
 
 # Check if Kibana service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  if [ "${mongodb_version::2}" -ge '26' ]; then
+  if [ "${kibana_version::2}" -ge '26' ]; then
     SERVICE_KIBANA=$(systemctl is-enabled kibana)
     if [ "$SERVICE_KIBANA" = 'disabled' ]; then
       systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
