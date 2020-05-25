@@ -90,7 +90,7 @@ echo "pfELK: Installing Required Respositories - This may take some time, please
 
 #Redhat
 if [ -f "/etc/redhat-release" ] || [ -f "/etc/system-release" ]; then
-  sudo yum -y install openjdk-11-jre; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
+  sudo yum -y install openjdk-11-jre-headless; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
   if [ $? -ne 0 ]; then
     echo "pfELK: yum failed"
     exit 1
@@ -99,7 +99,7 @@ fi
 
 #Debian
 if hostnamectl | grep 'Operating System: Debian*' > /dev/null; then
-  sudo apt-get -qq install openjdk-11-jre; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash; cd $HOME; wget https://github.com/maxmind/geoipupdate/releases/download/v4.3.0/geoipupdate_4.3.0_linux_amd64.deb; sudo dpkg -i ./geoipupdate_4.3.0_linux_amd64.deb
+  sudo apt-get -qq install openjdk-11-jre-headless; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash; cd $HOME; wget https://github.com/maxmind/geoipupdate/releases/download/v4.3.0/geoipupdate_4.3.0_linux_amd64.deb; sudo dpkg -i ./geoipupdate_4.3.0_linux_amd64.deb
   if [ $? -ne 0 ]; then
     echo "pfELK: apt-get failed"
     exit 1
@@ -108,7 +108,7 @@ fi
 
 #Ubuntu
 if hostnamectl | grep 'Operating System: Ubuntu*' > /dev/null; then
-  sudo apt-get -qq install openjdk-11-jre; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
+  sudo apt-get -qq install openjdk-11-jre-headless; sudo apt-get -qq install geoipupdate; sudo apt-get -qq install elasticsearch; sudo apt-get -qq install kibana; sudo apt-get -qq install logstash
   if [ $? -ne 0 ]; then
     echo "pfELK: apt-get failed"
     exit 1
