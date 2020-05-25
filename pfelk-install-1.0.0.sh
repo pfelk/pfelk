@@ -120,7 +120,6 @@ abort() {
 
 if uname -a | tr '[:upper:]' '[:lower:]'; then
   pfELK_dir='/data/pfELK'
-  is_cloudkey=true
 fi
 
 script_logo() {
