@@ -53,13 +53,5 @@ Change line 18-27; (OPTIONAL) to point to your second PF IP address or ignore
 For pfSense uncommit line 34 and commit out line 31
 For OPNsense uncommit line 31 and commit out line 34
 ```
-## 3. Configure Kibana|v7.7+
-#### 3a. Configure Kibana
-```
-sudo nano /etc/kibana/kibana.yml
-```
-#### 3b. Modify host file (/etc/kibana/kibana.yml)
-- server.port: 5601
-- server.host: "0.0.0.0"
 
-## 4. Complete Configuration --> [Configuration](configuration.md)
+## 3. Complete Configuration --> [Configuration](configuration.md)
