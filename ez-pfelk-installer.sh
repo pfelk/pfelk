@@ -128,35 +128,30 @@ sudo swapoff -a
 
 # Download Configuration & Pattern
   echo "pfELK: Retrieving Confguration Files"
-  sudo mkdir /data 
-  sudo mkdir /data/pfELK
-  sudo mkdir /data/pfELK/patterns
-  sudo mkdir /data/pfELK/templates
-  sudo mkdir /data/pfELK/configurations
-  sudo mkdir /data/pfELK/logs
-  sudo mkdir /data/pfELK/GeoIP
-  cd /data/pfELK/configurations
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/01-inputs.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/05-firewall.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/10-others.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/20-suricata.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/25-snort.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/30-geoip.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/35-rules-desc.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/40-dns.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/45-cleanup.conf
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/50-outputs.conf
-  cd /data/pfELK/patterns
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/patterns/pfelk.grok
+  sudo mkdir /etc/logstash/conf.d/patterns
+  sudo mkdir /etc/logstash/conf.d/templates
+  cd /etc/logstash/conf.d
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-others.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
+# sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/40-dns.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
+  cd /etc/logstash/conf.d/patterns
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
   cd /data/pfELK/templates
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/templates/pf-geoip-template.json
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip-template.json
   cd /etc/kibana
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
 ##
 # Add Configuration Script Here
 ## MaxMind GeoIP Install.
       #GeoIP Cron Job.
-      echo 00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP > /etc/cron.weekly/geoipupdate
+      echo 00 17 * * 0 geoipupdate -d /usr/share/GeoIP > /etc/cron.weekly/geoipupdate
       sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
       sed -i "s/.*DatabaseDirectory.*/DatabaseDirectory \/data\/pfELK\/GeoIP\//g" /etc/GeoIP.conf
       maxmind_username=$(echo "${maxmind_username}")
@@ -170,13 +165,9 @@ sudo swapoff -a
 
 # Install/Troubleshoot Success Message
 echo "pfELK: Finalizing Installtion"
-  cd /etc/logstash
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pipelines.yml
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/logstash.yml
-  cd /data/pfELK
+  sudo mkdir -p /etc/pfELK
+  cd /etc/pfELK
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
-  sudo chmod +x /data/pfELK/error-data.sh
-  sudo chmod 777 /data/pfELK/logs
-  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
-  cat readme.txt
+  sudo chmod +x /etc/pfELK/error-data.sh
+  curl https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
 exit 0
