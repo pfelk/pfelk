@@ -6,7 +6,7 @@
 - [Installation](#installation)
 - [Configuration](#configuration)
 
-# Installation
+## Installation
 
 ### 1. MaxMind
 - Create a MaxMind Account @ https://www.maxmind.com/en/geolite2/signup
@@ -26,9 +26,9 @@ sudo chmod +x ez-pfelk-installer.sh
 sudo ./ez-pfelk-installer.sh
 ```
 
-# Configuration 
+## Configuration 
 
-## 2. Configure Logstash|v7.7+
+### 2. Configure Logstash|v7.7+
 #### 2a. Enter your pfSense/OPNsense IP address 
 `sudo nano /data/pfELK/configurations/01-inputs.conf`
 ```
@@ -43,4 +43,4 @@ For pfSense uncommit line 34 and commit out line 31
 For OPNsense uncommit line 31 and commit out line 34
 ```
 
-## 3. Complete Configuration --> [Configuration](configuration.md)
+### 3. Complete Configuration --> [Configuration](configuration.md)
