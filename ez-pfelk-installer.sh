@@ -150,6 +150,8 @@ sudo swapoff -a
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/patterns/pfelk.grok
   cd /data/pfELK/templates
   sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/data/templates/pf-geoip-template.json
+  cd /etc/kibana
+  sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
 ##
 # Add Configuration Script Here
 ##
