@@ -32,7 +32,7 @@ sudo ./ez-pfelk-installer.sh
 #### 2a. Enter your pfSense/OPNsense IP address 
 `sudo nano /data/pfELK/configurations/01-inputs.conf`
 ```
-Change line 12; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
+Change line 12; the "if [host] = "0.0.0.0" should point to your pfSense/OPNsense IP address
 Change line 15; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
 Change line 18-27; (OPTIONAL) to point to your second PF IP address or ignore
 ```
