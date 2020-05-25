@@ -646,20 +646,20 @@ read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd creden
 	 echo 00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP > /etc/cron.weekly/geoipupdate
 	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
 	 sed -i "s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
-      maxmind_username=$(echo "${maxmind_username}")
-      maxmind_password=$(echo "${maxmind_password}")
-      read -p "Enter your MaxMind Account ID: " maxmind_username
-      read -p "Enter your MaxMind Password: " maxmind_password
-      sed -i "s/AccountID.*/AccountID ${maxmind_username}/g" /etc/GeoIP.conf
-      sed -i "s/LicenseKey.*/LicenseKey ${maxmind_password}/g" /etc/GeoIP.conf
-      echo -e "\\n";
-      geoipupdate
-      sleep 3
-      echo -e "\\n";;
+	 maxmind_username=$(echo "${maxmind_username}")
+	 maxmind_password=$(echo "${maxmind_password}")
+	 read -p "Enter your MaxMind Account ID: " maxmind_username
+	 read -p "Enter your MaxMind Password: " maxmind_password
+	 sed -i "s/AccountID.*/AccountID ${maxmind_username}/g" /etc/GeoIP.conf
+	 sed -i "s/LicenseKey.*/LicenseKey ${maxmind_password}/g" /etc/GeoIP.conf
+	 echo -e "\\n";
+	 geoipupdate
+	 sleep 3
+	 echo -e "\\n";;
    [No]*|"") 
-	  echo -e "${RED}#${RESET} MaxMind v${maxmind_version} not installed!"
-	  echo -e "${RED}#WARNING${RESET} Running Logstash without MaxMind will result in fatal errors...\\n"
-	  sleep 3;;
+	 echo -e "${RED}#${RESET} MaxMind v${maxmind_version} not installed!"
+	 echo -e "${RED}#WARNING${RESET} Running Logstash without MaxMind will result in fatal errors...\\n"
+	 sleep 3;;
    esac
 fi
 
@@ -1288,6 +1288,14 @@ download_pfelk() {
 }
 download_pfelk
 
+header
+echo -e "${WHITE_R}#${RESET} Please provide the IP address (LAN) for your firewall.${RESET}"; 
+echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
+echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
+read -p "Enter Your Firewall's IP Adress: " input_ip
+sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/01-inputs.conf
+sleep 4
+
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                               Download and Configure pfELK Files                                                                                #
@@ -1321,6 +1329,9 @@ do
 	    *) echo "invalid option $REPLY";;
 	esac
 done
+
+#Configure Firewall (OPNsense or pfSense) IP Address
+
 
 # Check if Elasticsearch service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
