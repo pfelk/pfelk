@@ -64,12 +64,12 @@ Supported entries include:
  * `$ docker-compose up`
 
 #### manual installation/script - preferred manual method
- * Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/ez-pfelk-installer.sh) repository
- * `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/ez-pfelk-installer.sh`
+ * Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh) repository
+ * `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh`
 * Make script executable 
-* `$ sudo chmod +x ez-pfelk-installer.sh`
+* `$ sudo chmod +x pfelk-install-1.0.0.sh`
 * Run installer script 
-* `$ ./ez-pfelk-installer.sh`
+* `$ ./pfelk-install-1.0.0.sh`
 * Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
 
 #### manual installation
