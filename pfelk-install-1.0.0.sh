@@ -1170,6 +1170,80 @@ if [[ "${pfelk_dependencies}" == 'fail' ]]; then
 fi
 sleep 3
 
+###################################################################################################################################################################################################
+#                                                                                                                                                                                                 #
+#                                                                               Download and Configure pfELK Files                                                                                #
+#                                                                                                                                                                                                 #
+###################################################################################################################################################################################################
+
+download_pfelk() {
+  mdkir -p /etc/kibana	
+  cd /etc/kibana
+  rm /etc/kibana/kibana.yml
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
+  mkdir -p /etc/logstash/conf.d/patterns
+  mkdir -p /etc/logstash/conf.d/templates
+  cd /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-others.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
+  cd /etc/logstash/conf.d/patterns/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
+  cd /etc/logstash/conf.d/templates
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip-template.json
+  mkdir -p /etc/pfELK/logs/
+  cd /etc/pfELK/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
+  chmod +x /etc/logstash/pfelk-error.sh
+  header
+  script_logo
+  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure.\\n\\n"
+  sleep 4
+}
+download_pfelk
+
+header
+echo -e "${WHITE_R}#${RESET} Please provide the IP address (LAN) for your firewall.${RESET}"; 
+echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
+echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
+read -p "Enter Your Firewall's IP Adress: " input_ip
+sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/01-inputs.conf
+sleep 4
+
+#Configure 01-inputs.conf for OPNsense or pfSense
+SenseType='Please specify your firewall type: '
+options=("OPNsense" "pfSense" "Exit")
+select opt in "${options[@]}"
+do
+	case $opt in
+	    "OPNsense")
+	      sed -e s/#OPN#//g -i /etc/logstash/conf.d/01-inputs.conf 
+	      echo -e "\\n";
+		  echo -e "${RED}#${RESET} pfELK configured for OPNsense!\\n"
+	      sleep 3
+	      echo -e "\\n"
+	      break
+	      ;;
+	    "pfSense")
+	      sed -e s/#pf#//g -i /etc/logstash/conf.d/01-inputs.conf 
+	      echo -e "\\n";
+		  echo -e "${RED}#${RESET} pfELK configured for pfSense!\\n"
+	      sleep 3
+	      echo -e "\\n"
+	      break
+	      ;;
+	    "Exit")
+	      exit 0;;
+	    *) echo "invalid option $REPLY";;
+	esac
+done
+
 #Elasticsearch Install.
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
   header
@@ -1253,83 +1327,9 @@ sleep 3
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
-#                                                                               Download and Configure pfELK Files                                                                                #
+#                                                                                               Finish                                                                                            #
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
-
-download_pfelk() {
-  cd /etc/kibana
-  rm /etc/kibana/kibana.yml
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
-  cd /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-others.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
-  mkdir /etc/logstash/conf.d/patterns/
-  cd /etc/logstash/conf.d/patterns/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
-  mkdir /etc/logstash/conf.d/templates/
-  cd /etc/logstash/conf.d/templates
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip-template.json
-  mkdir -p /etc/pfELK/logs/
-  cd /etc/pfELK/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
-  chmod +x /etc/logstash/pfelk-error.sh
-  curl https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
-  header
-  script_logo
-  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure.\\n\\n"
-  sleep 4
-}
-download_pfelk
-
-header
-echo -e "${WHITE_R}#${RESET} Please provide the IP address (LAN) for your firewall.${RESET}"; 
-echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
-echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
-read -p "Enter Your Firewall's IP Adress: " input_ip
-sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/01-inputs.conf
-sleep 4
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                               Download and Configure pfELK Files                                                                                #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
-#Configure 01-inputs.conf for OPNsense or pfSense
-SenseType='Please specify your firewall type: '
-options=("OPNsense" "pfSense" "Exit")
-select opt in "${options[@]}"
-do
-	case $opt in
-	    "OPNsense")
-	      sed -e s/#OPN#//g -i /etc/logstash/conf.d/01-inputs.conf 
-	      echo -e "\\n";
-		  echo -e "${RED}#${RESET} pfELK configured for OPNsense!\\n"
-	      sleep 3
-	      echo -e "\\n"
-	      break
-	      ;;
-	    "pfSense")
-	      sed -e s/#pf#//g -i /etc/logstash/conf.d/01-inputs.conf 
-	      echo -e "\\n";
-		  echo -e "${RED}#${RESET} pfELK configured for pfSense!\\n"
-	      sleep 3
-	      echo -e "\\n"
-	      break
-	      ;;
-	    "Exit")
-	      exit 0;;
-	    *) echo "invalid option $REPLY";;
-	esac
-done
 
 #Configure Firewall (OPNsense or pfSense) IP Address
 
