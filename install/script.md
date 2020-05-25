@@ -24,14 +24,4 @@ sudo chmod +x pfelk-install-1.0.0.sh
 sudo ./pfelk-install-1.0.0.sh
 ```
 
-## Configuration 
-
-#### 2. Enter your pfSense/OPNsense IP address 
-`sudo nano /etc/logstash/conf.d/01-inputs.conf`
-```
-Change line 12; the "if [host] = "0.0.0.0" should point to your pfSense/OPNsense IP address
-Change line 15; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
-Change line 18-27; (OPTIONAL) to point to your second PF IP address or ignore
-```
-
-### 3. Complete Configuration --> [Configuration](configuration.md)
+### 5. Complete Configuration --> [Configuration](configuration.md)
