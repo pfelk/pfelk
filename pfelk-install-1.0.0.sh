@@ -1333,12 +1333,9 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${GREEN}#${RESET} pfELK was installed successfully"
   echo -e "\\n"
-  if 
-    systemctl is-active -q elasticsearch && echo -e "${GREEN}#${RESET} Elasticsearch is active ( running )" || echo -e "${RED}#${RESET} Elasticsearch failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
-  if 
-    systemctl is-active -q logstash && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
-  if 
-    systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Kibana is active ( running )" || echo -e "${RED}#${RESET} Kibana failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
+  systemctl is-active -q elasticsearch && echo -e "${GREEN}#${RESET} Elasticsearch is active ( running )" || echo -e "${RED}#${RESET} Elasticsearch failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
+  systemctl is-active -q logstash && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
+  systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Kibana is active ( running )" || echo -e "${RED}#${RESET} Kibana failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   echo -e "\\n"
   remove_yourself
 else
