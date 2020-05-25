@@ -30,7 +30,7 @@ sudo ./ez-pfelk-installer.sh
 
 ### 2. Configure Logstash|v7.7+
 #### 2a. Enter your pfSense/OPNsense IP address 
-`sudo nano /data/pfELK/configurations/01-inputs.conf`
+`sudo nano /etc/logstash/conf.d/01-inputs.conf`
 ```
 Change line 12; the "if [host] = "0.0.0.0" should point to your pfSense/OPNsense IP address
 Change line 15; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
