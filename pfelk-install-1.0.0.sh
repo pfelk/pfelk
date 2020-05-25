@@ -624,7 +624,7 @@ read -rp $'\033[39m#\033[0m Do you have your a MaxMind Account and Passowrd cred
 	 #GeoIP Cron Job.
 	 echo 00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP > /etc/cron.weekly/geoipupdate
 	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
-	 sed -i "s/.*DatabaseDirectory.*/DatabaseDirectory \/data\/pfELK\/GeoIP\//g" /etc/GeoIP.conf
+	 sed -i "s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
       maxmind_username=$(echo "${maxmind_username}")
       maxmind_password=$(echo "${maxmind_password}")
       read -p "Enter your MaxMind Account ID: " maxmind_username
@@ -838,7 +838,7 @@ if [[ "${curl_missing}" == 'true' ]]; then script_version_check; fi
 if [ "${system_free_disk_space}" -lt "5000000" ]; then
   header_red
   echo -e "${WHITE_R}#${RESET} Free disk space is below 5GB.. Please expand the disk size!"
-  echo -e "${WHITE_R}#${RESET} I recommend expanding to atleast 10GB\\n\\n"
+  echo -e "${WHITE_R}#${RESET} It is recommend tha avilalble sapce be expanding to at least 10GB\\n\\n"
   if [[ "${script_option_skip}" != 'true' ]]; then
     read -rp "Do you want to proceed at your own risk? (Y/n)" yes_no
     case "$yes_no" in
@@ -850,49 +850,17 @@ if [ "${system_free_disk_space}" -lt "5000000" ]; then
   fi
 fi
 
-# Memory and Swap file.
+# Memory.
 if [[ "${system_swap}" == "0" && "${system_memory}" -lt "4" ]]; then
   header_red
-  echo -e "${WHITE_R}#${RESET} System memory is lower than recommended!\\n"
+  echo -e "${WHITE_R}#${RESET} System memory does not meet minimum and may not run!"
+  echo -e "${WHITE_R}#${RESET} It is recommend that ram is expanded to at least 8GB\\n\\n"
+  swapoff -a
   sleep 2
-  if [[ "${system_free_disk_space}" -ge "10000000" ]]; then
-    echo -e "${WHITE_R}---${RESET}\\n"
-    echo -e "${WHITE_R}#${RESET} You have more than 10GB of free disk space!"
-    echo -e "${WHITE_R}#${RESET} We are creating a 2GB swap file!\\n"
-    dd if=/dev/zero of=/swapfile bs=2048 count=1048576 &>/dev/null
-    chmod 600 /swapfile &>/dev/null
-    mkswap /swapfile &>/dev/null
-    swapon /swapfile &>/dev/null
-    echo "/swapfile swap swap defaults 0 0" | tee -a /etc/fstab &>/dev/null
-  elif [[ "${system_free_disk_space}" -ge "5000000" ]]; then
-    echo -e "${WHITE_R}---${RESET}\\n"
-    echo -e "${WHITE_R}#${RESET} You have more than 5GB of free disk space."
-    echo -e "${WHITE_R}#${RESET} We are creating a 1GB swap file..\\n"
-    dd if=/dev/zero of=/swapfile bs=1024 count=1048576 &>/dev/null
-    chmod 600 /swapfile &>/dev/null
-    mkswap /swapfile &>/dev/null
-    swapon /swapfile &>/dev/null
-    echo "/swapfile swap swap defaults 0 0" | tee -a /etc/fstab &>/dev/null
-  elif [[ "${system_free_disk_space}" -ge "4000000" ]]; then
-    echo -e "${WHITE_R}---${RESET}\\n"
-    echo -e "${WHITE_R}#${RESET} You have more than 4GB of free disk space."
-    echo -e "${WHITE_R}#${RESET} We are creating a 256MB swap file..\\n"
-    dd if=/dev/zero of=/swapfile bs=256 count=1048576 &>/dev/null
-    chmod 600 /swapfile &>/dev/null
-    mkswap /swapfile &>/dev/null
-    swapon /swapfile &>/dev/null
-    echo "/swapfile swap swap defaults 0 0" | tee -a /etc/fstab &>/dev/null
-  elif [[ "${system_free_disk_space}" -lt "5000000" ]]; then
-    echo -e "${WHITE_R}---${RESET}\\n"
-    echo -e "${WHITE_R}#${RESET} Your available ram is extremely low!"
-    echo -e "${WHITE_R}#${RESET} There is not enough free disk space to create a swap file..\\n"
-    echo -e "${WHITE_R}#${RESET} I highly recommend upgrading the system memory to at least 8GB!"
-    echo -e "${WHITE_R}#${RESET} The script will continue the script at your own risk..\\n"
-   sleep 10
-  fi
 else
   header
   echo -e "${WHITE_R}#${RESET} Memory Meets Minimum Requirements!\\n\\n"
+  swapoff -a
   sleep 2
 fi
 
@@ -922,35 +890,9 @@ fi
 ###################################################################################################################################################################################################
 
 start_pfelk() {
-  swapoff -a
-  mkdir -p /data/pfELK
-  mkdir /data/pfELK/patterns
-  mkdir /data/pfELK/templates
-  mkdir /data/pfELK/configurations
-  mkdir /data/pfELK/GeoIP
-  chmod +777 /data/pfELK/logs
-  cd /data/pfELK/configurations
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/01-inputs.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/05-firewall.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/10-others.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/20-suricata.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/25-snort.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/30-geoip.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/35-rules-desc.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/45-cleanup.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/configurations/50-outputs.conf
-  cd /data/pfELK/patterns
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/patterns/pfelk.grok
-  cd /data/pfELK/templates
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/data/templates/pf-geoip-template.json
-  cd /data/pfELK
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
-  chmod +x /data/pfELK/error-data.sh
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
   wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
   header
   script_logo
-  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure.\\n\\n"
   sleep 4
 }
 start_pfelk
@@ -1333,8 +1275,6 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${GREEN}#${RESET} pfELK was installed successfully"
   echo -e "\\n"
-  systemctl is-active -q elasticsearch && echo -e "${GREEN}#${RESET} Elasticsearch is active ( running )" || echo -e "${RED}#${RESET} Elasticsearch failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
-  systemctl is-active -q logstash && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Kibana is active ( running )" || echo -e "${RED}#${RESET} Kibana failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   echo -e "\\n"
   remove_yourself
@@ -1344,3 +1284,39 @@ else
   echo -e "${RED}#${RESET} Please contact pfELK (pfELK.3ilson.dev) on github!${RESET}\\n\\n"
   remove_yourself
 fi
+
+
+###################################################################################################################################################################################################
+#                                                                                                                                                                                                 #
+#                                                                               Download and Configure pfELK Files                                                                                #
+#                                                                                                                                                                                                 #
+###################################################################################################################################################################################################
+
+download_pfelk() {
+  cd /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-others.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
+  mkdir /etc/logstash/conf.d/patterns/
+  cd /etc/logstash/conf.d/patterns/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
+  mkdir /etc/logstash/conf.d/templates/
+  cd /etc/logstash/conf.d/templates
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip-template.json
+  mkdir -p /etc/pfELK/logs/
+  cd /etc/pfELK/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
+  chmod +x /etc/logstash/pfelk-error.sh
+  curl https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
+  header
+  script_logo
+  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure.\\n\\n"
+  sleep 4
+}
+download_pfelk
