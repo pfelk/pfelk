@@ -23,5 +23,9 @@ sudo chmod +x pfelk-install-1.0.0.sh
 ```
 sudo ./pfelk-install-1.0.0.sh
 ```
+####################################
+# NOTE # 25 May 2020
+#### Current Issue With Script...must restart logstash upon completion to properly parse files
+####################################
 
 ### 5. Complete Configuration --> [Configuration](configuration.md)
