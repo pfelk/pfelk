@@ -33,6 +33,7 @@
 # GeoIP  	   | 4.3.0
 # Java         | 
 # Jave_Version | 
+# Elastistack  | 7.7.0
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -509,12 +510,12 @@ script_version_check
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
 
-dpkg -l | grep "elasticsearch\\|logstash\\|kibana" | awk '{print $3}' | sed 's/.*://' | sed 's/-.*//g' &> /tmp/pfELK/elk_versions
-elk_version_installed=$(sort -V /tmp/pfELK/elk_versions | tail -n 1)
-rm --force /tmp/pfELK/elk_versions &> /dev/null
-first_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f1)
-second_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f2)
-third_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f3)
+# dpkg -l | grep "elasticsearch\\|logstash\\|kibana" | awk '{print $3}' | sed 's/.*://' | sed 's/-.*//g' &> /tmp/pfELK/elk_version
+# elk_version_installed=$(sort -V /tmp/pfELK/elk_version | tail -n 1)
+# rm --force /tmp/pfELK/elk_version &> /dev/null
+# first_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f1)
+# second_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f2)
+# third_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f3)
 #
 system_memory=$(awk '/MemTotal/ {printf( "%.0f\n", $8 / 8192 / 8192)}' /proc/meminfo)
 #
@@ -1179,9 +1180,73 @@ if [[ "${pfelk_dependencies}" == 'fail' ]]; then
 fi
 sleep 3
 
+#Elasticsearch Install.
+header
+echo -e "${WHITE_R}#${RESET} Installing Elastisearch...\\n"
+sleep 2
+if [[ "${script_option_elastisearch}" != 'true' ]]; then
+  elasticsearch_temp="$(mktemp --tmpdir=/tmp elasticsearch_"${elk_version}"_XXX.deb)"
+  echo -e "${WHITE_R}#${RESET} Downloading Elastisearch..."
+  if wget "${wget_progress[@]}" -qO "$elasticsearch_temp" "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${elk_version}-amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded Elasticsearch version ${elk_version}! \\n"; else echo -e "${RED}#${RESET} Failed to download Elasticsearch...\\n"; abort; fi;
+else
+  echo -e "${GREEN}#${RESET} Elasticsearch has already been downloaded!"
+fi
+echo -e "${WHITE_R}#${RESET} Installing the Elastisearch..."
+echo "elasticsearch elasticsearch/has_backup boolean true" 2> /dev/null | debconf-set-selections
+if DEBIAN_FRONTEND=noninteractive dpkg -i "$elasticsearch_temp" &>> "${pfELK_dir}/logs/elasticsearch_install.log"; then
+  echo -e "${GREEN}#${RESET} Successfully installed Elastisearch! \\n"
+else
+  echo -e "${RED}#${RESET} Failed to install Elasticsearch...\\n"
+fi
+rm --force "$elastisearch_temp" 2> /dev/null
+service elasticsearch start || abort
+sleep 3
+#Logstash Install.
+header
+echo -e "${WHITE_R}#${RESET} Installing Logstash...\\n"
+sleep 2
+if [[ "${script_option_logstash}" != 'true' ]]; then
+  logstash_temp="$(mktemp --tmpdir=/tmp logstash_"${elk_version}"_XXX.deb)"
+  echo -e "${WHITE_R}#${RESET} Downloading Logstash..."
+  if wget "${wget_progress[@]}" -qO "$elasticsearch_temp" "https://artifacts.elastic.co/downloads/logstash/logstash-${elk_version}.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded Logstash version ${elk_version}! \\n"; else echo -e "${RED}#${RESET} Failed to download Logstash...\\n"; abort; fi;
+else
+  echo -e "${GREEN}#${RESET} Logstash has already been downloaded!"
+fi
+echo -e "${WHITE_R}#${RESET} Installing the Logstash..."
+echo "logstash logstash/has_backup boolean true" 2> /dev/null | debconf-set-selections
+if DEBIAN_FRONTEND=noninteractive dpkg -i "$logstash_temp" &>> "${pfELK_dir}/logs/logstash_install.log"; then
+  echo -e "${GREEN}#${RESET} Successfully installed Logstash! \\n"
+else
+  echo -e "${RED}#${RESET} Failed to install Logstash...\\n"
+fi
+rm --force "$logstash_temp" 2> /dev/null
+service logstash start || abort
+sleep 3
+#Kibana Install.
+header
+echo -e "${WHITE_R}#${RESET} Installing Kibana...\\n"
+sleep 2
+if [[ "${script_option_kibana}" != 'true' ]]; then
+  kibana_temp="$(mktemp --tmpdir=/tmp kibana_"${elk_version}"_XXX.deb)"
+  echo -e "${WHITE_R}#${RESET} Downloading Kibana..."
+  if wget "${wget_progress[@]}" -qO "$kibana_temp" "https://artifacts.elastic.co/downloads/kibana/kibana-${elk_version}-amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded Kibana version ${elk_version}! \\n"; else echo -e "${RED}#${RESET} Failed to download Kibana...\\n"; abort; fi;
+else
+  echo -e "${GREEN}#${RESET} Kibana has already been downloaded!"
+fi
+echo -e "${WHITE_R}#${RESET} Installing the Kibana..."
+echo "kibana kibana/has_backup boolean true" 2> /dev/null | debconf-set-selections
+if DEBIAN_FRONTEND=noninteractive dpkg -i "$kibana_temp" &>> "${pfELK_dir}/logs/kibana_install.log"; then
+  echo -e "${GREEN}#${RESET} Successfully installed Kibana! \\n"
+else
+  echo -e "${RED}#${RESET} Failed to install Kibana...\\n"
+fi
+rm --force "$kibana_temp" 2> /dev/null
+service kibana start || abort
+sleep 3
+
 # Check if Elasticsearch service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  if [ "${elasticsearch_version::2}" -ge '26' ]; then
+  if [ "${elk_version::2}" -ge '26' ]; then
     SERVICE_ELASTIC=$(systemctl is-enabled elasticsearch)
     if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
       systemctl enable elasticsearch 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Elasticsearch"; sleep 3; }
@@ -1201,7 +1266,7 @@ fi
 
 # Check if Logstash service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  if [ "${logstash_version::2}" -ge '26' ]; then
+  if [ "${elk_version::2}" -ge '26' ]; then
     SERVICE_LOGSTASH=$(systemctl is-enabled logstash)
     if [ "$SERVICE_LOGSTASH" = 'disabled' ]; then
       systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Logstash"; sleep 3; }
@@ -1221,7 +1286,7 @@ fi
 
 # Check if Kibana service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  if [ "${kibana_version::2}" -ge '26' ]; then
+  if [ "${elk_version::2}" -ge '26' ]; then
     SERVICE_KIBANA=$(systemctl is-enabled kibana)
     if [ "$SERVICE_KIBANA" = 'disabled' ]; then
       systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
