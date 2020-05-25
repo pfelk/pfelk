@@ -197,7 +197,8 @@ while [ -n "$1" ]; do
        script_option_nojava=true
        echo "--nojava" &>> /tmp/pfELK/script_options;;
   --nosense)
-       echo "--noip" &>> /tmp/pfELK/script_options;;
+       script_option_nosense=true
+       echo "--nosense" &>> /tmp/pfELK/script_options;;
   esac
   shift
 done
@@ -210,7 +211,7 @@ grep -io '${pfELK_dir}/logs/.*log' "$0" | grep -v 'awk' | awk '!a[$0]++' &> /tmp
 while read -r log_file; do
   if [[ -f "${log_file}" ]]; then
     log_file_size=$(stat -c%s "${log_file}")
-    if [[ "${log_file_size}" -gt "10485760" ]]; then
+    if [[ "${log_file_size}" -gt "10000000" ]]; then
       tail -n1000 "${log_file}" &> "${log_file}.tmp"
       cp "${log_file}.tmp" "${log_file}"; rm --force "${log_file}.tmp" &> /dev/null
     fi
@@ -887,6 +888,9 @@ else
   sleep 2
 fi
 
+#MaxMind GeoIP
+#Added check to ensure GeoIP database files were downloaded.
+
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                  Ask to keep script or delete                                                                                   #
@@ -1247,6 +1251,77 @@ rm --force "$kibana_temp" 2> /dev/null
 service kibana start || abort
 sleep 3
 
+###################################################################################################################################################################################################
+#                                                                                                                                                                                                 #
+#                                                                               Download and Configure pfELK Files                                                                                #
+#                                                                                                                                                                                                 #
+###################################################################################################################################################################################################
+
+download_pfelk() {
+  cd /etc/kibana
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
+  cd /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-others.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
+  mkdir /etc/logstash/conf.d/patterns/
+  cd /etc/logstash/conf.d/patterns/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
+  mkdir /etc/logstash/conf.d/templates/
+  cd /etc/logstash/conf.d/templates
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip-template.json
+  mkdir -p /etc/pfELK/logs/
+  cd /etc/pfELK/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
+  chmod +x /etc/logstash/pfelk-error.sh
+  curl https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
+  header
+  script_logo
+  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure.\\n\\n"
+  sleep 4
+}
+download_pfelk
+
+###################################################################################################################################################################################################
+#                                                                                                                                                                                                 #
+#                                                                               Download and Configure pfELK Files                                                                                #
+#                                                                                                                                                                                                 #
+###################################################################################################################################################################################################
+
+#Configure 01-inputs.conf for OPNsense or pfSense
+SenseType='Please specify your firewall type: '
+options=("OPNsense" "pfSense" "Exit")
+select opt in "${options[@]}"
+do
+	case $opt in
+	    "OPNsense")
+	      sed -e s/#OPN#//g -i /etc/logstash/conf.d/01-inputs.conf 
+	      echo -e "\\n";
+		  echo -e "${RED}#${RESET} pfELK configured for OPNsense!\\n"
+	      sleep 3
+	      echo -e "\\n"
+	      break
+	      ;;
+	    "pfSense")
+	      sed -e s/#pf#//g -i /etc/logstash/conf.d/01-inputs.conf 
+	      echo -e "\\n";
+		  echo -e "${RED}#${RESET} pfELK configured for pfSense!\\n"
+	      sleep 3
+	      echo -e "\\n"
+	      break
+	      ;;
+	    "Exit")
+	      exit 0;;
+	    *) echo "invalid option $REPLY";;
+	esac
+done
+
 # Check if Elasticsearch service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
     SERVICE_ELASTIC=$(systemctl is-enabled elasticsearch)
@@ -1298,48 +1373,13 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${GREEN}#${RESET} pfELK was installed successfully"
   echo -e "\\n"
-  systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Kibana is active ( running )" || echo -e "${RED}#${RESET} Kibana failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
+  systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   echo -e "\\n"
   sleep 5
   remove_yourself
 else
   header_red
-  echo -e "\\n${RED}#${RESET} Failed to successfully install pfELK ${pfelk_clean}"
+  echo -e "\\n${RED}#${RESET} Failed to successfully install pfELK"
   echo -e "${RED}#${RESET} Please contact pfELK (pfELK.3ilson.dev) on github!${RESET}\\n\\n"
   remove_yourself
 fi
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                               Download and Configure pfELK Files                                                                                #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
-download_pfelk() {
-  cd /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-others.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
-  mkdir /etc/logstash/conf.d/patterns/
-  cd /etc/logstash/conf.d/patterns/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
-  mkdir /etc/logstash/conf.d/templates/
-  cd /etc/logstash/conf.d/templates
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip-template.json
-  mkdir -p /etc/pfELK/logs/
-  cd /etc/pfELK/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
-  chmod +x /etc/logstash/pfelk-error.sh
-  curl https://raw.githubusercontent.com/3ilson/pfelk/master/readme.txt
-  header
-  script_logo
-  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure.\\n\\n"
-  sleep 4
-}
-download_pfelk
