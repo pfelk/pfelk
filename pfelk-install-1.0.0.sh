@@ -645,7 +645,7 @@ read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd creden
 	 #GeoIP Cron Job.
 	 echo 00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP > /etc/cron.weekly/geoipupdate
 	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
-	 sed -i "s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
+	 sed -i "1 s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
 	 maxmind_username=$(echo "${maxmind_username}")
 	 maxmind_password=$(echo "${maxmind_password}")
 	 read -p "Enter your MaxMind Account ID: " maxmind_username
