@@ -377,6 +377,19 @@ if ! [[ -d /tmp/pfELK/keys ]]; then mkdir -p /tmp/pfELK/keys; fi
 if wget --help | grep -q '\--show-progress'; then echo "--show-progress" &>> /tmp/pfELK/wget_option; fi
 if [[ -f /tmp/pfELK/wget_option && -s /tmp/pfELK/wget_option ]]; then IFS=" " read -r -a wget_progress <<< "$(tr '\r\n' ' ' < /tmp/pfELK/wget_option)"; fi
 
+# Check if MaxMind GeoIP is already installed.
+if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
+  header
+  echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed on your system!${RESET}\\n\\n"
+  read -rp $'\033[39m#\033[0m Would you like to remove MaxMind GeoIP? (Y/n) ' yes_no
+  case "$yes_no" in
+      [Yy]*|"")
+        rm --force "$0" 2> /dev/null
+        apt purge geoipupdate;;
+      [Nn]*);;
+  esac
+fi
+
 # Check if Elasticsearch is already installed.
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
   header
@@ -603,7 +616,14 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
 fi
 
 #MaxMind GeoIP Install.
-read -rp $'\033[39m#\033[0m Do you have your a MaxMind Account and Passowrd credentials? (y/N) ' yes_no
+if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
+   header
+   echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed!${RESET}"; 
+   echo -e "${WHITE_R}#${RESET} Ensure MaxMind GeoIP is properly configured!${RESET}";
+   echo -e "${RED}# WARNING${RESET} Running Logstash without MaxMind properly configured will result in fatal errors...\\n\\n"
+   sleep 5;
+else
+read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd credentials? (y/N) ' yes_no
   case "$yes_no" in
    [Yy]*)
      if [[ "${script_option_geoip}" != 'true' ]]; then
@@ -635,9 +655,12 @@ read -rp $'\033[39m#\033[0m Do you have your a MaxMind Account and Passowrd cred
       geoipupdate
       sleep 3
       echo -e "\\n";;
-   [No]*|"") ;;
- esac
-
+   [No]*|"") 
+	  echo -e "${RED}#${RESET} MaxMind v${maxmind_version} not installed!"
+	  echo -e "${RED}#WARNING${RESET} Running Logstash without MaxMind will result in fatal errors...\\n"
+	  sleep 3;;
+   esac
+fi
 
 #lsb-release Install.
 if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
@@ -1277,6 +1300,7 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   echo -e "\\n"
   systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Kibana is active ( running )" || echo -e "${RED}#${RESET} Kibana failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   echo -e "\\n"
+  sleep 5
   remove_yourself
 else
   header_red
@@ -1284,7 +1308,6 @@ else
   echo -e "${RED}#${RESET} Please contact pfELK (pfELK.3ilson.dev) on github!${RESET}\\n\\n"
   remove_yourself
 fi
-
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
