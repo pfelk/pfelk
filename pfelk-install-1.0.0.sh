@@ -6,7 +6,7 @@
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
 # 
-# OS       | List of supported Distributions/OS
+# OS       | List of Supported Distributions/OS
 #
 #          | Ubuntu Xenial Xerus ( 16.04 )
 #          | Ubuntu Bionic Beaver ( 18.04 )
@@ -31,8 +31,8 @@
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
 # GeoIP  	   | 4.3.0
-# Java         | 
-# Jave_Version | 
+# Java         | openjdk-11-jre-headless
+# Jave_Version | 11
 # Elastistack  | 7.7.0
 #
 ###################################################################################################################################################################################################
@@ -378,15 +378,15 @@ if wget --help | grep -q '\--show-progress'; then echo "--show-progress" &>> /tm
 if [[ -f /tmp/pfELK/wget_option && -s /tmp/pfELK/wget_option ]]; then IFS=" " read -r -a wget_progress <<< "$(tr '\r\n' ' ' < /tmp/pfELK/wget_option)"; fi
 
 # Check if Elasticsearch is already installed.
-if dpkg -l | grep "elastic" | grep -q "^ii\\|^hi"; then
+if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Elasticsearch is already installed on your system!${RESET}\\n\\n"
   read -rp $'\033[39m#\033[0m Would you like to remove Elasticsearch? (Y/n) ' yes_no
   case "$yes_no" in
       [Yy]*|"")
         rm --force "$0" 2> /dev/null
-        apt purge elastic*; exit 0;;
-      [Nn]*) exit 0;;
+        apt purge elasticsearch;;
+      [Nn]*);;
   esac
 fi
 
@@ -398,21 +398,21 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   case "$yes_no" in
       [Yy]*|"")
         rm --force "$0" 2> /dev/null
-        apt purge logstash*; exit 0;;
-      [Nn]*) exit 0;;
+        apt purge logstash;; 
+      [Nn]*);; 
   esac
 fi
 
 # Check if Kibana is already installed.
-if dpkg -l | grep "kibna" | grep -q "^ii\\|^hi"; then
+if dpkg -l | grep "kibana" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Kibana is already installed on your system!${RESET}\\n\\n"
   read -rp $'\033[39m#\033[0m Would you like to remove Kibana? (Y/n) ' yes_no
   case "$yes_no" in
       [Yy]*|"")
         rm --force "$0" 2> /dev/null
-        apt purge kibana*; exit 0;;
-      [Nn]*) exit 0;;
+        apt purge kibana;; 
+      [Nn]*);;
   esac
 fi
 
@@ -542,6 +542,8 @@ port_5601_service=''
 port_5140_in_use=''
 port_5140_pid=''
 port_5140_service=''
+elk_version=7.7.0
+maxmind_version=4.3.0
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -605,18 +607,18 @@ read -rp $'\033[39m#\033[0m Do you have your a MaxMind Account and Passowrd cred
   case "$yes_no" in
    [Yy]*)
      if [[ "${script_option_geoip}" != 'true' ]]; then
- 	   geoip_temp="$(mktemp --tmpdir=/tmp geoipupdate_4.3.0_linux_amd64_XXX.deb)"
-	   echo -e "${WHITE_R}#${RESET} Downloading MaxMind GeoIP..."
-	   if wget "${wget_progress[@]}" -qO "$geoip_temp" "https://github.com/maxmind/geoipupdate/releases/download/v4.3.0/geoipupdate_4.3.0_linux_amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded MaxMind GeoIP! \\n"; else echo -e "${RED}#${RESET} Failed to download MaxMind GeoIP...\\n"; abort; fi;
+ 	   geoip_temp="$(mktemp --tmpdir=/tmp geoipupdate_${maxmind_version}_linux_amd64_XXX.deb)"
+	   echo -e "${WHITE_R}#${RESET} Downloading MaxMind v${maxmind_version} GeoIP..."
+	   if wget "${wget_progress[@]}" -qO "$geoip_temp" "https://github.com/maxmind/geoipupdate/releases/download/v${maxmind_version}/geoipupdate_${maxmind_version}_linux_amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded MaxMind GeoIP! \\n"; else echo -e "${RED}#${RESET} Failed to download MaxMind GeoIP...\\n"; abort; fi;
 	 else
-	   echo -e "${GREEN}#${RESET} ${WHITE_R} MaxMind GeoIP v4.3.0 ${RESET} has already been downloaded!"
+	   echo -e "${GREEN}#${RESET} ${WHITE_R} MaxMind GeoIP v${maxmind_version} ${RESET} has already been downloaded!"
 	 fi
 	 echo -e "${WHITE_R}#${RESET} Installing MaxMind GeoIP..."
 	 echo "geoip geoip/has_backup boolean true" 2> /dev/null | debconf-set-selections
 	 if DEBIAN_FRONTEND=noninteractive dpkg -i "$geoip_temp" &>> "${pfELK_dir}/logs/geoip_install.log"; then
-	   echo -e "${GREEN}#${RESET} Successfully installed MaxMind GeoIP! \\n"
+	   echo -e "${GREEN}#${RESET} Successfully installed MaxMind v${maxmind_version}! \\n"
 	 else
-	   echo -e "${RED}#${RESET} Failed to install MaxMind GeoIP...\\n"
+	   echo -e "${RED}#${RESET} Failed to install MaxMind v${maxmind_version}...\\n"
 	 fi
 	 rm --force "$geoip_temp" 2> /dev/null
 	 #GeoIP Cron Job.
@@ -890,8 +892,27 @@ if [[ "${system_swap}" == "0" && "${system_memory}" -lt "4" ]]; then
   fi
 else
   header
-  echo -e "${WHITE_R}#${RESET} A swap file already exists!\\n\\n"
+  echo -e "${WHITE_R}#${RESET} Memroy Meets Minimum Requirements!\\n\\n"
   sleep 2
+fi
+
+###################################################################################################################################################################################################
+#                                                                                                                                                                                                 #
+#                                                                                  Ask to keep script or delete                                                                                   #
+#                                                                                                                                                                                                 #
+###################################################################################################################################################################################################
+
+script_removal() {
+  header
+  read -rp $'\033[39m#\033[0m Do you want to keep the script on your system after completion? (Y/n) ' yes_no
+  case "$yes_no" in
+      [Yy]*|"") ;;
+      [Nn]*) delete_script=true;;
+  esac
+}
+
+if [[ "${script_option_skip}" != 'true' ]]; then
+  script_removal
 fi
 
 ###################################################################################################################################################################################################
@@ -1208,7 +1229,7 @@ sleep 2
 if [[ "${script_option_logstash}" != 'true' ]]; then
   logstash_temp="$(mktemp --tmpdir=/tmp logstash_"${elk_version}"_XXX.deb)"
   echo -e "${WHITE_R}#${RESET} Downloading Logstash..."
-  if wget "${wget_progress[@]}" -qO "$elasticsearch_temp" "https://artifacts.elastic.co/downloads/logstash/logstash-${elk_version}.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded Logstash version ${elk_version}! \\n"; else echo -e "${RED}#${RESET} Failed to download Logstash...\\n"; abort; fi;
+  if wget "${wget_progress[@]}" -qO "$logstash_temp" "https://artifacts.elastic.co/downloads/logstash/logstash-${elk_version}.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded Logstash version ${elk_version}! \\n"; else echo -e "${RED}#${RESET} Failed to download Logstash...\\n"; abort; fi;
 else
   echo -e "${GREEN}#${RESET} Logstash has already been downloaded!"
 fi
@@ -1246,7 +1267,6 @@ sleep 3
 
 # Check if Elasticsearch service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  if [ "${elk_version::2}" -ge '26' ]; then
     SERVICE_ELASTIC=$(systemctl is-enabled elasticsearch)
     if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
       systemctl enable elasticsearch 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Elasticsearch"; sleep 3; }
@@ -1256,17 +1276,10 @@ if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]];
     if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
       systemctl enable elasticsearch 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Elasticsearch"; sleep 3; }
     fi
-  fi
-  # Check if Elasticsearch service is enabled
-  SERVICE_ELASTIC=$(systemctl is-enabled elasticsearch)
-  if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
-    systemctl enable elasticsearch 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Elasticsearch"; sleep 3; }
-  fi
 fi
 
 # Check if Logstash service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  if [ "${elk_version::2}" -ge '26' ]; then
     SERVICE_LOGSTASH=$(systemctl is-enabled logstash)
     if [ "$SERVICE_LOGSTASH" = 'disabled' ]; then
       systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Logstash"; sleep 3; }
@@ -1276,17 +1289,10 @@ if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]];
     if [ "$SERVICE_LOGSTASH" = 'disabled' ]; then
       systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | logstash"; sleep 3; }
     fi
-  fi
-  # Check if Elasticsearch service is enabled
-  SERVICE_LOGSTASH=$(systemctl is-enabled logstash)
-  if [ "$SERVICE_LOGSTASH" = 'disabled' ]; then
-    systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | logstash"; sleep 3; }
-  fi
 fi
 
 # Check if Kibana service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  if [ "${elk_version::2}" -ge '26' ]; then
     SERVICE_KIBANA=$(systemctl is-enabled kibana)
     if [ "$SERVICE_KIBANA" = 'disabled' ]; then
       systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
@@ -1296,12 +1302,6 @@ if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]];
     if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
       systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
     fi
-  fi
-  # Check if Kibana service is enabled
-  SERVICE_KIBANA=$(systemctl is-enabled kibana)
-  if [ "$SERVICE_KIBANA" = 'disabled' ]; then
-    systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
-  fi
 fi
 
 if [[ "${netcat_installed}" == 'true' ]]; then
@@ -1332,23 +1332,4 @@ else
   echo -e "\\n${RED}#${RESET} Failed to successfully install pfELK ${pfelk_clean}"
   echo -e "${RED}#${RESET} Please contact pfELK (pfELK.3ilson.dev) on github!${RESET}\\n\\n"
   remove_yourself
-fi
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                  Ask to keep script or delete                                                                                   #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
-script_removal() {
-  header
-  read -rp $'\033[39m#\033[0m Do you want to keep the script on your system after completion? (Y/n) ' yes_no
-  case "$yes_no" in
-      [Yy]*|"") ;;
-      [Nn]*) delete_script=true;;
-  esac
-}
-
-if [[ "${script_option_skip}" != 'true' ]]; then
-  script_removal
 fi
