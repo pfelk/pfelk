@@ -1177,7 +1177,7 @@ sleep 3
 ###################################################################################################################################################################################################
 
 download_pfelk() {
-  mdkir -p /etc/kibana	
+  mkdir -p /etc/kibana	
   cd /etc/kibana
   rm /etc/kibana/kibana.yml
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
