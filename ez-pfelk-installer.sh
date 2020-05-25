@@ -155,10 +155,10 @@ sudo swapoff -a
 ##
 # Add Configuration Script Here
 ## MaxMind GeoIP Install.
-	 #GeoIP Cron Job.
-	 echo 00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP > /etc/cron.weekly/geoipupdate
-	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
-   sed -i "s/.*DatabaseDirectory.*/DatabaseDirectory \/data\/pfELK\/GeoIP\//g" /etc/GeoIP.conf
+      #GeoIP Cron Job.
+      echo 00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP > /etc/cron.weekly/geoipupdate
+      sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
+      sed -i "s/.*DatabaseDirectory.*/DatabaseDirectory \/data\/pfELK\/GeoIP\//g" /etc/GeoIP.conf
       maxmind_username=$(echo "${maxmind_username}")
       maxmind_password=$(echo "${maxmind_password}")
       read -p "Enter your MaxMind Account ID: " maxmind_username
