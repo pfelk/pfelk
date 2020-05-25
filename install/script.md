@@ -8,37 +8,26 @@
 
 # Installation
 
-## 0a. Download and Run Script
+### 1. MaxMind
+- Create a MaxMind Account @ https://www.maxmind.com/en/geolite2/signup
+- Login to your MaxMind Account; navigate to "My License Key" under "Services" and Generate new license key
+- Keep your MaxMind Credentials, you will need them upon running the script!
+
+### 2. Download and Run Script
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/ez-pfelk-installer.sh
 ```
-### 0b. Make the script executable 
+### 3. Make the script executable 
 ```
 sudo chmod +x ez-pfelk-installer.sh
 ```
-### 0c. Execute the script 
+### 4. Execute the script 
 ```
 sudo ./ez-pfelk-installer.sh
 ```
 
 # Configuration 
 
-## 1a. MaxMind
-- Create a MaxMind Account @ https://www.maxmind.com/en/geolite2/signup
-- Login to your MaxMind Account; navigate to "My License Key" under "Services" and Generate new license key
-#### 1b. Edit GeoIP.conf
-```
-sudo nano /etc/GeoIP.conf
-```
-#### 1c. Modify lines 7 & 8 as follows (without < >):
-```
-AccountID <Input Your Account ID>
-LicenseKey <Input Your LicenseKey>
-```
-#### 1d. Download Maxmind Databases
-```
-sudo geoipupdate -d /data/pfELK/GeoIP/
-```
 ## 2. Configure Logstash|v7.7+
 #### 2a. Enter your pfSense/OPNsense IP address 
 `sudo nano /data/pfELK/configurations/01-inputs.conf`
