@@ -115,7 +115,7 @@ systemctl start logstash.service
 ### 5e. Configure Snort for log forwarding - pfsense (Optional)
 - In pfsense navigate to Services->Snort->Snort Interfaces
  - For each interface you have configured, choose the edit pencil to the right (repeat these steps for each)
- - In each <Interface> Settings -> Alert Settings check Send Alerts to System Log
+ - In each "Interface" Settings -> under Alert Settings check Send Alerts to System Log
  - Scroll down and Choose Save
  ![Snort-Log-Settings](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/snort-log-settings.png) 
 # Kibana 
