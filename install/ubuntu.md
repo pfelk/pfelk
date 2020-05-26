@@ -99,7 +99,7 @@ sudo nano /etc/kibana/kibana.yml
 
 ### 14. Change Directory
 ```
-cd /data/pfELK/configurations
+cd /etc/logstash/conf.d
 ```
 
 ### 15. (Required) Download the following configuration files
