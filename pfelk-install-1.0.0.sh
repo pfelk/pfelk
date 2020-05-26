@@ -649,17 +649,17 @@ read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd creden
 	 maxmind_username=$(echo "${maxmind_username}")
 	 maxmind_password=$(echo "${maxmind_password}")
 	 read -p "Enter your MaxMind Account ID: " maxmind_username
-	 read -p "Enter your MaxMind Password: " maxmind_password
+	 read -p "Enter your MaxMind License Key: " maxmind_password
 	 sed -i "s/AccountID.*/AccountID ${maxmind_username}/g" /etc/GeoIP.conf
 	 sed -i "s/LicenseKey.*/LicenseKey ${maxmind_password}/g" /etc/GeoIP.conf
 	 echo -e "\\n";
 	 geoipupdate -d /usr/share/GeoIP
-	 sleep 3
+	 sleep 2
 	 echo -e "\\n";;
    [No]*|"") 
 	 echo -e "${RED}#${RESET} MaxMind v${maxmind_version} not installed!"
 	 echo -e "${RED}#WARNING${RESET} Running Logstash without MaxMind will result in fatal errors...\\n"
-	 sleep 3;;
+	 sleep 2;;
    esac
 fi
 
@@ -1214,9 +1214,10 @@ echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
 echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
 read -p "Enter Your Firewall's IP Adress: " input_ip
 sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/01-inputs.conf
-sleep 4
+sleep 2
 
 #Configure 01-inputs.conf for OPNsense or pfSense
+echo -e "${WHITE_R}#${RESET} Please select firewall distribution type, for configuration.${RESET}\\n";
 SenseType='Please specify your firewall type: '
 options=("OPNsense" "pfSense" "Exit")
 select opt in "${options[@]}"
