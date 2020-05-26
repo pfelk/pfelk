@@ -64,10 +64,18 @@ Supported entries include:
  * `$ docker-compose up`
 
 #### manual installation/script - preferred manual method
- * Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh) repository
- * `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh`
+* Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh) repository
+##### Ubuntu
+* `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh`
 * Make script executable 
 * `$ sudo chmod +x pfelk-install-1.0.0.sh`
+* Run installer script 
+* `$ sudo ./pfelk-install-1.0.0.sh`
+* Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
+##### Debian
+* `$ wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh`
+* Make script executable 
+* `$ chmod +x pfelk-install-1.0.0.sh`
 * Run installer script 
 * `$ ./pfelk-install-1.0.0.sh`
 * Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
