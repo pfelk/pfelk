@@ -45,7 +45,7 @@ Supported entries include:
   * [docker](https://github.com/3ilson/pfelk#docker-compose)
   * [manual installation/script](https://github.com/3ilson/pfelk#manual-installationscript)
 * [Roadmap](https://github.com/3ilson/pfelk#roadmap)
-* [Comparison to similar technologies](https://github.com/3ilson/pfelk#comparison-to-similar-technologies)
+* [Comparison to similar solutions](https://github.com/3ilson/pfelk#comparison-to-similar-solutions)
 * [Contributing](https://github.com/3ilson/pfelk#contributing)
 * [License](https://github.com/3ilson/pfelk#license)
 
