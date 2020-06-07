@@ -89,7 +89,7 @@ This is the experimental public roadmap for the pfelk project.
 
 [See the roadmap »](https://github.com/orgs/3ilson/projects)
 
-### Comparison to similar technologies
+### Comparison to similar solutions
 [Comparisions »](https://github.com/3ilson/pfelk/wiki/Comparison)
 
 ### Contributing
