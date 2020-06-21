@@ -131,5 +131,5 @@ systemctl start logstash.service
  - Click Management -> Saved Objects
  - You can import the dashboards found in the `Dashboard` folder via the Import button in the top-right corner.
  - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v4.2%20(042020)%20Dashboard.ndjson)
- - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v4.2%20(042020)%20Suricata%20Dashboard.ndjson)
+ - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v4.3%20(062020)%20Suricata%20Dashboard.ndjson)
  - [Snort Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v4.2%20(042020)%20Snort%20Dashboard.ndjson)
