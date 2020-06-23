@@ -121,14 +121,17 @@ systemctl start logstash.service
 # Kibana 
 ### 6a. Configuring Patterns
 [YouTube Guide](https://www.youtube.com/watch?v=uBSRaUOgEz8)
-- Click the gear icon (management) in the lower left
-- Click Kibana -> Index Patters
+- Click the menu icon (three horizontal lines) in the upper left
+- Under Management click -> Stack Management
+- Under Kibana click -> Index Patters
 - Click Create New Index Pattern
 - Type "pf-*" into the input box, then click Next Step
 ### 6b. Import dashboards
 [YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
- - In your web browser go to the ELK local IP using port 5601 (ex: 192.168.0.1:5601)
- - Click Management -> Saved Objects
+ - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
+ - Click the menu icon (three horizontal lines) in the upper left
+ - Under Management click -> Stack Management 
+ - Under Kibana click -> Saved Objects
  - You can import the dashboards found in the `Dashboard` folder via the Import button in the top-right corner.
  - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v4.2%20(042020)%20Dashboard.ndjson)
  - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v4.3%20(062020)%20Suricata%20Dashboard.ndjson)
