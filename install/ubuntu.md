@@ -146,15 +146,15 @@ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/con
 
 ### 21. Enter your pfSense/OPNsense IP address (/data/pfELK/configurations/01-inputs.conf)
 ```
-Change line 12; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
-Change line 15; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
-Change line 18-27; (OPTIONAL) to point to your second PF IP address or ignore
+Change line 11; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
+Change line 14; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
+Change line 17-26; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
 ### 22. Revise/Update w/pf IP address (/data/pfELK/configurations/01-inputs.conf)
 ```
-For pfSense uncommit line 34 and commit out line 31
-For OPNsense uncommit line 31 and commit out line 34
+For pfSense uncommit line 33 and commit out line 30 (#pf#)
+For OPNsense uncommit line 30 and commit out line 33 (#opn#)
 ```
 
 # Troubleshooting
