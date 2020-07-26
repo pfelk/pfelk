@@ -43,7 +43,7 @@ Supported entries include:
 * [Installation](https://github.com/3ilson/pfelk#installation)
   * [ansible](https://github.com/3ilson/pfelk#ansible-playbook)
   * [docker](https://github.com/3ilson/pfelk#docker-compose)
-  * [manual installation/script](https://github.com/3ilson/pfelk#manual-installationscript)
+  * [manual installation/script](https://github.com/3ilson/pfelk#manual-installationscript---preferred-manual-method)
 * [Roadmap](https://github.com/3ilson/pfelk#roadmap)
 * [Comparison to similar solutions](https://github.com/3ilson/pfelk#comparison-to-similar-solutions)
 * [Contributing](https://github.com/3ilson/pfelk#contributing)
@@ -93,7 +93,7 @@ This is the experimental public roadmap for the pfelk project.
 [Comparisions »](https://github.com/3ilson/pfelk/wiki/Comparison)
 
 ### Contributing
-Please reference to the CONTRIBUTING.md. Collectively we can enhance and improve this product. Issues, feature requests, pulls, and documentation contributions in are encouraged and welcomed!
+Please reference to the [CONTRIBUTING file](https://github.com/3ilson/pfelk/blob/master/CONTRIBUTING.md). Collectively we can enhance and improve this product. Issues, feature requests, PRs, and documentation contributions are encouraged and welcomed!
 
 ### License
-This project is licensed under the terms of the Apache 2.0 open source license. Please refer to LICENSE for the full terms.
+This project is licensed under the terms of the Apache 2.0 open source license. Please refer to [LICENSE](https://github.com/3ilson/pfelk/blob/master/license) for the full terms.
