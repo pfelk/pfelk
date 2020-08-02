@@ -9,7 +9,7 @@ PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:[interfac
 PF_IP_DATA %{INT:[packet][length]},%{IP:[source][ip]},%{IP:[destination][ip]},
 PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
 PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:tos},%{WORD:ecn}?,%{INT:ttl},%{INT:[packet][id]},%{INT:offset},(?:%{WORD:[ip][flags]}|%{PF_SPEC:[ip][flags]}),%{INT:[network][iana_number]},%{WORD:[network][transport]},
-PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{WORD:[protocol][type]},%{INT:[protocol][id]},
+PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:IPv6_Flag1},%{WORD:IPv6_Flag2},%{WORD:flow_label},%{DATA:[protocol][type]},%{INT:[protocol][id]},
 PF_PROTOCOL_DATA %{PF_TCP_DATA}|%{PF_UDP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP}
 
 # IPv6
