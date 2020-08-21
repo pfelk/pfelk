@@ -31,7 +31,7 @@
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
 # GeoIP  	   | 4.3.0
-# Java         | openjdk-14-jre-headless
+# Java         | openjre-14-jre-headless
 # Jave_Version | 14
 # Elastistack  | 7.9.0
 #
@@ -99,7 +99,7 @@ abort() {
   df -h &> "/tmp/pfELK/support/df"
   free -hm &> "/tmp/pfELK/support/memory"
   uname -a &> "/tmp/pfELK/support/uname"
-  dpkg -l | grep "openjdk" &> "/tmp/pfELK/support/packages"
+  dpkg -l | grep "openjre" &> "/tmp/pfELK/support/packages"
   dpkg -l &> "/tmp/pfELK/support/dpkg-list"
   echo "${architecture}" &> "/tmp/pfELK/support/architecture"
   sed -n '3p' "$0" &>> "/tmp/pfELK/support/script"
@@ -166,7 +166,7 @@ help_script() {
   --noip				   Do not configure firewall IP Address. 
   						   Must Configure Manually via:
                            /data/pfELK/01-inputs.conf
-  --nojava				   Do not install openjdk-14-jre
+  --nojava				   Do not install openjre-14-jre
   --nosense                Do not configure pfSense/OPNsense.  
                            Must Configure Manually via:
                            /data/pfELK/01-inputs.conf\\n\\n"
@@ -546,10 +546,10 @@ PUBLIC_SERVER_IP=$(curl ifconfi.me/ -s)
 architecture=$(dpkg --print-architecture)
 get_distro
 #
-#JAVA14=$(dpkg -l | grep -c "openjdk-14-jre-headless\\|oracle-java14-installer")
+#JAVA14=$(dpkg -l | grep -c "openjre-14-jre-headless\\|oracle-java14-installer")
 
 unsupported_java_installed=''
-openjdk_14_installed=''
+openjre_14_installed=''
 port_5601_in_use=''
 port_5601_pid=''
 port_5601_service=''
@@ -576,7 +576,7 @@ install_required_packages() {
   sleep 2
 }
 apt_get_install_package() {
-  if [[ "${old_openjdk_version}" == 'true' ]]; then
+  if [[ "${old_openjre_version}" == 'true' ]]; then
     apt_get_install_package_variable="update"
     apt_get_install_package_variable_2="updated"
   else
@@ -969,56 +969,56 @@ case "$yes_no" in
 esac
 sleep 3
 
-openjdk_version=$(dpkg -l | grep "^ii\\|^hi" | grep "openjdk-11-jre-headless" | awk '{print $3}' | grep "^11" | sed 's/-.*//g' | sed 's/11//g' | grep -o '[[:digit:]]*' | sort -V | tail -n 1)
-if dpkg -l | grep "^ii\\|^hi" | grep -iq "openjdk-11-jre-headless"; then
-  if [[ "${openjdk_version}" -lt '10' ]]; then
-    old_openjdk_version=true
+openjre_version=$(dpkg -l | grep "^ii\\|^hi" | grep "openjre-14-jre-headless" | awk '{print $3}' | grep "^11" | sed 's/-.*//g' | sed 's/11//g' | grep -o '[[:digit:]]*' | sort -V | tail -n 1)
+if dpkg -l | grep "^ii\\|^hi" | grep -iq "openjre-14-jre-headless"; then
+  if [[ "${openjre_version}" -lt '10' ]]; then
+    old_openjre_version=true
   fi
 fi
-if ! dpkg -l | grep "^ii\\|^hi" | grep -iq "openjdk-11-jre-headless" || [[ "${old_openjdk_version}" == 'true' ]]; then
-  if [[ "${old_openjdk_version}" == 'true' ]]; then
+if ! dpkg -l | grep "^ii\\|^hi" | grep -iq "openjre-14-jre-headless" || [[ "${old_openjre_version}" == 'true' ]]; then
+  if [[ "${old_openjre_version}" == 'true' ]]; then
     header_red
-    echo -e "${RED}#${RESET} OpenJDK is too old...\\n" && sleep 2
-    openjdk_variable="Updating"
-    openjdk_variable_2="Updated"
-    openjdk_variable_3="Update"
+    echo -e "${RED}#${RESET} OpenJRE is too old...\\n" && sleep 2
+    openjre_variable="Updating"
+    openjre_variable_2="Updated"
+    openjre_variable_3="Update"
   else
     header
-    echo -e "${GREEN}#${RESET} Preparing OpenJDK 11 installation...\\n" && sleep 2
-    openjdk_variable="Installing"
-    openjdk_variable_2="Installed"
-    openjdk_variable_3="Install"
+    echo -e "${GREEN}#${RESET} Preparing OpenJRE 11 installation...\\n" && sleep 2
+    openjre_variable="Installing"
+    openjre_variable_2="Installed"
+    openjre_variable_3="Install"
   fi
   sleep 2
   if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic) ]]; then
-    echo -e "${WHITE_R}#${RESET} ${openjdk_variable} openjdk-11-jre-headless..."
-    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install openjdk-11-jre-headless &> /dev/null || [[ "${old_openjdk_version}" == 'true' ]]; then
-      echo -e "${RED}#${RESET} Failed to ${openjdk_variable_3} openjdk-11-jre-headless in the first run...\\n"
-      if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ppa.launchpad.net/openjdk-r/ppa/ubuntu ${repo_codename} main") -eq 0 ]]; then
-        echo "deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu ${repo_codename} main" >> /etc/apt/sources.list.d/pfelk-install-script.list || abort
+    echo -e "${WHITE_R}#${RESET} ${openjre_variable} openjre-14-jre-headless..."
+    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install openjre-14-jre-headless &> /dev/null || [[ "${old_openjre_version}" == 'true' ]]; then
+      echo -e "${RED}#${RESET} Failed to ${openjre_variable_3} openjre-14-jre-headless in the first run...\\n"
+      if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ppa.launchpad.net/openjre-r/ppa/ubuntu ${repo_codename} main") -eq 0 ]]; then
+        echo "deb http://ppa.launchpad.net/openjre-r/ppa/ubuntu ${repo_codename} main" >> /etc/apt/sources.list.d/pfelk-install-script.list || abort
         echo "EB9B1D8886F44E2A" &>> /tmp/pfELK/keys/missing_keys
       fi
-      required_package="openjdk-11-jre-headless"
+      required_package="openjre-14-jre-headless"
       apt_get_install_package
     else
-      echo -e "${GREEN}#${RESET} Successfully ${openjdk_variable_2} openjdk-11-jre-headless! \\n" && sleep 2
+      echo -e "${GREEN}#${RESET} Successfully ${openjre_variable_2} openjre-14-jre-headless! \\n" && sleep 2
     fi
   elif [[ "${repo_codename}" =~ (disco|eoan|focal) ]]; then
-    echo -e "${WHITE_R}#${RESET} ${openjdk_variable} openjdk-11-jre-headless..."
-    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install openjdk-11-jre-headless &> /dev/null || [[ "${old_openjdk_version}" == 'true' ]]; then
-      echo -e "${RED}#${RESET} Failed to ${openjdk_variable_3} openjdk-11-jre-headless in the first run...\\n"
+    echo -e "${WHITE_R}#${RESET} ${openjre_variable} openjre-14-jre-headless..."
+    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install openjre-14-jre-headless &> /dev/null || [[ "${old_openjre_version}" == 'true' ]]; then
+      echo -e "${RED}#${RESET} Failed to ${openjre_variable_3} openjre-14-jre-headless in the first run...\\n"
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu bionic-security main universe") -eq 0 ]]; then
         echo "deb http://security.ubuntu.com/ubuntu bionic-security main universe" >> /etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-      required_package="openjdk-11-jre-headless"
+      required_package="openjre-14-jre-headless"
       apt_get_install_package
     else
-      echo -e "${GREEN}#${RESET} Successfully ${openjdk_variable_2} openjdk-11-jre-headless! \\n" && sleep 2
+      echo -e "${GREEN}#${RESET} Successfully ${openjre_variable_2} openjre-14-jre-headless! \\n" && sleep 2
     fi
   elif [[ "${os_codename}" == "jessie" ]]; then
-    echo -e "${WHITE_R}#${RESET} ${openjdk_variable} openjdk-11-jre-headless..."
-    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install -t jessie-backports openjdk-11-jre-headless &> /dev/null || [[ "${old_openjdk_version}" == 'true' ]]; then
-      echo -e "${RED}#${RESET} Failed to ${openjdk_variable_3} openjdk-11-jre-headless in the first run...\\n"
+    echo -e "${WHITE_R}#${RESET} ${openjre_variable} openjre-14-jre-headless..."
+    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install -t jessie-backports openjre-14-jre-headless &> /dev/null || [[ "${old_openjre_version}" == 'true' ]]; then
+      echo -e "${RED}#${RESET} Failed to ${openjre_variable_3} openjre-14-jre-headless in the first run...\\n"
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -P -c "^deb http[s]*://archive.debian.org/debian jessie-backports main") -eq 0 ]]; then
         echo deb http://archive.debian.org/debian jessie-backports main >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
         http_proxy=$(env | grep -i "http.*Proxy" | cut -d'=' -f2 | sed 's/[";]//g')
@@ -1033,38 +1033,38 @@ if ! dpkg -l | grep "^ii\\|^hi" | grep -iq "openjdk-11-jre-headless" || [[ "${ol
           apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 8B48AD6246925553 7638D0442B90D010 || abort
         fi
         echo -e "${WHITE_R}#${RESET} Running apt-get update..."
-        required_package="openjdk-11-jre-headless"
+        required_package="openjre-14-jre-headless"
         if apt-get update -o Acquire::Check-Valid-Until=false &> /dev/null; then echo -e "${GREEN}#${RESET} Successfully ran apt-get update! \\n"; else echo -e "${RED}#${RESET} Failed to ran apt-get update! \\n"; abort; fi
         echo -e "\\n------- ${required_package} installation ------- $(date +%F-%R) -------\\n" &>> "${pfELK_dir}/logs/apt.log"
-        if DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install -t jessie-backports openjdk-11-jre-headless &>> "${pfELK_dir}/logs/apt.log"; then echo -e "${GREEN}#${RESET} Successfully installed ${required_package}! \\n" && sleep 2; else echo -e "${RED}#${RESET} Failed to install ${required_package}! \\n"; abort; fi
+        if DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install -t jessie-backports openjre-14-jre-headless &>> "${pfELK_dir}/logs/apt.log"; then echo -e "${GREEN}#${RESET} Successfully installed ${required_package}! \\n" && sleep 2; else echo -e "${RED}#${RESET} Failed to install ${required_package}! \\n"; abort; fi
         sed -i '/jessie-backports/d' /etc/apt/sources.list.d/pfelk-install-script.list
         unset required_package
       fi
     fi
   elif [[ "${os_codename}" =~ (stretch|continuum) ]]; then
-    echo -e "${WHITE_R}#${RESET} ${openjdk_variable} openjdk-11-jre-headless..."
-    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install openjdk-11-jre-headless &> /dev/null || [[ "${old_openjdk_version}" == 'true' ]]; then
-      echo -e "${RED}#${RESET} Failed to ${openjdk_variable_3} openjdk-11-jre-headless in the first run...\\n"
-      if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ppa.launchpad.net/openjdk-r/ppa/ubuntu xenial main") -eq 0 ]]; then
-        echo "deb http://ppa.launchpad.net/openjdk-r/ppa/ubuntu xenial main" >> /etc/apt/sources.list.d/pfelk-install-script.list || abort
+    echo -e "${WHITE_R}#${RESET} ${openjre_variable} openjre-14-jre-headless..."
+    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install openjre-14-jre-headless &> /dev/null || [[ "${old_openjre_version}" == 'true' ]]; then
+      echo -e "${RED}#${RESET} Failed to ${openjre_variable_3} openjre-14-jre-headless in the first run...\\n"
+      if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ppa.launchpad.net/openjre-r/ppa/ubuntu xenial main") -eq 0 ]]; then
+        echo "deb http://ppa.launchpad.net/openjre-r/ppa/ubuntu xenial main" >> /etc/apt/sources.list.d/pfelk-install-script.list || abort
         echo "EB9B1D8886F44E2A" &>> /tmp/pfELK/keys/missing_keys
       fi
-      required_package="openjdk-11-jre-headless"
+      required_package="openjre-14-jre-headless"
       apt_get_install_package
     else
-      echo -e "${GREEN}#${RESET} Successfully ${openjdk_variable_2} openjdk-11-jre-headless! \\n" && sleep 2
+      echo -e "${GREEN}#${RESET} Successfully ${openjre_variable_2} openjre-14-jre-headless! \\n" && sleep 2
     fi
   elif [[ "${repo_codename}" =~ (buster|bullseye) ]]; then
-    echo -e "${WHITE_R}#${RESET} ${openjdk_variable} openjdk-11-jre-headless..."
-    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install openjdk-11-jre-headless &> /dev/null || [[ "${old_openjdk_version}" == 'true' ]]; then
-      echo -e "${RED}#${RESET} Failed to ${openjdk_variable_3} openjdk-11-jre-headless in the first run...\\n"
+    echo -e "${WHITE_R}#${RESET} ${openjre_variable} openjre-14-jre-headless..."
+    if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install openjre-14-jre-headless &> /dev/null || [[ "${old_openjre_version}" == 'true' ]]; then
+      echo -e "${RED}#${RESET} Failed to ${openjre_variable_3} openjre-14-jre-headless in the first run...\\n"
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.us.debian.org/debian stretch main") -eq 0 ]]; then
         echo "deb http://ftp.us.debian.org/debian stretch main" >> /etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-      required_package="openjdk-11-jre-headless"
+      required_package="openjre-14-jre-headless"
       apt_get_install_package
     else
-      echo -e "${GREEN}#${RESET} Successfully ${openjdk_variable_2} openjdk-11-jre-headless! \\n" && sleep 2
+      echo -e "${GREEN}#${RESET} Successfully ${openjre_variable_2} openjre-14-jre-headless! \\n" && sleep 2
     fi
   else
     header_red
@@ -1075,19 +1075,19 @@ if ! dpkg -l | grep "^ii\\|^hi" | grep -iq "openjdk-11-jre-headless" || [[ "${ol
   fi
 else
   header
-  echo -e "${GREEN}#${RESET} Preparing OpenJDK 11 installation..."
-  echo -e "${WHITE_R}#${RESET} OpenJDK 11 is already installed! \\n"
+  echo -e "${GREEN}#${RESET} Preparing OpenJRE 14 installation..."
+  echo -e "${WHITE_R}#${RESET} Openjre 11 is already installed! \\n"
 fi
 sleep 3
 
-if dpkg -l | grep "^ii\\|^hi" | grep -iq "openjdk-11"; then
-  openjdk_11_installed=true
+if dpkg -l | grep "^ii\\|^hi" | grep -iq "openjre-14"; then
+  openjre_11_installed=true
 fi
-if dpkg -l | grep "^ii\\|^hi" | grep -i "openjdk-.*-\\|oracle-java.*" | grep -vq "openjdk-14-jre-headless\\|oracle-java14"; then
+if dpkg -l | grep "^ii\\|^hi" | grep -i "openjre-.*-\\|oracle-java.*" | grep -vq "openjre-14-jre-headless\\|oracle-java14"; then
   unsupported_java_installed=true
 fi
 
-if [[ "${openjdk_11_installed}" == 'true' && "${unsupported_java_installed}" == 'true' && "${script_option_skip}" != 'true' ]]; then
+if [[ "${openjre_14_installed}" == 'true' && "${unsupported_java_installed}" == 'true' && "${script_option_skip}" != 'true' ]]; then
   header_red
   echo -e "${WHITE_R}#${RESET} Unsupported JAVA version(s) are detected, do you want to uninstall them?"
   echo -e "${WHITE_R}#${RESET} This may remove packages that depend on these java versions."
@@ -1101,7 +1101,7 @@ if [[ "${openjdk_11_installed}" == 'true' && "${unsupported_java_installed}" == 
           echo -e "${WHITE_R}#${RESET} Uninstalling unsupported JAVA versions..."
           echo -e "\\n${WHITE_R}----${RESET}\\n"
           sleep 3
-          dpkg -l | grep "^ii\\|^hi" | awk '/openjdk-.*/{print $2}' | cut -d':' -f1 | grep -v "openjdk-11-jre-headless" &>> /tmp/pfELK/java/unsupported_java_list_tmp
+          dpkg -l | grep "^ii\\|^hi" | awk '/openjre-.*/{print $2}' | cut -d':' -f1 | grep -v "openjre-14-jre-headless" &>> /tmp/pfELK/java/unsupported_java_list_tmp
           dpkg -l | grep "^ii\\|^hi" | awk '/oracle-java.*/{print $2}' | cut -d':' -f1 | grep -v "oracle-java8" &>> /tmp/pfELK/java/unsupported_java_list_tmp
           awk '!a[$0]++' /tmp/pfELK/java/unsupported_java_list_tmp >> /tmp/pfELK/java/unsupported_java_list; rm --force /tmp/pfELK/java/unsupported_java_list_tmp 2> /dev/null
           echo -e "\\n------- $(date +%F-%R) -------\\n" &>> "${pfELK_dir}/logs/java_uninstall.log"
@@ -1114,12 +1114,12 @@ if [[ "${openjdk_11_installed}" == 'true' && "${unsupported_java_installed}" == 
   esac
 fi
 
-if dpkg -l | grep "^ii\\|^hi" | grep -iq "openjdk-11-jre-headless"; then
-  update_java_alternatives=$(update-java-alternatives --list | grep "^java-1.8.*openjdk" | awk '{print $1}' | head -n1)
+if dpkg -l | grep "^ii\\|^hi" | grep -iq "openjre-14-jre-headless"; then
+  update_java_alternatives=$(update-java-alternatives --list | grep "^java-1.8.*openjre" | awk '{print $1}' | head -n1)
   if [[ -n "${update_java_alternatives}" ]]; then
     update-java-alternatives --set "${update_java_alternatives}" &> /dev/null
   fi
-  update_alternatives=$(update-alternatives --list java | grep "java-11-openjdk" | awk '{print $1}' | head -n1)
+  update_alternatives=$(update-alternatives --list java | grep "java-11-openjre" | awk '{print $1}' | head -n1)
   if [[ -n "${update_alternatives}" ]]; then
     update-alternatives --set java "${update_alternatives}" &> /dev/null
   fi
