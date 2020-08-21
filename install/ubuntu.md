@@ -34,9 +34,9 @@ echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee 
 sudo apt update
 ```
 
-### 6. Install Java 11 LTS
+### 6. Install Java 14 LTS
 ```
-sudo apt install openjdk-11-jre-headless
+sudo apt install openjdk-14-jre-headless
 ```
 
 ### 7. Install MaxMind
