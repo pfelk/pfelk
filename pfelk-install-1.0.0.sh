@@ -31,8 +31,8 @@
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
 # GeoIP  	   | 4.3.0
-# Java         | openjdk-11-jre-headless
-# Jave_Version | 11
+# Java         | openjdk-14-jre-headless
+# Jave_Version | 14
 # Elastistack  | 7.9.0
 #
 ###################################################################################################################################################################################################
@@ -166,7 +166,7 @@ help_script() {
   --noip				   Do not configure firewall IP Address. 
   						   Must Configure Manually via:
                            /data/pfELK/01-inputs.conf
-  --nojava				   Do not install openjdk-11-jre
+  --nojava				   Do not install openjdk-14-jre
   --nosense                Do not configure pfSense/OPNsense.  
                            Must Configure Manually via:
                            /data/pfELK/01-inputs.conf\\n\\n"
@@ -546,10 +546,10 @@ PUBLIC_SERVER_IP=$(curl ifconfi.me/ -s)
 architecture=$(dpkg --print-architecture)
 get_distro
 #
-#JAVA11=$(dpkg -l | grep -c "openjdk-11-jre-headless\\|oracle-java11-installer")
+#JAVA14=$(dpkg -l | grep -c "openjdk-14-jre-headless\\|oracle-java14-installer")
 
 unsupported_java_installed=''
-openjdk_11_installed=''
+openjdk_14_installed=''
 port_5601_in_use=''
 port_5601_pid=''
 port_5601_service=''
@@ -1068,7 +1068,7 @@ if ! dpkg -l | grep "^ii\\|^hi" | grep -iq "openjdk-11-jre-headless" || [[ "${ol
     fi
   else
     header_red
-    echo -e "${RED}Please manually install JAVA 11 on your system!${RESET}\\n"
+    echo -e "${RED}Please manually install JAVA 14 on your system!${RESET}\\n"
     echo -e "${RED}OS Details:${RESET}\\n"
     echo -e "${RED}$(lsb_release -a)${RESET}\\n"
     exit 0
@@ -1083,7 +1083,7 @@ sleep 3
 if dpkg -l | grep "^ii\\|^hi" | grep -iq "openjdk-11"; then
   openjdk_11_installed=true
 fi
-if dpkg -l | grep "^ii\\|^hi" | grep -i "openjdk-.*-\\|oracle-java.*" | grep -vq "openjdk-11-jre-headless\\|oracle-java11"; then
+if dpkg -l | grep "^ii\\|^hi" | grep -i "openjdk-.*-\\|oracle-java.*" | grep -vq "openjdk-14-jre-headless\\|oracle-java14"; then
   unsupported_java_installed=true
 fi
 
