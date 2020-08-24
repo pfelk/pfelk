@@ -1119,7 +1119,7 @@ if dpkg -l | grep "^ii\\|^hi" | grep -iq "openjre-14-jre-headless"; then
   if [[ -n "${update_java_alternatives}" ]]; then
     update-java-alternatives --set "${update_java_alternatives}" &> /dev/null
   fi
-  update_alternatives=$(update-alternatives --list java | grep "java-11-openjre" | awk '{print $1}' | head -n1)
+  update_alternatives=$(update-alternatives --list java | grep "java-14-openjre" | awk '{print $1}' | head -n1)
   if [[ -n "${update_alternatives}" ]]; then
     update-alternatives --set java "${update_alternatives}" &> /dev/null
   fi
@@ -1181,10 +1181,13 @@ download_pfelk() {
   cd /etc/kibana
   rm /etc/kibana/kibana.yml
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
+  #fix above to amend after install
   mkdir -p /etc/logstash/conf.d/patterns
   mkdir -p /etc/logstash/conf.d/templates
   cd /etc/logstash/conf.d/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
+  #wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf
+  #wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/03-filter.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-others.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
@@ -1197,6 +1200,7 @@ download_pfelk() {
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
   cd /etc/logstash/conf.d/templates
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip-template.json
+  #wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-geoip.json
   mkdir -p /etc/pfELK/logs/
   cd /etc/pfELK/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
@@ -1214,6 +1218,7 @@ echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
 echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
 read -p "Enter Your Firewall's IP Adress: " input_ip
 sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/01-inputs.conf
+#sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/02-filter.conf
 sleep 2
 
 #Configure 01-inputs.conf for OPNsense or pfSense
