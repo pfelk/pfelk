@@ -105,6 +105,8 @@ cd /etc/logstash/conf.d
 ### 15. (Required) Download the following configuration files
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/03-filter.conf
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
@@ -113,6 +115,7 @@ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/con
 ### 15a. (Optional) Download the following configuration files
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-others.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/15-squid.conf
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
@@ -141,20 +144,20 @@ cd /etc/logstash/conf.d/templates
 
 ### 20. Download Template(s)
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip-template.json
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip.json
 ```
 
-### 21. Enter your pfSense/OPNsense IP address (/data/pfELK/configurations/01-inputs.conf)
+### 21. Enter your pfSense/OPNsense IP address (/data/pfELK/configurations/02-types.conf)
 ```
-Change line 11; the "if [host] =~ ..." should point to your pfSense/OPNsense IP address
-Change line 14; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
-Change line 17-26; (OPTIONAL) to point to your second PF IP address or ignore
+Change line 5; the "if [host] == ..." should point to your pfSense/OPNsense IP address
+Change line 8; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
+Change line 11-20; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
 ### 22. Revise/Update w/pf IP address (/data/pfELK/configurations/01-inputs.conf)
 ```
-For pfSense uncommit line 33 and commit out line 30 (#pf#)
-For OPNsense uncommit line 30 and commit out line 33 (#opn#)
+For OPNsense uncommit line 4 and commit out line 5 (#opn#)
+For pfSense uncommit line 5 and commit out line 4 (#pf#)
 ```
 
 # Troubleshooting
