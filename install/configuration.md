@@ -136,5 +136,5 @@ systemctl start logstash.service
  - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Firewall%20Dashboard%20(082420).ndjson)
  - [Unbound Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Unbound%20Dashboard%20(082420).ndjson)
  - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v%205.5%20Squid%20Dashboard%20(082420).ndjson)
- - [Suricata Dashboard](#)
+ - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Suricata%20Dashboard%20(082420).ndjson)
  - [Snort Dashboard](#)
