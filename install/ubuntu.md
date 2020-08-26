@@ -154,7 +154,7 @@ Change line 8; rename "firewall" (OPTIONAL) to identify your device (i.e. backup
 Change line 11-20; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
-### 22. Revise/Update w/pf IP address (/data/pfELK/configurations/01-inputs.conf)
+### 22. Revise/Update w/pf IP address (/data/pfELK/configurations/03-filter.conf)
 ```
 For OPNsense uncommit line 4 and commit out line 5 (#opn#)
 For pfSense uncommit line 5 and commit out line 4 (#pf#)
