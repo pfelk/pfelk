@@ -64,20 +64,20 @@ Supported entries include:
  * `$ docker-compose up`
 
 #### manual installation/script - preferred manual method
-* Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh) repository
+* Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.sh) repository
 ##### Ubuntu
-* `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh`
+* `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.sh`
 * Make script executable 
-* `$ sudo chmod +x pfelk-install-1.0.0.sh`
+* `$ sudo chmod +x pfelk-install-5.5.sh`
 * Run installer script 
-* `$ sudo ./pfelk-install-1.0.0.sh`
+* `$ sudo ./pfelk-install-5.5.sh`
 * Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
 ##### Debian
-* `$ wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-1.0.0.sh`
+* `$ wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.sh`
 * Make script executable 
-* `$ chmod +x pfelk-install-1.0.0.sh`
+* `$ chmod +x pfelk-install-5.5.sh`
 * Run installer script 
-* `$ ./pfelk-install-1.0.0.sh`
+* `$ ./pfelk-install-5.5.sh`
 * Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
 
 #### manual installation
