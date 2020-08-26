@@ -1,5 +1,5 @@
 {
-  "index_patterns" : "pf-*",
+  "index_patterns" : "pfelk-*",
   "version" : 60001,
   "settings" : {
     "index.refresh_interval" : "5s",
