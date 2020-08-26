@@ -2,7 +2,7 @@
 #######################
 # pfelk GROK Pattern  #
 #                     #
-# Date 4 April 2020   #
+# Date 28 August 2020 #
 #######################
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
 PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:[interface][name]},(?<reason>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
@@ -48,7 +48,8 @@ DHCPGENERAL %{GREEDYDATA:[dhcp][message]}
 DHCPDv6 %{GREEDYDATA:[dhcpv6][operation]}
 
 # PF
-PF_CARP_DATA (%{WORD:carp_type}),(%{INT:carp_ttl}),(%{INT:carp_vhid}),(%{INT:carp_version}),(%{INT:carp_advbase}),(%{INT:carp_advskew})
+PF %{DATA:application}(?:\[%{POSINT:[process][id]}\])?: %{GREEDYDATA:pf_message}
+PF_CARP_DATA (%{WORD:[carp][type]}),(%{INT:[carp][ttl]}),(%{INT:[carp][vhid]}),(%{INT:[carp][version]}),(%{INT:[carp][advbase]}),(%{INT:[carp][advskew]})
 PF_APP (%{DATA:pf_APP}):
 PF_APP_DATA (%{PF_APP_LOGOUT}|%{PF_APP_LOGIN}|%{PF_APP_ERROR}|%{PF_APP_GEN})
 PF_APP_LOGIN (%{DATA:pf_ACTION}) for user \'(%{DATA:pf_USER})\' from: (%{GREEDYDATA:pf_REMOTE_IP})
@@ -63,10 +64,13 @@ OPENVPNUSER (%{WORD:openvpn_domain}?\\)?(?<openvpn_user>\b[+\w\.-]+\b)?/?%{IP:[v
 OPENVPNLOG %{GREEDYDATA:openvpn_message}
 
 # UNBOUND (Optional)
-UNBOUND (\[%{GREEDYDATA:unbound_pid}]\s+)%{WORD:unbound_log_level}:%{SPACE}%{GREEDYDATA:unbound_log_message}
+UNBOUND %{INT:[unbound][process][id]}:%{INT:[unbound][instance][id]}] %{LOGLEVEL:[unbound][log][level]}: %{IP:[unbound][query][client][ip]} %{GREEDYDATA:[unbound][query][url]}\. %{WORD:[unbound][query][record][type]} %{WORD:[unbound][query][message][flags]}
 
 # SURICATA
 SURICATA \[%{NUMBER:[suricata][rule][uuid]}:%{NUMBER:[suricata][rule][id]}:%{NUMBER:[suricata][rule][version]}\]%{SPACE}%{GREEDYDATA:[suricata][rule][description]}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:[suricata][rule][category]}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:[suricata][priority]}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
 
 # SNORT
 SNORT \[%{INT:[snort][rule][uuid]}\:%{INT:[snort][rule][reference]}\:%{INT:[snort][rule][version]}\].%{GREEDYDATA:[snort][rule][description]}.\[Classification\: %{DATA:[snort][rule][classification]}\].\[Priority\: %{INT:[snort][priority]}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
+
+# HAPROXY
+HAPROXY %{DATA:application}(?:\[%{POSINT:[process][pid]}\])?:%{SPACE}%{IP:[haproxy][client][ip]}:%{INT:[haproxy][client][port]} \[%{GREEDYDATA:haproxy_timestamp}\] %{WORD:[haproxy][server_name]}~ %{WORD:[haproxy][backend_name]}\/%{WORD:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][timers]} %{NUMBER:[haproxy][http][response][status_code]} %{NUMBER:[haproxy][byte_read]} %{GREEDYDATA:[haproxy][term_con_que]}\"%{WORD:[haproxy][http_mode]}%{SPACE}%{NOTSPACE:[haproxy][path]}%{GREEDYDATA:[haproxy][http_version]}\"
