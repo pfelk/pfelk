@@ -18,7 +18,7 @@
 #          | Debian Buster ( 10 )
 #          | Debian Bullseye ( 11 )
 #
-# Version    | 1.0.0
+# Version    | 5.5
 # Author     | Andrew Wilson
 # Email      | andrew@pfelk.com
 # Website    | https://pfelk.3ilson.dev
@@ -1177,16 +1177,15 @@ sleep 3
 ###################################################################################################################################################################################################
 
 download_pfelk() {
-  mkdir -p /etc/kibana	
-  cd /etc/kibana
-  rm /etc/kibana/kibana.yml
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
   mkdir -p /etc/logstash/conf.d/patterns
   mkdir -p /etc/logstash/conf.d/templates
   cd /etc/logstash/conf.d/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/03-filter.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-others.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/15-squid.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
@@ -1196,7 +1195,7 @@ download_pfelk() {
   cd /etc/logstash/conf.d/patterns/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
   cd /etc/logstash/conf.d/templates
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip-template.json
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip.json
   mkdir -p /etc/pfELK/logs/
   cd /etc/pfELK/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
@@ -1213,7 +1212,7 @@ echo -e "${WHITE_R}#${RESET} Please provide the IP address (LAN) for your firewa
 echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
 echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
 read -p "Enter Your Firewall's IP Adress: " input_ip
-sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/01-inputs.conf
+sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/02-types.conf
 sleep 2
 
 #Configure 01-inputs.conf for OPNsense or pfSense
@@ -1224,7 +1223,7 @@ select opt in "${options[@]}"
 do
 	case $opt in
 	    "OPNsense")
-	      sed -e s/#OPN#//g -i /etc/logstash/conf.d/01-inputs.conf 
+	      sed -e s/#OPN#//g -i /etc/logstash/conf.d/03-filter.conf 
 	      echo -e "\\n";
 		  echo -e "${RED}#${RESET} pfELK configured for OPNsense!\\n"
 	      sleep 3
@@ -1232,7 +1231,7 @@ do
 	      break
 	      ;;
 	    "pfSense")
-	      sed -e s/#pf#//g -i /etc/logstash/conf.d/01-inputs.conf 
+	      sed -e s/#pf#//g -i /etc/logstash/conf.d/03-filter.conf 
 	      echo -e "\\n";
 		  echo -e "${RED}#${RESET} pfELK configured for pfSense!\\n"
 	      sleep 3
@@ -1326,6 +1325,15 @@ rm --force "$kibana_temp" 2> /dev/null
 service kibana start || abort
 sleep 3
 
+# Download Kibana.yml & Restart Kibana
+update_kibana() {
+  cd /etc/kibana
+  rm /etc/kibana/kibana.yml
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
+  sudo systemctl restart kibana.service
+}
+update_kibana
+
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                               Finish                                                                                            #
@@ -1333,7 +1341,6 @@ sleep 3
 ###################################################################################################################################################################################################
 
 #Configure Firewall (OPNsense or pfSense) IP Address
-
 
 # Check if Elasticsearch service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
