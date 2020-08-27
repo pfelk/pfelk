@@ -117,7 +117,19 @@ systemctl start logstash.service
  - For each interface you have configured, choose the edit pencil to the right (repeat these steps for each)
  - In each "Interface" Settings -> under Alert Settings check Send Alerts to System Log
  - Scroll down and Choose Save
- ![Snort-Log-Settings](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/snort-log-settings.png) 
+ ![Snort-Log-Settings](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/snort-log-settings.png)
+### 5f. Configure HAProxy for log forwarding - OPNsense (Optional)
+ - In OPNsense navigate to Services->HAProxy->Settings->Settings->Logging Configuration
+ - Log Host = ELK IP
+ - Syslog facility = local0[default]
+ - Filter syslog level = info[default]
+### 5g. Configure Squid for log forwarding - OPNsense (Optional)
+ - In OPNsense navigate to Services->Web Proxy->Administration->General Proxy Settings
+ - Enable "advanced mode"
+ - Access log target = Syslog(Json)
+### 5h. Configure Unbound DNS for full query log forwarding - OPNsense (Optional)
+ - In OPNsense navigate to Services->Unbound DNS->Advanced
+ - Log Queries = [X]
 # Kibana 
 ### 6a. Configuring Patterns
 [YouTube Guide](https://youtu.be/a1no6AlXP-k)
