@@ -125,7 +125,7 @@ systemctl start logstash.service
 - Under Management click -> Stack Management
 - Under Kibana click -> Index Patters
 - Click Create New Index Pattern
-- Type "pf-*" into the input box, then click Next Step
+- Type "pfelk-*" into the input box, then click Next Step
 ### 6b. Import dashboards
 [YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
