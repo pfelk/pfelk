@@ -126,6 +126,11 @@ systemctl start logstash.service
 - Under Kibana click -> Index Patters
 - Click Create New Index Pattern
 - Type "pfelk-*" into the input box, then click Next Step
+  - select ```@timestamp``` within Time Field 
+  - Exapnd Advanced Options and input ```pfELK```  
+  - [NOTE] If this is not done, importing the dashboards may result in index pattern ID errors.
+  - [YouTube Guide](https://youtu.be/a1no6AlXP-k)
+  - ![pfELK Pattern ID](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/pfelk-initial-pattern.PNG)
 ### 6b. Import dashboards
 [YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
