@@ -32,10 +32,10 @@ Supported entries include:
  - IPv4/IPv6 mapping
  - pfSense CARP data
  - openVPN log parsing
- - Unbound DNS Resolver
+ - Unbound DNS Resolver with dashboards
  - Suricata IDS with dashboards
  - Snort IDS with dashboards
- - Squid
+ - Squid with dashboards
  - HAProxy
 
 **pfelk** aims to replace the vanilla pfSense/opnSense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
