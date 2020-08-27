@@ -1,6 +1,6 @@
 {
   "index_patterns" : "pfelk-*",
-  "version" : 60001,
+  "version" : 80001,
   "settings" : {
     "index.refresh_interval" : "5s",
     "number_of_shards": 2
@@ -38,30 +38,12 @@
               "latitude" : { "type" : "half_float" },
               "longitude" : { "type" : "half_float" }
             }
-          },
-          "as": {
-            "dynamic": true,
-            "properties": {
-              "ip": { "type": "ip" },
-              "location" : { "type" : "geo_point" },
-              "latitude" : { "type" : "half_float" },
-              "longitude" : { "type" : "half_float" }
-            }
           }
         }
       },
       "source": {
         "properties": {
           "geo": {
-            "dynamic": true,
-            "properties": {
-              "ip": { "type": "ip" },
-              "location" : { "type" : "geo_point" },
-              "latitude" : { "type" : "half_float" },
-              "longitude" : { "type" : "half_float" }
-            }
-          },
-          "as": {
             "dynamic": true,
             "properties": {
               "ip": { "type": "ip" },
