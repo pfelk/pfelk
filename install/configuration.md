@@ -120,7 +120,7 @@ systemctl start logstash.service
  ![Snort-Log-Settings](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/snort-log-settings.png) 
 # Kibana 
 ### 6a. Configuring Patterns
-[YouTube Guide](https://www.youtube.com/watch?v=uBSRaUOgEz8)
+[YouTube Guide](https://youtu.be/a1no6AlXP-k)
 - Click the menu icon (three horizontal lines) in the upper left
 - Under Management click -> Stack Management
 - Under Kibana click -> Index Patters
@@ -129,7 +129,6 @@ systemctl start logstash.service
   - select ```@timestamp``` within Time Field 
   - Exapnd Advanced Options and input ```pfELK```  
   - [NOTE] If this is not done, importing the dashboards may result in index pattern ID errors.
-  - [YouTube Guide](https://youtu.be/a1no6AlXP-k)
   - ![pfELK Pattern ID](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/pfelk-initial-pattern.PNG)
 ### 6b. Import dashboards
 [YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
