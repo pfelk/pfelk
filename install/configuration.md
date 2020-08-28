@@ -135,7 +135,7 @@ systemctl start logstash.service
 ### 5h. Configure Unbound DNS for full query log forwarding - OPNsense (Optional)
  - In OPNsense navigate to Services->Unbound DNS->Advanced
  - Log Queries = [X]
- ![OPNsense-Squid](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_unbound_queries.PNG)
+ ![OPNsense-Unbound](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_unbound_queries.PNG)
 # Kibana 
 ### 6a. Configuring Patterns
 [YouTube Guide](https://youtu.be/a1no6AlXP-k)
