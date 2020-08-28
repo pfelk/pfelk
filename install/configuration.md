@@ -123,13 +123,19 @@ systemctl start logstash.service
  - Log Host = ELK IP
  - Syslog facility = local0[default]
  - Filter syslog level = info[default]
+ - Add the "httplog" under HAProxy->Settings->Virtual Services->Public Servers -> edit your public service
+ - Enable "advanced mode" and scroll down
+ - Under "Option pass-through" add "option httplog"
+ ![OPNsense-HAProxy](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_haproxy_http_log.PNG)
 ### 5g. Configure Squid for log forwarding - OPNsense (Optional)
  - In OPNsense navigate to Services->Web Proxy->Administration->General Proxy Settings
  - Enable "advanced mode"
  - Access log target = Syslog(Json)
+ ![OPNsense-Squid](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_squid_syslog.PNG)
 ### 5h. Configure Unbound DNS for full query log forwarding - OPNsense (Optional)
  - In OPNsense navigate to Services->Unbound DNS->Advanced
  - Log Queries = [X]
+ ![OPNsense-Squid](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_unbound_queries.PNG)
 # Kibana 
 ### 6a. Configuring Patterns
 [YouTube Guide](https://youtu.be/a1no6AlXP-k)
