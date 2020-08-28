@@ -1179,6 +1179,7 @@ sleep 3
 download_pfelk() {
   mkdir -p /etc/logstash/conf.d/patterns
   mkdir -p /etc/logstash/conf.d/templates
+  mkdir -p /etc/logstash/conf.d/databases
   cd /etc/logstash/conf.d/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf
@@ -1196,6 +1197,9 @@ download_pfelk() {
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
   cd /etc/logstash/conf.d/templates
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip.json
+  cd /etc/logstash/conf.d/databases
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv
   mkdir -p /etc/pfELK/logs/
   cd /etc/pfELK/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh

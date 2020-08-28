@@ -119,66 +119,88 @@ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/con
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/20-suricata.conf
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
 ```
 
-### 16. Make Patterns Folder
+### 16a. Make Patterns Folder
 ```
 sudo mkdir /etc/logstash/conf.d/patterns
 ```
 
-### 17. Download the grok pattern
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
-```
-
-### 18. Make Templates Folder
-```
-sudo mkdir /etc/logstash/conf.d/templates
-```
-
-### 19. Navigate to Templates Folder
+### 16b. Navigate to Patterns Folder
 ```
 cd /etc/logstash/conf.d/templates
 ```
 
-### 20. Download Template(s)
+### 16c. Download the grok pattern
+```
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
+```
+
+### 17a. Make Templates Folder
+```
+sudo mkdir /etc/logstash/conf.d/templates
+```
+
+### 17b. Navigate to Templates Folder
+```
+cd /etc/logstash/conf.d/templates
+```
+
+### 17c. Download Template(s)
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip.json
 ```
 
-### 21. Enter your pfSense/OPNsense IP address (/data/pfELK/configurations/02-types.conf)
+### 18a. Make Patterns Folder
+```
+sudo mkdir /etc/logstash/conf.d/patterns
+```
+
+### 18a. Navigate to Patterns Folder
+```
+sudo mkdir /etc/logstash/conf.d/patterns
+```
+
+### 18b. Download the Database(s)
+```
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv
+```
+
+### 19. Enter your pfSense/OPNsense IP address (/data/pfELK/configurations/02-types.conf)
 ```
 Change line 5; the "if [host] == ..." should point to your pfSense/OPNsense IP address
 Change line 8; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
 Change line 11-20; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
-### 22. Revise/Update w/pf IP address (/data/pfELK/configurations/03-filter.conf)
+### 20. Revise/Update w/pf IP address (/data/pfELK/configurations/03-filter.conf)
 ```
 For OPNsense uncommit line 4 and commit out line 5 (#opn#)
 For pfSense uncommit line 5 and commit out line 4 (#pf#)
 ```
 
 # Troubleshooting
-### 23. Create Logging Directory 
+### 21. Create Logging Directory 
 ```
 sudo mkdir -p /etc/pfELK/logs
 ```
 
-### 24. Navigate to pfELK  
+### 22. Navigate to pfELK  
 ```
 cd /etc/pfELK/
 ```
 
-### 25. Download `error-data.sh`
+### 23. Download `error-data.sh`
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
 ```
 
-### 26. Make `error-data.sh` Executable
+### 24. Make `error-data.sh` Executable
 ```
 sudo chmod +x /etc/pfELK/error-data.sh
 ```
 
-### 27. Complete Configuration --> [Configuration](configuration.md)
+### 25. Complete Configuration --> [Configuration](configuration.md)
