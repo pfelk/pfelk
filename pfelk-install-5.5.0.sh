@@ -1219,33 +1219,33 @@ sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/02-types.conf
 sleep 2
 
 #Configure 01-inputs.conf for OPNsense or pfSense
-echo -e "${WHITE_R}#${RESET} Please select firewall distribution type, for configuration.${RESET}\\n";
-SenseType='Please specify your firewall type: '
-options=("OPNsense" "pfSense" "Exit")
-select opt in "${options[@]}"
-do
-	case $opt in
-	    "OPNsense")
-	      sed -e s/#OPN#//g -i /etc/logstash/conf.d/03-filter.conf 
-	      echo -e "\\n";
-		  echo -e "${RED}#${RESET} pfELK configured for OPNsense!\\n"
-	      sleep 3
-	      echo -e "\\n"
-	      break
-	      ;;
-	    "pfSense")
-	      sed -e s/#pf#//g -i /etc/logstash/conf.d/03-filter.conf 
-	      echo -e "\\n";
-		  echo -e "${RED}#${RESET} pfELK configured for pfSense!\\n"
-	      sleep 3
-	      echo -e "\\n"
-	      break
-	      ;;
-	    "Exit")
-	      exit 0;;
-	    *) echo "invalid option $REPLY";;
-	esac
-done
+#echo -e "${WHITE_R}#${RESET} Please select firewall distribution type, for configuration.${RESET}\\n";
+#SenseType='Please specify your firewall type: '
+#options=("OPNsense" "pfSense" "Exit")
+#select opt in "${options[@]}"
+#do
+#	case $opt in
+#	    "OPNsense")
+#	      sed -e s/#OPN#//g -i /etc/logstash/conf.d/03-filter.conf 
+#	      echo -e "\\n";
+#		  echo -e "${RED}#${RESET} pfELK configured for OPNsense!\\n"
+#	      sleep 3
+#	      echo -e "\\n"
+#	      break
+#	      ;;
+#	    "pfSense")
+#	      sed -e s/#pf#//g -i /etc/logstash/conf.d/03-filter.conf 
+#	      echo -e "\\n";
+#		  echo -e "${RED}#${RESET} pfELK configured for pfSense!\\n"
+#	      sleep 3
+#	      echo -e "\\n"
+#	      break
+#	      ;;
+#	    "Exit")
+#	      exit 0;;
+#	    *) echo "invalid option $REPLY";;
+#	esac
+#done
 
 #Elasticsearch Install.
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
