@@ -1215,7 +1215,7 @@ echo -e "${WHITE_R}#${RESET} Please provide the IP address (LAN) for your firewa
 echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
 echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
 read -p "Enter Your Firewall's IP Adress: " input_ip
-sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/02-types.conf
+sed -e s/"192.168.9.1"/${input_ip}/g -i /etc/logstash/conf.d/02-types.conf
 sleep 2
 
 #Configure 01-inputs.conf for OPNsense or pfSense
