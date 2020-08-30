@@ -19,7 +19,6 @@
 #          | Debian Bullseye ( 11 )
 #
 # Version    | 5.5.0
-# Author     | Andrew Wilson
 # Email      | andrew@pfelk.com
 # Website    | https://pfelk.3ilson.dev
 #
@@ -30,7 +29,7 @@
 ###################################################################################################################################################################################################
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
-# GeoIP  	   | 4.3.0
+# GeoIP        | 4.3.0
 # Java         | openjdk-11-jre-headless
 # Jave_Version | 11
 # Elastistack  | 7.9.0
