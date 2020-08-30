@@ -47,6 +47,22 @@ sudo nano /etc/logstash/conf.d/databases/rule-names.csv
 ```
 #### You must repeat step 1 (Rules) if you add new rules in pfSense and then restart logstash
 
+### 1d. Update firewall interfaces
+- Amend the ```05-firewall.conf``` file 
+```
+sudo nano /etc/logstash/conf.d/05-firewall.conf
+```
+- Adjust the interface name(s) to correspond with your hardware (e.g. the interface below is referenced as ```igb0``` with a corresponding “Development” name for identification/filtering within pfELK).  Add/remove sections, depending on the number of interfaces.
+```
+      # Change interface as desired
+        if [interface][name] =~ /^igb0$/ {
+          mutate {
+            add_field => { "[interface][alias]" => "DEV" }
+            add_field => { "[network][name]" => "Development" }
+        }
+      }
+```
+
 # Swap
 ### 2. Disabling Swap
 Swapping should be disabled for performance and stability.
