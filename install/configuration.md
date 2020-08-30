@@ -37,9 +37,12 @@ Copy the entire results to your clipboard
 ### 1c. Update the logstash configuration (Optional & pfSense Only)
 - Go back to the server you installed pfELK on.
 ```
-sudo nano /etc/logstash/conf.d/35-rules-desc.conf
+sudo nano /etc/logstash/conf.d/databases/rule-names.csv
 ```
-- Paste the the results from pfSense into the first blank line after `"0"=> "null"`
+- Paste the the results from pfSense into the first blank line after `"0"=> "null"` 
+- Example:
+  - Line #1 ```"0"=> "null"```
+  - Line #2 ```"1"=> "My First Firewall Rule"```
 #### You must repeat step 1 (Rules) if you add new rules in pfSense and then restart logstash
 
 # Swap
