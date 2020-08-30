@@ -41,8 +41,10 @@ sudo nano /etc/logstash/conf.d/databases/rule-names.csv
 ```
 - Paste the the results from pfSense into the first blank line after `"0"=> "null"` 
 - Example:
-  - Line #1 ```"0"=> "null"```
-  - Line #2 ```"1"=> "My First Firewall Rule"```
+```
+"0"=> "null"
+"1"=> "Input Firewall Description Here
+```
 #### You must repeat step 1 (Rules) if you add new rules in pfSense and then restart logstash
 
 # Swap
