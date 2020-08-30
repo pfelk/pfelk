@@ -1,0 +1,424 @@
+PUT _template/haproxy?include_type_name
+{
+  "version": 70001,
+  "order": 5,
+  "index_patterns": [
+    "haproxy-*"
+  ],
+  "settings": {
+    "index": {
+      "number_of_shards": "1",
+      "refresh_interval": "5s"
+    }
+  },
+  "mappings": {
+    "_doc": {
+      "_source": {},
+      "_meta": {},
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "@version": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "created": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "original": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "haproxy": {
+          "type": "object",
+          "properties": {
+            "actconn": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "backend_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "backend_queue": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "beconn": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "bytes_read": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "captured_request_cookie": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "captured_response_cookie": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "client": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "port": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "feconn": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "frontend_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "http_request": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "http_status_code": {
+              "type": "short",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "http_verb": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "http_version": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "real_server_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "retries": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "srv_queue": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "srvconn": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "termination_state": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "time_backend_connect": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "time_backend_response": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "time_duration": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "time_queue": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            },
+            "time_request": {
+              "type": "integer",
+              "index": true,
+              "ignore_malformed": false,
+              "coerce": true,
+              "doc_values": true,
+              "store": false
+            }
+          }
+        },
+        "haproxy_hour": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "haproxy_milliseconds": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "haproxy_minute": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "haproxy_month": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "haproxy_monthday": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "haproxy_second": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "haproxy_time": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "haproxy_timestamp": {
+          "format": "strict_date_optional_time||epoch_millis||dd/MMM/yyyy:HH:mm:ss.SSS",
+          "index": true,
+          "ignore_malformed": false,
+          "store": false,
+          "type": "date",
+          "doc_values": true
+        },
+        "haproxy_year": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "host": {
+          "type": "ip"
+        },
+        "observer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "type": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "priority": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "process": {
+          "type": "object",
+          "properties": {
+            "pid": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "tags": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "type": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}
