@@ -20,26 +20,28 @@ pfctl -vv -sr | grep USER_RULE | sed 's/@\([^(]*\).*"USER_RULE: *\([^"]*\).*/\1,
 ```
 The results will look something like this:
 ```
-"1570852062"=> "OpenVPN  UDP 1194"
-"1570852366"=> "OpenVPN TCP 444"
-"1570891282"=> "LAN-Default Pass"
-"1572797267"=> "DMZ-Block"
-"1573529058"=> "HTTPS Web Server"
-"1573529295"=> "HTTP Web Server"
-"1583898798"=> "DMZ-Outbound Only"
-"1583947034"=> "SSH node1"
-"1770001239"=> "pfB_DNSBL_Ping"
-"1770001466"=> "pfB_DNSBL_Permit"
-"1770005939"=> "pfB_DNSBLIP_v4 auto rule"
+55,NAT Redirect DNS
+56,NAT Redirect DNS
+57,NAT Redirect DNS TLS
+58,NAT Redirect DNS TLS
+60,BypassVPN
 ```
-Copy the entire results to your clipboard
+Copy the entire results to your clipboard and past within the rule-names.csv as follows:
+
+```
+"55","NAT Redirect DNS"
+"56","NAT Redirect DNS"
+"57","NAT Redirect DNS TLS"
+"58","NAT Redirect DNS TLS"
+"60","BypassVPN"
+```
 
 ### 1c. Update the logstash configuration (Optional & pfSense Only)
 - Go back to the server you installed pfELK on.
 ```
 sudo nano /etc/logstash/conf.d/databases/rule-names.csv
 ```
-- Paste the the results from pfSense into the first blank line after `"0"=> "null"` 
+- Paste the the results from pfSense into the first blank line after `"0","null"` 
 - Example:
 ```
 "0","null"
