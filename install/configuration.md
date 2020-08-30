@@ -16,7 +16,7 @@
 - In pfSense and go to diganotics -> commandline
 - Enter the following command in the execute shell command box and click the execute button
 ```
-pfctl -vv -sr | grep USER_RULE | sed 's/[^(]*(\([^)]*\).*"USER_RULE: *\([^"]*\).*/"\1"=> "\2"/' | sort -t ' ' -k 1,1 -u
+pfctl -vv -sr | grep USER_RULE | sed 's/@\([^(]*\).*"USER_RULE: *\([^"]*\).*/\1,\2/' | sort -t ' ' -k 1,1 -u
 ```
 The results will look something like this:
 ```
@@ -42,8 +42,8 @@ sudo nano /etc/logstash/conf.d/databases/rule-names.csv
 - Paste the the results from pfSense into the first blank line after `"0"=> "null"` 
 - Example:
 ```
-"0"=> "null"
-"1"=> "Input Firewall Description Here
+"0","null"
+"1","Input Firewall Description Here
 ```
 #### You must repeat step 1 (Rules) if you add new rules in pfSense and then restart logstash
 
