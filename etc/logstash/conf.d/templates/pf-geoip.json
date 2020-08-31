@@ -3,7 +3,7 @@
   "version" : 80001,
   "settings" : {
     "index.refresh_interval" : "5s",
-    "number_of_shards": 2
+    "number_of_shards": 10
   },
   "mappings" : {
     "dynamic_templates" : [ {
