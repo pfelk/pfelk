@@ -33,7 +33,7 @@ cat /etc/logstash/logstash.yml | grep path.logs* >> /etc/pfELK/logs/error.pfelk.
 echo "\n#####################################" >> /etc/pfELK/logs/error.pfelk.log
 echo "# grok pattern #" >> /etc/pfELK/logs/error.pfelk.log
 echo "#####################################\n" >> /etc/pfELK/logs/error.pfelk.log
-cat /etc/logstash/conf.d/patterns*.grok >> /etc/pfELK/logs/error.pfelk.log
+cat /etc/logstash/conf.d/patterns/*.grok >> /etc/pfELK/logs/error.pfelk.log
 #attach logstash logs
 echo "\n#####################################" >> /etc/pfELK/logs/error.pfelk.log
 echo "# Appending Logstash Logs ###########" >> /etc/pfELK/logs/error.pfelk.log

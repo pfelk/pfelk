@@ -16,31 +16,54 @@
 - In pfSense and go to diganotics -> commandline
 - Enter the following command in the execute shell command box and click the execute button
 ```
-pfctl -vv -sr | grep USER_RULE | sed 's/[^(]*(\([^)]*\).*"USER_RULE: *\([^"]*\).*/"\1"=> "\2"/' | sort -t ' ' -k 1,1 -u
+pfctl -vv -sr | grep USER_RULE | sed 's/@\([^(]*\).*"USER_RULE: *\([^"]*\).*/\1,\2/' | sort -t ' ' -k 1,1 -u
 ```
 The results will look something like this:
 ```
-"1570852062"=> "OpenVPN  UDP 1194"
-"1570852366"=> "OpenVPN TCP 444"
-"1570891282"=> "LAN-Default Pass"
-"1572797267"=> "DMZ-Block"
-"1573529058"=> "HTTPS Web Server"
-"1573529295"=> "HTTP Web Server"
-"1583898798"=> "DMZ-Outbound Only"
-"1583947034"=> "SSH node1"
-"1770001239"=> "pfB_DNSBL_Ping"
-"1770001466"=> "pfB_DNSBL_Permit"
-"1770005939"=> "pfB_DNSBLIP_v4 auto rule"
+55,NAT Redirect DNS
+56,NAT Redirect DNS
+57,NAT Redirect DNS TLS
+58,NAT Redirect DNS TLS
+60,BypassVPN
 ```
-Copy the entire results to your clipboard
+Copy the entire results to your clipboard and past within the rule-names.csv as follows:
+
+```
+"55","NAT Redirect DNS"
+"56","NAT Redirect DNS"
+"57","NAT Redirect DNS TLS"
+"58","NAT Redirect DNS TLS"
+"60","BypassVPN"
+```
 
 ### 1c. Update the logstash configuration (Optional & pfSense Only)
 - Go back to the server you installed pfELK on.
 ```
-sudo nano /etc/logstash/conf.d/35-rules-desc.conf
+sudo nano /etc/logstash/conf.d/databases/rule-names.csv
 ```
-- Paste the the results from pfSense into the first blank line after `"0"=> "null"`
+- Paste the the results from pfSense into the first blank line after `"0","null"` 
+- Example:
+```
+"0","null"
+"1","Input Firewall Description Here
+```
 #### You must repeat step 1 (Rules) if you add new rules in pfSense and then restart logstash
+
+### 1d. Update firewall interfaces
+- Amend the ```05-firewall.conf``` file 
+```
+sudo nano /etc/logstash/conf.d/05-firewall.conf
+```
+- Adjust the interface name(s) to correspond with your hardware (e.g. the interface below is referenced as ```igb0``` with a corresponding “Development” name for identification/filtering within pfELK).  Add/remove sections, depending on the number of interfaces.
+```
+      # Change interface as desired
+        if [interface][name] =~ /^igb0$/ {
+          mutate {
+            add_field => { "[interface][alias]" => "DEV" }
+            add_field => { "[network][name]" => "Development" }
+        }
+      }
+```
 
 # Swap
 ### 2. Disabling Swap
@@ -155,8 +178,8 @@ systemctl start logstash.service
  - Under Management click -> Stack Management 
  - Under Kibana click -> Saved Objects
  - You can import the dashboards found in the `Dashboard` folder via the Import button in the top-right corner.
- - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Firewall%20Dashboard%20(082420).ndjson)
- - [Unbound Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Unbound%20Dashboard%20(082420).ndjson)
- - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v%205.5%20Squid%20Dashboard%20(082420).ndjson)
- - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Suricata%20Dashboard%20(082420).ndjson)
- - [Snort Dashboard](#)
+ - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Firewall%20Dashboard%20(082820).ndjson)
+ - [Unbound Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Unbound%20Dashboard%20(082820).ndjson)
+ - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Squid%20Dashboard%20(082820).ndjson)
+ - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Suricata%20Dashboard%20(082820).ndjson)
+ - [Snort Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Snort%20Dashboard%20(082820).ndjson)

@@ -19,7 +19,6 @@
 #          | Debian Bullseye ( 11 )
 #
 # Version    | 5.5.0
-# Author     | Andrew Wilson
 # Email      | andrew@pfelk.com
 # Website    | https://pfelk.3ilson.dev
 #
@@ -30,7 +29,7 @@
 ###################################################################################################################################################################################################
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
-# GeoIP  	   | 4.3.0
+# GeoIP        | 4.3.0
 # Java         | openjdk-11-jre-headless
 # Jave_Version | 11
 # Elastistack  | 7.9.0
@@ -1216,37 +1215,37 @@ echo -e "${WHITE_R}#${RESET} Please provide the IP address (LAN) for your firewa
 echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
 echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
 read -p "Enter Your Firewall's IP Adress: " input_ip
-sed -e s/"192.168.0.1"/${input_ip}/g -i /etc/logstash/conf.d/02-types.conf
+sed -e s/"192.168.9.1"/${input_ip}/g -i /etc/logstash/conf.d/02-types.conf
 sleep 2
 
 #Configure 01-inputs.conf for OPNsense or pfSense
-echo -e "${WHITE_R}#${RESET} Please select firewall distribution type, for configuration.${RESET}\\n";
-SenseType='Please specify your firewall type: '
-options=("OPNsense" "pfSense" "Exit")
-select opt in "${options[@]}"
-do
-	case $opt in
-	    "OPNsense")
-	      sed -e s/#OPN#//g -i /etc/logstash/conf.d/03-filter.conf 
-	      echo -e "\\n";
-		  echo -e "${RED}#${RESET} pfELK configured for OPNsense!\\n"
-	      sleep 3
-	      echo -e "\\n"
-	      break
-	      ;;
-	    "pfSense")
-	      sed -e s/#pf#//g -i /etc/logstash/conf.d/03-filter.conf 
-	      echo -e "\\n";
-		  echo -e "${RED}#${RESET} pfELK configured for pfSense!\\n"
-	      sleep 3
-	      echo -e "\\n"
-	      break
-	      ;;
-	    "Exit")
-	      exit 0;;
-	    *) echo "invalid option $REPLY";;
-	esac
-done
+#echo -e "${WHITE_R}#${RESET} Please select firewall distribution type, for configuration.${RESET}\\n";
+#SenseType='Please specify your firewall type: '
+#options=("OPNsense" "pfSense" "Exit")
+#select opt in "${options[@]}"
+#do
+#	case $opt in
+#	    "OPNsense")
+#	      sed -e s/#OPN#//g -i /etc/logstash/conf.d/03-filter.conf 
+#	      echo -e "\\n";
+#		  echo -e "${RED}#${RESET} pfELK configured for OPNsense!\\n"
+#	      sleep 3
+#	      echo -e "\\n"
+#	      break
+#	      ;;
+#	    "pfSense")
+#	      sed -e s/#pf#//g -i /etc/logstash/conf.d/03-filter.conf 
+#	      echo -e "\\n";
+#		  echo -e "${RED}#${RESET} pfELK configured for pfSense!\\n"
+#	      sleep 3
+#	      echo -e "\\n"
+#	      break
+#	      ;;
+#	    "Exit")
+#	      exit 0;;
+#	    *) echo "invalid option $REPLY";;
+#	esac
+#done
 
 #Elasticsearch Install.
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then

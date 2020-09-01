@@ -2,7 +2,7 @@
 #######################
 # pfelk GROK Pattern  #
 #                     #
-# Date 28 August 2020 #
+# Date 30 August 2020 #
 #######################
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
 PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:[interface][name]},(?<reason>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
@@ -73,4 +73,4 @@ SURICATA \[%{NUMBER:[suricata][rule][uuid]}:%{NUMBER:[suricata][rule][id]}:%{NUM
 SNORT \[%{INT:[snort][rule][uuid]}\:%{INT:[snort][rule][reference]}\:%{INT:[snort][rule][version]}\].%{GREEDYDATA:[snort][rule][description]}.\[Classification\: %{DATA:[snort][rule][classification]}\].\[Priority\: %{INT:[snort][priority]}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
 
 # HAPROXY
-HAPROXY %{DATA:application}(?:\[%{POSINT:[process][pid]}\])?:%{SPACE}%{IP:[haproxy][client][ip]}:%{INT:[haproxy][client][port]} \[%{GREEDYDATA:haproxy_timestamp}\] %{WORD:[haproxy][server_name]}~ %{WORD:[haproxy][backend_name]}\/%{WORD:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][timers]} %{NUMBER:[haproxy][http][response][status_code]} %{NUMBER:[haproxy][byte_read]} %{GREEDYDATA:[haproxy][term_con_que]}\"%{WORD:[haproxy][http_mode]}%{SPACE}%{NOTSPACE:[haproxy][path]}%{GREEDYDATA:[haproxy][http_version]}\"
+HAPROXY %{DATA:application}(?:\[%{POSINT:[process][pid]}\])?:%{SPACE}%{IP:[haproxy][client][ip]}:%{INT:[haproxy][client][port]} \[%{HAPROXYDATE:haproxy_timestamp}\] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][real_server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]}/%{INT:[haproxy][time_backend_response]}/%{NOTSPACE:[haproxy][time_duration]} %{INT:[haproxy][http_status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][captured_request_cookie]} %{DATA:[haproxy][captured_response_cookie]} %{NOTSPACE:[haproxy][termination_state]} %{INT:[haproxy][actconn]}/%{INT:[haproxy][feconn]}/%{INT:[haproxy][beconn]}/%{INT:[haproxy][srvconn]}/%{NOTSPACE:[haproxy][retries]} %{INT:[haproxy][srv_queue]}/%{INT:[haproxy][backend_queue]} (\{%{HAPROXYCAPTUREDREQUESTHEADERS}\})?( )?(\{%{HAPROXYCAPTUREDRESPONSEHEADERS}\})?( )?"(<BADREQ>|(%{WORD:[haproxy][http_verb]} (%{URIPROTO:[haproxy][http_proto]}://)?(?:%{USER:[haproxy][http_user]}(?::[^@]*)?@)?(?:%{URIHOST:[haproxy][http_host]})?(?:%{URIPATHPARAM:[haproxy][http_request]})?( HTTP/%{NUMBER:[haproxy][http_version]})?))?"?
