@@ -13,13 +13,34 @@ PUT _template/haproxy?include_type_name
   },
   "mappings": {
     "_doc": {
-      "_meta": {},
       "_source": {},
+      "_meta": {},
       "properties": {
-        "process": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "@version": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "event": {
           "type": "object",
           "properties": {
-            "pid": {
+            "created": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "original": {
               "type": "text",
               "fields": {
                 "keyword": {
@@ -30,7 +51,231 @@ PUT _template/haproxy?include_type_name
             }
           }
         },
-        "haproxy_second": {
+        "haproxy": {
+          "type": "object",
+          "properties": {
+            "actconn": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "backend_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "backend_queue": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "beconn": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "bytes_read": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "captured_request_cookie": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "captured_response_cookie": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "client": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "port": {
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "feconn": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "frontend_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "http_request": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "http_status_code": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "short",
+              "doc_values": true
+            },
+            "http_verb": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "http_version": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "real_server_name": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "retries": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "srv_queue": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "srvconn": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "termination_state": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "time_backend_connect": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "time_backend_response": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "time_duration": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "time_queue": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "time_request": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            }
+          }
+        },
+        "haproxy_hour": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "haproxy_milliseconds": {
           "type": "text",
           "fields": {
             "keyword": {
@@ -48,51 +293,7 @@ PUT _template/haproxy?include_type_name
             }
           }
         },
-        "source": {
-          "type": "object",
-          "properties": {
-            "geo": {
-              "type": "object",
-              "properties": {
-                "ip": {
-                  "type": "ip"
-                },
-                "latitude": {
-                  "type": "float"
-                },
-                "location": {
-                  "type": "object",
-                  "properties": {
-                    "lon": {
-                      "type": "float"
-                    },
-                    "lat": {
-                      "type": "float"
-                    }
-                  }
-                },
-                "postal_code": {
-                  "type": "integer"
-                },
-                "longitude": {
-                  "type": "float"
-                }
-              }
-            },
-            "as": {
-              "type": "object",
-              "properties": {
-                "ip": {
-                  "type": "ip"
-                },
-                "asn": {
-                  "type": "integer"
-                }
-              }
-            }
-          }
-        },
-        "haproxy_hour": {
+        "haproxy_month": {
           "type": "text",
           "fields": {
             "keyword": {
@@ -101,21 +302,25 @@ PUT _template/haproxy?include_type_name
             }
           }
         },
-        "priority": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
+        "haproxy_monthday": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
             }
           }
         },
-        "type": {
+        "haproxy_second": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "haproxy_time": {
           "type": "text",
           "fields": {
             "keyword": {
@@ -141,23 +346,8 @@ PUT _template/haproxy?include_type_name
             }
           }
         },
-        "tags": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "haproxy_time": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
+        "host": {
+          "type": "ip"
         },
         "observer": {
           "type": "object",
@@ -182,46 +372,24 @@ PUT _template/haproxy?include_type_name
             }
           }
         },
-        "@timestamp": {
-          "type": "date"
-        },
-        "@version": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
+        "priority": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
             }
           }
         },
-        "haproxy": {
+        "process": {
           "type": "object",
           "properties": {
-            "srvconn": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "actconn": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "time_backend_response": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "captured_request_cookie": {
+            "pid": {
               "type": "text",
               "fields": {
                 "keyword": {
@@ -229,190 +397,48 @@ PUT _template/haproxy?include_type_name
                   "type": "keyword"
                 }
               }
-            },
-            "http_status_code": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "short",
-              "doc_values": true
-            },
-            "termination_state": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "time_queue": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "feconn": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "srv_queue": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "http_version": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "bytes_read": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "http_verb": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "real_server_name": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "backend_queue": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "retries": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "time_request": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "backend_name": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "beconn": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "client": {
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "as": {
               "type": "object",
               "properties": {
-                "port": {
-                  "type": "text",
-                  "fields": {
-                    "keyword": {
-                      "ignore_above": 256,
-                      "type": "keyword"
-                    }
-                  }
+                "asn": {
+                  "type": "integer"
                 },
                 "ip": {
                   "type": "ip"
                 }
               }
             },
-            "frontend_name": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "time_duration": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "http_request": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "time_backend_connect": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "captured_response_cookie": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
+            "geo": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "latitude": {
+                  "type": "float"
+                },
+                "location": {
+                  "ignore_malformed": false,
+                  "type": "geo_point",
+                  "ignore_z_value": true
+                },
+                "longitude": {
+                  "type": "float"
+                },
+                "postal_code": {
+                  "type": "integer"
                 }
               }
             }
           }
         },
-        "host": {
-          "type": "ip"
-        },
-        "haproxy_milliseconds": {
+        "tags": {
           "type": "text",
           "fields": {
             "keyword": {
@@ -421,39 +447,7 @@ PUT _template/haproxy?include_type_name
             }
           }
         },
-        "event": {
-          "type": "object",
-          "properties": {
-            "original": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "created": {
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "haproxy_month": {
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "haproxy_monthday": {
+        "type": {
           "type": "text",
           "fields": {
             "keyword": {
