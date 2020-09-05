@@ -153,14 +153,14 @@ cd /etc/logstash/conf.d/templates
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip.json
 ```
 
-### 18a. Make Patterns Folder
+### 18a. Make Databases Folder
 ```
-sudo mkdir /etc/logstash/conf.d/patterns
+sudo mkdir /etc/logstash/conf.d/databases
 ```
 
-### 18a. Navigate to Patterns Folder
+### 18a. Navigate to Databases Folder
 ```
-sudo mkdir /etc/logstash/conf.d/patterns
+cd /etc/logstash/conf.d/databases
 ```
 
 ### 18b. Download the Database(s)
@@ -176,31 +176,25 @@ Change line 8; rename "firewall" (OPTIONAL) to identify your device (i.e. backup
 Change line 11-20; (OPTIONAL) to point to your second PF IP address or ignore
 ```
 
-### 20. Revise/Update w/pf IP address (/data/pfELK/configurations/03-filter.conf)
-```
-For OPNsense uncommit line 4 and commit out line 5 (#opn#)
-For pfSense uncommit line 5 and commit out line 4 (#pf#)
-```
-
 # Troubleshooting
-### 21. Create Logging Directory 
+### 20. Create Logging Directory 
 ```
 mkdir -p /etc/pfELK/logs
 ```
 
-### 22. Navigate to pfELK 
+### 21. Navigate to pfELK 
 ```
 cd /data/pfELK/
 ```
 
-### 23. Download `error-data.sh`
+### 22. Download `error-data.sh`
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
 ```
 
-### 24. Make `error-data.sh` Executable
+### 23. Make `error-data.sh` Executable
 ```
 sudo chmod +x /data/pfELK/error-data.sh
 ```
 
-### 25. Complete Configuration --> [Configuration](configuration.md)
+### 24. Complete Configuration --> [Configuration](configuration.md)
