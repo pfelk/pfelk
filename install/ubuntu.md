@@ -158,9 +158,9 @@ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/con
 sudo mkdir /etc/logstash/conf.d/patterns
 ```
 
-### 18a. Navigate to Patterns Folder
+### 18a. Navigate to Databases Folder
 ```
-sudo mkdir /etc/logstash/conf.d/patterns
+sudo mkdir /etc/logstash/conf.d/databases
 ```
 
 ### 18b. Download the Database(s)
