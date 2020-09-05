@@ -153,9 +153,9 @@ cd /etc/logstash/conf.d/templates
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pf-geoip.json
 ```
 
-### 18a. Make Patterns Folder
+### 18a. Make Databases Folder
 ```
-sudo mkdir /etc/logstash/conf.d/patterns
+sudo mkdir /etc/logstash/conf.d/databases
 ```
 
 ### 18a. Navigate to Databases Folder
