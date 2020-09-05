@@ -160,7 +160,7 @@ sudo mkdir /etc/logstash/conf.d/databases
 
 ### 18a. Navigate to Databases Folder
 ```
-sudo mkdir /etc/logstash/conf.d/databases
+cd /etc/logstash/conf.d/databases
 ```
 
 ### 18b. Download the Database(s)
