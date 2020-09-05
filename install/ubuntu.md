@@ -36,7 +36,7 @@ sudo apt update
 
 ### 6. Install Java 14 LTS
 ```
-sudo apt install openjre-14-jre-headless
+sudo apt install openjdk-14-jre-headless
 ```
 
 ### 7. Install MaxMind
