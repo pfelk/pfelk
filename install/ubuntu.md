@@ -130,7 +130,7 @@ sudo mkdir /etc/logstash/conf.d/patterns
 
 ### 16b. Navigate to Patterns Folder
 ```
-cd /etc/logstash/conf.d/templates
+cd /etc/logstash/conf.d/patterns
 ```
 
 ### 16c. Download the grok pattern
