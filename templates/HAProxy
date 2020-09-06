@@ -55,12 +55,12 @@ PUT _template/haproxy?include_type_name
           "type": "object",
           "properties": {
             "actconn": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "backend_name": {
               "type": "text",
@@ -72,20 +72,20 @@ PUT _template/haproxy?include_type_name
               }
             },
             "backend_queue": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "beconn": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "bytes_read": {
               "coerce": true,
@@ -131,12 +131,12 @@ PUT _template/haproxy?include_type_name
               }
             },
             "feconn": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "frontend_name": {
               "type": "text",
@@ -157,12 +157,12 @@ PUT _template/haproxy?include_type_name
               }
             },
             "http_status_code": {
-              "type": "short",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "short",
+              "doc_values": true
             },
             "http_verb": {
               "type": "text",
@@ -192,28 +192,28 @@ PUT _template/haproxy?include_type_name
               }
             },
             "retries": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "srv_queue": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "srvconn": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "termination_state": {
               "type": "text",
@@ -225,44 +225,44 @@ PUT _template/haproxy?include_type_name
               }
             },
             "time_backend_connect": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "time_backend_response": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "time_duration": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "time_queue": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             },
             "time_request": {
-              "type": "integer",
+              "coerce": true,
               "index": true,
               "ignore_malformed": false,
-              "coerce": true,
-              "doc_values": true,
-              "store": false
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             }
           }
         },
@@ -395,6 +395,44 @@ PUT _template/haproxy?include_type_name
                 "keyword": {
                   "ignore_above": 256,
                   "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "as": {
+              "type": "object",
+              "properties": {
+                "asn": {
+                  "type": "integer"
+                },
+                "ip": {
+                  "type": "ip"
+                }
+              }
+            },
+            "geo": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "latitude": {
+                  "type": "float"
+                },
+                "location": {
+                  "ignore_malformed": false,
+                  "type": "geo_point",
+                  "ignore_z_value": true
+                },
+                "longitude": {
+                  "type": "float"
+                },
+                "postal_code": {
+                  "type": "integer"
                 }
               }
             }
