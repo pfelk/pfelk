@@ -179,7 +179,7 @@ while [ -n "$1" ]; do
   case "$1" in
   --clean)
        script_options_clean=true
-       #Note Will configure to purge Elasticsearch, logstash, kibana and delete (rm -rf /data/pfELK)
+       # Note: Will configure to purge Elasticsearch, logstash, kibana and delete (rm -rf /data/pfELK)
        ;;
   --help)
        script_option_help=true
@@ -373,7 +373,7 @@ fi
 if ! [[ -d /etc/apt/sources.list.d ]]; then mkdir -p /etc/apt/sources.list.d; fi
 if ! [[ -d /tmp/pfELK/keys ]]; then mkdir -p /tmp/pfELK/keys; fi
 
-# Check if --show-progrss is supported in wget version
+# Check if --show-progress is supported in wget version.
 if wget --help | grep -q '\--show-progress'; then echo "--show-progress" &>> /tmp/pfELK/wget_option; fi
 if [[ -f /tmp/pfELK/wget_option && -s /tmp/pfELK/wget_option ]]; then IFS=" " read -r -a wget_progress <<< "$(tr '\r\n' ' ' < /tmp/pfELK/wget_option)"; fi
 
@@ -445,7 +445,7 @@ dpkg_locked_60_message() {
   echo -e "${WHITE_R}#${RESET} Would you like to force remove the lock?\\n\\n"
 }
 
-# Check if dpkg is locked
+# Check if dpkg is locked.
 if dpkg -l psmisc 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   while fuser /var/lib/dpkg/lock /var/lib/apt/lists/lock /var/cache/apt/archives/lock >/dev/null 2>&1; do
     dpkg_locked_message
@@ -497,7 +497,7 @@ fi
 script_version_check() {
   if dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
     version=$(grep -i "# Version" "$0" | awk '{print $4}' | cut -d'-' -f1)
-    script_online_version_dots=$(curl "https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-installer-${version}.sh" -s | grep "# Version" | awk '{print $4}')
+    script_online_version_dots=$(curl "https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-${version}.sh" -s | grep "# Version" | awk '{print $4}')
     script_local_version_dots=$(grep "# Version" "$0" | awk '{print $4}')
     script_online_version="${script_online_version_dots//./}"
     script_local_version="${script_local_version_dots//./}"
@@ -508,8 +508,8 @@ script_version_check() {
       echo -e "${WHITE_R}#${RESET} Downloading and executing version ${script_online_version_dots} of the Easy pfELK Installation Script..\\n\\n"
       sleep 3
       rm --force "$0" 2> /dev/null
-      rm --force "pfelk-installer-${version}.sh" 2> /dev/null
-      wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-installer-${version}.sh" && bash "pfelk-installer-${version}.sh" "${script_options[@]}"; exit 0
+      rm --force "pfelk-install-${version}.sh" 2> /dev/null
+      wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-${version}.sh" && bash "pfelk-install-${version}.sh" "${script_options[@]}"; exit 0
     fi
   else
     curl_missing=true
@@ -615,7 +615,7 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   fi
 fi
 
-#MaxMind GeoIP Install.
+# MaxMind GeoIP Install.
 if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
    header
    echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed!${RESET}"; 
@@ -641,7 +641,8 @@ read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd creden
 	   echo -e "${RED}#${RESET} Failed to install MaxMind v${maxmind_version}...\\n"
 	 fi
 	 rm --force "$geoip_temp" 2> /dev/null
-	 #GeoIP Cron Job.
+	 
+   # GeoIP Cron Job.
 	 echo 00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP > /etc/cron.weekly/geoipupdate
 	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
 	 #sed -i "1 s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
@@ -662,7 +663,7 @@ read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd creden
    esac
 fi
 
-#lsb-release Install.
+# lsb-release Install.
 if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing lsb-release..."
@@ -684,7 +685,7 @@ if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi";
   fi
 fi
 
-#apt-transport install
+# apt-transport install.
 if ! dpkg -l apt-transport-https 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing apt-transport-https..."
@@ -718,7 +719,7 @@ if ! dpkg -l apt-transport-https 2> /dev/null | awk '{print $1}' | grep -iq "^ii
   fi
 fi
 
-#software-properties-common install.
+# software-properties-common install.
 if ! dpkg -l software-properties-common 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing software-properties-common..."
@@ -744,7 +745,7 @@ if ! dpkg -l software-properties-common 2> /dev/null | awk '{print $1}' | grep -
   fi
 fi
 
-#curl install.
+# curl install.
 if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing curl..."
@@ -773,7 +774,8 @@ if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
     echo -e "${GREEN}#${RESET} Successfully installed curl! \\n" && sleep 2
   fi
 fi
-#dirmngr install.
+
+# dirmngr install.
 if ! dpkg -l dirmngr 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing dirmngr..."
@@ -797,7 +799,8 @@ if ! dpkg -l dirmngr 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; the
     echo -e "${GREEN}#${RESET} Successfully installed dirmngr! \\n" && sleep 2
   fi
 fi
-#wget install.
+
+# wget install.
 if ! dpkg -l wget 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing wget..."
@@ -827,7 +830,7 @@ if ! dpkg -l wget 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   fi
 fi
 
-#netcat install.
+# netcat install.
 if ! dpkg -l netcat 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing netcat..."
@@ -861,7 +864,7 @@ if [[ "${curl_missing}" == 'true' ]]; then script_version_check; fi
 if [ "${system_free_disk_space}" -lt "5000000" ]; then
   header_red
   echo -e "${WHITE_R}#${RESET} Free disk space is below 5GB.. Please expand the disk size!"
-  echo -e "${WHITE_R}#${RESET} It is recommend tha avilalble sapce be expanding to at least 10GB\\n\\n"
+  echo -e "${WHITE_R}#${RESET} It is recommend tha available space be expanding to at least 10GB\\n\\n"
   if [[ "${script_option_skip}" != 'true' ]]; then
     read -rp "Do you want to proceed at your own risk? (Y/n)" yes_no
     case "$yes_no" in
@@ -1247,34 +1250,34 @@ sleep 2
 #	esac
 #done
 
-#Elasticsearch Install.
+# Elasticsearch Install.
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Elasticsearch is already installed!${RESET}\\n\\n";
 else
 	header
-	echo -e "${WHITE_R}#${RESET} Installing Elastisearch...\\n"
+	echo -e "${WHITE_R}#${RESET} Installing Elasticsearch...\\n"
 	sleep 2
-	if [[ "${script_option_elastisearch}" != 'true' ]]; then
+	if [[ "${script_option_elasticsearch}" != 'true' ]]; then
 	  elasticsearch_temp="$(mktemp --tmpdir=/tmp elasticsearch_"${elk_version}"_XXX.deb)"
-	  echo -e "${WHITE_R}#${RESET} Downloading Elastisearch..."
+	  echo -e "${WHITE_R}#${RESET} Downloading Elasticsearch..."
 	  if wget "${wget_progress[@]}" -qO "$elasticsearch_temp" "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${elk_version}-amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded Elasticsearch version ${elk_version}! \\n"; else echo -e "${RED}#${RESET} Failed to download Elasticsearch...\\n"; abort; fi;
 	else
 	  echo -e "${GREEN}#${RESET} Elasticsearch has already been downloaded!"
 	fi
-	echo -e "${WHITE_R}#${RESET} Installing the Elastisearch..."
+	echo -e "${WHITE_R}#${RESET} Installing the Elasticsearch..."
 	echo "elasticsearch elasticsearch/has_backup boolean true" 2> /dev/null | debconf-set-selections
 	if DEBIAN_FRONTEND=noninteractive dpkg -i "$elasticsearch_temp" &>> "${pfELK_dir}/logs/elasticsearch_install.log"; then
-	  echo -e "${GREEN}#${RESET} Successfully installed Elastisearch! \\n"
+	  echo -e "${GREEN}#${RESET} Successfully installed Elasticsearch! \\n"
 	else
 	  echo -e "${RED}#${RESET} Failed to install Elasticsearch...\\n"
 	fi
 fi
-rm --force "$elastisearch_temp" 2> /dev/null
+rm --force "$elasticsearch_temp" 2> /dev/null
 service elasticsearch start || abort
 sleep 3
 
-#Logstash Install.
+# Logstash Install.
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Logstash is already installed!${RESET}\\n\\n";
@@ -1301,7 +1304,7 @@ rm --force "$logstash_temp" 2> /dev/null
 service logstash start || abort
 sleep 3
 
-#Kibana Install.
+# Kibana Install.
 if dpkg -l | grep "kibana" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Kibana is already installed!${RESET}\\n\\n";
@@ -1343,7 +1346,7 @@ update_kibana
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
 
-#Configure Firewall (OPNsense or pfSense) IP Address
+# Configure Firewall (OPNsense or pfSense) IP Address
 
 # Check if Elasticsearch service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
@@ -1397,6 +1400,9 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   echo -e "${GREEN}#${RESET} pfELK was installed successfully"
   echo -e "\\n"
   systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
+  echo -e "\\n"
+  echo -e "Open your browser and connect to http://$SERVER_IP:5601 to open Kibana"
+  echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> https://github.com/3ilson/pfelk/blob/master/install/configuration.md\\n"
   echo -e "\\n"
   sleep 5
   remove_yourself
