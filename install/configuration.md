@@ -13,22 +13,23 @@
 - Block rules normaly have logging on, if you want to see good traffic also, enable logging for pass rules.  
 
 ### 1b. Extract rule descriptions with associated tracking number (Optional & pfSense Only)
-- In pfSense and go to diganotics -> commandline
+- In pfSense and go to diganotics -> Command Prompt
 - Enter the following command in the execute shell command box and click the execute button
 ```
-pfctl -vv -sr | grep USER_RULE | sed 's/@\([^(]*\).*"USER_RULE: *\([^"]*\).*/\1,\2/' | sort -t ' ' -k 1,1 -u
+pfctl -vv -sr | grep USER_RULE | sed 's/@\([^(]*\).*"USER_RULE: *\([^"]*\).*/"\1","\2"/' | sort -t ' ' -k 1,1 -u
 ```
 The results will look something like this:
 ```
-55,NAT Redirect DNS
-56,NAT Redirect DNS
-57,NAT Redirect DNS TLS
-58,NAT Redirect DNS TLS
-60,BypassVPN
+"55","NAT Redirect DNS"
+"56","NAT Redirect DNS"
+"57","NAT Redirect DNS TLS"
+"58","NAT Redirect DNS TLS"
+"60","BypassVPN"
 ```
 Copy the entire results to your clipboard and past within the rule-names.csv as follows:
 
 ```
+"Rule","Label"
 "55","NAT Redirect DNS"
 "56","NAT Redirect DNS"
 "57","NAT Redirect DNS TLS"
@@ -164,7 +165,7 @@ systemctl start logstash.service
 [YouTube Guide](https://youtu.be/a1no6AlXP-k)
 - Click the menu icon (three horizontal lines) in the upper left
 - Under Management click -> Stack Management
-- Under Kibana click -> Index Patters
+- Under Kibana click -> Index Patterns
 - Click Create New Index Pattern
 - Type "pfelk-*" into the input box, then click Next Step
   - select ```@timestamp``` within Time Field 
@@ -183,3 +184,4 @@ systemctl start logstash.service
  - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Squid%20Dashboard%20(082820).ndjson)
  - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Suricata%20Dashboard%20(082820).ndjson)
  - [Snort Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Snort%20Dashboard%20(082820).ndjson)
+ - [HAProxy Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20HAProxy%20Dashboard%20(090320).ndjson)
