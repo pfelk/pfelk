@@ -67,7 +67,7 @@ header_red() {
   echo -e "${RED}#####################################################################################################${RESET}\\n"
 }
 
-# Check for root (sudo).
+# Check for root (sudo)
 if [[ "$EUID" -ne 0 ]]; then
   header_red
   echo -e "${WHITE_R}#${RESET} The script need to be run as root...\\n\\n"
@@ -81,7 +81,7 @@ fi
 if ! env | grep "LC_ALL\\|LANG" | grep -iq "en_US\\|C.UTF-8"; then
   header
   echo -e "${WHITE_R}#${RESET} Your language is not set to English ( en_US ), the script will temporarily set the language to English."
-  echo -e "${WHITE_R}#${RESET} Information: This is done to prevent issues in the script.."
+  echo -e "${WHITE_R}#${RESET} Information: This is done to prevent issues in the script..."
   export LC_ALL=C &> /dev/null
   set_lc_all=true
   sleep 3
@@ -111,7 +111,7 @@ abort() {
   if [[ -n "${support_file}" ]]; then echo -e "${WHITE_R}#${RESET} Support file has been created here: ${support_file} \\n"; fi
   if [[ -f /tmp/pfELK/services/stopped_list && -s /tmp/pfELK/services/stopped_list ]]; then
     while read -r service; do
-      echo -e "\\n${WHITE_R}#${RESET} Starting ${service}.."
+      echo -e "\\n${WHITE_R}#${RESET} Starting ${service}..."
       systemctl start "${service}" && echo -e "${GREEN}#${RESET} Successfully started ${service}!" || echo -e "${RED}#${RESET} Failed to start ${service}!"
     done < /tmp/pfELK/services/stopped_list
   fi
@@ -144,7 +144,7 @@ start_script() {
   mkdir -p /data/pfELK/logs/ 2> /dev/null  
   header
   script_logo
-  echo -e "\\n${WHITE_R}#${RESET} Starting the Easy pfELK Install Script.."
+  echo -e "\\n${WHITE_R}#${RESET} Starting the Easy pfELK Install Script..."
   echo -e "${WHITE_R}#${RESET} Thank you for using Easy pfELK Install Script :-)\\n\\n"
   sleep 4
 }
@@ -202,7 +202,7 @@ while [ -n "$1" ]; do
   shift
 done
 
-# Check script options.
+# Check script options
 if [[ -f /tmp/pfELK/script_options && -s /tmp/pfELK/script_options ]]; then IFS=" " read -r -a script_options <<< "$(tr '\r\n' ' ' < /tmp/pfELK/script_options)"; fi
 
 # shellcheck disable=SC2016
@@ -232,10 +232,10 @@ run_apt_get_update() {
   fi
   if [[ -f /tmp/pfELK/keys/missing_keys && -s /tmp/pfELK/keys/missing_keys ]]; then
     #header
-    #echo -e "${WHITE_R}#${RESET} Some keys are missing.. The script will try to add the missing keys."
+    #echo -e "${WHITE_R}#${RESET} Some keys are missing... The script will try to add the missing keys."
     #echo -e "\\n${WHITE_R}----${RESET}\\n"
     while read -r key; do
-      echo -e "${WHITE_R}#${RESET} Key ${key} is missing.. adding!"
+      echo -e "${WHITE_R}#${RESET} Key ${key} is missing... adding!"
       http_proxy=$(env | grep -i "http.*Proxy" | cut -d'=' -f2 | sed 's/[";]//g')
       if [[ -n "$http_proxy" ]]; then
         apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --keyserver-options http-proxy="${http_proxy}" --recv-keys "$key" &> /dev/null && echo -e "${GREEN}#${RESET} Successfully added key ${key}!\\n" || fail_key=true
@@ -291,7 +291,7 @@ remove_yourself() {
   fi
 }
 
-# Get distro.
+# Get distro
 get_distro() {
   if [[ -z "$(command -v lsb_release)" ]]; then
     if [[ -f "/etc/os-release" ]]; then
@@ -373,11 +373,11 @@ fi
 if ! [[ -d /etc/apt/sources.list.d ]]; then mkdir -p /etc/apt/sources.list.d; fi
 if ! [[ -d /tmp/pfELK/keys ]]; then mkdir -p /tmp/pfELK/keys; fi
 
-# Check if --show-progress is supported in wget version.
+# Check if --show-progress is supported in wget version
 if wget --help | grep -q '\--show-progress'; then echo "--show-progress" &>> /tmp/pfELK/wget_option; fi
 if [[ -f /tmp/pfELK/wget_option && -s /tmp/pfELK/wget_option ]]; then IFS=" " read -r -a wget_progress <<< "$(tr '\r\n' ' ' < /tmp/pfELK/wget_option)"; fi
 
-# Check if MaxMind GeoIP is already installed.
+# Check if MaxMind GeoIP is already installed
 if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed on your system!${RESET}\\n\\n"
@@ -390,7 +390,7 @@ if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
   esac
 fi
 
-# Check if Elasticsearch is already installed.
+# Check if Elasticsearch is already installed
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Elasticsearch is already installed on your system!${RESET}\\n\\n"
@@ -403,7 +403,7 @@ if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
   esac
 fi
 
-# Check if Logstash is already installed.
+# Check if Logstash is already installed
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Logstash is already installed on your system!${RESET}\\n\\n"
@@ -416,7 +416,7 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   esac
 fi
 
-# Check if Kibana is already installed.
+# Check if Kibana is already installed
 if dpkg -l | grep "kibana" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Kibana is already installed on your system!${RESET}\\n\\n"
@@ -431,7 +431,7 @@ fi
 
 dpkg_locked_message() {
   header_red
-  echo -e "${WHITE_R}#${RESET} dpkg is locked.. Waiting for other software managers to finish!"
+  echo -e "${WHITE_R}#${RESET} dpkg is locked... Waiting for other software managers to finish!"
   echo -e "${WHITE_R}#${RESET} If this is everlasting, please open an issue on pfELK (pfelk.3ilson.dev) on github!\\n\\n"
   sleep 5
   if [[ -z "$dpkg_wait" ]]; then
@@ -445,7 +445,7 @@ dpkg_locked_60_message() {
   echo -e "${WHITE_R}#${RESET} Would you like to force remove the lock?\\n\\n"
 }
 
-# Check if dpkg is locked.
+# Check if dpkg is locked
 if dpkg -l psmisc 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   while fuser /var/lib/dpkg/lock /var/lib/apt/lists/lock /var/cache/apt/archives/lock >/dev/null 2>&1; do
     dpkg_locked_message
@@ -615,7 +615,7 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   fi
 fi
 
-# MaxMind GeoIP Install.
+# MaxMind GeoIP install
 if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
    header
    echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed!${RESET}"; 
@@ -642,7 +642,7 @@ read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd creden
 	 fi
 	 rm --force "$geoip_temp" 2> /dev/null
 	 
-   # GeoIP Cron Job.
+   # GeoIP Cronjob
 	 echo 00 17 * * 0 geoipupdate -d /data/pfELK/GeoIP > /etc/cron.weekly/geoipupdate
 	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
 	 #sed -i "1 s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
@@ -663,7 +663,7 @@ read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd creden
    esac
 fi
 
-# lsb-release Install.
+# lsb-release install
 if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing lsb-release..."
@@ -685,7 +685,7 @@ if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi";
   fi
 fi
 
-# apt-transport install.
+# apt-transport install
 if ! dpkg -l apt-transport-https 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing apt-transport-https..."
@@ -719,7 +719,7 @@ if ! dpkg -l apt-transport-https 2> /dev/null | awk '{print $1}' | grep -iq "^ii
   fi
 fi
 
-# software-properties-common install.
+# software-properties-common install
 if ! dpkg -l software-properties-common 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing software-properties-common..."
@@ -745,7 +745,7 @@ if ! dpkg -l software-properties-common 2> /dev/null | awk '{print $1}' | grep -
   fi
 fi
 
-# curl install.
+# curl install
 if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing curl..."
@@ -775,7 +775,7 @@ if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   fi
 fi
 
-# dirmngr install.
+# dirmngr install
 if ! dpkg -l dirmngr 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing dirmngr..."
@@ -800,7 +800,7 @@ if ! dpkg -l dirmngr 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; the
   fi
 fi
 
-# wget install.
+# wget install
 if ! dpkg -l wget 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing wget..."
@@ -830,7 +830,7 @@ if ! dpkg -l wget 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   fi
 fi
 
-# netcat install.
+# netcat install
 if ! dpkg -l netcat 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing netcat..."
@@ -863,7 +863,7 @@ if [[ "${curl_missing}" == 'true' ]]; then script_version_check; fi
 
 if [ "${system_free_disk_space}" -lt "5000000" ]; then
   header_red
-  echo -e "${WHITE_R}#${RESET} Free disk space is below 5GB.. Please expand the disk size!"
+  echo -e "${WHITE_R}#${RESET} Free disk space is below 5GB. Please expand the disk size!"
   echo -e "${WHITE_R}#${RESET} It is recommend tha available space be expanding to at least 10GB\\n\\n"
   if [[ "${script_option_skip}" != 'true' ]]; then
     read -rp "Do you want to proceed at your own risk? (Y/n)" yes_no
@@ -876,7 +876,7 @@ if [ "${system_free_disk_space}" -lt "5000000" ]; then
   fi
 fi
 
-# Memory.
+# Memory
 if [[ "${system_swap}" == "0" && "${system_memory}" -lt "4" ]]; then
   header_red
   echo -e "${WHITE_R}#${RESET} System memory does not meet minimum and may not run!"
@@ -890,8 +890,8 @@ else
   sleep 2
 fi
 
-#MaxMind GeoIP
-#Added check to ensure GeoIP database files were downloaded.
+# MaxMind GeoIP
+# Added check to ensure GeoIP database files were downloaded
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -1208,7 +1208,7 @@ download_pfelk() {
   chmod +x /etc/logstash/pfelk-error.sh
   header
   script_logo
-  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure.\\n\\n"
+  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure...\\n\\n"
   sleep 4
 }
 download_pfelk
@@ -1250,7 +1250,7 @@ sleep 2
 #	esac
 #done
 
-# Elasticsearch Install.
+# Elasticsearch install
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Elasticsearch is already installed!${RESET}\\n\\n";
@@ -1277,7 +1277,7 @@ rm --force "$elasticsearch_temp" 2> /dev/null
 service elasticsearch start || abort
 sleep 3
 
-# Logstash Install.
+# Logstash install
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Logstash is already installed!${RESET}\\n\\n";
@@ -1304,7 +1304,7 @@ rm --force "$logstash_temp" 2> /dev/null
 service logstash start || abort
 sleep 3
 
-# Kibana Install.
+# Kibana install
 if dpkg -l | grep "kibana" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Kibana is already installed!${RESET}\\n\\n";
@@ -1370,7 +1370,7 @@ if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]];
   else
     SERVICE_LOGSTASH=$(systemctl is-enabled logstash)
     if [ "$SERVICE_LOGSTASH" = 'disabled' ]; then
-      systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | logstash"; sleep 3; }
+      systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Logstash"; sleep 3; }
     fi
 fi
 
