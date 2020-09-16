@@ -32,7 +32,7 @@
 # GeoIP        | 4.3.0
 # Java         | openjdk-11-jre-headless
 # Jave_Version | 11
-# Elastistack  | 7.9.0
+# Elastistack  | 7.9.1
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -555,7 +555,7 @@ port_5601_service=''
 port_5140_in_use=''
 port_5140_pid=''
 port_5140_service=''
-elk_version=7.9.0
+elk_version=7.9.1
 maxmind_version=4.3.0
 
 ###################################################################################################################################################################################################
@@ -1193,6 +1193,7 @@ download_pfelk() {
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/25-snort.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
   cd /etc/logstash/conf.d/patterns/
