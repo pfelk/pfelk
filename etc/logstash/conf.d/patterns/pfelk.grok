@@ -1,9 +1,9 @@
 # pfelk.grok
-#######################
-# pfelk GROK Pattern  #
-#                     #
-# Date 30 August 2020 #
-#######################
+##########################
+# pfelk GROK Pattern     #
+#                        #
+# Date 19 September 2020 #
+##########################
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
 PF_LOG_DATA %{INT:rule_number},%{INT:sub_rule}?,,%{INT:tracker},%{DATA:[interface][name]},(?<reason>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
 PF_IP_DATA %{INT:[packet][length]},%{IP:[source][ip]},%{IP:[destination][ip]},
@@ -48,7 +48,7 @@ DHCPGENERAL %{GREEDYDATA:[dhcp][message]}
 DHCPDv6 %{GREEDYDATA:[dhcpv6][operation]}
 
 # PF
-PF %{DATA:application}(?:\[%{POSINT:[process][id]}\])?: %{GREEDYDATA:pf_message}
+PF %{DATA:application}(?:\[%{POSINT:[process][id]}\])?: %{GREEDYDATA:pfelk_message}
 PF_CARP_DATA (%{WORD:[carp][type]}),(%{INT:[carp][ttl]}),(%{INT:[carp][vhid]}),(%{INT:[carp][version]}),(%{INT:[carp][advbase]}),(%{INT:[carp][advskew]})
 PF_APP (%{DATA:pf_APP}):
 PF_APP_DATA (%{PF_APP_LOGOUT}|%{PF_APP_LOGIN}|%{PF_APP_ERROR}|%{PF_APP_GEN})
