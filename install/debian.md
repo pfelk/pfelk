@@ -61,7 +61,7 @@ EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
 ```
 - Modify line 18 as follows:
 ```
-DatabaseDirectory /data/pfELK/GeoIP/
+DatabaseDirectory /usr/share/GeoIP/
 ```
 
 ### 9. Download MaxMind Databases
