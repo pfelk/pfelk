@@ -183,5 +183,5 @@ systemctl start logstash.service
  - [Unbound Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Unbound%20Dashboard%20(082820).ndjson)
  - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Squid%20Dashboard%20(082820).ndjson)
  - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Suricata%20Dashboard%20(082820).ndjson)
- - [Snort Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Snort%20Dashboard%20(082820).ndjson)
+ - [Snort Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Snort%20Dashboard%20(091420).ndjson)
  - [HAProxy Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20HAProxy%20Dashboard%20(090320).ndjson)
