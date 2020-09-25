@@ -38,7 +38,7 @@ Supported entries include:
  - Squid with dashboards
  - HAProxy with dashboard
 
-**pfelk** aims to replace the vanilla pfSense/opnSense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
+**pfelk** aims to replace the vanilla pfSense/OPNSense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
 
 ### Contents
 * [How pfelk works?](https://github.com/3ilson/pfelk#how-pfelk-works)
