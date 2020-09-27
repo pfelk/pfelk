@@ -488,14 +488,7 @@ PUT _template/pfelk
                 "type": "long"
               },
               "ip": {
-                "norms": false,
-                "type": "text",
-                "fields": {
-                  "keyword": {
-                    "ignore_above": 256,
-                    "type": "keyword"
-                  }
-                }
+                "type": "ip"
               },
               "organization": {
                 "type": "object",
