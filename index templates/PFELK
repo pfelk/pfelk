@@ -11,22 +11,22 @@ PUT _template/pfelk
       "refresh_interval": "5s"
     }
   },
+  "aliases": {},
   "mappings": {
-      "dynamic": true,
+      "_routing": {
+        "required": false
+      },
       "numeric_detection": true,
-      "date_detection": true,
       "dynamic_date_formats": [
         "strict_date_optional_time",
         "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
       ],
       "_source": {
-        "enabled": true,
+        "excludes": [],
         "includes": [],
-        "excludes": []
+        "enabled": true
       },
-      "_routing": {
-        "required": false
-      },
+      "dynamic": true,
       "dynamic_templates": [
         {
           "message_field": {
@@ -55,11 +55,9 @@ PUT _template/pfelk
           }
         }
       ],
+      "date_detection": true,
       "properties": {
-        "@timestamp": {
-          "type": "date"
-        },
-        "@version": {
+        "reason": {
           "norms": false,
           "type": "text",
           "fields": {
@@ -69,95 +67,57 @@ PUT _template/pfelk
             }
           }
         },
-        "Flags": {
-          "norms": false,
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "IPv6_Flag1": {
-          "norms": false,
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "IPv6_Flag2": {
-          "norms": false,
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "Option": {
-          "norms": false,
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "Type": {
-          "norms": false,
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "ack_number": {
-          "norms": false,
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "application": {
-          "norms": false,
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "destination": {
+        "unbound": {
           "type": "object",
           "properties": {
-            "as": {
+            "process": {
               "type": "object",
               "properties": {
-                "ip": {
+                "id": {
+                  "coerce": true,
                   "index": true,
+                  "ignore_malformed": false,
                   "store": false,
-                  "type": "ip",
+                  "type": "integer",
                   "doc_values": true
-                },
-                "number": {
-                  "type": "long"
-                },
-                "organization": {
+                }
+              }
+            },
+            "instance": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "coerce": true,
+                  "index": true,
+                  "ignore_malformed": false,
+                  "store": false,
+                  "type": "integer",
+                  "doc_values": true
+                }
+              }
+            },
+            "log": {
+              "type": "object",
+              "properties": {
+                "level": {
+                  "norms": false,
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "query": {
+              "type": "object",
+              "properties": {
+                "record": {
                   "type": "object",
                   "properties": {
-                    "name": {
+                    "type": {
                       "norms": false,
                       "type": "text",
                       "fields": {
@@ -168,14 +128,34 @@ PUT _template/pfelk
                       }
                     }
                   }
-                }
-              }
-            },
-            "geo": {
-              "dynamic": "true",
-              "type": "object",
-              "properties": {
-                "city_name": {
+                },
+                "client": {
+                  "type": "object",
+                  "properties": {
+                    "ip": {
+                      "index": true,
+                      "store": false,
+                      "type": "ip",
+                      "doc_values": true
+                    }
+                  }
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "flags": {
+                      "norms": false,
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "url": {
                   "norms": false,
                   "type": "text",
                   "fields": {
@@ -184,6 +164,33 @@ PUT _template/pfelk
                       "type": "keyword"
                     }
                   }
+                }
+              }
+            }
+          }
+        },
+        "destination": {
+          "type": "object",
+          "properties": {
+            "geo": {
+              "dynamic": "true",
+              "type": "object",
+              "properties": {
+                "timezone": {
+                  "norms": false,
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "ip": {
+                  "type": "ip"
+                },
+                "latitude": {
+                  "type": "half_float"
                 },
                 "continent_code": {
                   "norms": false,
@@ -195,7 +202,17 @@ PUT _template/pfelk
                     }
                   }
                 },
-                "country_code3": {
+                "region_iso_code": {
+                  "norms": false,
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "city_name": {
                   "norms": false,
                   "type": "text",
                   "fields": {
@@ -228,37 +245,18 @@ PUT _template/pfelk
                 "dma_code": {
                   "type": "long"
                 },
-                "ip": {
-                  "type": "ip"
-                },
-                "latitude": {
-                  "type": "half_float"
+                "country_code3": {
+                  "norms": false,
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "location": {
                   "type": "geo_point"
-                },
-                "longitude": {
-                  "type": "half_float"
-                },
-                "postal_code": {
-                  "norms": false,
-                  "type": "text",
-                  "fields": {
-                    "keyword": {
-                      "ignore_above": 256,
-                      "type": "keyword"
-                    }
-                  }
-                },
-                "region_iso_code": {
-                  "norms": false,
-                  "type": "text",
-                  "fields": {
-                    "keyword": {
-                      "ignore_above": 256,
-                      "type": "keyword"
-                    }
-                  }
                 },
                 "region_name": {
                   "norms": false,
@@ -270,7 +268,7 @@ PUT _template/pfelk
                     }
                   }
                 },
-                "timezone": {
+                "postal_code": {
                   "norms": false,
                   "type": "text",
                   "fields": {
@@ -279,14 +277,40 @@ PUT _template/pfelk
                       "type": "keyword"
                     }
                   }
+                },
+                "longitude": {
+                  "type": "half_float"
                 }
               }
             },
-            "ip": {
-              "index": true,
-              "store": false,
-              "type": "ip",
-              "doc_values": true
+            "as": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "long"
+                },
+                "ip": {
+                  "index": true,
+                  "store": false,
+                  "type": "ip",
+                  "doc_values": true
+                },
+                "organization": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "norms": false,
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             },
             "port": {
               "coerce": true,
@@ -306,6 +330,12 @@ PUT _template/pfelk
                 }
               }
             },
+            "ip": {
+              "index": true,
+              "store": false,
+              "type": "ip",
+              "doc_values": true
+            },
             "user": {
               "type": "object",
               "properties": {
@@ -320,313 +350,6 @@ PUT _template/pfelk
                   }
                 }
               }
-            }
-          }
-        },
-        "dhcp": {
-          "type": "object",
-          "properties": {
-            "operation": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "dhcpv4": {
-          "type": "object",
-          "properties": {
-            "client_ip": {
-              "index": true,
-              "store": false,
-              "type": "ip",
-              "doc_values": true
-            },
-            "client_mac": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "server_ip": {
-              "index": true,
-              "store": false,
-              "type": "ip",
-              "doc_values": true
-            }
-          }
-        },
-        "event": {
-          "type": "object",
-          "properties": {
-            "action": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "created": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "original": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "flow_label": {
-          "norms": false,
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
-            }
-          }
-        },
-        "host": {
-          "index": true,
-          "store": false,
-          "type": "ip",
-          "doc_values": true
-        },
-        "interface": {
-          "type": "object",
-          "properties": {
-            "alias": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "name": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "ip": {
-          "type": "object",
-          "properties": {
-            "flags": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "network": {
-          "type": "object",
-          "properties": {
-            "direction": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "iana_number": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "name": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "packets": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "transport": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "type": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "observer": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "type": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "offset": {
-          "coerce": true,
-          "index": true,
-          "ignore_malformed": false,
-          "store": false,
-          "type": "integer",
-          "doc_values": true
-        },
-        "packet": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "length": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            }
-          }
-        },
-        "priority": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            }
-          }
-        },
-        "process": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            }
-          }
-        },
-        "protocol": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
-            },
-            "type": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            }
-          }
-        },
-        "reason": {
-          "norms": false,
-          "type": "text",
-          "fields": {
-            "keyword": {
-              "ignore_above": 256,
-              "type": "keyword"
             }
           }
         },
@@ -663,48 +386,14 @@ PUT _template/pfelk
           "type": "integer",
           "doc_values": true
         },
-        "sequence_number": {
-          "coerce": true,
-          "index": true,
-          "ignore_malformed": false,
-          "store": false,
-          "type": "integer",
-          "doc_values": true
-        },
         "source": {
           "type": "object",
           "properties": {
-            "as": {
-              "type": "object",
-              "properties": {
-                "ip": {
-                  "type": "ip"
-                },
-                "number": {
-                  "type": "long"
-                },
-                "organization": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "norms": false,
-                      "type": "text",
-                      "fields": {
-                        "keyword": {
-                          "ignore_above": 256,
-                          "type": "keyword"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
             "geo": {
               "dynamic": "true",
               "type": "object",
               "properties": {
-                "city_name": {
+                "timezone": {
                   "norms": false,
                   "type": "text",
                   "fields": {
@@ -713,6 +402,12 @@ PUT _template/pfelk
                       "type": "keyword"
                     }
                   }
+                },
+                "ip": {
+                  "type": "ip"
+                },
+                "latitude": {
+                  "type": "half_float"
                 },
                 "continent_code": {
                   "norms": false,
@@ -724,7 +419,17 @@ PUT _template/pfelk
                     }
                   }
                 },
-                "country_code3": {
+                "region_iso_code": {
+                  "norms": false,
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "city_name": {
                   "norms": false,
                   "type": "text",
                   "fields": {
@@ -754,37 +459,18 @@ PUT _template/pfelk
                     }
                   }
                 },
-                "ip": {
-                  "type": "ip"
-                },
-                "latitude": {
-                  "type": "half_float"
+                "country_code3": {
+                  "norms": false,
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  }
                 },
                 "location": {
                   "type": "geo_point"
-                },
-                "longitude": {
-                  "type": "half_float"
-                },
-                "postal_code": {
-                  "norms": false,
-                  "type": "text",
-                  "fields": {
-                    "keyword": {
-                      "ignore_above": 256,
-                      "type": "keyword"
-                    }
-                  }
-                },
-                "region_iso_code": {
-                  "norms": false,
-                  "type": "text",
-                  "fields": {
-                    "keyword": {
-                      "ignore_above": 256,
-                      "type": "keyword"
-                    }
-                  }
                 },
                 "region_name": {
                   "norms": false,
@@ -796,7 +482,7 @@ PUT _template/pfelk
                     }
                   }
                 },
-                "timezone": {
+                "postal_code": {
                   "norms": false,
                   "type": "text",
                   "fields": {
@@ -805,14 +491,37 @@ PUT _template/pfelk
                       "type": "keyword"
                     }
                   }
+                },
+                "longitude": {
+                  "type": "half_float"
                 }
               }
             },
-            "ip": {
-              "index": true,
-              "store": false,
-              "type": "ip",
-              "doc_values": true
+            "as": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "long"
+                },
+                "ip": {
+                  "type": "ip"
+                },
+                "organization": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "norms": false,
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             },
             "port": {
               "coerce": true,
@@ -832,6 +541,12 @@ PUT _template/pfelk
                 }
               }
             },
+            "ip": {
+              "index": true,
+              "store": false,
+              "type": "ip",
+              "doc_values": true
+            },
             "user": {
               "type": "object",
               "properties": {
@@ -849,35 +564,32 @@ PUT _template/pfelk
             }
           }
         },
-        "suricata": {
+        "interface": {
           "type": "object",
           "properties": {
-            "eve": {
-              "type": "object",
-              "properties": {
-                "dest_ip": {
-                  "type": "ip"
-                },
-                "src_ip": {
-                  "type": "ip"
+            "name": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
                 }
               }
             },
-            "id": {
-              "type": "integer"
-            },
-            "rule": {
-              "type": "object"
-            },
-            "uuid": {
-              "type": "integer"
-            },
-            "version": {
-              "type": "integer"
+            "alias": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
             }
           }
         },
-        "tags": {
+        "type": {
           "norms": false,
           "type": "text",
           "fields": {
@@ -887,7 +599,7 @@ PUT _template/pfelk
             }
           }
         },
-        "tcp_flags": {
+        "ack_number": {
           "norms": false,
           "type": "text",
           "fields": {
@@ -907,6 +619,177 @@ PUT _template/pfelk
             }
           }
         },
+        "network": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "transport": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "type": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "iana_number": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "packets": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "direction": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "window_size": {
+          "coerce": true,
+          "index": true,
+          "ignore_malformed": false,
+          "store": false,
+          "type": "integer",
+          "doc_values": true
+        },
+        "observer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "type": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "protocol": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "type": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "IPv6_Flag1": {
+          "norms": false,
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "tcp_flags": {
+          "norms": false,
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "IPv6_Flag2": {
+          "norms": false,
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "@version": {
+          "norms": false,
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "host": {
+          "index": true,
+          "store": false,
+          "type": "ip",
+          "doc_values": true
+        },
+        "tracker": {
+          "coerce": true,
+          "index": true,
+          "ignore_malformed": false,
+          "store": false,
+          "type": "integer",
+          "doc_values": true
+        },
         "tos": {
           "norms": false,
           "type": "text",
@@ -917,7 +800,97 @@ PUT _template/pfelk
             }
           }
         },
-        "tracker": {
+        "event": {
+          "type": "object",
+          "properties": {
+            "original": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "created": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "action": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "dhcp": {
+          "type": "object",
+          "properties": {
+            "operation": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "process": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            }
+          }
+        },
+        "dhcpv4": {
+          "type": "object",
+          "properties": {
+            "client_mac": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            },
+            "server_ip": {
+              "index": true,
+              "store": false,
+              "type": "ip",
+              "doc_values": true
+            },
+            "client_ip": {
+              "index": true,
+              "store": false,
+              "type": "ip",
+              "doc_values": true
+            }
+          }
+        },
+        "offset": {
           "coerce": true,
           "index": true,
           "ignore_malformed": false,
@@ -925,10 +898,79 @@ PUT _template/pfelk
           "type": "integer",
           "doc_values": true
         },
+        "flow_label": {
+          "norms": false,
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "ip": {
+          "type": "object",
+          "properties": {
+            "flags": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "Flags": {
+          "norms": false,
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
         "transport": {
           "type": "object",
           "properties": {
             "data_length": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            }
+          }
+        },
+        "packet": {
+          "type": "object",
+          "properties": {
+            "length": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "id": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            }
+          }
+        },
+        "priority": {
+          "type": "object",
+          "properties": {
+            "id": {
               "coerce": true,
               "index": true,
               "ignore_malformed": false,
@@ -946,7 +988,7 @@ PUT _template/pfelk
           "type": "integer",
           "doc_values": true
         },
-        "type": {
+        "tags": {
           "norms": false,
           "type": "text",
           "fields": {
@@ -956,115 +998,87 @@ PUT _template/pfelk
             }
           }
         },
-        "unbound": {
-          "type": "object",
-          "properties": {
-            "instance": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "coerce": true,
-                  "index": true,
-                  "ignore_malformed": false,
-                  "store": false,
-                  "type": "integer",
-                  "doc_values": true
-                }
-              }
-            },
-            "log": {
-              "type": "object",
-              "properties": {
-                "level": {
-                  "norms": false,
-                  "type": "text",
-                  "fields": {
-                    "keyword": {
-                      "ignore_above": 256,
-                      "type": "keyword"
-                    }
-                  }
-                }
-              }
-            },
-            "process": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "coerce": true,
-                  "index": true,
-                  "ignore_malformed": false,
-                  "store": false,
-                  "type": "integer",
-                  "doc_values": true
-                }
-              }
-            },
-            "query": {
-              "type": "object",
-              "properties": {
-                "client": {
-                  "type": "object",
-                  "properties": {
-                    "ip": {
-                      "index": true,
-                      "store": false,
-                      "type": "ip",
-                      "doc_values": true
-                    }
-                  }
-                },
-                "message": {
-                  "type": "object",
-                  "properties": {
-                    "flags": {
-                      "norms": false,
-                      "type": "text",
-                      "fields": {
-                        "keyword": {
-                          "ignore_above": 256,
-                          "type": "keyword"
-                        }
-                      }
-                    }
-                  }
-                },
-                "record": {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "norms": false,
-                      "type": "text",
-                      "fields": {
-                        "keyword": {
-                          "ignore_above": 256,
-                          "type": "keyword"
-                        }
-                      }
-                    }
-                  }
-                },
-                "url": {
-                  "norms": false,
-                  "type": "text",
-                  "fields": {
-                    "keyword": {
-                      "ignore_above": 256,
-                      "type": "keyword"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "window_size": {
+        "sequence_number": {
           "coerce": true,
           "index": true,
           "ignore_malformed": false,
           "store": false,
-          "type": "integer",
+          "type": "long",
           "doc_values": true
+        },
+        "Type": {
+          "norms": false,
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "@timestamp": {
+          "type": "date"
+        },
+        "application": {
+          "norms": false,
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "Option": {
+          "norms": false,
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          }
+        },
+        "suricata": {
+          "type": "object",
+          "properties": {
+            "eve": {
+              "type": "object",
+              "properties": {
+                "src_ip": {
+                  "type": "ip"
+                },
+                "dest_ip": {
+                  "type": "ip"
+                }
+              }
+            },
+            "rule": {
+              "type": "object"
+            },
+            "id": {
+              "type": "integer"
+            },
+            "uuid": {
+              "type": "integer"
+            },
+            "version": {
+              "type": "integer"
+            }
+          }
+        },
+        "squid": {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                }
+              }
+            }
+          }
         }
       }
     }
