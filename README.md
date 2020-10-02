@@ -36,9 +36,9 @@ Supported entries include:
  - Suricata IDS with dashboards
  - Snort IDS with dashboards
  - Squid with dashboards
- - HAProxy
+ - HAProxy with dashboard
 
-**pfelk** aims to replace the vanilla pfSense/opnSense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
+**pfelk** aims to replace the vanilla pfSense/OPNSense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
 
 ### Contents
 * [How pfelk works?](https://github.com/3ilson/pfelk#how-pfelk-works)
@@ -84,7 +84,7 @@ Supported entries include:
 
 #### manual installation
 * [Ubuntu 18.04 / 20.04](https://github.com/3ilson/pfelk/blob/master/install/ubuntu.md)
-* [Debian 9-10.3](https://github.com/3ilson/pfelk/blob/master/install/debian.md)
+* [Debian 9-10.5](https://github.com/3ilson/pfelk/blob/master/install/debian.md)
 
 ### Roadmap
 This is the experimental public roadmap for the pfelk project.
