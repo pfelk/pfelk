@@ -6,7 +6,7 @@ You can view installation guide guide on [3ilson.org YouTube Channel](https://ww
 
 
 ![Version badge](https://img.shields.io/badge/ELK-7.9.1-blue.svg)
-![Travis (.org)](https://img.shields.io/travis/3ilson/ansible-pfelk?label=Ansible-playbook) ![Travis (.org)](https://img.shields.io/travis/3ilson/docker-pfelk?label=Docker-compose) [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson) 
 
 ### Prerequisites
@@ -52,7 +52,7 @@ Supported entries include:
 * [License](https://github.com/3ilson/pfelk#license)
 
 ### How pfelk works?
-![How pfelk works](https://github.com/3ilson/pfelk/raw/master/Images/how-pfelk.png)
+![How pfelk works](https://github.com/3ilson/pfelk/raw/master/Images/pfELKOverview.PNG)
 ### Quick start
 
 ### Installation
