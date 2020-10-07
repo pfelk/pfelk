@@ -1,4 +1,3 @@
-PUT _template/haproxy
 {
   "version": 70001,
   "order": 5,

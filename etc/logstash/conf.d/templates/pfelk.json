@@ -1,4 +1,3 @@
-PUT _template/pfelk
 {
   "version": 50001,
   "order": 1,
