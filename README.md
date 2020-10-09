@@ -66,7 +66,7 @@ Supported entries include:
  * `$ docker-compose up`
 
 #### manual installation/script - preferred manual method
-* Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.0.sh) repository
+* Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.5.sh) repository
 ##### Ubuntu
 * `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.0.sh`
 * Make script executable 
