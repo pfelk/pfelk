@@ -13,27 +13,27 @@
 
 ### 2a - Ubuntu 
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.0.sh
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.5.sh
 ```
 #### 3a. Make the script executable 
 ```
-sudo chmod +x pfelk-install-5.5.0.sh
+sudo chmod +x pfelk-install-5.5.5.sh
 ```
 #### 4a. Execute the script 
 ```
-sudo ./pfelk-install-5.5.0.sh
+sudo ./pfelk-install-5.5.5.sh
 ```
 ### 2b - Debian 
 ```
-wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.0.sh
+wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.5.sh
 ```
 #### 3b. Make the script executable 
 ```
-chmod +x pfelk-install-5.5.0.sh
+chmod +x pfelk-install-5.5.5.sh
 ```
 #### 4b. Execute the script 
 ```
-./pfelk-install-5.5.0.sh
+./pfelk-install-5.5.5.sh
 ```
 
 ### 5. Complete Configuration --> [Configuration](configuration.md)
