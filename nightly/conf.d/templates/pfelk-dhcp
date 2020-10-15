@@ -1,0 +1,106 @@
+PUT _template/pfelk-dhcp?include_type_name
+{
+  "version": 8,
+  "order": 5,
+  "index_patterns": [
+    "pfelk-firewall*"
+  ],
+  "settings": {},
+  "aliases": {},
+  "mappings": {
+    "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic": true,
+      "date_detection": false,
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "dhcpv4": {
+          "type": "object",
+          "properties": {
+            "server": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "mac": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "query": {
+              "type": "object",
+              "properties": {
+                "associated": {
+                  "type": "text"
+                },
+                "ip": {
+                  "type": "ip"
+                },
+                "mac": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "client": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "mac": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "option": {
+              "type": "object",
+              "properties": {
+                "hostname": {
+                  "type": "keyword"
+                },
+                "message": {
+                  "type": "text"
+                }
+              }
+            }
+          }
+        },
+        "dhcp": {
+          "type": "object",
+          "properties": {
+            "client": {
+              "dynamic": true,
+              "type": "object",
+              "enabled": true,
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "mac": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "message": {
+              "type": "text"
+            },
+            "operation": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}
