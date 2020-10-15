@@ -1,0 +1,231 @@
+PUT _template/pfelk-squid?include_type_name
+{
+  "version": 8,
+  "order": 30,
+  "index_patterns": [
+    "pfelk-squid*"
+  ],
+  "settings": {},
+  "aliases": {},
+  "mappings": {
+    "_doc": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic": true,
+      "dynamic_templates": [
+        {
+          "message_field": {
+            "path_match": "message",
+            "mapping": {
+              "norms": false,
+              "type": "text"
+            },
+            "match_mapping_type": "string"
+          }
+        },
+        {
+          "string_fields": {
+            "mapping": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "match_mapping_type": "string",
+            "match": "*"
+          }
+        }
+      ],
+      "date_detection": false,
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "squid": {
+          "type": "object",
+          "properties": {
+            "@timestamp": {
+              "type": "date"
+            },
+            "ecs": {
+              "type": "object",
+              "properties": {
+                "version": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "split_queries_on_whitespace": false,
+                  "index_options": "docs",
+                  "doc_values": true
+                }
+              }
+            },
+            "service": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "keyword"
+                },
+                "type": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "host": {
+              "type": "object",
+              "properties": {
+                "hostname": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "http": {
+              "type": "object",
+              "properties": {
+                "request": {
+                  "type": "object",
+                  "properties": {
+                    "referrer": {
+                      "type": "keyword"
+                    },
+                    "method": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status_code": {
+                          "type": "long"
+                        }
+                      }
+                    }
+                  }
+                },
+                "version": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "source": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                }
+              }
+            },
+            "event": {
+              "type": "object",
+              "properties": {
+                "duration": {
+                  "type": "long"
+                },
+                "id": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "split_queries_on_whitespace": false,
+                  "index_options": "docs",
+                  "doc_values": true
+                },
+                "dataset": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "user": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "keyword",
+                  "fields": {
+                    "name": {
+                      "type": "text"
+                    }
+                  }
+                }
+              }
+            },
+            "url": {
+              "type": "object",
+              "properties": {
+                "original": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "fields": {
+                    "original": {
+                      "type": "text"
+                    }
+                  },
+                  "split_queries_on_whitespace": false,
+                  "index_options": "docs",
+                  "doc_values": true
+                }
+              }
+            },
+            "user_agent": {
+              "type": "object",
+              "properties": {
+                "original": {
+                  "type": "keyword",
+                  "fields": {
+                    "original": {
+                      "type": "text"
+                    }
+                  }
+                }
+              }
+            },
+            "labels": {
+              "type": "object",
+              "properties": {
+                "request_status": {
+                  "type": "keyword",
+                  "fields": {
+                    "request_status": {
+                      "type": "text"
+                    }
+                  }
+                },
+                "hierarchy_status": {
+                  "type": "keyword",
+                  "fields": {
+                    "hierarchy_status": {
+                      "type": "text"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
