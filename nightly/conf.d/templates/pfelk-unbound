@@ -6,7 +6,6 @@ PUT _template/pfelk-unbound?include_type_name
     "pfelk-unbound*"
   ],
   "settings": {},
-  "aliases": {},
   "mappings": {
     "_doc": {
       "_routing": {
@@ -137,9 +136,6 @@ PUT _template/pfelk-unbound?include_type_name
               }
             }
           }
-        },
-        "@timestamp": {
-          "type": "date"
         }
       }
     }
