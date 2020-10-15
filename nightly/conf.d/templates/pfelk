@@ -7,6 +7,9 @@ PUT _template/pfelk?include_type_name
   ],
   "settings": {
     "index": {
+      "lifecycle": {
+        "name": "pfelk-ilm"
+      },
       "mapping": {
         "total_fields": {
           "limit": "10000"
@@ -17,7 +20,7 @@ PUT _template/pfelk?include_type_name
   },
   "aliases": {},
   "mappings": {
-    "mappings": {
+    "_doc": {
       "_routing": {
         "required": false
       },
@@ -121,9 +124,6 @@ PUT _template/pfelk?include_type_name
               }
             }
           }
-        },
-        "host": {
-          "type": "ip"
         }
       }
     }
