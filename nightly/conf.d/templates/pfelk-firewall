@@ -55,6 +55,9 @@ PUT _template/pfelk-firewall?include_type_name
             "flags": {
               "type": "keyword"
             },
+            "options": {
+              "type": "keyword"
+            },
             "sequence-number": {
               "coerce": true,
               "index": true,
