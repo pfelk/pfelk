@@ -21,9 +21,6 @@ PUT _template/pfelk-dhcp?include_type_name
       "dynamic": true,
       "date_detection": false,
       "properties": {
-        "@timestamp": {
-          "type": "date"
-        },
         "dhcpv4": {
           "type": "object",
           "properties": {
