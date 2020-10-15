@@ -76,9 +76,6 @@ PUT _template/pfelk-firewall?include_type_name
             }
           }
         },
-        "@timestamp": {
-          "type": "date"
-        },
         "ipv4": {
           "type": "object",
           "properties": {
