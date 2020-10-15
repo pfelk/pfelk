@@ -49,9 +49,6 @@ PUT _template/pfelk-geoip?include_type_name
       ],
       "date_detection": false,
       "properties": {
-        "@timestamp": {
-          "type": "date"
-        },
         "destination": {
           "type": "object",
           "properties": {
