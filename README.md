@@ -2,7 +2,7 @@
 
 ![pfelk dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/dashboards.gif)
 
-You can view installation guide guide on [3ilson.org YouTube Channel](https://www.youtube.com/3ilsonorg).
+You can view installation guide guide on [3ilson YouTube Channel](https://www.youtube.com/3ilson).
 
 
 ![Version badge](https://img.shields.io/badge/ELK-7.9.1-blue.svg)
