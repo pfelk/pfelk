@@ -1333,7 +1333,7 @@ sleep 3
 update_kibana() {
   cd /etc/kibana
   rm /etc/kibana/kibana.yml
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/kibana.yml
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/kibana/kibana.yml
   sudo systemctl restart kibana.service
 }
 update_kibana
