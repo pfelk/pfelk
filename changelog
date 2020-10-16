@@ -3,7 +3,7 @@ ES Versions:
   * pfelk >= 6.0  supports pfSense >= 2.4.0+
   * pfelk >= 6.0  supports OPNsense >= 19+
 
-6.1 2020/##/##
+6.1 202#/##/##
   -SCRIPT
   - Simple Installer  - Fix Elasticsearch timeout on startup (issue #170)
                       - Add check tmp space prior to install (issue #128)
