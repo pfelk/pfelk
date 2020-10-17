@@ -1179,31 +1179,24 @@ sleep 3
 ###################################################################################################################################################################################################
 
 download_pfelk() {
-  mkdir -p /etc/logstash/conf.d/patterns
-  mkdir -p /etc/logstash/conf.d/templates
-  mkdir -p /etc/logstash/conf.d/databases
-  cd /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/03-filter.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-apps.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
-  cd /etc/logstash/conf.d/patterns/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
-  cd /etc/logstash/conf.d/templates
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-geoip.json
-  cd /etc/logstash/conf.d/databases
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv
+  mkdir -p /etc/logstash/conf.d/{databases,patterns,templates}
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-geoip.json -P /etc/logstash/conf.d/templates/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
   mkdir -p /etc/pfELK/logs/
-  cd /etc/pfELK/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
-  chmod +x /etc/logstash/pfelk-error.sh
+  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh -P /etc/pfELK/
+  chmod +x /etc/pfELK/pfelk-error.sh
   header
   script_logo
   echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure...\\n\\n"
