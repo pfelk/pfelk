@@ -1,6 +1,6 @@
 ## Welcome to (pfSense/OPNsense) + Elastic Stack  
 
-![pfelk dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/dashboards.gif)
+![pfelk dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/dashboards-v6.gif)
 
 You can view installation guide guide on [3ilson YouTube Channel](https://www.youtube.com/3ilson).
 
