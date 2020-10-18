@@ -68,6 +68,9 @@ PUT _template/pfelk-suricata?include_type_name
               "path": "suricata.eve.flow.bytes_toclient",
               "type": "alias"
             },
+            "service": {
+              "type": "keyword"
+            },
             "ip": {
               "index": true,
               "store": false,
@@ -146,12 +149,6 @@ PUT _template/pfelk-suricata?include_type_name
                     "severity": {
                       "type": "long"
                     },
-                    "rev": {
-                      "type": "long"
-                    },
-                    "signature_id": {
-                      "type": "long"
-                    },
                     "metadata": {
                       "type": "object",
                       "properties": {
@@ -180,6 +177,12 @@ PUT _template/pfelk-suricata?include_type_name
                           "type": "keyword"
                         }
                       }
+                    },
+                    "rev": {
+                      "type": "long"
+                    },
+                    "signature_id": {
+                      "type": "long"
                     },
                     "gid": {
                       "type": "long"
@@ -275,6 +278,9 @@ PUT _template/pfelk-suricata?include_type_name
             "bytes": {
               "path": "suricata.eve.flow.bytes_toserver",
               "type": "alias"
+            },
+            "service": {
+              "type": "keyword"
             },
             "ip": {
               "type": "ip"
