@@ -138,19 +138,19 @@ Amend "OPNsense" as desired.  This will be useful if monitoring multiple instanc
 ```
 
 # Troubleshooting
-### 20. Create Logging Directory 
+### 19. Create Logging Directory 
 ```
 sudo mkdir -p /etc/pfELK/logs
 ```
 
-### 22. Download `error-data.sh`
+### 20. Download `error-data.sh`
 ```
 sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh -P /etc/pfELK/
 ```
 
-### 23. Make `error-data.sh` Executable
+### 21. Make `error-data.sh` Executable
 ```
 sudo chmod +x /etc/pfELK/error-data.sh
 ```
 
-### 24. Complete Configuration --> [Configuration](configuration.md)
+### 22. Complete Configuration --> [Configuration](configuration.md)
