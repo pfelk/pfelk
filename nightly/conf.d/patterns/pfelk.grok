@@ -6,7 +6,7 @@ PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA
 PF_LOG_DATA %{INT:[rule][id]},%{INT:[rule][sub][id]}?,,%{INT:[rule][uuid]},%{DATA:[interface][name]},(?<[event][reason]>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
 PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
 PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:[ipv4][tos]},%{WORD:[ipv4][ecn]}?,%{INT:[ipv4][ttl]},%{INT:[ipv4][packet][id]},%{INT:[ipv4][offset]},%{WORD:[ipv4][flags]},%{INT:[network][iana_number]},%{WORD:[network][transport]},
-PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:[ipv6][class]},%{WORD:[ipv6][flow-label]},%{WORD:[ipv6][hop-limit]},%{DATA:[protocol][type]},%{INT:[protocol][id]},
+PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:[ipv6][class]},%{WORD:[ipv6][flow_label]},%{WORD:[ipv6][hop_limit]},%{DATA:[protocol][type]},%{INT:[protocol][id]},
 PF_IP_DATA %{INT:[packet][length]},%{IP:[source][ip]},%{IP:[destination][ip]},
 PF_PROTOCOL_DATA %{PF_TCP_DATA}|%{PF_UDP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP}
 
@@ -15,8 +15,8 @@ PF_IPv6_VAR %{WORD:type},%{WORD:option},%{WORD:Flags},%{WORD:Flags}
 PF_IPv6_ICMP
 
 # PROTOCOL
-PF_TCP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[transport][data-length]},(?<[tcp][flags]>(\w*)?),(?<[tcp][sequence-number]>(\d*)?):?\d*,(?<[tcp][ack-number]>(\d*)?),(?<[tcp][window]>(\d*)?),(?<[tcp][urg]>(\w*)?),%{GREEDYDATA:[tcp][options]}
-PF_UDP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[transport][data-length]}$
+PF_TCP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[transport][data_length]},(?<[tcp][flags]>(\w*)?),(?<[tcp][sequence_number]>(\d*)?):?\d*,(?<[tcp][ack_number]>(\d*)?),(?<[tcp][window]>(\d*)?),(?<[tcp][urg]>(\w*)?),%{GREEDYDATA:[tcp][options]}
+PF_UDP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[transport][data_length]}$
 PF_IGMP_DATA datalength=%{INT:[network][packets]}
 PF_ICMP_DATA %{PF_ICMP_TYPE}%{PF_ICMP_RESPONSE}
 PF_ICMP_TYPE (?<icmp_type>(request|reply|unreachproto|unreachport|unreach|timeexceed|paramprob|redirect|maskreply|needfrag|tstamp|tstampreply)),
