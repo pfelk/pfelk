@@ -9,7 +9,7 @@ ES Versions:
                       - Add check tmp space prior to install (issue #128)
                       - Add symbolic link to aid with quicker shutdowns (issue #128)
                       
-6.0 2020/##/##
+6.0 2020/10/18
   -LOGSTASH
   - conf files        - Removed host filtering (mitigate issues with logs traversing via routers/containers)
                      - Added observer fields for enhanced filtering for multiple firewall setups 
