@@ -150,7 +150,7 @@ systemctl start logstash.service
 ### 6. Import dashboards
 [YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
- - Click the ☰ menu icon (three horizontal lines) in the upper left
+ - Click the menu icon (☰ three horizontal lines) in the upper left
  - Under Management click -> Stack Management 
  - Under Kibana click -> Saved Objects
  - You can import the dashboards found in the [dashboard](https://github.com/3ilson/pfelk/tree/master/Dashboard) folder via the Import button in the top-right corner.
