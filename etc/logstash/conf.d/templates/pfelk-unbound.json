@@ -1,0 +1,144 @@
+PUT _template/pfelk-unbound?include_type_name
+{
+  "version": 8,
+  "order": 20,
+  "index_patterns": [
+    "pfelk-unbound*"
+  ],
+  "settings": {},
+  "aliases": {},
+  "mappings": {
+    "_doc": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic": true,
+      "dynamic_templates": [
+        {
+          "message_field": {
+            "path_match": "message",
+            "mapping": {
+              "norms": false,
+              "type": "text"
+            },
+            "match_mapping_type": "string"
+          }
+        },
+        {
+          "string_fields": {
+            "mapping": {
+              "norms": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 1024,
+                  "type": "keyword"
+                }
+              }
+            },
+            "match_mapping_type": "string",
+            "match": "*"
+          }
+        }
+      ],
+      "date_detection": false,
+      "properties": {
+        "unbound": {
+          "type": "object",
+          "properties": {
+            "process": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "coerce": true,
+                  "index": true,
+                  "ignore_malformed": false,
+                  "store": false,
+                  "type": "long",
+                  "doc_values": true
+                },
+                "thread": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "log": {
+              "type": "object",
+              "properties": {
+                "level": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "split_queries_on_whitespace": false,
+                  "index_options": "docs",
+                  "doc_values": true
+                }
+              }
+            },
+            "dns": {
+              "type": "object",
+              "properties": {
+                "question": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "class": {
+                      "eager_global_ordinals": false,
+                      "norms": false,
+                      "index": true,
+                      "store": false,
+                      "type": "keyword",
+                      "split_queries_on_whitespace": false,
+                      "index_options": "docs",
+                      "doc_values": true
+                    }
+                  }
+                },
+                "answers": {
+                  "dynamic": true,
+                  "type": "object",
+                  "enabled": true,
+                  "properties": {
+                    "type": {
+                      "eager_global_ordinals": false,
+                      "norms": false,
+                      "index": true,
+                      "store": false,
+                      "type": "keyword",
+                      "split_queries_on_whitespace": false,
+                      "index_options": "docs",
+                      "doc_values": true
+                    }
+                  }
+                }
+              }
+            },
+            "client": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
