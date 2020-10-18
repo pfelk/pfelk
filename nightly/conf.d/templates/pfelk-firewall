@@ -52,19 +52,39 @@ PUT _template/pfelk-firewall?include_type_name
         "tcp": {
           "type": "object",
           "properties": {
-            "flags": {
-              "type": "keyword"
-            },
-            "options": {
-              "type": "keyword"
-            },
-            "sequence-number": {
+            "sequence_number": {
               "coerce": true,
               "index": true,
               "ignore_malformed": false,
               "store": false,
               "type": "long",
               "doc_values": true
+            },
+            "data_length": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
+            },
+            "flags": {
+              "type": "keyword"
+            },
+            "options": {
+              "eager_global_ordinals": false,
+              "index_phrases": false,
+              "fielddata": false,
+              "norms": true,
+              "index": true,
+              "store": false,
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword"
+                }
+              },
+              "index_options": "positions"
             },
             "window": {
               "coerce": true,
@@ -73,9 +93,6 @@ PUT _template/pfelk-firewall?include_type_name
               "store": false,
               "type": "integer",
               "doc_values": true
-            },
-            "data-length": {
-              "type": "integer"
             }
           }
         },
@@ -133,6 +150,9 @@ PUT _template/pfelk-firewall?include_type_name
             "port": {
               "type": "integer"
             },
+            "service": {
+              "type": "keyword"
+            },
             "ip": {
               "type": "ip"
             }
@@ -181,6 +201,9 @@ PUT _template/pfelk-firewall?include_type_name
               "type": "integer",
               "doc_values": true
             },
+            "service": {
+              "type": "keyword"
+            },
             "ip": {
               "type": "ip"
             }
@@ -189,8 +212,13 @@ PUT _template/pfelk-firewall?include_type_name
         "transport": {
           "type": "object",
           "properties": {
-            "data-length": {
-              "type": "integer"
+            "data_length": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "integer",
+              "doc_values": true
             }
           }
         },
