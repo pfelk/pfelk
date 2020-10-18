@@ -1,7 +1,6 @@
 # Configuring (pfSense/OPNsense) + Elasticstack 
 ## Table of Contents
 - [Edit Rule Description](#rule)
-- [Disable Swap](#swap)
 - [Date/Time](#time)
 - [Services](#services)
 - [Firewall](#firewall)
@@ -66,18 +65,6 @@ sudo nano /etc/logstash/conf.d/05-firewall.conf
       }
 ```
 
-# Swap
-### 2. Disabling Swap
-Swapping should be disabled for performance and stability.
-```
-sudo swapoff -a
-```
-# Time
-### 3. Configuration Date/Time Zone
-The box running this configuration will reports firewall logs based on its clock.  The command below will set the timezone to Eastern Standard Time (EST).  To view available timezones type `sudo timedatectl list-timezones`
-```
-sudo timedatectl set-timezone EST
-```
 # Services
 ### 4a. Start Services on Boot as Services (you'll need to reboot or start manually to proceed)
 ```
