@@ -1,14 +1,14 @@
-PUT _template/pfelk-geoip?include_type_name
+PUT _template/pfelk-squid?include_type_name
 {
   "version": 8,
-  "order": 2,
+  "order": 30,
   "index_patterns": [
-    "pfelk-*"
+    "pfelk-squid*"
   ],
   "settings": {},
   "aliases": {},
   "mappings": {
-    "mappings": {
+    "_doc": {
       "_routing": {
         "required": false
       },
@@ -49,66 +49,176 @@ PUT _template/pfelk-geoip?include_type_name
       ],
       "date_detection": false,
       "properties": {
-        "destination": {
+        "squid": {
           "type": "object",
           "properties": {
-            "geo": {
-              "dynamic": true,
+            "@timestamp": {
+              "type": "date"
+            },
+            "ecs": {
+              "type": "object",
+              "properties": {
+                "version": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "split_queries_on_whitespace": false,
+                  "index_options": "docs",
+                  "doc_values": true
+                }
+              }
+            },
+            "service": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "keyword"
+                },
+                "type": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "host": {
+              "type": "object",
+              "properties": {
+                "hostname": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "http": {
+              "type": "object",
+              "properties": {
+                "request": {
+                  "type": "object",
+                  "properties": {
+                    "referrer": {
+                      "type": "keyword"
+                    },
+                    "method": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    },
+                    "body": {
+                      "type": "object",
+                      "properties": {
+                        "status_code": {
+                          "type": "long"
+                        }
+                      }
+                    }
+                  }
+                },
+                "version": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "source": {
               "type": "object",
               "properties": {
                 "ip": {
                   "type": "ip"
-                },
-                "latitude": {
-                  "type": "half_float"
-                },
-                "location": {
-                  "type": "geo_point"
-                },
-                "longitude": {
-                  "type": "half_float"
                 }
               }
             },
-            "port": {
-              "type": "integer"
-            },
-            "ip": {
-              "type": "ip"
-            }
-          }
-        },
-        "source": {
-          "type": "object",
-          "properties": {
-            "geo": {
-              "dynamic": true,
+            "event": {
               "type": "object",
               "properties": {
-                "ip": {
-                  "type": "ip"
+                "duration": {
+                  "type": "long"
                 },
-                "latitude": {
-                  "type": "half_float"
+                "id": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "split_queries_on_whitespace": false,
+                  "index_options": "docs",
+                  "doc_values": true
                 },
-                "location": {
-                  "type": "geo_point"
-                },
-                "longitude": {
-                  "type": "half_float"
+                "dataset": {
+                  "type": "keyword"
                 }
               }
             },
-            "port": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "integer",
-              "doc_values": true
+            "user": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "keyword",
+                  "fields": {
+                    "name": {
+                      "type": "text"
+                    }
+                  }
+                }
+              }
             },
-            "ip": {
-              "type": "ip"
+            "url": {
+              "type": "object",
+              "properties": {
+                "original": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "fields": {
+                    "original": {
+                      "type": "text"
+                    }
+                  },
+                  "split_queries_on_whitespace": false,
+                  "index_options": "docs",
+                  "doc_values": true
+                }
+              }
+            },
+            "user_agent": {
+              "type": "object",
+              "properties": {
+                "original": {
+                  "type": "keyword",
+                  "fields": {
+                    "original": {
+                      "type": "text"
+                    }
+                  }
+                }
+              }
+            },
+            "labels": {
+              "type": "object",
+              "properties": {
+                "request_status": {
+                  "type": "keyword",
+                  "fields": {
+                    "request_status": {
+                      "type": "text"
+                    }
+                  }
+                },
+                "hierarchy_status": {
+                  "type": "keyword",
+                  "fields": {
+                    "hierarchy_status": {
+                      "type": "text"
+                    }
+                  }
+                }
+              }
             }
           }
         }
