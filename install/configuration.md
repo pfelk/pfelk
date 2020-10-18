@@ -61,6 +61,7 @@ systemctl start logstash.service
 - Enter the ELK local IP into the field "Remote log servers" with port 5140 (eg 192.168.100.50:5140)
 - Under "Remote Syslog Contents" check "Everything"
 - Click Save
+![pfSense](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/pfsenselogs.png)
 ### 4b. Login to OPNsense and forward syslogs
 - In OPNsense navigate to System->Settings->Logging/Targets
 - Add a new Logging/Target (Click the plus icon)
