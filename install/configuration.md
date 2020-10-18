@@ -153,7 +153,7 @@ systemctl start logstash.service
  - Click the menu icon (three horizontal lines) in the upper left
  - Under Management click -> Stack Management 
  - Under Kibana click -> Saved Objects
- - You can import the dashboards found in the `Dashboard` folder via the Import button in the top-right corner.
+ - You can import the dashboards found in the [dashboard](https://github.com/3ilson/pfelk/tree/master/Dashboard) folder via the Import button in the top-right corner.
  - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Firewall.ndjson)
  - [Unbound Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Unbound.ndjson)
  - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Squid.ndjson)
