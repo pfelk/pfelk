@@ -9,6 +9,18 @@
 
 # Preparation
 
+### 0a. Disabling Swap
+Swapping should be disabled for performance and stability.
+```
+sudo swapoff -a
+```
+
+### 0b. Configuration Date/Time Zone
+The box running this configuration will reports firewall logs based on its clock.  The command below will set the timezone to Eastern Standard Time (EST).  To view available timezones type `sudo timedatectl list-timezones`
+```
+sudo timedatectl set-timezone EST
+```
+
 ### 1. Add MaxMind Repository
 ```
 sudo add-apt-repository ppa:maxmind/ppa
