@@ -85,6 +85,7 @@ systemctl start logstash.service
    - EVE Log Alerts: Suricata will output Alerts via EVE
    - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility here should be LOCAL1, and the Log Priority should be NOTICE.
 ### 4d. Configure Suricata for log forwarding - OPNsense (Optional)    
+[In-Depth Guide Here](https://github.com/3ilson/pfelk/wiki/How-To:-Suricata-on-pfSense)
  - In OPNsense navigate to Services->Intrusion Detection->Administration
  - Enable = [X]
  - IPS mode = [ ] or [X]
