@@ -4,6 +4,7 @@
 - [Templates](#templates)
 - [Kibana](#kibana)
 - [Firewall](#firewall)
+- [Finished](#finished)
 
 # Services
 ### 1a. Start Services on Boot (you'll need to reboot or start manually to proceed)
@@ -123,3 +124,5 @@ systemctl start logstash.service
  - In OPNsense navigate to Services->Unbound DNS->Advanced
  - Log Queries = [X]
  ![OPNsense-Unbound](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_unbound_queries.PNG)
+# Finished
+### 5. Wait a few mintues after configuring the above and explore the enriched visualizations.
