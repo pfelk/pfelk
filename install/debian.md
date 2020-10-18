@@ -97,101 +97,60 @@ sudo nano /etc/kibana/kibana.yml
 - server.port: 5601
 - server.host: "0.0.0.0"
 
-### 14. Change Directory
+### 14. Create Required Directories
 ```
-cd /etc/logstash/conf.d/
+sudo mkdir /etc/logstash/conf.d/{databases,patterns,templates}
 ```
 
 ### 15. (Required) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/03-filter.conf
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-apps.conf
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 ```
 
 ### 15a. (Optional) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
 ```
 
-### 16a. Make Patterns Folder
+### 16. Download the grok pattern
 ```
-sudo mkdir /etc/logstash/conf.d/patterns
-```
-
-### 16b. Navigate to Patterns Folder
-```
-cd /etc/logstash/conf.d/patterns
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
 ```
 
-### 16c. Download the grok pattern
+### 17. Download the Database(s)
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok
-```
-
-### 17a. Make Templates Folder
-```
-sudo mkdir /etc/logstash/conf.d/templates
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
 ```
 
-### 17b. Navigate to Templates Folder
+### 18. (Optional) Amend 02-types.conf with unique observer.name field (line 8).  
+Amend "OPNsense" as desired.  This will be useful if monitoring multiple instances. Reference the [Wiki page](https://github.com/3ilson/pfelk/wiki/References:-Multiple-Instances) for further assistance.
 ```
-cd /etc/logstash/conf.d/templates
-```
-
-### 17c. Download Template(s)
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-geoip.json
-```
-
-### 18a. Make Databases Folder
-```
-sudo mkdir /etc/logstash/conf.d/databases
-```
-
-### 18a. Navigate to Databases Folder
-```
-cd /etc/logstash/conf.d/databases
-```
-
-### 18b. Download the Database(s)
-```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv
-```
-
-### 19. Enter your pfSense/OPNsense IP address (/data/pfELK/configurations/02-types.conf)
-```
-Change line 5; the "if [host] == ..." should point to your pfSense/OPNsense IP address
-Change line 8; rename "firewall" (OPTIONAL) to identify your device (i.e. backup_firewall)
-Change line 11-20; (OPTIONAL) to point to your second PF IP address or ignore
+      add_field => [ "[observer][name]", "OPNsense" ]
 ```
 
 # Troubleshooting
-### 20. Create Logging Directory 
+### 19. Create Logging Directory 
 ```
-mkdir -p /etc/pfELK/logs
-```
-
-### 21. Navigate to pfELK 
-```
-cd /data/pfELK/
+sudo mkdir -p /etc/pfELK/logs
 ```
 
-### 22. Download `error-data.sh`
+### 20. Download `error-data.sh`
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh
-```
-
-### 23. Make `error-data.sh` Executable
-```
-sudo chmod +x /data/pfELK/error-data.sh
+sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh -P /etc/pfELK/
 ```
 
-### 24. Complete Configuration --> [Configuration](configuration.md)
+### 21. Make `error-data.sh` Executable
+```
+sudo chmod +x /etc/pfELK/error-data.sh
+```
+
+### 22. Complete Configuration --> [Configuration](configuration.md)
