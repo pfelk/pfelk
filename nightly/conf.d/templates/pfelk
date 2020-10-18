@@ -20,7 +20,7 @@ PUT _template/pfelk?include_type_name
   },
   "aliases": {},
   "mappings": {
-    "_doc": {
+    "mappings": {
       "_routing": {
         "required": false
       },
@@ -61,23 +61,6 @@ PUT _template/pfelk?include_type_name
       ],
       "date_detection": false,
       "properties": {
-        "observer": {
-          "type": "object",
-          "properties": {
-            "product": {
-              "type": "keyword"
-            },
-            "name": {
-              "type": "keyword"
-            },
-            "serial_number": {
-              "type": "keyword"
-            },
-            "type": {
-              "type": "keyword"
-            }
-          }
-        },
         "process": {
           "type": "object",
           "properties": {
@@ -85,12 +68,7 @@ PUT _template/pfelk?include_type_name
               "type": "keyword"
             },
             "pid": {
-              "coerce": true,
-              "index": true,
-              "ignore_malformed": false,
-              "store": false,
-              "type": "long",
-              "doc_values": true
+              "type": "text"
             }
           }
         },
@@ -101,25 +79,13 @@ PUT _template/pfelk?include_type_name
           "type": "object",
           "properties": {
             "original": {
-              "eager_global_ordinals": false,
-              "norms": false,
-              "index": true,
-              "store": false,
-              "type": "keyword",
-              "split_queries_on_whitespace": false,
-              "index_options": "docs",
-              "doc_values": true
+              "type": "text"
             },
             "syslog": {
               "type": "object",
               "properties": {
                 "priority": {
-                  "coerce": true,
-                  "index": true,
-                  "ignore_malformed": false,
-                  "store": false,
-                  "type": "long",
-                  "doc_values": true
+                  "type": "long"
                 }
               }
             }
