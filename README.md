@@ -73,14 +73,14 @@ Supported entries include:
 * `$ sudo chmod +x pfelk-install-6.0.sh`
 * Run installer script 
 * `$ sudo ./pfelk-install-6.0.sh`
-* Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
+* Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/configuration.md)
 ##### Debian
 * `$ wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-6.0.sh`
 * Make script executable 
 * `$ chmod +x pfelk-install-6.0.sh`
 * Run installer script 
 * `$ ./pfelk-install-6.0.sh`
-* Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
+* Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/configuration.md)
 
 #### manual installation
 * [Ubuntu 18.04 / 20.04](https://github.com/3ilson/pfelk/blob/master/install/ubuntu.md)
