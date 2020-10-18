@@ -1,23 +1,58 @@
 # Configuring (pfSense/OPNsense) + Elasticstack 
 ## Table of Contents
 - [Services](#services)
-- [Firewall](#firewall)
 - [Kibana](#kibana)
+- [Templates](#templates)
+- [Firewall](#firewall)
 
 # Services
-### 4a. Start Services on Boot as Services (you'll need to reboot or start manually to proceed)
+### 1a. Start Services on Boot as Services (you'll need to reboot or start manually to proceed)
 ```
 sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl enable elasticsearch.service
 sudo /bin/systemctl enable kibana.service
 sudo /bin/systemctl enable logstash.service
 ```
-### 4b. Start Services Manually
+### 1b. Start Services Manually
 ```
 systemctl start elasticsearch.service 
 systemctl start kibana.service
 systemctl start logstash.service
 ```
+# Kibana 
+### 2. Import required dashboards
+[YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
+ - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
+ - Click the menu icon (☰ three horizontal lines) in the upper left
+ - Under Management click -> Stack Management 
+ - Under Kibana click -> Saved Objects
+ - You can import the dashboards found in the [dashboard](https://github.com/3ilson/pfelk/tree/master/Dashboard) folder via the Import button in the top-right corner.
+ - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Firewall.ndjson)
+ - [Unbound Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Unbound.ndjson)
+ - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Squid.ndjson)
+ - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Suricata.ndjson)
+ - [Snort Dashboard](#) - Coming Soon
+ - [HAProxy Dashboard](#) - Coming Soon
+
+# Templates
+### 3. Import required templates
+- In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
+- Click ☰ in the upper left corner
+- Click on Dev Tools located near the bottom under the Management heading
+- Paste the contents of each template file located [here](https://github.com/3ilson/pfelk/tree/master/etc/logstash/conf.d/templates)
+  - pfelk.json
+  - pfelk-geoip.json
+  - pfelk-firewall.json
+  - pfelk-dhcp.json
+  - pfelk-suricata.json
+  - pfelk-snort.json
+  - pfelk-unbound.json
+  - pfelk-squid.json
+  - pfelk-haproxy.json
+- Click the green triangle after pasting the contents (one at a time) into the console
+![Templates](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/template-import.PNG)
+
+
 # Firewall 
 ### 5a. Login to pfSense and forward syslogs
 - In pfSense navigate to Status->System Logs, then click on Settings.
@@ -86,17 +121,4 @@ systemctl start logstash.service
  - In OPNsense navigate to Services->Unbound DNS->Advanced
  - Log Queries = [X]
  ![OPNsense-Unbound](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_unbound_queries.PNG)
-# Kibana 
-### 6. Import dashboards
-[YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
- - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
- - Click the menu icon (☰ three horizontal lines) in the upper left
- - Under Management click -> Stack Management 
- - Under Kibana click -> Saved Objects
- - You can import the dashboards found in the [dashboard](https://github.com/3ilson/pfelk/tree/master/Dashboard) folder via the Import button in the top-right corner.
- - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Firewall.ndjson)
- - [Unbound Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Unbound.ndjson)
- - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Squid.ndjson)
- - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Suricata.ndjson)
- - [Snort Dashboard](#) - Coming Soon
- - [HAProxy Dashboard](#) - Coming Soon
+
