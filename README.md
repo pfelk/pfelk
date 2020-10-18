@@ -12,7 +12,7 @@ You can view installation guide guide on [3ilson YouTube Channel](https://www.yo
 ### Prerequisites
 - Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster are tested)
 - pfSense v2.4.4+ or OPNsense 19.7.4+
-- The following was tested with Java v11 LTS and Elastic Stack v7.9.1
+- The following was tested with Java v11 LTS and Elastic Stack v7.9.2
 - Minimum of 4GB of RAM but recommend 32GB
 
 **pfelk** is a highly customizable **open-source** tool for ingesting and visualizing your firewall traffic with the full power of Elasticsearch, Logstash and Kibana.
@@ -66,20 +66,20 @@ Supported entries include:
  * `$ docker-compose up`
 
 #### manual installation/script - preferred manual method
-* Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.5.sh) repository
+* Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-6.0.sh) repository
 ##### Ubuntu
-* `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.5.sh`
+* `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-6.0.sh`
 * Make script executable 
-* `$ sudo chmod +x pfelk-install-5.5.5.sh`
+* `$ sudo chmod +x pfelk-install-6.0.sh`
 * Run installer script 
-* `$ sudo ./pfelk-install-5.5.5.sh`
+* `$ sudo ./pfelk-install-6.0.sh`
 * Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
 ##### Debian
-* `$ wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-5.5.5.sh`
+* `$ wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-6.0.sh`
 * Make script executable 
-* `$ chmod +x pfelk-install-5.5.5.sh`
+* `$ chmod +x pfelk-install-6.0.sh`
 * Run installer script 
-* `$ ./pfelk-install-5.5.5.sh`
+* `$ ./pfelk-install-6.0.sh`
 * Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/script.md)
 
 #### manual installation
