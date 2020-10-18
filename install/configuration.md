@@ -39,7 +39,7 @@ systemctl start logstash.service
 ![Templates](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/template-import.PNG)
 
 # Kibana 
-### 2 3. Import required dashboards
+### 3. Import required dashboards
 [YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
  - Click the menu icon (☰ three horizontal lines) in the upper left
@@ -54,14 +54,14 @@ systemctl start logstash.service
  - [HAProxy Dashboard](#) - Coming Soon
 
 # Firewall 
-### 5a. Login to pfSense and forward syslogs
+### 4a. Login to pfSense and forward syslogs
 - In pfSense navigate to Status->System Logs, then click on Settings.
 - At the bottom check "Enable Remote Logging"
 - (Optional) Select a specific interface to use for forwarding
 - Enter the ELK local IP into the field "Remote log servers" with port 5140 (eg 192.168.100.50:5140)
 - Under "Remote Syslog Contents" check "Everything"
 - Click Save
-### 5b. Login to OPNsense and forward syslogs
+### 4b. Login to OPNsense and forward syslogs
 - In OPNsense navigate to System->Settings->Logging/Targets
 - Add a new Logging/Target (Click the plus icon)
 ![OPNsense](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-logs.png)
@@ -74,7 +74,7 @@ systemctl start logstash.service
 - Description = pfELK
 - Click Save
 ![OPNsense](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-remote.png)
-### 5c. Configure Suricata for log forwarding - pfSense (Optional) 
+### 4c. Configure Suricata for log forwarding - pfSense (Optional) 
  - On your pfSense web UI got to Services / Suricata / Interfaces, and enable Suricata on desired interfaces
  - You can have separate configuration on each of your interfaces, you can edit them via clicking on the pencil icon
  - You sould enable the EVE JSON output format for log forwarding, you should have the following options enabled at the EVE Output Settings section:
@@ -84,7 +84,7 @@ systemctl start logstash.service
    - EVE Syslog Output Priority: NOTICE 
    - EVE Log Alerts: Suricata will output Alerts via EVE
    - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility here should be LOCAL1, and the Log Priority should be NOTICE.
-### 5d. Configure Suricata for log forwarding - OPNsense (Optional)    
+### 4d. Configure Suricata for log forwarding - OPNsense (Optional)    
  - In OPNsense navigate to Services->Intrusion Detection->Administration
  - Enable = [X]
  - IPS mode = [ ] or [X]
@@ -97,13 +97,13 @@ systemctl start logstash.service
  - Save logs = Any Value You Desire
  - Click Apply
 ![OPNsense-Suricata](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-suricata.png)
-### 5e. Configure Snort for log forwarding - pfsense (Optional)
+### 4e. Configure Snort for log forwarding - pfsense (Optional)
 - In pfsense navigate to Services->Snort->Snort Interfaces
  - For each interface you have configured, choose the edit pencil to the right (repeat these steps for each)
  - In each "Interface" Settings -> under Alert Settings check Send Alerts to System Log
  - Scroll down and Choose Save
  ![Snort-Log-Settings](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/snort-log-settings.png)
-### 5f. Configure HAProxy for log forwarding - OPNsense (Optional)
+### 4f. Configure HAProxy for log forwarding - OPNsense (Optional)
  - In OPNsense navigate to Services->HAProxy->Settings->Settings->Logging Configuration
  - Log Host = ELK IP
  - Syslog facility = local0[default]
@@ -112,13 +112,12 @@ systemctl start logstash.service
  - Enable "advanced mode" and scroll down
  - Under "Option pass-through" add "option httplog"
  ![OPNsense-HAProxy](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_haproxy_http_log.PNG)
-### 5g. Configure Squid for log forwarding - OPNsense (Optional)
+### 4g. Configure Squid for log forwarding - OPNsense (Optional)
  - In OPNsense navigate to Services->Web Proxy->Administration->General Proxy Settings
  - Enable "advanced mode"
  - Access log target = Syslog(Json)
  ![OPNsense-Squid](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_squid_syslog.PNG)
-### 5h. Configure Unbound DNS for full query log forwarding - OPNsense (Optional)
+### 4h. Configure Unbound DNS for full query log forwarding - OPNsense (Optional)
  - In OPNsense navigate to Services->Unbound DNS->Advanced
  - Log Queries = [X]
  ![OPNsense-Unbound](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_unbound_queries.PNG)
-
