@@ -147,27 +147,16 @@ systemctl start logstash.service
  - Log Queries = [X]
  ![OPNsense-Unbound](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_unbound_queries.PNG)
 # Kibana 
-### 6a. Configuring Patterns
-[YouTube Guide](https://youtu.be/a1no6AlXP-k)
-- Click the menu icon (three horizontal lines) in the upper left
-- Under Management click -> Stack Management
-- Under Kibana click -> Index Patterns
-- Click Create New Index Pattern
-- Type "pfelk-*" into the input box, then click Next Step
-  - select ```@timestamp``` within Time Field 
-  - Exapnd Advanced Options and input ```pfELK```  
-  - [NOTE] If this is not done, importing the dashboards may result in index pattern ID errors.
-  - ![pfELK Pattern ID](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/pfelk-initial-pattern.PNG)
-### 6b. Import dashboards
+### 6. Import dashboards
 [YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
  - Click the menu icon (three horizontal lines) in the upper left
  - Under Management click -> Stack Management 
  - Under Kibana click -> Saved Objects
  - You can import the dashboards found in the `Dashboard` folder via the Import button in the top-right corner.
- - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Firewall%20Dashboard%20(082820).ndjson)
- - [Unbound Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Unbound%20Dashboard%20(082820).ndjson)
- - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5%20Squid%20Dashboard%20(082820).ndjson)
- - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Suricata%20Dashboard%20(082820).ndjson)
- - [Snort Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20Snort%20Dashboard%20(091420).ndjson)
- - [HAProxy Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v5.5/v5.5.1%20HAProxy%20Dashboard%20(090320).ndjson)
+ - [pfELK Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Firewall.ndjson)
+ - [Unbound Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Unbound.ndjson)
+ - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Squid.ndjson)
+ - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Suricata.ndjson)
+ - [Snort Dashboard](#) - Coming Soon
+ - [HAProxy Dashboard](#) - Coming Soon
