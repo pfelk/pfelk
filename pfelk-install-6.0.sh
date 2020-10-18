@@ -18,7 +18,7 @@
 #          | Debian Buster ( 10 )
 #          | Debian Bullseye ( 11 )
 #
-# Version    | 5.5.0
+# Version    | 5.0
 # Email      | andrew@pfelk.com
 # Website    | https://pfelk.3ilson.dev
 #
@@ -32,7 +32,7 @@
 # GeoIP        | 4.3.0
 # Java         | openjdk-11-jre-headless
 # Jave_Version | 11
-# Elastistack  | 7.9.1
+# Elastistack  | 7.9.2
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -555,7 +555,7 @@ port_5601_service=''
 port_5140_in_use=''
 port_5140_pid=''
 port_5140_service=''
-elk_version=7.9.1
+elk_version=7.9.2
 maxmind_version=4.3.0
 
 ###################################################################################################################################################################################################
@@ -1191,7 +1191,6 @@ download_pfelk() {
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-geoip.json -P /etc/logstash/conf.d/templates/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
   wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
   mkdir -p /etc/pfELK/logs/
@@ -1204,13 +1203,13 @@ download_pfelk() {
 }
 download_pfelk
 
-header
-echo -e "${WHITE_R}#${RESET} Please provide the IP address (LAN) for your firewall.${RESET}"; 
-echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
-echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
-read -p "Enter Your Firewall's IP Adress: " input_ip
-sed -e s/"192.168.9.1"/${input_ip}/g -i /etc/logstash/conf.d/02-types.conf
-sleep 2
+#header
+#echo -e "${WHITE_R}#${RESET} Please provide the IP address (LAN) for your firewall.${RESET}"; 
+#echo -e "${WHITE_R}#${RESET} Example: 192.168.0.1${RESET}";
+#echo -e "${RED}# WARNING${RESET} This address must be accessible from the pfELK installation host!\\n\\n"
+#read -p "Enter Your Firewall's IP Adress: " input_ip
+#sed -e s/"192.168.9.1"/${input_ip}/g -i /etc/logstash/conf.d/02-types.conf
+#sleep 2
 
 #Configure 01-inputs.conf for OPNsense or pfSense
 #echo -e "${WHITE_R}#${RESET} Please select firewall distribution type, for configuration.${RESET}\\n";
