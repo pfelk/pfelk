@@ -1,7 +1,6 @@
 # Configuring (pfSense/OPNsense) + Elasticstack 
 ## Table of Contents
 - [Edit Rule Description](#rule)
-- [Date/Time](#time)
 - [Services](#services)
 - [Firewall](#firewall)
 - [Kibana](#kibana)
