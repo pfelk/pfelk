@@ -132,7 +132,7 @@ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/con
 ```
 
 ### 18. (Optional) Amend 02-types.conf with unique observer.name field (line 8).  
-Amend "OPNsense" as desired.  This will be useful if monitoring multiple instances. Reference the Wiki page for further assistance.
+Amend "OPNsense" as desired.  This will be useful if monitoring multiple instances. Reference the [Wiki page](https://github.com/3ilson/pfelk/wiki/References:-Multiple-Instances) for further assistance.
 ```
       add_field => [ "[observer][name]", "OPNsense" ]
 ```
