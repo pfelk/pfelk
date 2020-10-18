@@ -5,7 +5,7 @@
 You can view installation guide guide on [3ilson YouTube Channel](https://www.youtube.com/3ilson).
 
 
-![Version badge](https://img.shields.io/badge/ELK-7.9.1-blue.svg)
+![Version badge](https://img.shields.io/badge/ELK-7.9.2-blue.svg)
 [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson) 
 
