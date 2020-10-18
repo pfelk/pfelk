@@ -6,7 +6,7 @@
 - [Firewall](#firewall)
 
 # Services
-### 1a. Start Services on Boot as Services (you'll need to reboot or start manually to proceed)
+### 1a. Start Services on Boot (you'll need to reboot or start manually to proceed)
 ```
 sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl enable elasticsearch.service
@@ -26,15 +26,15 @@ systemctl start logstash.service
 - Click ☰ in the upper left corner
 - Click on Dev Tools located near the bottom under the Management heading
 - Paste the contents of each template file located [here](https://github.com/3ilson/pfelk/tree/master/etc/logstash/conf.d/templates)
-  - pfelk.json
-  - pfelk-geoip.json
-  - pfelk-firewall.json
-  - pfelk-dhcp.json
-  - pfelk-suricata.json
-  - pfelk-snort.json
-  - pfelk-unbound.json
-  - pfelk-squid.json
-  - pfelk-haproxy.json
+  - [pfelk.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk.json)
+  - [pfelk-geoip.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-geoip.json)
+  - [pfelk-firewall.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-firewall.json)
+  - [pfelk-dhcp.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-dhcp.json)
+  - [pfelk-suricata.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-suricata.json)
+  - [pfelk-snort.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-snort.json)
+  - [pfelk-unbound.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-unbound.json)
+  - [pfelk-squid.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/haproxy.json)
+  - [pfelk-haproxy.json]()
 - Click the green triangle after pasting the contents (one at a time) into the console
 ![Templates](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/template-import.PNG)
 
