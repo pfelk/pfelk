@@ -56,17 +56,57 @@ PUT _template/pfelk-geoip?include_type_name
               "dynamic": true,
               "type": "object",
               "properties": {
+                "continent_name": {
+                  "type": "keyword"
+                },
+                "region_iso_code": {
+                  "type": "keyword"
+                },
+                "city_name": {
+                  "type": "keyword"
+                },
+                "country_iso_code": {
+                  "type": "keyword"
+                },
                 "ip": {
                   "type": "ip"
                 },
                 "latitude": {
                   "type": "half_float"
                 },
+                "country_name": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "keyword"
+                },
                 "location": {
                   "type": "geo_point"
                 },
+                "region_name": {
+                  "type": "keyword"
+                },
                 "longitude": {
                   "type": "half_float"
+                }
+              }
+            },
+            "as": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "long"
+                },
+                "ip": {
+                  "type": "ip"
+                },
+                "organization": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    }
+                  }
                 }
               }
             },
@@ -85,14 +125,54 @@ PUT _template/pfelk-geoip?include_type_name
               "dynamic": true,
               "type": "object",
               "properties": {
+                "continent_name": {
+                  "type": "keyword"
+                },
+                "region_iso_code": {
+                  "type": "keyword"
+                },
+                "as": {
+                  "type": "object",
+                  "properties": {
+                    "number": {
+                      "type": "long"
+                    },
+                    "ip": {
+                      "type": "ip"
+                    },
+                    "organization": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "city_name": {
+                  "type": "keyword"
+                },
+                "country_iso_code": {
+                  "type": "keyword"
+                },
                 "ip": {
                   "type": "ip"
                 },
                 "latitude": {
                   "type": "half_float"
                 },
+                "country_name": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "keyword"
+                },
                 "location": {
                   "type": "geo_point"
+                },
+                "region_name": {
+                  "type": "keyword"
                 },
                 "longitude": {
                   "type": "half_float"
