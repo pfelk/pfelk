@@ -7,14 +7,7 @@ PUT _template/pfelk?include_type_name
   ],
   "settings": {
     "index": {
-      "lifecycle": {
-        "name": "pfelk-ilm"
-      },
-      "mapping": {
-        "total_fields": {
-          "limit": "10000"
-        }
-      },
+      "number_of_shards": "1",
       "refresh_interval": "5s"
     }
   },
