@@ -1,4 +1,4 @@
-PUT _template/pfelk-geoip?include_type_name
+PUT _template/pfelk-geoip?include_type_name=true
 {
   "version": 8,
   "order": 2,
