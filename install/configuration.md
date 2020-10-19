@@ -34,8 +34,8 @@ systemctl start logstash.service
   - [pfelk-suricata.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-suricata.json)
   - [pfelk-snort.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-snort.json)
   - [pfelk-unbound.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-unbound.json)
-  - [pfelk-squid.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/haproxy.json)
-  - [pfelk-haproxy.json]()
+  - [pfelk-squid.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-squid.json)
+  - [pfelk-haproxy.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/haproxy.json)
 - Click the green triangle after pasting the contents (one at a time) into the console
 ![Templates](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/template-import.PNG)
 
