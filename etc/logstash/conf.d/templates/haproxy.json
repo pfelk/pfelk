@@ -1,4 +1,4 @@
-PUT _template/haproxy
+PUT _template/haproxy=true
 {
   "version": 70001,
   "order": 5,
