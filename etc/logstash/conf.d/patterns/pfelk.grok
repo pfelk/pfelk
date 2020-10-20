@@ -57,7 +57,7 @@ PF_APP_GEN (%{GREEDYDATA:pf_ACTION})
 
 # OPENVPN
 OPENVPN (%{OPENVPNIP}|%{OPENVPNUSER}|%{OPENVPNLOG})
-OPENVPNIP %{IP:[vpn][source][ip]}\:%{INT:[vpn][source][port]}%{SPACE}\[%{DATA:vpn][client}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
+OPENVPNIP %{IP:[vpn][source][ip]}\:%{INT:[vpn][source][port]}%{SPACE}\[%{DATA:[vpn][client]}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
 OPENVPNUSER (%{WORD:[vpn][domain]}?\\)?(?<[vpn][user]>\b[+\w\.-]+\b)?/?%{IP:[vpn][source][ip]}:%{INT:[vpn][source][port]} peer info: IV_PLAT=%{WORD:[vpn][plat]}
 OPENVPNLOG %{GREEDYDATA:[vpn][log][message]}
 
