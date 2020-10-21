@@ -1,9 +1,9 @@
 PUT _template/haproxy=true
 {
   "version": 70001,
-  "order": 5,
+  "order": 40,
   "index_patterns": [
-    "haproxy-*"
+    "pfelk-haproxy*"
   ],
   "settings": {
     "index": {
