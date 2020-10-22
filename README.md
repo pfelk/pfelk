@@ -5,14 +5,14 @@
 You can view installation guide guide on [3ilson YouTube Channel](https://www.youtube.com/3ilson).
 
 
-![Version badge](https://img.shields.io/badge/ELK-7.9.2-blue.svg)
+![Version badge](https://img.shields.io/badge/ELK-7.9.3-blue.svg)
 [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson) 
 
 ### Prerequisites
 - Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster are tested)
 - pfSense v2.4.4+ or OPNsense 19.7.4+
-- The following was tested with Java v11 LTS and Elastic Stack v7.9.2
+- The following was tested with Java v11 LTS and Elastic Stack v7.9.3
 - Minimum of 4GB of RAM but recommend 32GB
 
 **pfelk** is a highly customizable **open-source** tool for ingesting and visualizing your firewall traffic with the full power of Elasticsearch, Logstash and Kibana.
