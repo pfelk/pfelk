@@ -1,16 +1,11 @@
-PUT _template/haproxy=true
+PUT _template/pfelk-haproxy
 {
-  "version": 70001,
+  "version": 8,
   "order": 40,
   "index_patterns": [
     "pfelk-haproxy*"
   ],
-  "settings": {
-    "index": {
-      "number_of_shards": "1",
-      "refresh_interval": "5s"
-    }
-  },
+  "settings": {},
   "mappings": {
     "_meta": {},
     "_source": {},
@@ -44,44 +39,6 @@ PUT _template/haproxy=true
         "type": "double",
         "doc_values": true
       },
-      "source": {
-        "type": "object",
-        "properties": {
-          "geo": {
-            "type": "object",
-            "properties": {
-              "ip": {
-                "type": "ip"
-              },
-              "latitude": {
-                "type": "float"
-              },
-              "location": {
-                "ignore_malformed": false,
-                "type": "geo_point",
-                "ignore_z_value": true
-              },
-              "postal_code": {
-                "type": "integer"
-              },
-              "longitude": {
-                "type": "float"
-              }
-            }
-          },
-          "as": {
-            "type": "object",
-            "properties": {
-              "ip": {
-                "type": "ip"
-              },
-              "asn": {
-                "type": "integer"
-              }
-            }
-          }
-        }
-      },
       "haproxy_hour": {
         "coerce": true,
         "index": true,
@@ -89,28 +46,6 @@ PUT _template/haproxy=true
         "store": false,
         "type": "double",
         "doc_values": true
-      },
-      "priority": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "coerce": true,
-            "index": true,
-            "ignore_malformed": false,
-            "store": false,
-            "type": "integer",
-            "doc_values": true
-          }
-        }
-      },
-      "type": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "ignore_above": 256,
-            "type": "keyword"
-          }
-        }
       },
       "haproxy_timestamp": {
         "format": "strict_date_optional_time||epoch_millis||dd/MMM/yyyy:HH:mm:ss.SSS",
@@ -128,15 +63,6 @@ PUT _template/haproxy=true
         "type": "double",
         "doc_values": true
       },
-      "tags": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "ignore_above": 256,
-            "type": "keyword"
-          }
-        }
-      },
       "haproxy_time": {
         "type": "text",
         "fields": {
@@ -146,40 +72,8 @@ PUT _template/haproxy=true
           }
         }
       },
-      "observer": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "ignore_above": 256,
-                "type": "keyword"
-              }
-            }
-          },
-          "type": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "ignore_above": 256,
-                "type": "keyword"
-              }
-            }
-          }
-        }
-      },
       "@timestamp": {
         "type": "date"
-      },
-      "@version": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "ignore_above": 256,
-            "type": "keyword"
-          }
-        }
       },
       "haproxy": {
         "type": "object",
@@ -405,29 +299,6 @@ PUT _template/haproxy=true
         "store": false,
         "type": "double",
         "doc_values": true
-      },
-      "event": {
-        "type": "object",
-        "properties": {
-          "original": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "ignore_above": 256,
-                "type": "keyword"
-              }
-            }
-          },
-          "created": {
-            "type": "text",
-            "fields": {
-              "keyword": {
-                "ignore_above": 256,
-                "type": "keyword"
-              }
-            }
-          }
-        }
       },
       "haproxy_month": {
         "type": "text",
