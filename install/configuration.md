@@ -108,7 +108,7 @@ systemctl start logstash.service
  ![Snort-Log-Settings](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/snort-log-settings.png)
 ### 4f. Configure HAProxy for log forwarding - OPNsense (Optional)
  - In OPNsense navigate to Services->HAProxy->Settings->Settings->Logging Configuration
- - Log Host = ELK IP
+ - Log Host = Enter the IP address of where pfELK is installed and the Port 5190 (eg 192.168.100.50:5190)
  - Syslog facility = local0[default]
  - Filter syslog level = info[default]
  - Add the "httplog" under HAProxy->Settings->Virtual Services->Public Servers -> edit your public service
