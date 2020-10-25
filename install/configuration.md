@@ -35,7 +35,7 @@ systemctl start logstash.service
   - [pfelk-snort.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-snort.json)
   - [pfelk-unbound.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-unbound.json)
   - [pfelk-squid.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-squid.json)
-  - [pfelk-haproxy.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/haproxy.json)
+  - [pfelk-haproxy.json](https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/templates/pfelk-haproxy.json)
 - Click the green triangle after pasting the contents (one at a time) into the console
 ![Templates](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/template-import.PNG)
 
@@ -52,8 +52,8 @@ systemctl start logstash.service
  - [Squid Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Squid.ndjson)
  - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Suricata.ndjson)
  - [Snort Dashboard](#) - Coming Soon
- - [HAProxy Dashboard](#) - Coming Soon
-
+ - [HAProxy Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20HAProxy.ndjson)
+ 
 # Firewall 
 ### 4a. Login to pfSense and forward syslogs
 - In pfSense navigate to Status->System Logs, then click on Settings.
