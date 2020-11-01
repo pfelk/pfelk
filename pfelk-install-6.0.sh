@@ -17,10 +17,11 @@
 #          | Debian Stretch ( 9 )
 #          | Debian Buster ( 10 )
 #          | Debian Bullseye ( 11 )
+#          | Debian Bookworm ( 12 )
 #
-# Version    | 6.0
-# Email      | andrew@pfelk.com
-# Website    | https://pfelk.3ilson.dev
+# Version    | 6.1
+# Email      | support@pfelk.com
+# Website    | https://pfelk.3ilson.dev | https://pfelk.com
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -41,13 +42,13 @@
 ###################################################################################################################################################################################################
 
 RESET='\033[0m'
-#GRAY='\033[0;37m'
-#WHITE='\033[1;37m'
+GRAY='\033[0;37m'
+WHITE='\033[1;37m'
 GRAY_R='\033[39m'
 WHITE_R='\033[39m'
 RED='\033[1;31m' # Light Red.
 GREEN='\033[1;32m' # Light Green.
-#BOLD='\e[1m'
+BOLD='\e[1m'
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -131,8 +132,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-
-    Easy pfELK Install Script
+    pfELK Install Script
 EOF
 }
 
@@ -144,8 +144,8 @@ start_script() {
   mkdir -p /data/pfELK/logs/ 2> /dev/null  
   header
   script_logo
-  echo -e "\\n${WHITE_R}#${RESET} Starting the Easy pfELK Install Script..."
-  echo -e "${WHITE_R}#${RESET} Thank you for using Easy pfELK Install Script :-)\\n\\n"
+  echo -e "\\n${WHITE_R}#${RESET} Starting the pfELK Install Script..."
+  echo -e "${WHITE_R}#${RESET} Thank you for using pfELK Install Script :-)\\n\\n"
   sleep 4
 }
 start_script
@@ -164,11 +164,11 @@ help_script() {
   --nogeoip                Do not install MaxMind GeoIP 
   --noip				   Do not configure firewall IP Address. 
   						   Must Configure Manually via:
-                           /data/pfELK/01-inputs.conf
-  --nojava				   Do not install openjdk-11-jre
+                           /etc/logstash/conf.d/01-inputs.conf
+  --nojava				   Do not install openjdk-14-jre
   --nosense                Do not configure pfSense/OPNsense.  
                            Must Configure Manually via:
-                           /data/pfELK/01-inputs.conf\\n\\n"
+                           /etc/logstash/conf.d/01-inputs.conf\\n\\n"
   exit 0
 }
 
@@ -334,7 +334,7 @@ get_distro() {
 }
 get_distro
 
-if ! [[ "${os_codename}" =~ (xenial|bionic|cosmic|disco|eoan|focal|stretch|buster|bullseye)  ]]; then
+if ! [[ "${os_codename}" =~ (xenial|bionic|cosmic|disco|eoan|focal|stretch|buster|bullseye|bookworm)  ]]; then
   clear
   header_red
   echo -e "${WHITE_R}#${RESET} This script is not made for your OS."
@@ -534,8 +534,8 @@ system_memory=$(awk '/MemTotal/ {printf( "%.0f\n", $8 / 8192 / 8192)}' /proc/mem
 #
 maxmind_username=$(echo "${maxmind_username}")
 maxmind_password=$(echo "${maxmind_password}")
-#system_free_disk_space=$(df -h / | grep "/" | awk '{print $4}' | sed 's/G//')
 system_free_disk_space=$(df -k / | awk '{print $4}' | tail -n1)
+system_free_disk_space_tmp=$(df -k /tmp | awk '{print $4}' | tail -n1)
 #
 #SERVER_IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -1)
 #SERVER_IP=$(/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | head -n1 | awk '{print $2}' | head -1 | sed 's/.*://')
@@ -555,6 +555,15 @@ port_5601_service=''
 port_5140_in_use=''
 port_5140_pid=''
 port_5140_service=''
+port_5141_in_use=''
+port_5141_pid=''
+port_5141_service=''
+port_5190_in_use=''
+port_5190_pid=''
+port_5190_service=''
+port_5040_in_use=''
+port_5040_pid=''
+port_5040_service=''
 elk_version=7.9.3
 maxmind_version=4.3.0
 
@@ -603,7 +612,7 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-    elif [[ "${repo_codename}" =~ (stretch|buster|bullseye) ]]; then
+    elif [[ "${repo_codename}" =~ (stretch|buster|bullseye|bookworm) ]]; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
@@ -673,7 +682,7 @@ if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi";
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} main universe") -eq 0 ]]; then
         echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-    elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye) ]]; then
+    elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye|bookworm) ]]; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
@@ -707,7 +716,7 @@ if ! dpkg -l apt-transport-https 2> /dev/null | awk '{print $1}' | grep -iq "^ii
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.debian.org/debian-security ${repo_codename}/updates main") -eq 0 ]]; then
         echo -e "deb http://security.debian.org/debian-security ${repo_codename}/updates main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-    elif [[ "${repo_codename}" =~ (stretch|buster|bullseye) ]]; then
+    elif [[ "${repo_codename}" =~ (stretch|buster|bullseye|bookworm) ]]; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
@@ -733,7 +742,7 @@ if ! dpkg -l software-properties-common 2> /dev/null | awk '{print $1}' | grep -
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-    elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye) ]]; then
+    elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye|bookworm) ]]; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
@@ -763,7 +772,7 @@ if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.debian.org/debian-security ${repo_codename}/updates main") -eq 0 ]]; then
         echo -e "deb http://security.debian.org/debian-security ${repo_codename}/updates main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-    elif [[ "${repo_codename}" =~ (stretch|buster|bullseye) ]]; then
+    elif [[ "${repo_codename}" =~ (stretch|buster|bullseye|bookworm) ]]; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
@@ -788,7 +797,7 @@ if ! dpkg -l dirmngr 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; the
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} main restricted") -eq 0 ]]; then
         echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} main restricted" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-    elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye) ]]; then
+    elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye|bookworm) ]]; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
@@ -818,7 +827,7 @@ if ! dpkg -l wget 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.debian.org/debian-security ${repo_codename}/updates main") -eq 0 ]]; then
         echo -e "deb http://security.debian.org/debian-security ${repo_codename}/updates main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-    elif [[ "${repo_codename}" =~ (stretch|buster|bullseye) ]]; then
+    elif [[ "${repo_codename}" =~ (stretch|buster|bullseye|bookworm) ]]; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
@@ -840,7 +849,7 @@ if ! dpkg -l netcat 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} universe") -eq 0 ]]; then
         echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
-    elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye) ]]; then
+    elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye|bookworm) ]]; then
       if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
         echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
       fi
@@ -861,6 +870,23 @@ if [[ "${curl_missing}" == 'true' ]]; then script_version_check; fi
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
 
+# Temporarily Disk Space
+if [ "${system_free_disk_space_tmp}" -lt "5000000" ]; then
+  header_red
+  echo -e "${WHITE_R}#${RESET} Temporarily disk space is below 5GB. Please expand the disk size!"
+  echo -e "${WHITE_R}#${RESET} It is recommend tha available space be expanding to at least 10GB\\n\\n"
+  if [[ "${script_option_skip}" != 'true' ]]; then
+    read -rp "Do you want to proceed at your own risk? (Y/n)" yes_no
+    case "$yes_no" in
+        [Yy]*|"") ;;
+        [Nn]*) cancel_script;;
+    esac
+  else
+    cancel_script
+  fi
+fi
+
+# Disk Space
 if [ "${system_free_disk_space}" -lt "5000000" ]; then
   header_red
   echo -e "${WHITE_R}#${RESET} Free disk space is below 5GB. Please expand the disk size!"
@@ -1056,7 +1082,7 @@ if ! dpkg -l | grep "^ii\\|^hi" | grep -iq "openjdk-11-jre-headless" || [[ "${ol
     else
       echo -e "${GREEN}#${RESET} Successfully ${openjdk_variable_2} openjdk-11-jre-headless! \\n" && sleep 2
     fi
-  elif [[ "${repo_codename}" =~ (buster|bullseye) ]]; then
+  elif [[ "${repo_codename}" =~ (buster|bullseye|bookworm) ]]; then
     echo -e "${WHITE_R}#${RESET} ${openjdk_variable} openjdk-11-jre-headless..."
     if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install openjdk-11-jre-headless &> /dev/null || [[ "${old_openjdk_version}" == 'true' ]]; then
       echo -e "${RED}#${RESET} Failed to ${openjdk_variable_3} openjdk-11-jre-headless in the first run...\\n"
@@ -1135,7 +1161,7 @@ header
 echo -e "${WHITE_R}#${RESET} Preparing installation of the pfELK dependencies...\\n"
 sleep 2
 echo -e "\\n------- dependency installation ------- $(date +%F-%R) -------\\n" &>> "${pfELK_dir}/logs/apt.log"
-if [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa|xenial|sarah|serena|sonya|sylvia|bionic|tara|tessa|tina|tricia|cosmic|disco|eoan|focal|stretch|continuum|buster|bullseye) ]]; then
+if [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa|xenial|sarah|serena|sonya|sylvia|bionic|tara|tessa|tina|tricia|cosmic|disco|eoan|focal|stretch|continuum|buster|bullseye|bookworm) ]]; then
   echo -e "${WHITE_R}#${RESET} Installing binutils, ca-certificates-java and java-common..."
   if DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install binutils ca-certificates-java java-common &>> "${pfELK_dir}/logs/apt.log"; then echo -e "${GREEN}#${RESET} Successfully installed binutils, ca-certificates-java and java-common! \\n"; else echo -e "${RED}#${RESET} Failed to install binutils, ca-certificates-java and java-common in the first run...\\n"; pfelk_dependencies=fail; fi
   echo -e "${WHITE_R}#${RESET} Installing jsvc and libcommons-daemon-java..."
@@ -1151,14 +1177,14 @@ if [[ "${pfelk_dependencies}" == 'fail' ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -P -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main universe") -eq 0 ]]; then
       echo "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${os_codename}" =~ (jessie|stretch|buster|bullseye) ]]; then
+  elif [[ "${os_codename}" =~ (jessie|stretch|buster|bullseye|bookworm) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -P -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
       echo "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
   fi
   hide_apt_update=true
   run_apt_get_update
-  if [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa|xenial|sarah|serena|sonya|sylvia|bionic|tara|tessa|tina|tricia|cosmic|disco|eoan|focal|stretch|continuum|buster|bullseye) ]]; then
+  if [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa|xenial|sarah|serena|sonya|sylvia|bionic|tara|tessa|tina|tricia|cosmic|disco|eoan|focal|stretch|continuum|buster|bullseye|bookworm) ]]; then
   echo -e "${WHITE_R}#${RESET} Installing binutils, ca-certificates-java and java-common..."
     if DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install binutils ca-certificates-java java-common &>> "${pfELK_dir}/logs/apt.log"; then echo -e "${GREEN}#${RESET} Successfully installed binutils, ca-certificates-java and java-common! \\n"; else echo -e "${RED}#${RESET} Failed to install binutils, ca-certificates-java and java-common in the first run...\\n"; abort; fi
   echo -e "${WHITE_R}#${RESET} Installing jsvc and libcommons-daemon-java..."
