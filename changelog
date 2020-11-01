@@ -5,18 +5,18 @@ ES Versions:
 
 v6.1 202#/##/##
   -SCRIPT
-  - Simple Installer  - Fix Elasticsearch timeout on startup (issue #170)
-                      - Add check tmp space prior to install (issue #128)
-                      - Add symbolic link to aid with quicker shutdowns (issue #128)
+  - Simple Installer  - Fix Elasticsearch timeout on startup (issue #170) <-- https://www.elastic.co/guide/en/elasticsearch/reference/current/stopping-elasticsearch.html
+                      - Add symbolic link to aid with quicker shutdowns (issue #128) <-- https://www.elastic.co/guide/en/elasticsearch/reference/current/stopping-elasticsearch.html
+                      - Add check tmp space prior to install (issue #128) <-- Fixed 1-November-2020
                       
 v6.0 2020/10/18
   -LOGSTASH
   - conf files        - Removed host filtering (mitigate issues with logs traversing via routers/containers)
-                     - Added observer fields for enhanced filtering for multiple firewall setups 
+                      - Added observer fields for enhanced filtering for multiple firewall setups 
   - grok pattern      - Updated to conform to Elastic Common Schema (ECS) and aligned with pfsense Raw Filter Format
   
   -ELASTICSEARCH
-  - templates        - Added index settings and mappings
+  - templates         - Added index settings and mappings
                       - Templates are dependent upon underlying templates                
   -KIBANA
   - Visualizations    - Updated and aligned with templates
