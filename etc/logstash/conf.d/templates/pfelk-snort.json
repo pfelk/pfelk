@@ -9,34 +9,21 @@ PUT _template/pfelk-snort?include_type_name=true
   "aliases": {},
   "mappings": {
     "_doc": {
-      "dynamic_templates": [
-        {
-          "message_field": {
-            "path_match": "message",
-            "mapping": {
-              "norms": false,
-              "type": "text"
-            },
-            "match_mapping_type": "string"
-          }
-        },
-        {
-          "string_fields": {
-            "mapping": {
-              "norms": false,
-              "type": "text",
-              "fields": {
-                "keyword": {
-                  "ignore_above": 256,
-                  "type": "keyword"
-                }
-              }
-            },
-            "match_mapping_type": "string",
-            "match": "*"
-          }
-        }
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
+      "dynamic_date_formats": [
+        "strict_date_optional_time",
+        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
       ],
+      "dynamic": true,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "date_detection": true,
       "properties": {
         "snort": {
           "type": "object",
