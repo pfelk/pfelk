@@ -99,7 +99,7 @@ systemctl start logstash.service
  - Rotate log = Default / Weekly / Daily
  - Save logs = Any Value You Desire
  - Click Apply
-![OPNsense-Suricata](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-suricata.png)
+![OPNsense-Suricata](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-suricata.PNG)
 ### 4e. Configure Snort for log forwarding - pfsense (Optional)
 - In pfsense navigate to Services->Snort->Snort Interfaces
  - For each interface you have configured, choose the edit pencil to the right (repeat these steps for each)
