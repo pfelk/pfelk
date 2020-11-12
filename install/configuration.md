@@ -40,7 +40,7 @@ systemctl start logstash.service
 ![Templates](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/template-import.PNG)
 
 # Kibana 
-### 3. Import required dashboards
+### 3a. Import required dashboards
 [YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
  - Click the menu icon (☰ three horizontal lines) in the upper left
@@ -53,6 +53,9 @@ systemctl start logstash.service
  - [Suricata Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20Suricata.ndjson)
  - [Snort Dashboard](#) - Coming Soon
  - [HAProxy Dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Dashboard/v6.0/v6.0%20-%20HAProxy.ndjson)
+## Grafana
+### 3.b Grafana - Alternative / Option (Externally Supported)
+ - Visit [here](https://github.com/b4b857f6ee/opnsense_grafana_dashboard) to install/configure Grafana Dashboard
  
 # Firewall 
 ### 4a. Login to pfSense and forward syslogs
