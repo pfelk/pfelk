@@ -1304,7 +1304,7 @@ else
 	if [[ "${script_option_logstash}" != 'true' ]]; then
 	  logstash_temp="$(mktemp --tmpdir=/tmp logstash_"${elk_version}"_XXX.deb)"
 	  echo -e "${WHITE_R}#${RESET} Downloading Logstash..."
-	  if wget "${wget_progress[@]}" -qO "$logstash_temp" "https://artifacts.elastic.co/downloads/logstash/logstash-${elk_version}.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded Logstash version ${elk_version}! \\n"; else echo -e "${RED}#${RESET} Failed to download Logstash...\\n"; abort; fi;
+	  if wget "${wget_progress[@]}" -qO "$logstash_temp" "https://artifacts.elastic.co/downloads/logstash/logstash-${elk_version}-amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded Logstash version ${elk_version}! \\n"; else echo -e "${RED}#${RESET} Failed to download Logstash...\\n"; abort; fi;
 	else
 	  echo -e "${GREEN}#${RESET} Logstash has already been downloaded!"
 	fi
