@@ -68,14 +68,14 @@ Supported entries include:
 #### manual installation/script - preferred manual method
 * Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-install-6.0.sh) repository
 ##### Ubuntu
-* `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-6.0.sh`
+* `$ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-install-6.0.sh`
 * Make script executable 
 * `$ sudo chmod +x pfelk-install-6.0.sh`
 * Run installer script 
 * `$ sudo ./pfelk-install-6.0.sh`
 * Finish Configuring [here](https://github.com/pfelk/pfelk/blob/master/install/configuration.md)
 ##### Debian
-* `$ wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-6.0.sh`
+* `$ wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-install-6.0.sh`
 * Make script executable 
 * `$ chmod +x pfelk-install-6.0.sh`
 * Run installer script 
