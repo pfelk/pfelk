@@ -116,31 +116,31 @@ sudo mkdir /etc/logstash/conf.d/{databases,patterns,templates}
 
 ### 15a. (Required) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 ```
 
 ### 15b. (Optional) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
 ```
 
 ### 16. Download the grok pattern
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
 ```
 
 ### 17a. (Optional) Download the Database(s)
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
 ```
 
 ### 17b. (Optional) Configure Firewall Rule Database
@@ -162,7 +162,7 @@ sudo mkdir -p /etc/pfELK/logs
 
 ### 20. Download `error-data.sh`
 ```
-sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh -P /etc/pfELK/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/error-data.sh -P /etc/pfELK/
 ```
 
 ### 21. Make `error-data.sh` Executable
