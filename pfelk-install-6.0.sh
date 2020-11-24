@@ -497,7 +497,7 @@ fi
 script_version_check() {
   if dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
     version=$(grep -i "# Version" "$0" | awk '{print $4}' | cut -d'-' -f1)
-    script_online_version_dots=$(curl "https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-${version}.sh" -s | grep "# Version" | awk '{print $4}')
+    script_online_version_dots=$(curl "https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-install-${version}.sh" -s | grep "# Version" | awk '{print $4}')
     script_local_version_dots=$(grep "# Version" "$0" | awk '{print $4}')
     script_online_version="${script_online_version_dots//./}"
     script_local_version="${script_local_version_dots//./}"
@@ -509,7 +509,7 @@ script_version_check() {
       sleep 3
       rm --force "$0" 2> /dev/null
       rm --force "pfelk-install-${version}.sh" 2> /dev/null
-      wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-${version}.sh" && bash "pfelk-install-${version}.sh" "${script_options[@]}"; exit 0
+      wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-install-${version}.sh" && bash "pfelk-install-${version}.sh" "${script_options[@]}"; exit 0
     fi
   else
     curl_missing=true
@@ -1206,21 +1206,21 @@ sleep 3
 
 download_pfelk() {
   mkdir -p /etc/logstash/conf.d/{databases,patterns,templates}
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
   mkdir -p /etc/pfELK/logs/
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/error-data.sh -P /etc/pfELK/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/error-data.sh -P /etc/pfELK/
   chmod +x /etc/pfELK/pfelk-error.sh
   header
   script_logo
@@ -1351,7 +1351,7 @@ sleep 3
 update_kibana() {
   cd /etc/kibana
   rm /etc/kibana/kibana.yml
-  wget -q https://raw.githubusercontent.com/3ilson/pfelk/master/etc/kibana/kibana.yml
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/kibana/kibana.yml
   sudo systemctl restart kibana.service
 }
 update_kibana
@@ -1418,7 +1418,7 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   echo -e "\\n"
   echo -e "Open your browser and connect to http://$SERVER_IP:5601 to open Kibana"
-  echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> https://github.com/3ilson/pfelk/blob/master/install/configuration.md\\n"
+  echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> https://github.com/pfelk/pfelk/blob/master/install/configuration.md\\n"
   echo -e "\\n"
   sleep 5
   remove_yourself
