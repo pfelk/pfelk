@@ -9,21 +9,16 @@
 
 # Preparation
 
-### 0a. Disabling Swap
+### 0. Disabling Swap
 Swapping should be disabled for performance and stability.
 ```
 sudo swapoff -a
 ```
 
-### 0b. Configuration Date/Time Zone
+### 1. Configuration Date/Time Zone
 The box running this configuration will reports firewall logs based on its clock.  The command below will set the timezone to Eastern Standard Time (EST).  To view available timezones type `sudo timedatectl list-timezones`
 ```
 sudo timedatectl set-timezone EST
-```
-
-### 1. Add MaxMind Repository
-```
-sudo add-apt-repository ppa:maxmind/ppa
 ```
 
 ### 2. Download and install the public GPG signing key
