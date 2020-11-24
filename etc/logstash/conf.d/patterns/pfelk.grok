@@ -60,7 +60,7 @@ OPENVPNIP %{IP:[vpn][source][ip]}\:%{INT:[vpn][source][port]}%{SPACE}\[%{DATA:[v
 OPENVPNUSER (%{WORD:[vpn][domain]}?\\)?(?<[vpn][user]>\b[+\w\.-]+\b)?/?%{IP:[vpn][source][ip]}:%{INT:[vpn][source][port]} peer info: IV_PLAT=%{WORD:[vpn][plat]}
 OPENVPNLOG %{GREEDYDATA:[vpn][log][message]}
 
-# UNBOUND - Level 1 (Optional)
+# UNBOUND
 UNBOUND %{INT:[unbound][process][pid]}:%{INT:[unbound][process][thread][id]}] %{LOGLEVEL:[unbound][log][level]}: %{IP:[unbound][client][ip]} %{GREEDYDATA:[unbound][dns][question][name]}\. %{WORD:[unbound][dns][answers][type]} %{WORD:[unbound][dns][question][class]}
 ### Expand with Level 2 & 3
 
