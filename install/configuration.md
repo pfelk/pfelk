@@ -80,6 +80,7 @@ systemctl start logstash.service
 - Click Save
 ![OPNsense](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense-remote.png)
 ### 4c. Configure Suricata for log forwarding - pfSense (Optional) 
+[In-Depth Guide Here](https://github.com/3ilson/pfelk/wiki/How-To:-Suricata-on-pfSense)
  - On your pfSense web UI got to Services / Suricata / Interfaces, and enable Suricata on desired interfaces
  - You can have separate configuration on each of your interfaces, you can edit them via clicking on the pencil icon
  - You sould enable the EVE JSON output format for log forwarding, you should have the following options enabled at the EVE Output Settings section:
@@ -90,7 +91,6 @@ systemctl start logstash.service
    - EVE Log Alerts: Suricata will output Alerts via EVE
    - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility here should be LOCAL1, and the Log Priority should be NOTICE.
 ### 4d. Configure Suricata for log forwarding - OPNsense (Optional)    
-[In-Depth Guide Here](https://github.com/3ilson/pfelk/wiki/How-To:-Suricata-on-pfSense)
  - In OPNsense navigate to Services->Intrusion Detection->Administration
  - Enable = [X]
  - IPS mode = [ ] or [X]
