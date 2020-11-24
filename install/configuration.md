@@ -123,8 +123,9 @@ systemctl start logstash.service
  - Enable "advanced mode"
  - Access log target = Syslog(Json)
  ![OPNsense-Squid](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_squid_syslog.PNG)
-### 4h. Configure Unbound DNS for full query log forwarding - OPNsense (Optional)
+### 4h. Configure Unbound DNS for full query log forwarding - pfSense/OPNsense (Optional)
  - In OPNsense navigate to Services->Unbound DNS->Advanced
+ - Log level verbosity = ```Level 0```
  - Log Queries = [X]
  ![pfSense/OPNsense-Unbound](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/unbound_logging.png)
 # Finished
