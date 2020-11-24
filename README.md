@@ -89,7 +89,7 @@ Supported entries include:
 ### Roadmap
 This is the experimental public roadmap for the pfelk project.
 
-[See the roadmap »](https://github.com/orgs/pfelk/projects)
+[See the roadmap »](https://github.com/pfelk/pfelk/projects)
 
 ### Comparison to similar solutions
 [Comparisions »](https://github.com/pfelk/pfelk/wiki/Comparison)
