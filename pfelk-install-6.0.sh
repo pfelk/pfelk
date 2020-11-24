@@ -30,7 +30,7 @@
 ###################################################################################################################################################################################################
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
-# GeoIP        | 4.5.0
+# GeoIP        | 4.5.0 (Disalbed pending optional install prompt 
 # Java         | openjdk-11-jre-headless
 # Jave_Version | 11
 # Elastistack  | 7.10.0
@@ -378,17 +378,17 @@ if wget --help | grep -q '\--show-progress'; then echo "--show-progress" &>> /tm
 if [[ -f /tmp/pfELK/wget_option && -s /tmp/pfELK/wget_option ]]; then IFS=" " read -r -a wget_progress <<< "$(tr '\r\n' ' ' < /tmp/pfELK/wget_option)"; fi
 
 # Check if MaxMind GeoIP is already installed
-if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
-  header
-  echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed on your system!${RESET}\\n\\n"
-  read -rp $'\033[39m#\033[0m Would you like to remove MaxMind GeoIP? (Y/n) ' yes_no
-  case "$yes_no" in
-      [Yy]*|"")
-        rm --force "$0" 2> /dev/null
-        apt purge geoipupdate;;
-      [Nn]*);;
-  esac
-fi
+#if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
+#  header
+#  echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed on your system!${RESET}\\n\\n"
+#  read -rp $'\033[39m#\033[0m Would you like to remove MaxMind GeoIP? (Y/n) ' yes_no
+#  case "$yes_no" in
+#      [Yy]*|"")
+#        rm --force "$0" 2> /dev/null
+#        apt purge geoipupdate;;
+#      [Nn]*);;
+#  esac
+#fi
 
 # Check if Elasticsearch is already installed
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
@@ -625,52 +625,52 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
 fi
 
 # MaxMind GeoIP install
-if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
-   header
-   echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed!${RESET}"; 
-   echo -e "${WHITE_R}#${RESET} Ensure MaxMind GeoIP is properly configured!${RESET}";
-   echo -e "${RED}# WARNING${RESET} Running Logstash without MaxMind properly configured will result in fatal errors...\\n\\n"
-   sleep 5;
-else
-read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd credentials? (y/N) ' yes_no
-  case "$yes_no" in
-   [Yy]*)
-     if [[ "${script_option_geoip}" != 'true' ]]; then
- 	   geoip_temp="$(mktemp --tmpdir=/tmp geoipupdate_${maxmind_version}_linux_amd64_XXX.deb)"
-	   echo -e "${WHITE_R}#${RESET} Downloading MaxMind v${maxmind_version} GeoIP..."
-	   if wget "${wget_progress[@]}" -qO "$geoip_temp" "https://github.com/maxmind/geoipupdate/releases/download/v${maxmind_version}/geoipupdate_${maxmind_version}_linux_amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded MaxMind GeoIP! \\n"; else echo -e "${RED}#${RESET} Failed to download MaxMind GeoIP...\\n"; abort; fi;
-	 else
-	   echo -e "${GREEN}#${RESET} ${WHITE_R} MaxMind GeoIP v${maxmind_version} ${RESET} has already been downloaded!"
-	 fi
-	 echo -e "${WHITE_R}#${RESET} Installing MaxMind GeoIP..."
-	 echo "geoip geoip/has_backup boolean true" 2> /dev/null | debconf-set-selections
-	 if DEBIAN_FRONTEND=noninteractive dpkg -i "$geoip_temp" &>> "${pfELK_dir}/logs/geoip_install.log"; then
-	   echo -e "${GREEN}#${RESET} Successfully installed MaxMind v${maxmind_version}! \\n"
-	 else
-	   echo -e "${RED}#${RESET} Failed to install MaxMind v${maxmind_version}...\\n"
-	 fi
-	 rm --force "$geoip_temp" 2> /dev/null
+#if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
+#   header
+#   echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed!${RESET}"; 
+#   echo -e "${WHITE_R}#${RESET} Ensure MaxMind GeoIP is properly configured!${RESET}";
+#   echo -e "${RED}# WARNING${RESET} Running Logstash without MaxMind properly configured will result in fatal errors...\\n\\n"
+#   sleep 5;
+#else
+#read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd credentials? (y/N) ' yes_no
+#  case "$yes_no" in
+#   [Yy]*)
+#     if [[ "${script_option_geoip}" != 'true' ]]; then
+# 	   geoip_temp="$(mktemp --tmpdir=/tmp geoipupdate_${maxmind_version}_linux_amd64_XXX.deb)"
+#	   echo -e "${WHITE_R}#${RESET} Downloading MaxMind v${maxmind_version} GeoIP..."
+#	   if wget "${wget_progress[@]}" -qO "$geoip_temp" "https://github.com/maxmind/geoipupdate/releases/download/v${maxmind_version}/geoipupdate_${maxmind_version}_linux_amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded MaxMind GeoIP! \\n"; else echo -e "${RED}#${RESET} Failed to download MaxMind GeoIP...\\n"; abort; fi;
+#	 else
+#	   echo -e "${GREEN}#${RESET} ${WHITE_R} MaxMind GeoIP v${maxmind_version} ${RESET} has already been downloaded!"
+#	 fi
+#	 echo -e "${WHITE_R}#${RESET} Installing MaxMind GeoIP..."
+#	 echo "geoip geoip/has_backup boolean true" 2> /dev/null | debconf-set-selections
+#	 if DEBIAN_FRONTEND=noninteractive dpkg -i "$geoip_temp" &>> "${pfELK_dir}/logs/geoip_install.log"; then
+#	   echo -e "${GREEN}#${RESET} Successfully installed MaxMind v${maxmind_version}! \\n"
+#	 else
+#	   echo -e "${RED}#${RESET} Failed to install MaxMind v${maxmind_version}...\\n"
+#	 fi
+#	 rm --force "$geoip_temp" 2> /dev/null
 	 
    # GeoIP Cronjob
-	 echo 00 17 * * 0 geoipupdate -d /usr/share/GeoIP > /etc/cron.weekly/geoipupdate
-	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
-	 #sed -i "1 s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
-	 maxmind_username=$(echo "${maxmind_username}")
-	 maxmind_password=$(echo "${maxmind_password}")
-	 read -p "Enter your MaxMind Account ID: " maxmind_username
-	 read -p "Enter your MaxMind License Key: " maxmind_password
-	 sed -i "s/AccountID.*/AccountID ${maxmind_username}/g" /etc/GeoIP.conf
-	 sed -i "s/LicenseKey.*/LicenseKey ${maxmind_password}/g" /etc/GeoIP.conf
-	 echo -e "\\n";
-	 geoipupdate -d /usr/share/GeoIP
-	 sleep 2
-	 echo -e "\\n";;
-   [No]*|"") 
-	 echo -e "${RED}#${RESET} MaxMind v${maxmind_version} not installed!"
-	 echo -e "${RED}#WARNING${RESET} Running Logstash without MaxMind will result in fatal errors...\\n"
-	 sleep 2;;
-   esac
-fi
+#	 echo 00 17 * * 0 geoipupdate -d /usr/share/GeoIP > /etc/cron.weekly/geoipupdate
+#	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
+#	 #sed -i "1 s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
+#	 maxmind_username=$(echo "${maxmind_username}")
+#	 maxmind_password=$(echo "${maxmind_password}")
+#	 read -p "Enter your MaxMind Account ID: " maxmind_username
+#	 read -p "Enter your MaxMind License Key: " maxmind_password
+#	 sed -i "s/AccountID.*/AccountID ${maxmind_username}/g" /etc/GeoIP.conf
+#	 sed -i "s/LicenseKey.*/LicenseKey ${maxmind_password}/g" /etc/GeoIP.conf
+#	 echo -e "\\n";
+#	 geoipupdate -d /usr/share/GeoIP
+#	 sleep 2
+#	 echo -e "\\n";;
+#   [No]*|"") 
+#	 echo -e "${RED}#${RESET} MaxMind v${maxmind_version} not installed!"
+#	 echo -e "${RED}#WARNING${RESET} Running Logstash without MaxMind will result in fatal errors...\\n"
+#	 sleep 2;;
+#   esac
+#fi
 
 # lsb-release install
 if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
