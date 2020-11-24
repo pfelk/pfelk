@@ -51,70 +51,34 @@ sudo apt update
 sudo apt install openjdk-14-jre-headless
 ```
 
-### 7. Install MaxMind
-```
-sudo apt install geoipupdate
-```
-
-### 8. Configure MaxMind
-- Create a MaxMind Account @ https://www.maxmind.com/en/geolite2/signup
-- Login to your MaxMind Account; navigate to "My License Key" under "Services" and Generate new license key
-```
-sudo nano /etc/GeoIP.conf
-```
-- Modify lines 7 & 8 as follows (without < >):
-```
-AccountID <Input Your Account ID>
-LicenseKey <Input Your LicenseKey>
-```
-- Modify line 13 as follows:
-```
-EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
-```
-- Modify line 18 as follows:
-```
-DatabaseDirectory /usr/share/GeoIP/
-```
-
-### 9. Download Maxmind Databases
-```
-sudo geoipupdate
-```
-
-### 10. Add cron (automatically updates Maxmind everyweek on Sunday at 1700hrs)
-```
-sudo nano /etc/cron.weekly/geoipupdate
-```
-- Add the following and save/exit
-```
-00 17 * * 0 geoipupdate
-```
+### 7. Install MaxMind (Optional)
+Follow the steps [here](https://github.com/pfelk/pfelk/wiki/How-To:-MaxMind-via-GeoIP-with-pfELK), to install and utilize MaxMind. Otherwise the built-in GeoIP from Elastic will be utilized.
 
 # Installation
 - Elasticsearch v7+ | Kibana v7+ | Logstash v7+
 
-### 11. Install Elasticsearch|Kibana|Logstash
+### 8. Install Elasticsearch|Kibana|Logstash
 ```
 sudo apt install elasticsearch; sudo apt install kibana; sudo apt install logstash
 ```
 
 # Configuration
 
-### 12. Configure Kibana
+### 9. Configure Kibana
 ```
 sudo nano /etc/kibana/kibana.yml
 ```
 
-### 13. Modify host file (/etc/kibana/kibana.yml)
+### 10. Modify host file (/etc/kibana/kibana.yml)
 - server.port: 5601
 - server.host: "0.0.0.0"
 
-### 14. Create Required Directories 
+### 11. Create Required Directories 
 ```
 sudo mkdir /etc/logstash/conf.d/{databases,patterns,templates}
 ```
 
-### 15a. (Required) Download the following configuration files
+### 12. (Required) Download the following configuration files
 ```
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
@@ -125,33 +89,33 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 ```
 
-### 15b. (Optional) Download the following configuration files
+### 13. (Optional) Download the following configuration files
 ```
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
 ```
 
-### 16. Download the grok pattern
+### 14. Download the grok pattern
 ```
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
 ```
 
-### 17a. (Optional) Download the Database(s)
+### 15. (Optional) Download the Database(s)
 ```
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
 ```
 
-### 17b. (Optional) Configure Firewall Rule Database
+### 16. (Optional) Configure Firewall Rule Database
 To configure pfSense/OPNsense to update the firewall rule database, follow [this reference](https://github.com/pfelk/pfelk/wiki/References:-Rule-Descriptions).
 
-### 18a. (Optional) Amend 02-types.conf with unique observer.name field (line 8).  
+### 17. (Optional) Amend 02-types.conf with unique observer.name field (line 8).  
 Amend "OPNsense" as desired.  This will be useful if monitoring multiple instances. Reference the [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Multiple-Instances) for further assistance.
 ```
       add_field => [ "[observer][name]", "OPNsense" ]
 ```
-### 18ab (Optional) Amend 05-firewall.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
+### 18 (Optional) Amend 05-firewall.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
 Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Customized-Interface-Names)
 
 # Troubleshooting
