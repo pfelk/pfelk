@@ -144,15 +144,15 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf
 ```
 
 ### 17b. (Optional) Configure Firewall Rule Database
-To configure pfSense/OPNsense to update the firewall rule database, follow [this reference](https://github.com/3ilson/pfelk/wiki/References:-Rule-Descriptions).
+To configure pfSense/OPNsense to update the firewall rule database, follow [this reference](https://github.com/pfelk/pfelk/wiki/References:-Rule-Descriptions).
 
 ### 18a. (Optional) Amend 02-types.conf with unique observer.name field (line 8).  
-Amend "OPNsense" as desired.  This will be useful if monitoring multiple instances. Reference the [Wiki page](https://github.com/3ilson/pfelk/wiki/References:-Multiple-Instances) for further assistance.
+Amend "OPNsense" as desired.  This will be useful if monitoring multiple instances. Reference the [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Multiple-Instances) for further assistance.
 ```
       add_field => [ "[observer][name]", "OPNsense" ]
 ```
 ### 18ab (Optional) Amend 05-firewall.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
-Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki page](https://github.com/3ilson/pfelk/wiki/References:-Customized-Interface-Names)
+Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Customized-Interface-Names)
 
 # Troubleshooting
 ### 19. Create Logging Directory 
