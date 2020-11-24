@@ -126,6 +126,6 @@ systemctl start logstash.service
 ### 4h. Configure Unbound DNS for full query log forwarding - OPNsense (Optional)
  - In OPNsense navigate to Services->Unbound DNS->Advanced
  - Log Queries = [X]
- ![OPNsense-Unbound](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/opnsense_unbound_queries.PNG)
+ ![pfSense/OPNsense-Unbound](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/unbound_logging.png)
 # Finished
 ### 5. Wait a few mintues after configuring the above and explore the enriched visualizations.
