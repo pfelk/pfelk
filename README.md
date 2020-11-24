@@ -1,6 +1,6 @@
 ## Welcome to (pfSense/OPNsense) + Elastic Stack  
 
-![pfelk dashboard](https://raw.githubusercontent.com/3ilson/pfelk/master/Images/dashboard-v6.0.gif)
+![pfelk dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/dashboard-v6.0.gif)
 
 You can view installation guide guide on [3ilson YouTube Channel](https://www.youtube.com/3ilson).
 
@@ -41,61 +41,61 @@ Supported entries include:
 **pfelk** aims to replace the vanilla pfSense/OPNsense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
 
 ### Contents
-* [How pfelk works?](https://github.com/3ilson/pfelk#how-pfelk-works)
-* [Installation](https://github.com/3ilson/pfelk#installation)
-  * [ansible](https://github.com/3ilson/pfelk#ansible-playbook)
-  * [docker](https://github.com/3ilson/pfelk#docker-compose)
-  * [manual installation/script](https://github.com/3ilson/pfelk#manual-installationscript---preferred-manual-method)
-* [Roadmap](https://github.com/3ilson/pfelk#roadmap)
-* [Comparison to similar solutions](https://github.com/3ilson/pfelk#comparison-to-similar-solutions)
-* [Contributing](https://github.com/3ilson/pfelk#contributing)
-* [License](https://github.com/3ilson/pfelk#license)
+* [How pfelk works?](https://github.com/pfelk/pfelk#how-pfelk-works)
+* [Installation](https://github.com/pfelk/pfelk#installation)
+  * [ansible](https://github.com/pfelk/pfelk#ansible-playbook)
+  * [docker](https://github.com/pfelk/pfelk#docker-compose)
+  * [manual installation/script](https://github.com/pfelk/pfelk#manual-installationscript---preferred-manual-method)
+* [Roadmap](https://github.com/pfelk/pfelk#roadmap)
+* [Comparison to similar solutions](https://github.com/pfelk/pfelk#comparison-to-similar-solutions)
+* [Contributing](https://github.com/pfelk/pfelk#contributing)
+* [License](https://github.com/pfelk/pfelk#license)
 
 ### How pfelk works?
-![How pfelk works](https://github.com/3ilson/pfelk/raw/master/Images/pfELKOverview.PNG)
+![How pfelk works](https://github.com/pfelk/pfelk/raw/master/Images/pfELKOverview.PNG)
 ### Quick start
 
 ### Installation
 #### ansible-playbook
- * Clone the [ansible-pfelk](https://github.com/3ilson/ansible-pfelk) repository
+ * Clone the [ansible-pfelk](https://github.com/pfelk/ansible-pfelk) repository
  * `$ ansible-playbook -i hosts --ask-become deploy-stack.yml`
 
 #### docker-compose
- * Clone the [docker-pfelk](https://github.com/3ilson/docker-pfelk) repository
+ * Clone the [docker-pfelk](https://github.com/pfelk/docker-pfelk) repository
  * Setup MaxMind
  * `$ docker-compose up`
 
 #### manual installation/script - preferred manual method
-* Download installer script from [pfelk](https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-6.0.sh) repository
+* Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-install-6.0.sh) repository
 ##### Ubuntu
 * `$ sudo wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-6.0.sh`
 * Make script executable 
 * `$ sudo chmod +x pfelk-install-6.0.sh`
 * Run installer script 
 * `$ sudo ./pfelk-install-6.0.sh`
-* Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/configuration.md)
+* Finish Configuring [here](https://github.com/pfelk/pfelk/blob/master/install/configuration.md)
 ##### Debian
 * `$ wget https://raw.githubusercontent.com/3ilson/pfelk/master/pfelk-install-6.0.sh`
 * Make script executable 
 * `$ chmod +x pfelk-install-6.0.sh`
 * Run installer script 
 * `$ ./pfelk-install-6.0.sh`
-* Finish Configuring [here](https://github.com/3ilson/pfelk/blob/master/install/configuration.md)
+* Finish Configuring [here](https://github.com/pfelk/pfelk/blob/master/install/configuration.md)
 
 #### manual installation
-* [Ubuntu 18.04 / 20.04](https://github.com/3ilson/pfelk/blob/master/install/ubuntu.md)
-* [Debian 9-10.5](https://github.com/3ilson/pfelk/blob/master/install/debian.md)
+* [Ubuntu 18.04 / 20.04](https://github.com/pfelk/pfelk/blob/master/install/ubuntu.md)
+* [Debian 9-10.5](https://github.com/pfelk/pfelk/blob/master/install/debian.md)
 
 ### Roadmap
 This is the experimental public roadmap for the pfelk project.
 
-[See the roadmap »](https://github.com/orgs/3ilson/projects)
+[See the roadmap »](https://github.com/orgs/pfelk/projects)
 
 ### Comparison to similar solutions
-[Comparisions »](https://github.com/3ilson/pfelk/wiki/Comparison)
+[Comparisions »](https://github.com/pfelk/pfelk/wiki/Comparison)
 
 ### Contributing
-Please reference to the [CONTRIBUTING file](https://github.com/3ilson/pfelk/blob/master/CONTRIBUTING.md). Collectively we can enhance and improve this product. Issues, feature requests, PRs, and documentation contributions are encouraged and welcomed!
+Please reference to the [CONTRIBUTING file](https://github.com/pfelk/pfelk/blob/master/CONTRIBUTING.md). Collectively we can enhance and improve this product. Issues, feature requests, PRs, and documentation contributions are encouraged and welcomed!
 
 ### License
-This project is licensed under the terms of the Apache 2.0 open source license. Please refer to [LICENSE](https://github.com/3ilson/pfelk/blob/master/license) for the full terms.
+This project is licensed under the terms of the Apache 2.0 open source license. Please refer to [LICENSE](https://github.com/pfelk/pfelk/blob/master/license) for the full terms.
