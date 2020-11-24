@@ -62,8 +62,6 @@ OPENVPNLOG %{GREEDYDATA:[vpn][log][message]}
 
 # UNBOUND
 UNBOUND %{INT:[unbound][process][pid]}:%{INT:[unbound][process][thread][id]}] %{LOGLEVEL:[unbound][log][level]}: %{IP:[unbound][client][ip]} %{GREEDYDATA:[unbound][dns][question][name]}\. %{WORD:[unbound][dns][answers][type]} %{WORD:[unbound][dns][question][class]}
-### Expand with Level 2 & 3
-
 
 # SURICATA
 SURICATA \[%{NUMBER:[suricata][rule][uuid]}:%{NUMBER:[suricata][rule][id]}:%{NUMBER:[suricata][rule][version]}\]%{SPACE}%{GREEDYDATA:[suricata][rule][description]}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:[suricata][rule][category]}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:[suricata][priority]}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
