@@ -1,0 +1,100 @@
+PUT _index_template/pfelk-dhcp
+{
+  "version": 8,
+  "priority": 40,
+  "template": {
+    "mappings": {
+      "dynamic_templates": [],
+      "properties": {
+        "dhcpv4": {
+          "type": "object",
+          "properties": {
+            "server": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "Mac": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "query": {
+              "type": "object",
+              "properties": {
+                "associated": {
+                  "type": "text"
+                },
+                "ip": {
+                  "type": "ip"
+                },
+                "Mac": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "client": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "mac": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "option": {
+              "type": "object",
+              "properties": {
+                "hostname": {
+                  "type": "keyword"
+                },
+                "message": {
+                  "type": "text"
+                }
+              }
+            }
+          }
+        },
+        "dhcpv6": {
+          "type": "object"
+        },
+        "dhcp": {
+          "type": "object",
+          "properties": {
+            "client": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "mac": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "message": {
+              "type": "text"
+            },
+            "operation": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "pfelk-dhcp-*"
+  ],
+  "composed_of": [
+    "pfelk-settings",
+    "pfelk-mappings-ecs"
+  ],
+  "_meta": {
+    "description": "default dhcp indexes installed by pfelk",
+    "managed": true
+  }
+}
