@@ -1,34 +1,43 @@
 # pfelk.grok
 #########
-# 20.11 #
+# 21.01 #
 #########
-PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
-PF_LOG_DATA %{INT:[rule][id]},%{INT:[rule][sub][id]}?,,%{INT:[rule][uuid]},%{DATA:[interface][name]},(?<[event][reason]>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
-PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
-PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:[ipv4][tos]},%{WORD:[ipv4][ecn]}?,%{INT:[ipv4][ttl]},%{INT:[ipv4][packet][id]},%{INT:[ipv4][offset]},%{WORD:[ipv4][flags]},%{INT:[network][iana_number]},%{WORD:[network][transport]},
-PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:[ipv6][class]},%{WORD:[ipv6][flow_label]},%{WORD:[ipv6][hop_limit]},%{DATA:[protocol][type]},%{INT:[protocol][id]},
-PF_IP_DATA %{INT:[packet][length]},%{IP:[source][ip]},%{IP:[destination][ip]},
-PF_PROTOCOL_DATA %{PF_TCP_DATA}|%{PF_UDP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP}
 
-# IPv6
+# PF
+PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
+PF_LOG_DATA %{INT:[rule][ruleset]},%{INT:[rule][id]}?,,%{INT:[rule][uuid]},%{DATA:[interface][name]},(?<[event][reason]>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
+PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
+PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:[pf][ipv4][tos]},%{WORD:[pf][ipv4][ecn]}?,%{INT:[pf][ipv4][ttl]},%{INT:[pf][ipv4][packet][id]},%{INT:[pf][ipv4][offset]},%{WORD:[pf][ipv4][flags]},%{INT:[network][iana_number]},%{WORD:[network][transport]},
+PF_IP_DATA %{INT:[pf][packet][length]},%{IP:[source][ip]},%{IP:[destination][ip]},
+PF_PROTOCOL_DATA %{PF_TCP_DATA}|%{PF_UDP_DATA}|%{PF_ICMP_DATA}|%{PF_IGMP_DATA}|%{PF_IPv6_VAR}|%{PF_IPv6_ICMP}
+PF_IPv6_SPECIFIC_DATA (?<[network][type]>(6)),%{BASE16NUM:[pf][ipv6][class]},%{WORD:[pf][ipv6][flow_label]},%{WORD:[pf][ipv6][hop_limit]},%{DATA:[pf][protocol][type]},%{INT:[pf][protocol][id]},
 PF_IPv6_VAR %{WORD:type},%{WORD:option},%{WORD:Flags},%{WORD:Flags}
 PF_IPv6_ICMP
 
-# PROTOCOL
-PF_TCP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[transport][data_length]},(?<[tcp][flags]>(\w*)?),(?<[tcp][sequence_number]>(\d*)?):?\d*,(?<[tcp][ack_number]>(\d*)?),(?<[tcp][window]>(\d*)?),(?<[tcp][urg]>(\w*)?),%{GREEDYDATA:[tcp][options]}
-PF_UDP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[transport][data_length]}$
+# PF PROTOCOL
+PF_TCP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[pf][transport][data_length]},(?<[pf][tcp][flags]>(\w*)?),(?<[pf][tcp][sequence_number]>(\d*)?):?\d*,(?<[pf][tcp][ack_number]>(\d*)?),(?<[pf][tcp][window]>(\d*)?),(?<[pf][tcp][urg]>(\w*)?),%{GREEDYDATA:[pf][tcp][options]}
+PF_UDP_DATA %{INT:[source][port]},%{INT:[destination][port]},%{INT:[pf][transport][data_length]}$
 PF_IGMP_DATA datalength=%{INT:[network][packets]}
 PF_ICMP_DATA %{PF_ICMP_TYPE}%{PF_ICMP_RESPONSE}
 PF_ICMP_TYPE (?<icmp_type>(request|reply|unreachproto|unreachport|unreach|timeexceed|paramprob|redirect|maskreply|needfrag|tstamp|tstampreply)),
 PF_ICMP_RESPONSE %{PF_ICMP_ECHO_REQ_REPLY}|%{PF_ICMP_UNREACHPORT}|%{PF_ICMP_UNREACHPROTO}|%{PF_ICMP_UNREACHABLE}|%{PF_ICMP_NEED_FLAG}|%{PF_ICMP_TSTAMP}|%{PF_ICMP_TSTAMP_REPLY}
-PF_ICMP_ECHO_REQ_REPLY %{INT:icmp_echo_id},%{INT:icmp_echo_sequence}
-PF_ICMP_UNREACHPORT %{IP:[icmp_unreachport_destination][ip]},%{WORD:icmp_unreachport_protocol},%{INT:icmp_unreachport_port}
-PF_ICMP_UNREACHPROTO %{IP:[icmp_unreach_destination][ip]},%{WORD:[icmp_unreach_network][transport]}
-PF_ICMP_UNREACHABLE %{GREEDYDATA:icmp_unreachable}
-PF_ICMP_NEED_FLAG %{IP:icmp_need_flag_ip},%{INT:icmp_need_flag_mtu}
-PF_ICMP_TSTAMP %{INT:icmp_tstamp_id},%{INT:icmp_tstamp_sequence}
-PF_ICMP_TSTAMP_REPLY %{INT:icmp_tstamp_reply_id},%{INT:icmp_tstamp_reply_sequence},%{INT:icmp_tstamp_reply_otime},%{INT:icmp_tstamp_reply_rtime},%{INT:icmp_tstamp_reply_ttime}
+PF_ICMP_ECHO_REQ_REPLY %{INT:[pf][icmp][echo][id]},%{INT:[pf][icmp][echo][sequence]}
+PF_ICMP_UNREACHPORT %{IP:[pf][icmp][unreachport][destination][ip]},%{WORD:[pf][icmp][unreachport][protocol]},%{INT:[pf][icmp][unreachport][port]}
+PF_ICMP_UNREACHPROTO %{IP:[pf][icmp][unreach][destination][ip]},%{WORD:[pf][icmp][unreach][network][transport]}
+PF_ICMP_UNREACHABLE %{GREEDYDATA:[pf][icmp][unreachable]}
+PF_ICMP_NEED_FLAG %{IP:[pf][icmp][need_flag][ip]},%{INT:[pf][icmp][need_flag][mtu]}
+PF_ICMP_TSTAMP %{INT:[pf][icmp][tstamp][id]},%{INT:[pf][icmp][tstamp][sequence]}
+PF_ICMP_TSTAMP_REPLY %{INT:[pf][icmp][tstamp][reply][id]},%{INT:[pf][icmp][tstamp][reply][sequence]},%{INT:[pf][icmp][tstamp][reply][otime]},%{INT:[pf][icmp][tstamp][reply][rtime]},%{INT:[pf][icmp][tstamp][reply][ttime]}
 PF_SPEC \+
+
+# PF
+PF_CARP_DATA (%{WORD:[pf][carp][type]}),(%{INT:[pf][carp][ttl]}),(%{INT:[pf][carp][vhid]}),(%{INT:[pf][carp][version]}),(%{INT:[pf][carp][advbase]}),(%{INT:[pf][carp][advskew]})
+PF_APP (%{DATA:[pf][app]}):
+PF_APP_DATA (%{PF_APP_LOGOUT}|%{PF_APP_LOGIN}|%{PF_APP_ERROR}|%{PF_APP_GEN})
+PF_APP_LOGIN (%{DATA:[pf][app][action]}) for user \'(%{DATA:[pf][app][user]})\' from: (%{GREEDYDATA:[pf][remote][ip]})
+PF_APP_LOGOUT User (%{DATA:[pf][app][action]}) for user \'(%{DATA:[pf][app][user]})\' from: (%{GREEDYDATA:[pf][remote][ip]})
+PF_APP_ERROR webConfigurator (%{DATA:[pf][app][action]}) for \'(%{DATA:[pf][app][user]})\' from (%{GREEDYDATA:[pf][remote][ip]})
+PF_APP_GEN (%{GREEDYDATA:[pf][app][action]})
 
 # DHCPv4 (Optional)
 DHCPD_VIA via (%{IP:[dhcpv4][relay][ip]}|(?<[interface][name]>[^: ]+))
@@ -45,15 +54,6 @@ DHCPGENERAL %{GREEDYDATA:[dhcp][message]}
 # DHCPv6 (Optional - In Development)
 DHCPDv6 %{GREEDYDATA:[dhcpv6][operation]}
 
-# PF
-PF_CARP_DATA (%{WORD:[carp][type]}),(%{INT:[carp][ttl]}),(%{INT:[carp][vhid]}),(%{INT:[carp][version]}),(%{INT:[carp][advbase]}),(%{INT:[carp][advskew]})
-PF_APP (%{DATA:pf_APP}):
-PF_APP_DATA (%{PF_APP_LOGOUT}|%{PF_APP_LOGIN}|%{PF_APP_ERROR}|%{PF_APP_GEN})
-PF_APP_LOGIN (%{DATA:pf_ACTION}) for user \'(%{DATA:pf_USER})\' from: (%{GREEDYDATA:pf_REMOTE_IP})
-PF_APP_LOGOUT User (%{DATA:pf_ACTION}) for user \'(%{DATA:pf_USER})\' from: (%{GREEDYDATA:pf_REMOTE_IP})
-PF_APP_ERROR webConfigurator (%{DATA:pf_ACTION}) for \'(%{DATA:pf_USER})\' from (%{GREEDYDATA:pf_REMOTE_IP})
-PF_APP_GEN (%{GREEDYDATA:pf_ACTION})
-
 # OPENVPN
 OPENVPN (%{OPENVPNIP}|%{OPENVPNUSER}|%{OPENVPNLOG})
 OPENVPNIP %{IP:[vpn][source][ip]}\:%{INT:[vpn][source][port]}%{SPACE}\[%{DATA:[vpn][client]}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
@@ -61,13 +61,13 @@ OPENVPNUSER (%{WORD:[vpn][domain]}?\\)?(?<[vpn][user]>\b[+\w\.-]+\b)?/?%{IP:[vpn
 OPENVPNLOG %{GREEDYDATA:[vpn][log][message]}
 
 # UNBOUND
-UNBOUND %{INT:[unbound][process][pid]}:%{INT:[unbound][process][thread][id]}] %{LOGLEVEL:[unbound][log][level]}: %{IP:[unbound][client][ip]} %{GREEDYDATA:[unbound][dns][question][name]}\. %{WORD:[unbound][dns][answers][type]} %{WORD:[unbound][dns][question][class]}
+UNBOUND %{INT:[process][pgid]}:%{INT:[process][thread][id]}] %{LOGLEVEL:[log][level]}: %{IP:[client][ip]} %{GREEDYDATA:[dns][question][name]}\. %{WORD:[dns][answers][type]} %{WORD:[dns][question][class]}
 
 # SURICATA
 SURICATA \[%{NUMBER:[suricata][rule][uuid]}:%{NUMBER:[suricata][rule][id]}:%{NUMBER:[suricata][rule][version]}\]%{SPACE}%{GREEDYDATA:[suricata][rule][description]}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:[suricata][rule][category]}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:[suricata][priority]}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
 
 # SNORT
-SNORT \[%{INT:[snort][rule][uuid]}\:%{INT:[snort][rule][reference]}\:%{INT:[snort][rule][version]}\].%{GREEDYDATA:[snort][rule][description]}.\[Classification\: %{DATA:[snort][rule][classification]}\].\[Priority\: %{INT:[snort][priority]}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
+SNORT \[%{INT:[rule][uuid]}\:%{INT:[rule][reference]}\:%{INT:[rule][version]}\].%{GREEDYDATA:[rule][description]}.\[Classification\: %{DATA:[rule][classification]}\].\[Priority\: %{INT:[priority]}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
 
 # HAPROXY
-HAPROXY %{IP:[haproxy][client][ip]}:%{INT:[haproxy][client][port]} \[%{HAPROXYDATE:haproxy_timestamp}\] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]}/%{INT:[haproxy][time_backend_response]}/%{NOTSPACE:[haproxy][time_duration]} %{INT:[haproxy][http_status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][captured_request_cookie]} %{DATA:[haproxy][captured_response_cookie]} %{NOTSPACE:[haproxy][termination_state]} %{INT:[haproxy][actconn]}/%{INT:[haproxy][feconn]}/%{INT:[haproxy][beconn]}/%{INT:[haproxy][srvconn]}/%{NOTSPACE:[haproxy][retries]} %{INT:[haproxy][srv_queue]}/%{INT:[haproxy][backend_queue]} (\{%{HAPROXYCAPTUREDREQUESTHEADERS}\})?( )?(\{%{HAPROXYCAPTUREDRESPONSEHEADERS}\})?( )?"(<BADREQ>|(%{WORD:[haproxy][http_verb]} (%{URIPROTO:[haproxy][http_proto]}://)?(?:%{USER:[haproxy][http_user]}(?::[^@]*)?@)?(?:%{URIHOST:[haproxy][http_host]})?(?:%{URIPATHPARAM:[haproxy][http_request]})?( HTTP/%{NUMBER:[haproxy][http_version]})?))?"?
+HAPROXY %{IP:[client][ip]}:%{INT:[client][port]} \[%{HAPROXYDATE:[haproxy][timestamp]}\] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]}/%{INT:[haproxy][time_backend_response]}/%{NOTSPACE:[host][uptime]} %{INT:[http][response][status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][http][request][captured_cookie]} %{DATA:[haproxy][http][response][captured_cookie]} %{NOTSPACE:[haproxy][termination_state]} %{INT:[haproxy][connections][active]}/%{INT:[haproxy][connections][frontend]}/%{INT:[haproxy][connections][backend]}/%{INT:[haproxy][connections][server]}/%{NOTSPACE:[haproxy][connections][retries]} %{INT:[haproxy][server_queue]}/%{INT:[haproxy][backend_queue]} (\{%{HAPROXYCAPTUREDREQUESTHEADERS}\})?( )?(\{%{HAPROXYCAPTUREDRESPONSEHEADERS}\})?( )?"(<BADREQ>|(%{WORD:[http][request][method]} (%{URIPROTO:[haproxy][mode]}://)?(?:%{USER:[user][name]}(?::[^@]*)?@)?(?:%{URIHOST:[http][request][referrer]})?(?:%{URIPATHPARAM:[http][mode]})?( HTTP/%{NUMBER:[http][version]})?))?"?
