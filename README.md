@@ -37,6 +37,7 @@ Supported entries include:
  - Snort IDS with dashboards
  - Squid with dashboards
  - HAProxy with dashboard
+ - DHCP with dashboard (dhcpdv4)
 
 **pfelk** aims to replace the vanilla pfSense/OPNsense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
 
