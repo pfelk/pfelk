@@ -81,6 +81,7 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 ```
 
@@ -88,7 +89,6 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf
 ```
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
 ```
 
 ### 14. Download the grok pattern
