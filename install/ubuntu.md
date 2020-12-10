@@ -79,6 +79,7 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/07-interfaces.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
