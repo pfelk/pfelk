@@ -39,18 +39,20 @@ systemctl start logstash.service
 
 # Kibana 
 ### 3a. Import required dashboards
-[YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
- - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
- - Click the menu icon (☰ three horizontal lines) in the upper left
- - Under Management click -> Stack Management 
- - Under Kibana click -> Saved Objects
- - You can import the dashboards found in the [dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard) folder via the Import button in the top-right corner.
- - [pfELK Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.0/v6.0%20-%20Firewall.ndjson)
- - [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.0/v6.0%20-%20Unbound.ndjson)
- - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.0/v6.0%20-%20Squid.ndjson)
- - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.0/v6.0%20-%20Suricata.ndjson)
- - [Snort Dashboard](#) - Coming Soon
- - [HAProxy Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.0/v6.0%20-%20HAProxy.ndjson)
+>[YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
+ >- In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
+ >- Click the menu icon (☰ three horizontal lines) in the upper left
+ >- Under Management click -> Stack Management 
+ >- Under Kibana click -> Saved Objects
+ >- You can import the dashboards found in the [dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard) folder via the Import button in the top-right corner.
+ >- [Firewall Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Firewall.ndjson)
+ >- [DHCP Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20DHCP.ndjson) - DHCPv4
+ >- [HAProxy Dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard/v6.1) - Coming Soon
+ >- [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Unbound.ndjson)
+ >- [Snort Dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard/v6.1) - Coming Soon
+ >- [Squid Dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard/v6.1) - Coming Soon (after OPNSense v21 w/ECS for Squid)
+ >- [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Suricata.ndjson)
+
 ## Grafana
 ### 3.b Grafana - Alternative / Option (Externally Supported)
  - Visit [here](https://github.com/b4b857f6ee/opnsense_grafana_dashboard) to install/configure Grafana Dashboard
