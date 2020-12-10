@@ -54,7 +54,7 @@ systemctl start logstash.service
  >- [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Suricata.ndjson)
 
 ## Grafana
-### 3.b Grafana - Alternative / Option (Externally Supported)
+### 3b. Grafana - Alternative / Option (Externally Supported)
  - Visit [here](https://github.com/b4b857f6ee/opnsense_grafana_dashboard) to install/configure Grafana Dashboard
  
 # Firewall 
