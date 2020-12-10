@@ -24,9 +24,9 @@ systemctl start logstash.service
 # Templates
 ### 2. Import required templates
 >- In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
-- Click ☰ in the upper left corner
-- Click on Dev Tools located near the bottom under the Management heading
-- Paste the contents of each template file located [here](https://github.com/pfelk/pfelk/tree/master/etc/logstash/conf.d/templates)
+>- Click ☰ in the upper left corner
+>- Click on Dev Tools located near the bottom under the Management heading
+>- Paste the contents of each template file located [here](https://github.com/pfelk/pfelk/tree/master/etc/logstash/conf.d/templates)
   - [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk)
   - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-dhcp)
   - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-haproxy)
@@ -34,6 +34,7 @@ systemctl start logstash.service
   - [pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-settings)
   - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-suricata)
 >- Click the green triangle after pasting the contents (one at a time) into the console
+
 ![Templates](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/template-import.PNG)
 
 # Kibana 
