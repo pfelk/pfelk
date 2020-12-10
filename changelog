@@ -3,11 +3,68 @@ ES Versions:
   * pfelk >= 6.0  supports pfSense >= 2.4.0+
   * pfelk >= 6.0  supports OPNsense >= 19+
 
-v6.1 202#/##/##
+v6.5 202#/##/##
   -SCRIPT
   - Simple Installer  - Fix Elasticsearch timeout on startup (issue #170) <-- https://www.elastic.co/guide/en/elasticsearch/reference/current/stopping-elasticsearch.html
                       - Add symbolic link to aid with quicker shutdowns (issue #128) <-- https://www.elastic.co/guide/en/elasticsearch/reference/current/stopping-elasticsearch.html
                       - Add check tmp space prior to install (issue #128) <-- Fixed 1-November-2020
+
+v6.1 2020/12/10
+  -LOGSTASH
+  - conf files        - Made various changes for ECS conformity
+                      - Prevented default logstash template from being installed (eliminated initial setup issues) `manage_template => false`
+                      - Enabled ECS compatibility (v1)
+                      - Update GROK pattern aligning log output with ECS v1.7.0
+                        - Most fields are now compliant
+                          - Fields with `pf` parent are not ECS supported but renamed within GROK pattern for better organization
+                          - Squid and Snort parent fields removed to align with ECS
+                          - Enriched `tcp.options` field parsing out values in an array vs single string
+                          - Parsed DHCP logs for independent indexing
+                          - Removed or amended 'host' field to comply with ECS
+ 
+  -ELASTICSEARCH
+  - templates         - Migrated to new index templates 
+                        - Legacy templates are depreciated and likely removed with pending v8 release (Elastic)
+                        - ECS compliant template utilized/implemented 
+                        - Created ILM 
+                          - Roll over at 5G or 7-days
+                            - Still needs refining 
+                        - Suricata template built based off of https://www.elastic.co/guide/en/beats/filebeat/current/exported-fields-suricata.html
+                          - The following alias fields were ommited 
+                            - fileinfo.filename
+                            - fileinfo.size
+                            - dest_port
+                            - src_port
+                            - proto
+                            - src_ip
+                            - dest_ip
+                            - http_status
+                            - http.http_user_agent
+                            - http.http_refer
+                            - http.url
+                            - http.hostname
+                            - http.length
+                            - http.http_method
+                            - timestamp
+                            - alert.severity
+                            - alert.action
+                            - flow.bytes_toclient
+                            - flow.start
+                            - flow.pkts_toclient
+                            - flow.bytes_toserver
+                            - flow.pkts_toserver
+                            - app_proto
+                            
+                        - Haproxy template was refined based off of https://www.elastic.co/guide/en/beats/filebeat/current/exported-fields-haproxy.html
+                          - Still needs testing and finalization (note: grok pattern was primary utilized to amend fields)
+                          - The following fields were ommited
+                            - time_request <-- needs to be amended to align with haproxy module
+                            - time_backend_response <-- needs to be amended to align with haproxy module
+                            - http_status_code <-- Alias 
+               
+  -KIBANA
+  - Visualizations    - Updated and aligned with templates
+  - Dashboards        - Updated and aligned with updates                    
                       
 v6.0 2020/10/18
   -LOGSTASH
