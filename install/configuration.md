@@ -26,11 +26,11 @@ systemctl start logstash.service
 - In your web browser go to the pfELK local IP using port 5601 (ex: 192.168.0.1:5601)
 - Click ☰ in the upper left corner
 - Click on Dev Tools located near the bottom under the Management heading
-- **NOTE** _Component Templates must be installed first and in sequential order (e.g. pfelk-settings, pfelk-mappings-ecs etc...)_
 - Paste the contents of each template file located [here](https://github.com/pfelk/pfelk/tree/master/etc/logstash/conf.d/templates)
   - Component Templates
-    - 1. [pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-settings)
-    - 2. [pfelk-mappings-ecs](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-mappings-ecs)
+    - **NOTE** _Component Templates must be installed first and in sequential order (e.g. pfelk-settings, pfelk-mappings-ecs etc...)_
+    - [pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-settings) - Install First
+    - [pfelk-mappings-ecs](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-mappings-ecs) - Install Second
   - Index Templates
     - [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk)
     - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-dhcp)
