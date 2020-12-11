@@ -111,7 +111,7 @@ Amend "OPNsense" as desired.  This will be useful if monitoring multiple instanc
 ```
       add_field => [ "[observer][name]", "OPNsense" ]
 ```
-### 18. (Optional) Amend 05-firewall.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
+### 18. (Optional) Amend 07-interfaces.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
 Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Customized-Interface-Names)
 
 # Troubleshooting
