@@ -53,7 +53,7 @@ systemctl start logstash.service
  >- [HAProxy Dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard/v6.1) - Coming Soon
  >- [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Unbound.ndjson)
  >- [Snort Dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard/v6.1) - Coming Soon
- >- [Squid Dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard/v6.1) - Coming Soon (after OPNSense v21 w/ECS for Squid)
+ >- [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Squid.ndjson)
  >- [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Suricata.ndjson)
 
 ## Grafana
