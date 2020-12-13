@@ -56,7 +56,7 @@ systemctl start logstash.service
  >- [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Squid.ndjson)
  >- [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Suricata.ndjson)
 
-## Grafana
+## Grafana (Optional)
 ### 3b. Grafana - Alternative / Option (Externally Supported)
  - Visit [here](https://github.com/b4b857f6ee/opnsense_grafana_dashboard) to install/configure Grafana Dashboard
  
