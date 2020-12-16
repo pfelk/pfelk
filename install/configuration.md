@@ -31,6 +31,7 @@ systemctl start logstash.service
     - **NOTE** _Component Templates must be installed first and in sequential order (e.g. pfelk-settings, pfelk-mappings-ecs etc...)_
     - [pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-settings) - Install First
     - [pfelk-mappings-ecs](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-mappings-ecs) - Install Second
+    - [pfelk-ilm](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-ilm)
   - Index Templates
     - [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk)
     - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-dhcp)
