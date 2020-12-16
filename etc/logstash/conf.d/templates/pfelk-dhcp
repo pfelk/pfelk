@@ -3,6 +3,13 @@ PUT _index_template/pfelk-dhcp
   "version": 8,
   "priority": 40,
   "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk-ilm"
+        }
+      }
+    },
     "mappings": {
       "dynamic_templates": [],
       "properties": {
