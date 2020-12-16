@@ -3,6 +3,13 @@ PUT _index_template/pfelk
   "version": 8,
   "priority": 10,
   "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk-ilm"
+        }
+      }
+    },
     "mappings": {
       "_routing": {
         "required": false
