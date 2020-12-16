@@ -1,0 +1,34 @@
+PUT _ilm/policy/pfelk-ilm
+{
+  "policy": {
+    "phases": {
+      "hot": {
+        "min_age": "0ms",
+        "actions": {
+          "rollover": {
+            "max_size": "5gb",
+            "max_age": "7d"
+          },
+          "set_priority": {
+            "priority": 10
+          }
+        }
+      },
+      "warm": {
+        "actions": {
+          "set_priority": {
+            "priority": 50
+          }
+        }
+      },
+      "cold": {
+        "min_age": "30d",
+        "actions": {}
+      },
+      "delete": {
+        "min_age": "120d",
+        "actions": {}
+      }
+    }
+  }
+}
