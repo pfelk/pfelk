@@ -4,14 +4,12 @@ PUT _component_template/pfelk-settings
   "template": {
     "settings": {
       "index": {
-        "lifecycle": {
-          "name": "pfelk-ilm",
-          "rollover_alias": "ilm-pfelk-history"
+        "mapping": {
+          "total_fields": {
+            "limit": "10000"
+          }
         },
-        "hidden": "false",
-        "number_of_shards": "1",
-        "auto_expand_replicas": "0-1",
-        "number_of_replicas": "0"
+        "refresh_interval": "5s"
       }
     }
   },
