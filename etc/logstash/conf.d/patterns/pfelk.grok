@@ -41,7 +41,7 @@ PF_APP_GEN (%{GREEDYDATA:[pf][app][action]})
 
 # DHCPv4 (Optional)
 DHCPD_VIA via (%{IP:[dhcpv4][relay][ip]}|(?<[interface][name]>[^: ]+))
-DHCPD DHCP(%{DHCPD_DISCOVER}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})(: %{GREEDYDATA:[dhcpv4][option][message]})?
+DHCPD DHCP (%{DHCPD_DISCOVER}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})|(: %{GREEDYDATA:[dhcpv4][option][message]})?
 DHCPD_DISCOVER (?<[dhcp][operation]>DISCOVER) from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
 DHCPD_OFFER_ACK (?<[dhcp][operation]>(OFFER|N?ACK)) on %{IP:[dhcpv4][client][ip]} to %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
 DHCPD_REQUEST (?<[dhcp][operation]>REQUEST) for %{IP:[dhcpv4][client][ip]}( \(%{DATA:[dhcpv4][server][ip]}\))? from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
