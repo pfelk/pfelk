@@ -53,7 +53,7 @@ systemctl start logstash.service
  >- [DHCP Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20DHCP.ndjson) - DHCPv4
  >- [HAProxy Dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard/v6.1) - Coming Soon
  >- [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Unbound.ndjson)
- >- [Snort Dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard/v6.1) - Coming Soon
+ >- [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Snort.ndjson)
  >- [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Squid.ndjson)
  >- [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Suricata.ndjson)
 
