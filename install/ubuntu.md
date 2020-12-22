@@ -110,7 +110,7 @@ Amend "OPNsense" as desired.  This will be useful if monitoring multiple instanc
 ```
       add_field => [ "[observer][name]", "OPNsense" ]
 ```
-### 18. (Optional) Amend 07-interfaces.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
+### 18. (Optional) Amend 40-interfaces.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
 Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Customized-Interface-Names)
 
 # Troubleshooting
@@ -119,12 +119,14 @@ Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki pa
 sudo mkdir -p /etc/pfELK/logs
 ```
 
-### 20. Download `error-data.sh`
+### 20. Download Script
+`error-data.sh`
 ```
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/error-data.sh -P /etc/pfELK/
 ```
 
-### 21. Make `error-data.sh` Executable
+### 21. Make Script Executable
+`error-data.sh` 
 ```
 sudo chmod +x /etc/pfELK/error-data.sh
 ```
