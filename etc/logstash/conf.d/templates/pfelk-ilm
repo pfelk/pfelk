@@ -7,7 +7,7 @@ PUT _ilm/policy/pfelk-ilm
         "actions": {
           "rollover": {
             "max_size": "5gb",
-            "max_age": "7d"
+            "max_age": "60d"
           },
           "set_priority": {
             "priority": 10
@@ -22,11 +22,11 @@ PUT _ilm/policy/pfelk-ilm
         }
       },
       "cold": {
-        "min_age": "30d",
+        "min_age": "180d",
         "actions": {}
       },
       "delete": {
-        "min_age": "120d",
+        "min_age": "365d",
         "actions": {}
       }
     }
