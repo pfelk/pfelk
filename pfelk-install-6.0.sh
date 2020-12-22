@@ -1356,13 +1356,20 @@ update_kibana() {
 }
 update_kibana
 
+# Add symbolic link for elasticsearch
+add_es_yslink() {
+  cd /etc/rc0.d
+  ln -sf ../init.d/elasticsearch K02elasticsearch
+  cd /etc/rc6.d
+  ln -sf ../init.d/elasticsearch K02elasticsearch
+}
+add_es_syslink
+
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                               Finish                                                                                            #
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
-
-# Configure Firewall (OPNsense or pfSense) IP Address
 
 # Check if Elasticsearch service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
