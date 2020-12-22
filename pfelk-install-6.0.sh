@@ -629,7 +629,7 @@ fi
 #   header
 #   echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed!${RESET}"; 
 #   echo -e "${WHITE_R}#${RESET} Ensure MaxMind GeoIP is properly configured!${RESET}";
-#   echo -e "${RED}# WARNING${RESET} Running Logstash without MaxMind properly configured will result in fatal errors...\\n\\n"
+#   echo -e "${RED}# WARNING${RESET} Running Logstash without properly configured GeoIP settings will result in fatal errors...\\n\\n"
 #   sleep 5;
 #else
 #read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Passowrd credentials? (y/N) ' yes_no
@@ -651,7 +651,7 @@ fi
 #	 fi
 #	 rm --force "$geoip_temp" 2> /dev/null
 	 
-   # GeoIP Cronjob
+# GeoIP Cronjob
 #	 echo 00 17 * * 0 geoipupdate -d /usr/share/GeoIP > /etc/cron.weekly/geoipupdate
 #	 sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
 #	 #sed -i "1 s/.*DatabaseDirectory.*/DatabaseDirectory \/usr\/share\/GeoIP\//g" /etc/GeoIP.conf
@@ -1357,7 +1357,7 @@ update_kibana() {
 update_kibana
 
 # Add symbolic link for elasticsearch
-add_es_yslink() {
+add_es_syslink() {
   cd /etc/rc0.d
   ln -sf ../init.d/elasticsearch K02elasticsearch
   cd /etc/rc6.d
