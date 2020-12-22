@@ -30,7 +30,7 @@
 ###################################################################################################################################################################################################
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
-# GeoIP        | 4.5.0 (Disalbed pending optional install prompt 
+# GeoIP        | 4.6.0 (Disalbed pending optional install prompt 
 # Java         | openjdk-11-jre-headless
 # Jave_Version | 11
 # Elastistack  | 7.10.1
@@ -565,7 +565,7 @@ port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
 elk_version=7.10.1
-maxmind_version=4.5.0
+maxmind_version=4.6.0
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
