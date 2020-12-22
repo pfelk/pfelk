@@ -78,10 +78,9 @@ sudo mkdir /etc/logstash/conf.d/{databases,patterns,templates}
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/07-interfaces.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/05-apps.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/40-interfaces.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 ```
@@ -111,7 +110,7 @@ Amend "OPNsense" as desired.  This will be useful if monitoring multiple instanc
 ```
       add_field => [ "[observer][name]", "OPNsense" ]
 ```
-### 18. (Optional) Amend 07-interfaces.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
+### 18. (Optional) Amend 40-interfaces.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
 Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Customized-Interface-Names)
 
 # Troubleshooting
