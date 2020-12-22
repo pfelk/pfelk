@@ -119,14 +119,14 @@ Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki pa
 sudo mkdir -p /etc/pfELK/logs
 ```
 
-### 20. Download 
+### 20. Download Script
 `error-data.sh`
 ```
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/error-data.sh -P /etc/pfELK/
 ```
 
-### 21. Make 
-`error-data.sh` Executable
+### 21. Make Script Executable
+`error-data.sh` 
 ```
 sudo chmod +x /etc/pfELK/error-data.sh
 ```
