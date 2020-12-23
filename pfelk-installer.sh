@@ -1423,8 +1423,8 @@ fi
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
   script_logo
-  echo -e "${GREEN}#${RESET} pfELK was installed successfully"
   echo -e "\\n"
+  echo -e "${GREEN}#${RESET} pfELK was installed successfully"
   systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   echo -e "\\n"
   echo -e "Open your browser and connect to http://$SERVER_IP:5601 to open Kibana"
