@@ -41,7 +41,7 @@ PF_APP_GEN (%{GREEDYDATA:[pf][app][action]})
 
 # DHCPv4 (Optional)
 DHCPD_VIA via (%{IP:[dhcpv4][relay][ip]}|(?<[interface][name]>[^: ]+))
-DHCPD DHCP (%{DHCPD_DISCOVER}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})|(: %{GREEDYDATA:[dhcpv4][option][message]})?
+DHCPD DHCP(%{DHCPD_DISCOVER}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})(: %{GREEDYDATA:[dhcpv4][option][message]})?
 DHCPD_DISCOVER (?<[dhcp][operation]>DISCOVER) from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
 DHCPD_OFFER_ACK (?<[dhcp][operation]>(OFFER|N?ACK)) on %{IP:[dhcpv4][client][ip]} to %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
 DHCPD_REQUEST (?<[dhcp][operation]>REQUEST) for %{IP:[dhcpv4][client][ip]}( \(%{DATA:[dhcpv4][server][ip]}\))? from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
@@ -49,7 +49,7 @@ DHCPD_DECLINE (?<[dhcp][operation]>DECLINE) of %{IP:[dhcpv4][client][ip]} from %
 DHCPD_RELEASE (?<[dhcp][operation]>RELEASE) of %{IP:[dhcpv4][client][ip]} from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA} \((?<dhcpd_release>(not )?found)\)
 DHCPD_INFORM (?<[dhcp][operation]>INFORM) from %{IP:[dhcpv4][client][ip]}? %{DHCPD_VIA}
 DHCPD_LEASE (?<[dhcp][operation]>LEASE(QUERY|UNKNOWN|ACTIVE|UNASSIGNED)) (from|to) %{IP:[dhcpv4][client][ip]} for (IP %{IP:[dhcpv4][query][ip]}|client-id %{NOTSPACE:[dhcpv4][query][id]}|MAC address %{MAC:[dhcpv4][query][mac]})( \(%{NUMBER:[dhcpv4][query][associated]} associated IPs\))?
-DHCPGENERAL %{GREEDYDATA:[dhcp][message]}
+DHCP_GENERAL %{GREEDYDATA:[dhcp][message]}
 
 # DHCPv6 (Optional - In Development)
 DHCPDv6 %{GREEDYDATA:[dhcpv6][operation]}
