@@ -130,7 +130,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-	pfELK Installation Script
+	pfELK Installation Script - version 6.5
 EOF
 }
 
@@ -639,7 +639,7 @@ select opt in "${options[@]}"
 		  case "$yes_no" in
 		   [Yy]*)
 		     if [[ "${script_option_geoip}" != 'true' ]]; then
-			   maxmind_install="true"
+			   maxmind_install=true
 		 	   geoip_temp="$(mktemp --tmpdir=/tmp geoipupdate_${maxmind_version}_linux_amd64_XXX.deb)"
 			   echo -e "${WHITE_R}#${RESET} Downloading MaxMind v${maxmind_version} GeoIP..."
 			   if wget "${wget_progress[@]}" -qO "$geoip_temp" "https://github.com/maxmind/geoipupdate/releases/download/v${maxmind_version}/geoipupdate_${maxmind_version}_linux_amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded MaxMind GeoIP! \\n"; else echo -e "${RED}#${RESET} Failed to download MaxMind GeoIP...\\n"; abort; fi;
@@ -671,6 +671,7 @@ select opt in "${options[@]}"
 		   [No]*|"") 
 			 echo -e "${RED}#${RESET} MaxMind v${maxmind_version} not installed!"
 			 echo -e "${RED}#WARNING${RESET} Running Logstash without MaxMind will result in fatal errors...\\n"
+			 maxmind_install=false
 			 sleep 2;;
 		   esac
 		echo -e "\\n"
@@ -930,18 +931,6 @@ else
   echo -e "${WHITE_R}#${RESET} Memory Meets Minimum Requirements!\\n\\n"
   swapoff -a
   sleep 2
-fi
-
-# MaxMind check to ensure GeoIP database files were downloaded
-if maxmind_install="true" && [[ -f /usr/share/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /usr/share/GeoIP/GeoLite2-ASN.mmdb ]]; then
-  echo "MaxMind Files Present"
-  sleep 3
-else 
-  echo -e "${RED}#${RESET}Please Check Your MaxMind Configuration!"
-  echo -e "${RED}#${RESET}MaxMind Files Where Not Download."
-  echo -e "${RED}#${RESET}Defaulting to Elastic GeoIP Database Files."
-  maxmind_install=false
-  sleep 3
 fi
 
 ###################################################################################################################################################################################################
@@ -1254,12 +1243,26 @@ download_pfelk() {
 }
 download_pfelk
 
-# MaxMind configuration, if utilized 
+# MaxMind
 maxmind_geoip() {
-if maxmind_install=true; then
+# MaxMind check to ensure GeoIP database files were downloaded - Success
+if [[ "${maxmind_install}" == 'true' ]] && [[ -f /usr/share/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /usr/share/GeoIP/GeoLite2-ASN.mmdb ]]; then
+  echo "${RED}#${RESET} MaxMind Files Present"
+  sleep 3
+fi
+# MaxMind check to ensure GeoIP database files are downloaded - Error Display
+if ! [[ "${maxmind_install}" == 'true' ]] && [[ -f /usr/share/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /usr/share/GeoIP/GeoLite2-ASN.mmdb ]]; then
+  echo -e "${RED}#${RESET} Please Check Your MaxMind Configuration!"
+  echo -e "${RED}#${RESET} MaxMind Files Where Not Download."
+  echo -e "${RED}#${RESET} Defaulting to Elastic GeoIP Database Files."
+  maxmind_install=false
+  sleep 4
+fi
+# MaxMind configuration, if utilized 
+if [[ "${maxmind_install}" == 'true' ]]; then
 	header
-	echo -e "${WHITE_R}#${RESET} Modifying 30-geoip.conf for MaxMind!${RESET}\\n\\n";
-	sudo sed -i 's/#MMR#//' /etc/logstash/conf.d/30-geoip.conf
+	echo -e "${RED}#${RED} Modifying 30-geoip.conf for MaxMind!${RESET}\\n\\n";
+	sed -i 's/#MMR#//' /etc/logstash/conf.d/30-geoip.conf
 	sleep 3
 fi
 }
@@ -1419,8 +1422,9 @@ fi
 
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
-  echo -e "${GREEN}#${RESET} pfELK was installed successfully"
+  script_logo
   echo -e "\\n"
+  echo -e "${GREEN}#${RESET} pfELK was installed successfully"
   systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   echo -e "\\n"
   echo -e "Open your browser and connect to http://$SERVER_IP:5601 to open Kibana"
@@ -1430,6 +1434,7 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   remove_yourself
 else
   header_red
+  script_logo
   echo -e "\\n${RED}#${RESET} Failed to successfully install pfELK"
   echo -e "${RED}#${RESET} Please contact pfELK (pfELK.3ilson.dev) on github!${RESET}\\n\\n"
   remove_yourself
