@@ -51,7 +51,7 @@ systemctl start logstash.service
  >- You can import the dashboards found in the [dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard) folder via the Import button in the top-right corner.
  >- [Firewall Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Firewall.ndjson)
  >- [DHCP Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20DHCP.ndjson) - DHCPv4
- >- [HAProxy Dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard/v6.1) - Coming Soon
+ >- [HAProxy Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20HAProxy.ndjson)
  >- [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Unbound.ndjson)
  >- [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Snort.ndjson)
  >- [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Squid.ndjson)
