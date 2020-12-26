@@ -48,7 +48,7 @@
    - [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Snort.ndjson)
    - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Squid.ndjson)
    - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Suricata.ndjson)
-- YouTube Guide [here](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
+- :bulb: YouTube Guide [here](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  
 # Firewall 
 ### :one: pfSense 
