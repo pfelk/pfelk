@@ -69,7 +69,6 @@
   - Port = 5140
   - Description = pfELK
   - Click Save
-    - ![OPNsense](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
 ## Suricata (Optional)
 ### :three: pfSense 
  - On your pfSense web UI go to _Services -> Suricata -> Interfaces_, and enable Suricata on desired interfaces
