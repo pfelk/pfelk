@@ -7,12 +7,12 @@
 - [Finished](#finished)
 
 # Templates
-- This step may be omited, it you installed via [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh)
-### 1. Manual Method
+- This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
+### :one: Manual Method
 - In your web browser navigate to the pfELK IP address using port 5601 (ex: 192.168.0.1:5601)
 - Click ☰ in the upper left corner
 - Click on _Dev Tools_ located near the bottom under the _Management_ heading
-- Paste the contents of each template file located [here](https://github.com/pfelk/pfelk/tree/master/etc/logstash/conf.d/templates)
+- Paste the contents of each template file located [here](https://github.com/pfelk/pfelk/tree/master/etc/logstash/conf.d/templates) and linked below
   - Component Templates
   - :small_red_triangle: **NOTE** _Component Templates must be installed first and in sequential order (e.g. pfelk-settings, pfelk-mappings-ecs etc...)_
     - [pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-settings) - Install First
@@ -25,7 +25,7 @@
     - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-suricata)
 - Click the green triangle after pasting the contents (one at a time) into the console
 
-### 2. Scripted Method
+### :two: Scripted Method :page_with_curl:
 - Download the pfelk-template-installer
   - `wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-template-installer.sh`
 - Make the file executable 
@@ -34,8 +34,7 @@
   - `sudo ./pfelt-template-installer.sh`
 
 # Dashboards 
-### 1. Dashboards
-[YouTube Guide](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
+### :one: Dashboards
  - In your web browser go to the pfELK IP address followed by port 5601 (e.g. 192.168.0.1:5601)
  - Click the menu icon (☰ three horizontal lines) in the upper left
  - Under _Management_ click -> _Stack Management_ 
@@ -49,31 +48,31 @@
    - [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Snort.ndjson)
    - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Squid.ndjson)
    - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Suricata.ndjson)
+- YouTube Guide[here](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  
 # Firewall 
-### 1. pfSense 
-- In pfSense navigate to _Status -> System Logs_, then click on _Settings_
+### :one: pfSense 
+- Navigate to _Status -> System Logs_, then click on _Settings_
 - At the bottom check _Enable Remote Logging_
 - (Optional) Select a specific interface to use for forwarding
-- Enter the ELK IP address into the field _Remote log servers_ followed by port 5140 (e.g. 192.168.100.50:5140)
+- Input the ELK IP address into the field _Remote log servers_ followed by port 5140 (e.g. 192.168.100.50:5140)
 - Under _Remote Syslog Contents_ check _Everything_
 - Click Save
   - ![pfSense](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/pfsenselogs.png)
-### 2. OPNsense 
-- In OPNsense navigate to _System -> Settings -> Logging/Targets_
+### :two: OPNsense 
+- Navigate to _System -> Settings -> Logging/Targets_
 - Add a new _Logging/Target_ (Click the plus icon)
-- ![OPNsense](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-logs.png)
   - Transport = UDP(4)
   - Applications = Nothing Selected
   - Levels = Nothing Selected
   - Facilities = Nothing Selected
-  - Hostname = Enter the IP address of where pfELK is installed (eg 192.168.100.50)
+  - Hostname = Input the ELK IP address ointo (eg 192.168.100.50)
   - Port = 5140
   - Description = pfELK
   - Click Save
     - ![OPNsense](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
 ## Suricata (Optional)
-### 3. pfSense 
+### :three: pfSense 
  - On your pfSense web UI go to _Services -> Suricata -> Interfaces_, and enable Suricata on desired interfaces
  - You can have separate configuration for each of your interfaces, you can edit them via clicking on the pencil icon
  - Enable the EVE JSON output format for log forwarding, enabled the following options within the EVE Output Settings section:
@@ -84,7 +83,7 @@
    - EVE Log Alerts: Suricata will output Alerts via EVE
    - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility should be "LOCAL1", and the Log Priority should be "NOTICE".
  - In-Depth Guide Located [Here](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense)
-### 4. OPNsense (Optional)    
+### :four: OPNsense (Optional)    
  - In OPNsense navigate to _Services -> Intrusion Detection -> Administration_
    - Enable = [X]
    - IPS mode = [ ] or [X]
@@ -96,16 +95,15 @@
    - Rotate log = Default / Weekly / Daily
    - Save logs = Any Value You Desire
    - Click Apply
-     - ![OPNsense-Suricata](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG)
 ## Snort (Optional)
-### 5. pfSense (Only)
+### :five: pfSense (Only)
  - In pfSense navigate to _Services -> Snort -> Snort Interfaces_
  - For each configured interface, click on the pencil, to the right, to edit (repeat these steps for each)
  - In each "Interface" Settings -> under _Alert Settings_ check _Send Alerts to System Log_
  - Scroll down and choose _Save_
    - ![Snort-Log-Settings](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/snort-log-settings.png)
 ## HAProxy 
-### 6. HAProxy log forwarding - OPNsense (Optional)
+### :six: HAProxy log forwarding - OPNsense (Optional)
  - In OPNsense navigate to _Services -> HAProxy -> Settings -> Settings -> Logging Configuration_
  - Log Host = Enter the IP address of where pfELK is installed and the Port 5190 (e.g. 192.168.100.50:5190)
  - Syslog facility = local0[default]
@@ -115,23 +113,22 @@
  - Under _Option pass-through_ add _option httplog_
    - ![OPNsense-HAProxy](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_haproxy_http_log.PNG)
 ## Squid
-### 7. Squid  log forwarding - OPNsense (Optional)
+### :seven: Squid log forwarding - (Optional)
  - In OPNsense navigate to _Services -> Web Proxy -> Administration -> General Proxy Settings_
  - Enable _advanced mode_
  - Access log target = Syslog(JDOS)
    - ![OPNsense-Squid](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_squid_syslog.PNG)
 ## Unbound
-### 8. Configure Unbound DNS log forwarding - pfSense/OPNsense (Optional)
+### :eight: Configure Unbound DNS log forwarding - (Optional)
  - In OPNsense navigate to _Services -> Unbound DNS -> Advanced_
  - Log level verbosity = ```Level 0```
  - Log Queries = [X]
-   - ![pfSense/OPNsense-Unbound](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/unbound_logging.png)
    
 # Extras (Optional)
-### 1. Grafana Dashborads (Externally Supported)
+### :one: Grafana Dashborads (Externally Supported)
  - Visit [here](https://github.com/b4b857f6ee/opnsense_grafana_dashboard) to install/configure Grafana Dashboard
-### 2. Microsoft Azure Sentinel (Externally Supported)
+### :two: Microsoft Azure Sentinel (Externally Supported)
  - Visit [here](https://github.com/noodlemctwoodle/pfsense-azure-sentinel) to configure for Azure Sentinel
  
 # Finished
-### 1. :clock5: Wait a few mintues after configuring the above and explore the enriched visualizations.
+### :end: :clock5: Wait a few mintues after configuring the above and explore the enriched visualizations.
