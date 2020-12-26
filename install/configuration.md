@@ -1,25 +1,10 @@
 # Configuring (pfSense/OPNsense) + Elasticstack 
 ## Table of Contents
-- [Services](#services)
 - [Templates](#templates)
 - [Kibana](#kibana)
 - [Firewall](#firewall)
 - [Finished](#finished)
 
-# Services
-### 1a. Start Services on Boot (you'll need to reboot or start manually to proceed)
-```
-sudo /bin/systemctl daemon-reload
-sudo /bin/systemctl enable elasticsearch.service
-sudo /bin/systemctl enable kibana.service
-sudo /bin/systemctl enable logstash.service
-```
-### 1b. Start Services Manually
-```
-systemctl start elasticsearch.service 
-systemctl start kibana.service
-systemctl start logstash.service
-```
 
 ># Templates
 >### 2. Import required templates
