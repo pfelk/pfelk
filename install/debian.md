@@ -6,6 +6,7 @@
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
+- [Services](#services)
 
 # Preparation
 
@@ -131,4 +132,19 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/error-data.sh -P 
 sudo chmod +x /etc/pfELK/error-data.sh
 ```
 
-### 22. Complete Configuration --> [Configuration](configuration.md)
+# Services
+### 22. Start Services on Boot (you'll need to reboot or start manually to proceed)
+```
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable elasticsearch.service
+sudo /bin/systemctl enable kibana.service
+sudo /bin/systemctl enable logstash.service
+```
+### 23. Start Services Manually
+```
+systemctl start elasticsearch.service 
+systemctl start kibana.service
+systemctl start logstash.service
+```
+
+### 24. Complete Configuration --> [Configuration](configuration.md)
