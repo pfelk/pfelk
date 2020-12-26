@@ -3,13 +3,6 @@ PUT _index_template/pfelk-haproxy
   "version": 8,
   "priority": 90,
   "template": {
-    "settings": {
-      "index": {
-        "lifecycle": {
-          "name": "pfelk-ilm"
-        }
-      }
-    },
     "mappings": {
       "_routing": {
         "required": false
