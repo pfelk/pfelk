@@ -58,7 +58,6 @@
 - Input the ELK IP address into the field _Remote log servers_ followed by port 5140 (e.g. 192.168.100.50:5140)
 - Under _Remote Syslog Contents_ check _Everything_
 - Click Save
-  - ![pfSense](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/pfsenselogs.png)
 ### :two: OPNsense 
 - Navigate to _System -> Settings -> Logging/Targets_
 - Add a new _Logging/Target_ (Click the plus icon)
