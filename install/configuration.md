@@ -116,7 +116,7 @@
 ### :seven: Squid log forwarding - (Optional)
  - In OPNsense navigate to _Services -> Web Proxy -> Administration -> General Proxy Settings_
  - Enable _advanced mode_
- - Access log target = Syslog(JDOS)
+ - Access log target = Syslog(JSON)
    - ![OPNsense-Squid](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_squid_syslog.PNG)
 ## Unbound
 ### :eight: Configure Unbound DNS log forwarding - (Optional)
