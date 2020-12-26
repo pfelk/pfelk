@@ -1,9 +1,22 @@
 # Configuring ([pfSense](https://www.pfsense.org)/[OPNsense](https://opnsense.org)) + [ElasticStack](https://www.elastic.co/what-is/elk-stack)
 ## Table of Contents
 - [Templates](#templates)
+  - [Manaul-Method](#one-manual-method)
+  - [Scripted-Method](#two-scripted-method-page_with_curl)
 - [Dashboards](#dashboards)
 - [Firewall](#firewall)
+  - [pfSense](#one-pfsense)
+  - [OPNsense](#two-opnsense)
+  - [Suricata](#suricata-optional)
+    - [pfSense](#three-pfsense)
+    - [OPNSense](#four-opnsense)
+  - [Snort](#snort-optional)
+  - [HAProxy](#haproxy)
+  - [Squid](#squid)
+  - [Unbound](#unbound)
 - [Extras](#extras)
+  - [Grafana Dashboard](#one-grafana-dashborads-externally-supported)
+  - [Microsoft Azure Sentinel](#two-microsoft-azure-sentinel-externally-supported)
 - [Finished](#finished)
 
 # Templates
@@ -81,7 +94,7 @@
    - EVE Log Alerts: Suricata will output Alerts via EVE
    - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility should be "LOCAL1", and the Log Priority should be "NOTICE".
  - In-Depth Guide Located [Here](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense)
-### :four: OPNsense (Optional)    
+### :four: OPNsense     
  - In OPNsense navigate to _Services -> Intrusion Detection -> Administration_
    - Enable = [X]
    - IPS mode = [ ] or [X]
