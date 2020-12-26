@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 6.5
+# Version    | 6.6
 # Email      | support@pfelk.com
 # Website    | https://pfelk.3ilson.dev | https://pfelk.com
 #
@@ -130,7 +130,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-	pfELK Installation Script - version 6.5
+	pfELK Installation Script - version 6.6
 EOF
 }
 
@@ -375,10 +375,10 @@ if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
   echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed on your system!${RESET}\\n\\n"
   read -rp $'\033[39m#\033[0m Would you like to remove MaxMind GeoIP? (Y/n) ' yes_no
   case "$yes_no" in
-      [Yy]*|"")
-        rm --force "$0" 2> /dev/null
-        apt purge geoipupdate;;
-      [Nn]*);;
+	  [Yy]*|"")
+		rm --force "$0" 2> /dev/null
+		apt purge geoipupdate;;
+	  [Nn]*);;
   esac
 fi
 
@@ -527,6 +527,7 @@ system_memory=$(awk '/MemTotal/ {printf( "%.0f\n", $8 / 8192 / 8192)}' /proc/mem
 maxmind_username=$(echo "${maxmind_username}")
 maxmind_password=$(echo "${maxmind_password}")
 maxmind_install=''
+ILM_option=''
 system_free_disk_space=$(df -k / | awk '{print $4}' | tail -n1)
 system_free_disk_space_tmp=$(df -k /tmp | awk '{print $4}' | tail -n1)
 #
@@ -617,6 +618,30 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   fi
 fi
 
+# ILM Preference
+header
+echo -e "${WHITE_R}#${RESET} Do you want to enable ILM?${RESET}"; 
+echo -e "${WHITE_R}#${RESET} ILM is disabled by default but may also be enabled/configured later.${RESET}";
+echo -e "\\n";
+read -rp $'\033[39m#\033[0m Would you like to enable ILM? (y/N) ' yes_no
+case "$yes_no" in
+  [Yy]*)
+	echo -e "\\n";
+	echo -e "${RED}#${RESET} ILM will be configured!\\n"
+	ILM_option=true
+	sleep 3
+	echo -e "\\n"
+	;;
+  [Nn]*|"")
+	echo -e "\\n";
+	echo -e "${RED}#${RESET} ILM will not be configured!\\n"
+	ILM_option=false
+	sleep 3
+	echo -e "\\n"
+	;;
+	*) echo "invalid option $REPLY";;
+esac
+
 # MaxMind GeoIP install
 if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
    header
@@ -630,7 +655,7 @@ GeoIPType='Please specify GeoIP database type: '
 options=("MaxMind" "Elastic")
 select opt in "${options[@]}"
   do
-    case $opt in
+	case $opt in
 	  "MaxMind")
 		echo -e "\\n";
 		echo -e "${RED}#${RESET} MaxMind GeoIP Selected!\\n"
@@ -638,9 +663,9 @@ select opt in "${options[@]}"
 		read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Password credentials? (y/N) ' yes_no
 		  case "$yes_no" in
 		   [Yy]*)
-		     if [[ "${script_option_geoip}" != 'true' ]]; then
+			 if [[ "${script_option_geoip}" != 'true' ]]; then
 			   maxmind_install=true
-		 	   geoip_temp="$(mktemp --tmpdir=/tmp geoipupdate_${maxmind_version}_linux_amd64_XXX.deb)"
+				geoip_temp="$(mktemp --tmpdir=/tmp geoipupdate_${maxmind_version}_linux_amd64_XXX.deb)"
 			   echo -e "${WHITE_R}#${RESET} Downloading MaxMind v${maxmind_version} GeoIP..."
 			   if wget "${wget_progress[@]}" -qO "$geoip_temp" "https://github.com/maxmind/geoipupdate/releases/download/v${maxmind_version}/geoipupdate_${maxmind_version}_linux_amd64.deb"; then echo -e "${GREEN}#${RESET} Successfully downloaded MaxMind GeoIP! \\n"; else echo -e "${RED}#${RESET} Failed to download MaxMind GeoIP...\\n"; abort; fi;
 			 else
@@ -668,7 +693,7 @@ select opt in "${options[@]}"
 			 geoipupdate -d /usr/share/GeoIP
 			 sleep 2
 			 echo -e "\\n";;
-		   [No]*|"") 
+		   [Nn]*|"") 
 			 echo -e "${RED}#${RESET} MaxMind v${maxmind_version} not installed!"
 			 echo -e "${RED}#WARNING${RESET} Running Logstash without MaxMind will result in fatal errors...\\n"
 			 maxmind_install=false
@@ -685,7 +710,7 @@ select opt in "${options[@]}"
 		break
 		;;
 	  *) echo "invalid option $REPLY";;
-    esac
+	esac
   done
 fi
 
@@ -1243,27 +1268,45 @@ download_pfelk() {
 }
 download_pfelk
 
+# ILM
+ILM_option() {
+# ILM Configure 
+if [[ "${ILM_option}" == 'true' ]]; then
+  header
+  echo -e "${GREEN}#${RESET} Modifying 50-outputs.conf for ILM!${RESET}\\n\\n";
+  sed -i 's/#ILM#//' /etc/logstash/conf.d/50-outputs.conf
+  sleep 3
+fi
+# ILM Not Configured
+if ! [[ "${ILM_option}" == 'true' ]]; then
+  header
+  echo -e "${RED}#${RESET} ILM not configured!\\n\\n";
+  sleep 3
+fi
+}
+ILM_option
+
 # MaxMind
 maxmind_geoip() {
 # MaxMind check to ensure GeoIP database files were downloaded - Success
 if [[ "${maxmind_install}" == 'true' ]] && [[ -f /usr/share/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /usr/share/GeoIP/GeoLite2-ASN.mmdb ]]; then
-  echo "${RED}#${RESET} MaxMind Files Present"
+  echo "${GREEN}#${RESET} MaxMind Files Present"
   sleep 3
 fi
 # MaxMind check to ensure GeoIP database files are downloaded - Error Display
-if ! [[ "${maxmind_install}" == 'true' ]] && [[ -f /usr/share/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /usr/share/GeoIP/GeoLite2-ASN.mmdb ]]; then
+if [[ "${maxmind_install}" == 'true' ]] && ! [[ -f /usr/share/GeoIP/GeoLite2-City.mmdb ]] && ! [[ -f /usr/share/GeoIP/GeoLite2-ASN.mmdb ]]; then
   echo -e "${RED}#${RESET} Please Check Your MaxMind Configuration!"
-  echo -e "${RED}#${RESET} MaxMind Files Where Not Download."
+  echo -e "${RED}#${RESET} MaxMind Files Where Not Found."
   echo -e "${RED}#${RESET} Defaulting to Elastic GeoIP Database Files."
   maxmind_install=false
   sleep 4
 fi
 # MaxMind configuration, if utilized 
 if [[ "${maxmind_install}" == 'true' ]]; then
-	header
-	echo -e "${RED}#${RED} Modifying 30-geoip.conf for MaxMind!${RESET}\\n\\n";
-	sed -i 's/#MMR#//' /etc/logstash/conf.d/30-geoip.conf
-	sleep 3
+  header
+  echo -e "${RED}#${RED} Modifying 30-geoip.conf for MaxMind!${RESET}\\n\\n";
+  sed -i 's/#MMR#//' /etc/logstash/conf.d/30-geoip.conf
+  sleep 3
 fi
 }
 maxmind_geoip
@@ -1322,6 +1365,19 @@ rm --force "$logstash_temp" 2> /dev/null
 service logstash start || abort
 sleep 3
 
+# Download/Install Required Templates
+install_templates() {
+  header
+  script_logo
+  echo -e "${GREEN}#${RESET} Installting Templates!${RESET}\\n\\n";
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-template-installer.sh -P /tmp/pfELK/
+  chmod +x /tmp/pfELK/pfelk-template-installer.sh
+  /tmp/pfELK/pfelk-template-installer.sh
+  echo -e "\\n${WHITE_R}#${RESET} Installing Required Templates...\\n\\n"
+  sleep 4
+}
+install_templates
+
 # Kibana install
 if dpkg -l | grep "kibana" | grep -q "^ii\\|^hi"; then
   header
@@ -1355,17 +1411,12 @@ update_kibana() {
   rm /etc/kibana/kibana.yml
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/kibana/kibana.yml
   sudo systemctl restart kibana.service
+  header
+  script_logo
+  echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml...\\n\\n"
+  sleep 3
 }
 update_kibana
-
-# Add symbolic link for elasticsearch
-add_es_syslink() {
-  cd /etc/rc0.d
-  ln -sf ../init.d/elasticsearch K02elasticsearch
-  cd /etc/rc6.d
-  ln -sf ../init.d/elasticsearch K02elasticsearch
-}
-add_es_syslink
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -1385,6 +1436,15 @@ if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]];
 	  systemctl enable elasticsearch 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Elasticsearch"; sleep 3; }
 	fi
 fi
+
+# Add symbolic link for elasticsearch
+add_es_syslink() {
+  cd /etc/rc0.d
+  ln -sf ../init.d/elasticsearch K02elasticsearch
+  cd /etc/rc6.d
+  ln -sf ../init.d/elasticsearch K02elasticsearch
+}
+add_es_syslink
 
 # Check if Logstash service is enabled
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
