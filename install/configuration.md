@@ -39,7 +39,7 @@
  - Click the menu icon (☰ three horizontal lines) in the upper left
  - Under _Management_ click -> _Stack Management_ 
  - Under _Kibana_ click -> _Saved Objects_
- - The dashboards are located in the [dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard) folder 
+ - The dashboards are located in the [dashboard](https://github.com/pfelk/pfelk/tree/master/Dashboard) folder and linked below
  - Import one at a time by clicking the import button in the top-right corner
    - [Firewall Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Firewall.ndjson)
    - [DHCP Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20DHCP.ndjson) - DHCPv4
@@ -48,7 +48,7 @@
    - [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Snort.ndjson)
    - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Squid.ndjson)
    - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Suricata.ndjson)
-- YouTube Guide[here](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
+- YouTube Guide [here](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
  
 # Firewall 
 ### :one: pfSense 
