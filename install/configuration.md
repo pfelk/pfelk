@@ -44,7 +44,7 @@
 - Make the file executable 
   - `sudo chmod +x pfelk-template-installer.sh`
 - Execute the file
-  - `sudo ./pfelt-template-installer.sh`
+  - `sudo ./pfelk-template-installer.sh`
 
 # Dashboards 
 - This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
@@ -70,7 +70,7 @@
 - Make the file executable 
   - `sudo chmod +x pfelk-dashboard-installer.sh`
 - Execute the file
-  - `sudo ./pfelt-dashboard-installer.sh`
+  - `sudo ./pfelk-dashboard-installer.sh`
   
 # Firewall 
 ### :one: pfSense 
