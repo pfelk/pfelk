@@ -1,5 +1,4 @@
 curl -X PUT "localhost:9200/_component_template/pfelk-settings?pretty" -H 'Content-Type: application/json' -d'
-PUT _component_template/pfelk-settings
 {
   "version": 8,
   "template": {
@@ -3908,7 +3907,6 @@ curl -X PUT "localhost:9200/_index_template/pfelk-dhcp?pretty" -H 'Content-Type:
 }
 '
 curl -X PUT "localhost:9200/_index_template/pfelk-haproxy?pretty" -H 'Content-Type: application/json' -d'
-PUT _index_template/pfelk-haproxy
 {
   "version": 8,
   "priority": 90,
