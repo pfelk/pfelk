@@ -1,4 +1,5 @@
 curl -X PUT "localhost:9200/_component_template/pfelk-settings?pretty" -H 'Content-Type: application/json' -d'
+PUT _component_template/pfelk-settings
 {
   "version": 8,
   "template": {
@@ -11,6 +12,25 @@ curl -X PUT "localhost:9200/_component_template/pfelk-settings?pretty" -H 'Conte
 		},
 		"refresh_interval": "5s"
 	  }
+	},
+	"mappings": {
+	  "_routing": {
+		"required": false
+	  },
+	  "numeric_detection": false,
+	  "dynamic_date_formats": [
+		"strict_date_optional_time",
+		"yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z",
+		"dd/MMM/yyyy:hh:mm:ss:SSS"
+	  ],
+	  "dynamic": true,
+	  "_source": {
+		"excludes": [],
+		"includes": [],
+		"enabled": true
+	  },
+	  "dynamic_templates": [],
+	  "date_detection": true
 	}
   },
   "_meta": {
@@ -3888,6 +3908,7 @@ curl -X PUT "localhost:9200/_index_template/pfelk-dhcp?pretty" -H 'Content-Type:
 }
 '
 curl -X PUT "localhost:9200/_index_template/pfelk-haproxy?pretty" -H 'Content-Type: application/json' -d'
+PUT _index_template/pfelk-haproxy
 {
   "version": 8,
   "priority": 90,
@@ -3900,7 +3921,7 @@ curl -X PUT "localhost:9200/_index_template/pfelk-haproxy?pretty" -H 'Content-Ty
 	  "dynamic_date_formats": [
 		"strict_date_optional_time",
 		"yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z",
-		"dd/MMM/yyyy:HH:mm:ss.Z"
+		"dd/MMM/yyyy:hh:mm:ss:SSS"
 	  ],
 	  "dynamic": true,
 	  "_source": {
