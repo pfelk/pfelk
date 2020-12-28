@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 0.1
+# Version    | 1.0
 # Email      | support@pfelk.com
 # Website    | https://pfelk.3ilson.dev | https://pfelk.com
 #
@@ -9,13 +9,13 @@
 #                                                                                   pfELK - Download Saved Objects                                                                                #
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20DHCP.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Firewall.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20HAProxy.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Snort.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Squid.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Suricata.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/v6.1%20-%20Unbound.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/DHCP.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Firewall.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/HAProxy.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Snort.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Squid.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Suricata.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Unbound.ndjson -P /tmp/pfELK/
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                   pfELK - Installing Saved Objects                                                                              #
