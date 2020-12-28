@@ -47,7 +47,8 @@
   - `sudo ./pfelt-template-installer.sh`
 
 # Dashboards 
-### :one: Dashboards
+- This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
+### :one: Manual Method
  - In your web browser go to the pfELK IP address followed by port 5601 (e.g. 192.168.0.1:5601)
  - Click the menu icon (☰ three horizontal lines) in the upper left
  - Under _Management_ click -> _Stack Management_ 
@@ -62,7 +63,15 @@
    - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Squid.ndjson)
    - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Suricata.ndjson)
 - :bulb: YouTube Guide [here](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
- 
+
+### :two: Scripted Method :page_with_curl:
+- Download the pfelk-dashboard-installer
+  - `wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-dashboard-installer.sh`
+- Make the file executable 
+  - `sudo chmod +x pfelk-dashboard-installer.sh`
+- Execute the file
+  - `sudo ./pfelt-dashboard-installer.sh`
+  
 # Firewall 
 ### :one: pfSense 
 - Navigate to _Status -> System Logs_, then click on _Settings_
