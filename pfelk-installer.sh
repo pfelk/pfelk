@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 6.6
+# Version    | 6.7
 # Email      | support@pfelk.com
 # Website    | https://pfelk.3ilson.dev | https://pfelk.com
 #
@@ -130,7 +130,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-	pfELK Installation Script - version 6.6
+	pfELK Installation Script - version 6.7
 EOF
 }
 
@@ -626,14 +626,12 @@ echo -e "\\n";
 read -rp $'\033[39m#\033[0m Would you like to enable ILM? (y/N) ' yes_no
 case "$yes_no" in
   [Yy]*)
-	echo -e "\\n";
 	echo -e "${RED}#${RESET} ILM will be configured!\\n"
 	ILM_option=true
 	sleep 3
 	echo -e "\\n"
 	;;
   [Nn]*|"")
-	echo -e "\\n";
 	echo -e "${RED}#${RESET} ILM will not be configured!\\n"
 	ILM_option=false
 	sleep 3
@@ -657,7 +655,6 @@ select opt in "${options[@]}"
   do
 	case $opt in
 	  "MaxMind")
-		echo -e "\\n";
 		echo -e "${RED}#${RESET} MaxMind GeoIP Selected!\\n"
 		#sleep 3
 		read -rp $'\033[39m#\033[0m Do you have your MaxMind Account and Password credentials? (y/N) ' yes_no
@@ -703,7 +700,6 @@ select opt in "${options[@]}"
 		break
 		;;
 	  "Elastic")
-		echo -e "\\n";
 		echo -e "${RED}#${RESET} Elastic's Built-In GeoIP Selected!\\n"
 		sleep 3
 		echo -e "\\n"
@@ -1263,7 +1259,7 @@ download_pfelk() {
   chmod +x /etc/pfELK/pfelk-error.sh
   header
   script_logo
-  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure...\\n\\n"
+  echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure...\\n"
   sleep 4
 }
 download_pfelk
@@ -1273,14 +1269,8 @@ ILM_option() {
 # ILM Configure 
 if [[ "${ILM_option}" == 'true' ]]; then
   header
-  echo -e "${GREEN}#${RESET} Modifying 50-outputs.conf for ILM!${RESET}\\n\\n";
+  echo -e "\\n${GREEN}#${RESET} Modifying 50-outputs.conf for ILM!${RESET}\\n";
   sed -i 's/#ILM#//' /etc/logstash/conf.d/50-outputs.conf
-  sleep 3
-fi
-# ILM Not Configured
-if ! [[ "${ILM_option}" == 'true' ]]; then
-  header
-  echo -e "${RED}#${RESET} ILM not configured!\\n\\n";
   sleep 3
 fi
 }
@@ -1290,12 +1280,12 @@ ILM_option
 maxmind_geoip() {
 # MaxMind check to ensure GeoIP database files were downloaded - Success
 if [[ "${maxmind_install}" == 'true' ]] && [[ -f /usr/share/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /usr/share/GeoIP/GeoLite2-ASN.mmdb ]]; then
-  echo "${GREEN}#${RESET} MaxMind Files Present"
+  echo "\\n${GREEN}#${RESET} MaxMind Files Present"
   sleep 3
 fi
 # MaxMind check to ensure GeoIP database files are downloaded - Error Display
 if [[ "${maxmind_install}" == 'true' ]] && ! [[ -f /usr/share/GeoIP/GeoLite2-City.mmdb ]] && ! [[ -f /usr/share/GeoIP/GeoLite2-ASN.mmdb ]]; then
-  echo -e "${RED}#${RESET} Please Check Your MaxMind Configuration!"
+  echo -e "\\n${RED}#${RESET} Please Check Your MaxMind Configuration!"
   echo -e "${RED}#${RESET} MaxMind Files Where Not Found."
   echo -e "${RED}#${RESET} Defaulting to Elastic GeoIP Database Files."
   maxmind_install=false
@@ -1304,7 +1294,7 @@ fi
 # MaxMind configuration, if utilized 
 if [[ "${maxmind_install}" == 'true' ]]; then
   header
-  echo -e "${RED}#${RED} Modifying 30-geoip.conf for MaxMind!${RESET}\\n\\n";
+  echo -e "\\n${RED}#${RED} Modifying 30-geoip.conf for MaxMind!${RESET}\\n\\n";
   sed -i 's/#MMR#//' /etc/logstash/conf.d/30-geoip.conf
   sleep 3
 fi
@@ -1326,7 +1316,7 @@ else
 	else
 	  echo -e "${GREEN}#${RESET} Elasticsearch has already been downloaded!"
 	fi
-	echo -e "${WHITE_R}#${RESET} Installing the Elasticsearch..."
+	echo -e "${WHITE_R}#${RESET} Installing Elasticsearch..."
 	echo "elasticsearch elasticsearch/has_backup boolean true" 2> /dev/null | debconf-set-selections
 	if DEBIAN_FRONTEND=noninteractive dpkg -i "$elasticsearch_temp" &>> "${pfELK_dir}/logs/elasticsearch_install.log"; then
 	  echo -e "${GREEN}#${RESET} Successfully installed Elasticsearch! \\n"
@@ -1353,7 +1343,7 @@ else
 	else
 	  echo -e "${GREEN}#${RESET} Logstash has already been downloaded!"
 	fi
-	echo -e "${WHITE_R}#${RESET} Installing the Logstash..."
+	echo -e "${WHITE_R}#${RESET} Installing Logstash..."
 	echo "logstash logstash/has_backup boolean true" 2> /dev/null | debconf-set-selections
 	if DEBIAN_FRONTEND=noninteractive dpkg -i "$logstash_temp" &>> "${pfELK_dir}/logs/logstash_install.log"; then
 	  echo -e "${GREEN}#${RESET} Successfully installed Logstash! \\n"
@@ -1367,14 +1357,33 @@ sleep 3
 
 # Download/Install Required Templates
 install_templates() {
-  header
-  script_logo
-  echo -e "${GREEN}#${RESET} Installting Templates!${RESET}\\n\\n";
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-template-installer.sh -P /tmp/pfELK/
-  chmod +x /tmp/pfELK/pfelk-template-installer.sh
-  /tmp/pfELK/pfelk-template-installer.sh
-  echo -e "\\n${WHITE_R}#${RESET} Installing Required Templates...\\n\\n"
-  sleep 4
+header
+script_logo
+if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
+  SERVICE_ELASTIC=$(systemctl is-active elasticsearch)
+	if ! [ "$SERVICE_ELASTIC" = 'active' ]; then
+	   { echo -e "\\n${RED}#${RESET} Failed to install pfELK Templates"; sleep 3; }
+	else
+	   echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
+	   wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-template-installer.sh -P /tmp/pfELK/
+	   chmod +x /tmp/pfELK/pfelk-template-installer.sh
+	   /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
+	   echo -e "${GREEN}#${RESET} Done."
+	   sleep 3
+	fi
+else
+  SERVICE_ELASTIC=$(systemctl is-active elasticsearch)
+	if ! [ "$SERVICE_ELASTIC" = 'active' ]; then
+	  { echo -e "\\n${WHITE_R}#${RESET} Failed to install pfELK Templates"; sleep 3; }
+	else
+	   echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
+	   wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-template-installer.sh -P /tmp/pfELK/
+	   chmod +x /tmp/pfELK/pfelk-dashboard-installer.sh
+	   /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
+	   echo -e "${GREEN}#${RESET} Done."
+	   sleep 3
+	fi
+fi
 }
 install_templates
 
@@ -1393,7 +1402,7 @@ else
 	else
 	  echo -e "${GREEN}#${RESET} Kibana has already been downloaded!"
 	fi
-	echo -e "${WHITE_R}#${RESET} Installing the Kibana..."
+	echo -e "${WHITE_R}#${RESET} Installing Kibana..."
 	echo "kibana kibana/has_backup boolean true" 2> /dev/null | debconf-set-selections
 	if DEBIAN_FRONTEND=noninteractive dpkg -i "$kibana_temp" &>> "${pfELK_dir}/logs/kibana_install.log"; then
 	  echo -e "${GREEN}#${RESET} Successfully installed Kibana! \\n"
@@ -1407,16 +1416,47 @@ sleep 3
 
 # Download Kibana.yml & Restart Kibana
 update_kibana() {
-  cd /etc/kibana
-  rm /etc/kibana/kibana.yml
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/kibana/kibana.yml
-  sudo systemctl restart kibana.service
   header
   script_logo
-  echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml...\\n\\n"
+  rm /etc/kibana/kibana.yml
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/kibana/kibana.yml -P /etc/kibana/
+  systemctl restart kibana.service
+  echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml..."
   sleep 3
 }
 update_kibana
+
+# Download/Install Dashboard (saved objects)
+install_kibana_saved_objects() {
+header
+  script_logo
+if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
+  SERVICE_KIBANA=$(systemctl is-active kibana)
+	if ! [ "$SERVICE_KIBANA" = 'active' ]; then
+	   { echo -e "\\n${RED}#${RESET} Failed to Install pfELK Dashboards\\n\\n"; sleep 3; }
+	else
+	   echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects (i.e. pfELK Dashboards)!${RESET}";
+	   wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-dashboard-installer.sh -P /tmp/pfELK/
+	   chmod +x /tmp/pfELK/pfelk-dashboard-installer.sh
+	   /tmp/pfELK/pfelk-dashboard-installer.sh > /dev/null 2>&1
+	   echo -e "${GREEN}#${RESET} Done."
+	   sleep 3
+	fi
+else
+  SERVICE_KIBANA=$(systemctl is-active kibana)
+	if ! [ "$SERVICE_KIBANA" = 'active' ]; then
+	  { echo -e "${RED}#${RESET} Failed to Install pfELK Dashboards\\n\\n"; sleep 3; }
+	else
+	   echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects (i.e. pfELK Dashboards)!${RESET}";
+	   wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-dashboard-installer.sh -P /tmp/pfELK/
+	   chmod +x /tmp/pfELK/pfelk-dashboard-installer.sh
+	   /tmp/pfELK/pfelk-dashboard-installer.sh
+	   echo -e "${GREEN}#${RESET} Done."
+	   sleep 3
+	fi
+fi
+}
+install_kibana_saved_objects
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -1466,8 +1506,8 @@ if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]];
 	  systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
 	fi
   else
-	SERVICE_ELASTIC=$(systemctl is-enabled kibana)
-	if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
+	SERVICE_KIBANA=$(systemctl is-enabled kibana)
+	if [ "$SERVICE_KIBANA" = 'disabled' ]; then
 	  systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
 	fi
 fi
@@ -1487,15 +1527,15 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   echo -e "${GREEN}#${RESET} pfELK was installed successfully"
   systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   echo -e "\\n"
-  echo -e "Open your browser and connect to http://$SERVER_IP:5601 to open Kibana"
-  echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> https://github.com/pfelk/pfelk/blob/master/install/configuration.md\\n"
+  echo -e "Open your browser and connect to ${GREEN}http://$SERVER_IP:5601${RESET}\\n"
+  echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> ${GREEN}https://github.com/pfelk/pfelk/blob/master/install/configuration.md${RESET}\\n"
   echo -e "\\n"
-  sleep 5
+  sleep 3
   remove_yourself
 else
   header_red
   script_logo
   echo -e "\\n${RED}#${RESET} Failed to successfully install pfELK"
-  echo -e "${RED}#${RESET} Please contact pfELK (pfELK.3ilson.dev) on github!${RESET}\\n\\n"
+  echo -e "${RED}#${RESET} Please contact pfELK (${RED}pfELK.3ilson.dev${RESET}) on github!${RESET}\\n\\n"
   remove_yourself
 fi
