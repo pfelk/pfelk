@@ -1,17 +1,11 @@
-## Welcome to (pfSense/OPNsense) + Elastic Stack  
-
-![pfelk dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/dashboard-v6.0.gif)
-
-
 ![Version badge](https://img.shields.io/badge/ELK-7.10.1-blue.svg)
 [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson) 
-
-You can view installation guide guide on [3ilson YouTube Channel](https://www.youtube.com/3ilson).
-
 [![Star](https://img.shields.io/github/stars/pfelk/pfelk?style=plastic)](https://github.com/pfelk/pfelk/stargazers) 
 [![Fork](https://img.shields.io/github/forks/pfelk/pfelk?style=plastic)](https://github.com/pfelk/pfelk/network/members)
 [![Issues](https://img.shields.io/github/issues/pfelk/pfelk?style=plastic)](https://github.com/pfelk/pfelk/issues)
+## Welcome to (pfSense/OPNsense) + Elastic Stack  
+![pfelk dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/dashboard-v6.0.gif)
 
 You can view installation guide guide on [3ilson YouTube Channel](https://www.youtube.com/3ilson).
 
