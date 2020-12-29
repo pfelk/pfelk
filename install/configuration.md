@@ -151,14 +151,14 @@
  - Enable _advanced mode_
  - Access log target = Syslog(JSON)
 
-:pushpin: Reference:[Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_squid_syslog.PNG)
+:pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_squid_syslog.PNG)
 ## Unbound
 ### :eight: Configure Unbound DNS log forwarding - (Optional)
  - In OPNsense navigate to _Services -> Unbound DNS -> Advanced_
  - Log level verbosity = ```Level 0```
  - Log Queries = [X]
 
-:pushpin: Reference:[Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/unbound_logging.png)
+:pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/unbound_logging.png)
 
 # Extras (Optional)
 ### :one: Grafana Dashborads (Externally Supported)
