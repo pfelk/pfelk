@@ -11,7 +11,7 @@ PUT _index_template/pfelk-haproxy
       "dynamic_date_formats": [
         "strict_date_optional_time",
         "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z",
-        "dd/MMM/yyyy:hh:mm:ss:SSS"
+        "dd/MMM/yyyy:HH:mm:ss.SSS"
       ],
       "dynamic": true,
       "_source": {
