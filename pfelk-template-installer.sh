@@ -47,39 +47,39 @@ curl -X PUT "localhost:9200/_component_template/pfelk-settings?pretty" -H 'Conte
 {
   "version": 8,
   "template": {
-	"settings": {
-	  "index": {
-		"mapping": {
-		  "total_fields": {
-			"limit": "10000"
-		  }
-		},
-		"refresh_interval": "5s"
-	  }
-	},
-	"mappings": {
-	  "_routing": {
-		"required": false
-	  },
-	  "numeric_detection": false,
-	  "dynamic_date_formats": [
-		"strict_date_optional_time",
-		"yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z",
-		"dd/MMM/yyyy:hh:mm:ss:SSS"
-	  ],
-	  "dynamic": true,
-	  "_source": {
-		"excludes": [],
-		"includes": [],
-		"enabled": true
-	  },
-	  "dynamic_templates": [],
-	  "date_detection": true
-	}
+    "settings": {
+      "index": {
+        "mapping": {
+          "total_fields": {
+            "limit": "10000"
+          }
+        },
+        "refresh_interval": "5s"
+      }
+    },
+    "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
+      "dynamic_date_formats": [
+        "strict_date_optional_time",
+        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z",
+        "dd/MMM/yyyy:HH:mm:ss.SSS"
+      ],
+      "dynamic": true,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic_templates": [],
+      "date_detection": true
+    }
   },
   "_meta": {
-	"description": "default settings for the pfelk indexes installed by pfelk",
-	"managed": true
+    "description": "default settings for the pfelk indexes installed by pfelk",
+    "managed": true
   }
 }
 '
@@ -3956,174 +3956,174 @@ curl -X PUT "localhost:9200/_index_template/pfelk-haproxy?pretty" -H 'Content-Ty
   "version": 8,
   "priority": 90,
   "template": {
-	"mappings": {
-	  "_routing": {
-		"required": false
-	  },
-	  "numeric_detection": false,
-	  "dynamic_date_formats": [
-		"strict_date_optional_time",
-		"yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z",
-		"dd/MMM/yyyy:hh:mm:ss:SSS"
-	  ],
-	  "dynamic": true,
-	  "_source": {
-		"excludes": [],
-		"includes": [],
-		"enabled": true
-	  },
-	  "date_detection": true,
-	  "properties": {
-		"haproxy": {
-		  "type": "object",
-		  "properties": {
-			"server_name": {
-			  "eager_global_ordinals": false,
-			  "norms": false,
-			  "index": true,
-			  "store": false,
-			  "type": "keyword",
-			  "fields": {
-				"text": {
-				  "type": "text"
-				}
-			  },
-			  "index_options": "docs",
-			  "split_queries_on_whitespace": false,
-			  "doc_values": true
-			},
-			"termination_state": {
-			  "eager_global_ordinals": false,
-			  "norms": false,
-			  "index": true,
-			  "store": false,
-			  "type": "keyword",
-			  "fields": {
-				"text": {
-				  "type": "text"
-				}
-			  },
-			  "index_options": "docs",
-			  "split_queries_on_whitespace": false,
-			  "doc_values": true
-			},
-			"time_queue": {
-			  "type": "long"
-			},
-			"bytes_read": {
-			  "type": "long"
-			},
-			"mode": {
-			  "type": "keyword"
-			},
-			"backend_queue": {
-			  "type": "long"
-			},
-			"backend_name": {
-			  "eager_global_ordinals": false,
-			  "norms": false,
-			  "index": true,
-			  "store": false,
-			  "type": "keyword",
-			  "fields": {
-				"text": {
-				  "type": "text"
-				}
-			  },
-			  "index_options": "docs",
-			  "split_queries_on_whitespace": false,
-			  "doc_values": true
-			},
-			"frontend_name": {
-			  "eager_global_ordinals": false,
-			  "norms": false,
-			  "index": true,
-			  "store": false,
-			  "type": "keyword",
-			  "fields": {
-				"text": {
-				  "type": "text"
-				}
-			  },
-			  "index_options": "docs",
-			  "split_queries_on_whitespace": false,
-			  "doc_values": true
-			},
-			"http": {
-			  "type": "object",
-			  "properties": {
-				"request": {
-				  "type": "object",
-				  "properties": {
-					"captured_cookie": {
-					  "type": "text",
-					  "fields": {
-						"keyword": {
-						  "type": "keyword"
-						}
-					  }
-					}
-				  }
-				},
-				"response": {
-				  "type": "object",
-				  "properties": {
-					"captured_cookie": {
-					  "type": "text",
-					  "fields": {
-						"keyword": {
-						  "type": "keyword"
-						}
-					  }
-					}
-				  }
-				}
-			  }
-			},
-			"server_queue": {
-			  "type": "long"
-			},
-			"time_backend_connect": {
-			  "type": "long"
-			},
-			"connections": {
-			  "type": "object",
-			  "properties": {
-				"retries": {
-				  "type": "long"
-				},
-				"server": {
-				  "type": "long"
-				},
-				"active": {
-				  "type": "long"
-				},
-				"backend": {
-				  "type": "long"
-				},
-				"frontend": {
-				  "type": "long"
-				}
-			  }
-			},
-			"timestamp": {
-			  "type": "date"
-			}
-		  }
-		}
-	  }
-	}
+    "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
+      "dynamic_date_formats": [
+        "strict_date_optional_time",
+        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z",
+        "dd/MMM/yyyy:HH:mm:ss.SSS"
+      ],
+      "dynamic": true,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "date_detection": true,
+      "properties": {
+        "haproxy": {
+          "type": "object",
+          "properties": {
+            "server_name": {
+              "eager_global_ordinals": false,
+              "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
+            },
+            "termination_state": {
+              "eager_global_ordinals": false,
+              "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
+            },
+            "time_queue": {
+              "type": "long"
+            },
+            "bytes_read": {
+              "type": "long"
+            },
+            "mode": {
+              "type": "keyword"
+            },
+            "backend_queue": {
+              "type": "long"
+            },
+            "backend_name": {
+              "eager_global_ordinals": false,
+              "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
+            },
+            "frontend_name": {
+              "eager_global_ordinals": false,
+              "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
+            },
+            "http": {
+              "type": "object",
+              "properties": {
+                "request": {
+                  "type": "object",
+                  "properties": {
+                    "captured_cookie": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "captured_cookie": {
+                      "type": "text",
+                      "fields": {
+                        "keyword": {
+                          "type": "keyword"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "server_queue": {
+              "type": "long"
+            },
+            "time_backend_connect": {
+              "type": "long"
+            },
+            "connections": {
+              "type": "object",
+              "properties": {
+                "retries": {
+                  "type": "long"
+                },
+                "server": {
+                  "type": "long"
+                },
+                "active": {
+                  "type": "long"
+                },
+                "backend": {
+                  "type": "long"
+                },
+                "frontend": {
+                  "type": "long"
+                }
+              }
+            },
+            "timestamp": {
+              "type": "date"
+            }
+          }
+        }
+      }
+    }
   },
   "index_patterns": [
-	"pfelk-haproxy-*"
+    "pfelk-haproxy-*"
   ],
   "composed_of": [
-	"pfelk-settings",
-	"pfelk-mappings-ecs"
+    "pfelk-settings",
+    "pfelk-mappings-ecs"
   ],
   "_meta": {
-	"description": "default haproxy indexes installed by pfelk",
-	"managed": true
+    "description": "default haproxy indexes installed by pfelk",
+    "managed": true
   }
 }
 '
