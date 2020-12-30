@@ -13,23 +13,23 @@ PUT _component_template/pfelk-settings
       }
     },
     "mappings": {
-      "dynamic": true,
-      "numeric_detection": false,
-      "date_detection": true,
-      "dynamic_date_formats": [
-        "strict_date_optional_time",
-        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z",
-        "dd/MMM/yyyy:hh:mm:ss:SSS"
-      ],
-      "_source": {
-        "enabled": true,
-        "includes": [],
-        "excludes": []
-      },
       "_routing": {
         "required": false
       },
-      "dynamic_templates": []
+      "numeric_detection": false,
+      "dynamic_date_formats": [
+        "strict_date_optional_time",
+        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z",
+        "dd/MMM/yyyy:HH:mm:ss.SSS"
+      ],
+      "dynamic": true,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic_templates": [],
+      "date_detection": true
     }
   },
   "_meta": {
