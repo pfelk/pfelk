@@ -655,6 +655,23 @@ PUT _index_template/pfelk-suricata
                     },
                     "http_content_type": {
                       "type": "keyword"
+                    },
+                    "content_range": {
+                      "type": "object",
+                      "properties": {
+                        "size": {
+                          "type": "long"
+                        },
+                        "start": {
+                          "type": "long"
+                        },
+                        "raw": {
+                          "type": "text"
+                        },
+                        "end": {
+                          "type": "long"
+                        }
+                      }
                     }
                   }
                 },
