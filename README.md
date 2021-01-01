@@ -65,7 +65,7 @@ Supported entries include:
  * Setup MaxMind
  * `$ docker-compose up`
 
-#### manual installation/script - preferred manual method
+#### script installation - preferred method
 * Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) repository
 ##### Ubuntu
 * `$ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh`
