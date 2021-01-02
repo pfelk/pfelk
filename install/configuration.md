@@ -1,4 +1,4 @@
-# Configuring ([pfSense](https://www.pfsense.org)/[OPNsense](https://opnsense.org)) + [ElasticStack](https://www.elastic.co/what-is/elk-stack)
+# Configuring 
 ## Table of Contents
 - [Templates](#templates)
   - [Manual-Method](#one-manual-method)
