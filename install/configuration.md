@@ -40,6 +40,8 @@
     - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-suricata)
 - Click the green triangle after pasting the contents (one at a time) into the console
 
+:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=6)
+
 ### :two: Scripted Method :page_with_curl:
 - Download the pfelk-template-installer
   - `wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-template-installer.sh`
@@ -47,6 +49,8 @@
   - `sudo chmod +x pfelk-template-installer.sh`
 - Execute the file
   - `sudo ./pfelk-template-installer.sh`
+
+:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=60)
 
 # Dashboards 
 - This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
@@ -65,7 +69,7 @@
    - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Squid.ndjson)
    - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Suricata.ndjson)
 
-:bulb: YouTube Guide [here](https://www.youtube.com/watch?v=r7ZXQH4UFX8)
+:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=281)
 
 ### :two: Scripted Method :page_with_curl:
 - Download the pfelk-dashboard-installer
@@ -74,6 +78,8 @@
   - `sudo chmod +x pfelk-dashboard-installer.sh`
 - Execute the file
   - `sudo ./pfelk-dashboard-installer.sh`
+
+:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=228)
   
 # Firewall 
 ### :one: pfSense 
@@ -96,6 +102,8 @@
   - Port = 5140
   - Description = pfELK
   - Click Save
+  
+:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=369)
   
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
 ## Suricata (Optional)
