@@ -1,13 +1,14 @@
 ![Version badge](https://img.shields.io/badge/ELK-7.10.1-blue.svg)
 [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson) 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson)
+
 [![Star](https://img.shields.io/github/stars/pfelk/pfelk?style=plastic)](https://github.com/pfelk/pfelk/stargazers) 
 [![Fork](https://img.shields.io/github/forks/pfelk/pfelk?style=plastic)](https://github.com/pfelk/pfelk/network/members)
 [![Issues](https://img.shields.io/github/issues/pfelk/pfelk?style=plastic)](https://github.com/pfelk/pfelk/issues)
+
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/3ilson)
 ## Welcome to (pfSense/OPNsense) + Elastic Stack  
 ![pfelk dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/Dashboard%20-%20v61.gif)
-
-You can view installation guide guide on [3ilson YouTube Channel](https://www.youtube.com/3ilson).
 
 ### Prerequisites
 - Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster are tested)
@@ -64,27 +65,22 @@ Supported entries include:
  * Clone the [docker-pfelk](https://github.com/pfelk/docker-pfelk) repository
  * Setup MaxMind
  * `$ docker-compose up`
+ * [:cinema: YouTube Guide](https://www.youtube.com/watch?v=MJVbLvdVtyY)
 
-#### script installation - preferred method
+#### script installation method
 * Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) repository
-##### Ubuntu
-* `$ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh`
-* Make script executable 
-* `$ sudo chmod +x pfelk-installer.sh`
-* Run installer script 
-* `$ sudo ./pfelk-installer.sh`
-* Finish Configuring [here](https://github.com/pfelk/pfelk/blob/master/install/configuration.md)
-##### Debian
 * `$ wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh`
 * Make script executable 
 * `$ chmod +x pfelk-installer.sh`
 * Run installer script 
 * `$ ./pfelk-installer.sh`
 * Finish Configuring [here](https://github.com/pfelk/pfelk/blob/master/install/configuration.md)
+* [:cinema: YouTube Guide](https://www.youtube.com/watch?v=qcGcsQQoPo0)
 
-#### manual installation
+#### manual installation method
 * [Ubuntu 18.04 / 20.04](https://github.com/pfelk/pfelk/blob/master/install/ubuntu.md)
 * [Debian 9-10.5](https://github.com/pfelk/pfelk/blob/master/install/debian.md)
+* [:cinema: YouTube Guide](https://www.youtube.com/watch?v=_IJAAUqNVRc)
 
 ### Roadmap
 This is the experimental public roadmap for the pfelk project.
