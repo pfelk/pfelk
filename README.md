@@ -53,7 +53,7 @@ Supported entries include:
 * [License](https://github.com/pfelk/pfelk#license)
 
 ### How pfelk works?
-![How pfelk works](https://github.com/pfelk/pfelk/raw/master/Images/pfELKOverview.PNG)
+* ![How pfelk works](https://github.com/pfelk/pfelk/raw/master/Images/pfELKOverview.PNG)
 ### Quick start
 
 ### Installation
