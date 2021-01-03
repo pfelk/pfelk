@@ -50,7 +50,7 @@
 - Execute the file
   - `sudo ./pfelk-template-installer.sh`
 
-:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=60)
+:cinema: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=60)
 
 # Dashboards 
 - This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
