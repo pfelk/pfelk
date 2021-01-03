@@ -14,7 +14,7 @@
 
 ### Roadmap
 - [ ] Enrich Snort 
-- [ ] Build out Suricata Dashboard *currenlty works with the built-in SEIM*
+- [ ] Build out Suricata Dashboard *currenlty works with the built-in SIEM*
 - [ ] Build out Snort Dashboard 
 
  :warning: Please only report bugs at this time... and feel free to contribute (enhance) as the rollout for this is low priority
