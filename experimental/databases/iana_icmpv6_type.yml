@@ -1,0 +1,69 @@
+###################################################################################################
+# (C)Copyright 2019 Robert Cowart
+# All Rights Reserved
+#
+# RESTRICTED RIGHTS
+#
+# This software is supplied under the terms of the applicable license agreement established between
+# Robert Cowart and the End User.
+#
+# Use, copying, publishing, repackaging, reselling, retransmitting, redistributing, or disclosing
+# the software is strictly prohibited unless otherwise provided in the license agreement. Any copy
+# must contain the above copyright notice and this restricted rights notice.
+#
+# UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING. THE SOFTWARE IS PROVIDED "AS IS",
+# WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN
+# NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+###################################################################################################
+
+"0": "Reserved"
+"1": "Destination Unreachable"
+"2": "Packet Too Big"
+"3": "Time Exceeded"
+"4": "Parameter Problem"
+"5-99": "Unassigned"
+"100": "Private Experimentation"
+"101": "Private Experimentation"
+"102-126": "Unassigned"
+"127": "Reserved for ICMPv6 Errors"
+"128": "Echo Request"
+"129": "Echo Reply"
+"130": "Multicast Listener Query"
+"131": "Multicast Listener Report"
+"132": "Multicast Listener Done"
+"133": "Router Solicitation"
+"134": "Router Advertisement"
+"135": "Neighbor Solicitation"
+"136": "Neighbor Advertisement"
+"137": "Redirect Message"
+"138": "Router Renumbering"
+"139": "ICMP Node Information Query"
+"140": "ICMP Node Information Response"
+"141": "Inverse Neighbor Discovery Solicitation"
+"142": "Inverse Neighbor Discovery Advertisement"
+"143": "Multicast Listener Report v2"
+"144": "Home Agent Address Discovery Request"
+"145": "Home Agent Address Discovery Reply"
+"146": "Mobile Prefix Solicitation"
+"147": "Mobile Prefix Advertisement"
+"148": "Certification Path Solicitation"
+"149": "Certification Path Advertisement"
+"150": "Experimental Mobility Protocols"
+"151": "Multicast Router Advertisement"
+"152": "Multicast Router Solicitation"
+"153": "Multicast Router Termination"
+"154": "FMIPv6"
+"155": "RPL Control"
+"156": "ILNPv6 Locator Update"
+"157": "Duplicate Address Request"
+"158": "Duplicate Address Confirmation"
+"159": "MPL Control"
+"160": "Extended Echo Request"
+"161": "Extended Echo Reply"
+"162-199": "Unassigned"
+"200": "Private Experimentation"
+"201": "Private Experimentation"
+"255": "Reserved for ICMPv6 Informational"

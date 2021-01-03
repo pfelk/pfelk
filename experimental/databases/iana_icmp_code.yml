@@ -1,0 +1,108 @@
+###################################################################################################
+# (C)Copyright 2019 Robert Cowart
+# All Rights Reserved
+#
+# RESTRICTED RIGHTS
+#
+# This software is supplied under the terms of the applicable license agreement established between
+# Robert Cowart and the End User.
+#
+# Use, copying, publishing, repackaging, reselling, retransmitting, redistributing, or disclosing
+# the software is strictly prohibited unless otherwise provided in the license agreement. Any copy
+# must contain the above copyright notice and this restricted rights notice.
+#
+# UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING. THE SOFTWARE IS PROVIDED "AS IS",
+# WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN
+# NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+###################################################################################################
+
+# Echo Reply
+"0..0": "No Code"
+
+# Destination Unreachable
+"3..0": "Network Unreachable"
+"3..1": "Host Unreachable"
+"3..2": "Protocol Unreachable"
+"3..3": "Port Unreachable"
+"3..4": "Don't Fragment Set"
+"3..5": "Source Route Failed"
+"3..6": "Destination Network Unknown"
+"3..7": "Destination Host Unknown"
+"3..8": "Source Host Isolated"
+"3..9": "Destination Network Prohibited"
+"3..10": "Destination Host Prohibited"
+"3..11": "Destination Network Unreachable for ToS"
+"3..12": "Destination Host Unreachable for ToS"
+"3..13": "Communication Prohibited"
+"3..14": "Host Precedence Violation"
+"3..15": "Precedence Cutoff"
+
+# Source Quench
+"4..0": "No Code"
+
+# Redirect
+"5..0": "Redirect Datagram for Network"
+"5..1": "Redirect Datagram for Host"
+"5..2": "Redirect Datagram for ToS and Network"
+"5..3": "Redirect Datagram for ToS and Host"
+
+# Alternate Host Address
+"6..0": "Alternate Address for Host"
+
+# Echo
+"8..0": "No Code"
+
+# Router Advertisement
+"9..0": "Router Advertisement"
+"9..16": "Does Not Route Common Traffic"
+
+# Router Solicitation
+"10..0": "No Code"
+
+# Time Exceeded
+"11..0": "TTL Exceeded in Transit"
+"11..1": "Fragment Reassembly Time Exceeded"
+
+# Parameter Problem
+"12..0": "Pointer Indicates Error"
+"12..1": "Required Option Missing"
+"12..2": "Bad Length"
+
+# Timestamp
+"13..0": "No Code"
+
+# Timestamp Reply
+"14..0": "No Code"
+
+# Information Request
+"15..0": "No Code"
+
+# Information Reply
+"16..0": "No Code"
+
+# Address Mask Request
+"17..0": "No Code"
+
+# Address Mask Reply
+"18..0": "No Code"
+
+# Photuris
+"40..0": "Bad SPI"
+"40..1": "Authentication Failed"
+"40..2": "Decompression Failed"
+"40..3": "Decryption Failed"
+"40..4": "Need Authentication"
+"40..5": "Need Authorization"
+
+# Extended Echo Request
+"42..0": "No Error"
+
+# Extended Echo Reply
+"43..0": "No Error"
+"43..1": "Malformed Query"
+"43..2": "No Such Interface"
+"43..3": "No Such Table Entry"
+"43..4": "Multiple Interfaces Satisfy Query"

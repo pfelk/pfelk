@@ -1,0 +1,69 @@
+###################################################################################################
+# (C)Copyright 2019 Robert Cowart
+# All Rights Reserved
+#
+# RESTRICTED RIGHTS
+#
+# This software is supplied under the terms of the applicable license agreement established between
+# Robert Cowart and the End User.
+#
+# Use, copying, publishing, repackaging, reselling, retransmitting, redistributing, or disclosing
+# the software is strictly prohibited unless otherwise provided in the license agreement. Any copy
+# must contain the above copyright notice and this restricted rights notice.
+#
+# UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING. THE SOFTWARE IS PROVIDED "AS IS",
+# WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN
+# NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+###################################################################################################
+
+"0": "Echo Reply"
+"1": "Unassigned"
+"2": "Unassigned"
+"3": "Destination Unreachable"
+"4": "Source Quench"
+"5": "Redirect"
+"6": "Alternate Host Address"
+"7": "Unassigned"
+"8": "Echo"
+"9": "Router Advertisement"
+"10": "Router Solicitation"
+"11": "Time Exceeded"
+"12": "Parameter Problem"
+"13": "Timestamp"
+"14": "Timestamp Reply"
+"15": "Information Request"
+"16": "Information Reply"
+"17": "Address Mask Request"
+"18": "Address Mask Reply"
+"19": "Reserved (Security)"
+"20": "Reserved (Robustness Experiment)"
+"21": "Reserved (Robustness Experiment)"
+"22": "Reserved (Robustness Experiment)"
+"23": "Reserved (Robustness Experiment)"
+"24": "Reserved (Robustness Experiment)"
+"25": "Reserved (Robustness Experiment)"
+"26": "Reserved (Robustness Experiment)"
+"27": "Reserved (Robustness Experiment)"
+"28": "Reserved (Robustness Experiment)"
+"29": "Reserved (Robustness Experiment)"
+"30": "Traceroute"
+"31": "Datagram Conversion Error"
+"32": "Mobile Host Redirect"
+"33": "IPv6 Where-Are-You"
+"34": "IPv6 I-Am-Here"
+"35": "Mobile Registration Request"
+"36": "Mobile Registration Reply"
+"37": "Domain Name Request"
+"38": "Domain Name Reply"
+"39": "SKIP"
+"40": "Photuris"
+"41": "Experimental Mobility"
+"42": "Extended Echo Request"
+"43": "Extended Echo Reply"
+"44-252": "Unassigned"
+"253": "RFC3692-style Experiment 1"
+"254": "RFC3692-style Experiment 2"
+"255": "Reserved"

@@ -1,0 +1,130 @@
+###################################################################################################
+# (C)Copyright 2019 Robert Cowart
+# All Rights Reserved
+#
+# RESTRICTED RIGHTS
+#
+# This software is supplied under the terms of the applicable license agreement established between
+# Robert Cowart and the End User.
+#
+# Use, copying, publishing, repackaging, reselling, retransmitting, redistributing, or disclosing
+# the software is strictly prohibited unless otherwise provided in the license agreement. Any copy
+# must contain the above copyright notice and this restricted rights notice.
+#
+# UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING. THE SOFTWARE IS PROVIDED "AS IS",
+# WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN
+# NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+###################################################################################################
+
+# Destination Unreachable
+"1..0": "No Route to Destination"
+"1..1": "Destination Prohibited"
+"1..2": "Beyond Scope of Source Address"
+"1..3": "Address Unreachable"
+"1..4": "Port Unreachable"
+"1..5": "Source Address Failed Policy"
+"1..6": "Reject Route to Destination"
+"1..7": "Error in Source Routing Header"
+
+# Packet Too Big
+"2..0": "No Code"
+
+# Time Exceeded
+"3..0": "Hop Limit Exceeded in Transit"
+"3..1": "Fragment Reassembly Time Exceeded"
+
+# Parameter Problem
+"4..0": "Erroneous Header Field"
+"4..1": "Unrecognized Next Header Type"
+"4..2": "Unrecognized IPv6 Option"
+"4..3": "IPv6 First Fragment Header Chain Incomplete"
+
+# Echo Request
+"128..0": "No Code"
+
+# Echo Reply
+"129..0": "No Code"
+
+# Multicast Listener Query
+"130..0": "No Code"
+
+# Multicast Listener Report
+"131..0": "No Code"
+
+# Multicast Listener Done
+"132..0": "No Code"
+
+# Router Solicitation
+"133..0": "No Code"
+
+# Router Advertisement
+"134..0": "No Code"
+
+# Neighbor Solicitation
+"135..0": "No Code"
+
+# Neighbor Advertisement
+"136..0": "No Code"
+
+# Redirect Message
+"137..0": "No Code"
+
+# Router Renumbering
+"138..0": "Router Renumbering Command"
+"138..1": "Router Renumbering Result"
+"138..255": "Sequence Number Reset"
+
+# ICMP Node Information Query
+"139..0": "IPv6 Address Query"
+"139..1": "Name Query"
+"139..2": "IPv4 Address Query"
+
+# ICMP Node Information Response
+"140..0": "Successful Reply"
+"140..1": "Refused by Responder"
+"140..2": "Qtype Unknown to Responder"
+
+# Inverse Neighbor Discovery Solicitation
+"141..0": "No Code"
+
+# Inverse Neighbor Discovery Advertisement
+"142..0": "No Code"
+
+# Home Agent Address Discovery Request
+"144..0": "No Code"
+
+# Home Agent Address Discovery Reply
+"145..0": "No Code"
+
+# Mobile Prefix Solicitation
+"146..0": "No Code"
+
+# Mobile Prefix Advertisement
+"147..0": "No Code"
+
+# Duplicate Address Request
+"157..0": "DAR Message"
+"157..1": "EDAR with 64-bit ROVR"
+"157..2": "EDAR with 128-bit ROVR"
+"157..3": "EDAR with 192-bit ROVR"
+"157..4": "EDAR with 256-bit ROVR"
+
+# Duplicate Address Confirmation
+"158..0": "DAC Message"
+"158..1": "EDAC with 64-bit ROVR"
+"158..2": "EDAC with 128-bit ROVR"
+"158..3": "EDAC with 192-bit ROVR"
+"158..4": "EDAC with 256-bit ROVR"
+
+# Extended Echo Request
+"160..0": "No Error"
+
+# Extended Echo Reply
+"161..0": "No Error"
+"161..1": "Malformed Query"
+"161..2": "No Such Interface"
+"161..3": "No Such Table Entry"
+"161..4": "Multiple Interfaces Satisfy Query"
