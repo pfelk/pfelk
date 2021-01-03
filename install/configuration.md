@@ -40,7 +40,7 @@
     - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-suricata)
 - Click the green triangle after pasting the contents (one at a time) into the console
 
-:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=6)
+:cinema: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=6)
 
 ### :two: Scripted Method :page_with_curl:
 - Download the pfelk-template-installer
@@ -69,7 +69,7 @@
    - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Squid.ndjson)
    - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Suricata.ndjson)
 
-:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=281)
+:cinema: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=281)
 
 ### :two: Scripted Method :page_with_curl:
 - Download the pfelk-dashboard-installer
@@ -79,7 +79,7 @@
 - Execute the file
   - `sudo ./pfelk-dashboard-installer.sh`
 
-:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=228)
+:cinema: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=228)
   
 # Firewall 
 ### :one: pfSense 
@@ -103,7 +103,7 @@
   - Description = pfELK
   - Click Save
   
-:bulb: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=369)
+:cinema: YouTube Guide [here](https://youtu.be/KV27ouVUGuc?t=369)
   
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
 ## Suricata (Optional)
@@ -132,14 +132,13 @@
    - Save logs = Any Value You Desire
    - Click Apply
    
-:pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG)
+:cinema: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG)
 ## Snort (Optional)
 ### :five: pfSense (Only)
  - In pfSense navigate to _Services -> Snort -> Snort Interfaces_
  - For each configured interface, click on the pencil, to the right, to edit (repeat these steps for each)
  - In each "Interface" Settings -> under _Alert Settings_ check _Send Alerts to System Log_
  - Scroll down and choose _Save_
-
 
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/snort-log-settings.png)
 ## HAProxy 
