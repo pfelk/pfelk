@@ -40,7 +40,7 @@
     - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-suricata)
 - Click the green triangle after pasting the contents (one at a time) into the console
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)][Guide](https://youtu.be/KV27ouVUGuc?t=6)
+![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white) [Guide](https://youtu.be/KV27ouVUGuc?t=6)
 
 ### :two: Scripted Method :page_with_curl:
 - Download the pfelk-template-installer
@@ -50,7 +50,7 @@
 - Execute the file
   - `sudo ./pfelk-template-installer.sh`
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)][Guide](https://youtu.be/KV27ouVUGuc?t=60)
+![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white) [Guide](https://youtu.be/KV27ouVUGuc?t=60)
 
 # Dashboards 
 - This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
@@ -69,7 +69,7 @@
    - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Squid.ndjson)
    - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Suricata.ndjson)
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)][Guide](https://youtu.be/KV27ouVUGuc?t=281)
+![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white) [Guide](https://youtu.be/KV27ouVUGuc?t=281)
 
 ### :two: Scripted Method :page_with_curl:
 - Download the pfelk-dashboard-installer
@@ -79,7 +79,7 @@
 - Execute the file
   - `sudo ./pfelk-dashboard-installer.sh`
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)][Guide](https://youtu.be/KV27ouVUGuc?t=228)
+![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white) [Guide](https://youtu.be/KV27ouVUGuc?t=228)
   
 # Firewall 
 ### :one: pfSense 
@@ -103,7 +103,7 @@
   - Description = pfELK
   - Click Save
   
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)][Guide](https://youtu.be/KV27ouVUGuc?t=369)
+![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white) [Guide](https://youtu.be/KV27ouVUGuc?t=369)
   
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
 ## Suricata (Optional)
@@ -132,7 +132,7 @@
    - Save logs = Any Value You Desire
    - Click Apply
    
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)][Guide](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG)
+![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white) [Guide](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG)
 ## Snort (Optional)
 ### :five: pfSense (Only)
  - In pfSense navigate to _Services -> Snort -> Snort Interfaces_
