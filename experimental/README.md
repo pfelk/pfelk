@@ -17,4 +17,4 @@
 - [ ] Build out Suricata Dashboard *currenlty works with the built-in SEIM*
 - [ ] Build out Snort Dashboard 
 
- :warning: Please only report bugs at this time... and please feel free to contribute (enhance) as the rollout for this is low priority
+ :warning: Please only report bugs at this time... and feel free to contribute (enhance) as the rollout for this is low priority
