@@ -54,6 +54,7 @@ Supported entries include:
 
 ### How pfelk works?
 * ![How pfelk works](https://github.com/pfelk/pfelk/raw/master/Images/pfELK-Overview.PNG)
+
 ### Quick start
 
 ### Installation
