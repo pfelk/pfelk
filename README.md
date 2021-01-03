@@ -65,7 +65,7 @@ Supported entries include:
  * Clone the [docker-pfelk](https://github.com/pfelk/docker-pfelk) repository
  * Setup MaxMind
  * `$ docker-compose up`
- * [:cinema: YouTube Guide](https://www.youtube.com/watch?v=MJVbLvdVtyY)
+ * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=MJVbLvdVtyY) Guide
 
 #### script installation method
 * Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) repository
@@ -75,12 +75,12 @@ Supported entries include:
 * Run installer script 
 * `$ ./pfelk-installer.sh`
 * Finish Configuring [here](https://github.com/pfelk/pfelk/blob/master/install/configuration.md)
-* [:cinema: YouTube Guide](https://www.youtube.com/watch?v=qcGcsQQoPo0)
+* [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=qcGcsQQoPo0) Guide
 
 #### manual installation method
 * [Ubuntu 18.04 / 20.04](https://github.com/pfelk/pfelk/blob/master/install/ubuntu.md)
 * [Debian 9-10.5](https://github.com/pfelk/pfelk/blob/master/install/debian.md)
-* [:cinema: YouTube Guide](https://www.youtube.com/watch?v=_IJAAUqNVRc)
+* [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=_IJAAUqNVRc) Guide
 
 ### Roadmap
 This is the experimental public roadmap for the pfelk project.
