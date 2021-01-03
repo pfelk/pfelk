@@ -106,7 +106,7 @@
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=369) Guide
   
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
-## Suricata (Optional)
+## Suricata - (Optional)
 ### :three: pfSense 
  - On your pfSense web UI go to _Services -> Suricata -> Interfaces_, and enable Suricata on desired interfaces
  - You can have separate configuration for each of your interfaces, you can edit them via clicking on the pencil icon
@@ -133,7 +133,7 @@
    - Click Apply
    
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG) Guide
-## Snort (Optional)
+## Snort - (Optional)
 ### :five: pfSense (Only)
  - In pfSense navigate to _Services -> Snort -> Snort Interfaces_
  - For each configured interface, click on the pencil, to the right, to edit (repeat these steps for each)
@@ -142,7 +142,7 @@
 
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/snort-log-settings.png)
 ## HAProxy 
-### :six: HAProxy log forwarding - OPNsense (Optional)
+### :six: HAProxy log forwarding - (Optional)
  - In OPNsense navigate to _Services -> HAProxy -> Settings -> Settings -> Logging Configuration_
  - Log Host = Enter the IP address of where pfELK is installed and the Port 5190 (e.g. 192.168.100.50:5190)
  - Syslog facility = local0[default]
@@ -167,7 +167,7 @@
 
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/unbound_logging.png)
 
-# Extras (Optional)
+# Extras - (Optional)
 ### :one: Grafana Dashborads (Externally Supported)
  - Visit [here](https://github.com/b4b857f6ee/opnsense_grafana_dashboard) to install/configure Grafana Dashboard
 ### :two: Microsoft Azure Sentinel (Externally Supported)
