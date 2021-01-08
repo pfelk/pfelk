@@ -1,7 +1,34 @@
 # pfelk.grok
-#########
-# 21.01 #
-#########
+################################################################################
+# Version: 21.01-1                                                             #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+################################################################################
+#
+# DHCPv4 (Optional)
+DHCPD_VIA via (%{IP:[dhcpv4][relay][ip]}|(?<[interface][name]>[^: ]+))
+DHCPD DHCP(%{DHCPD_DISCOVER}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})(: %{GREEDYDATA:[dhcpv4][option][message]})?
+DHCPD_DISCOVER (?<[dhcp][operation]>DISCOVER) from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
+DHCPD_OFFER_ACK (?<[dhcp][operation]>(OFFER|N?ACK)) on %{IP:[dhcpv4][client][ip]} to %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
+DHCPD_REQUEST (?<[dhcp][operation]>REQUEST) for %{IP:[dhcpv4][client][ip]}( \(%{DATA:[dhcpv4][server][ip]}\))? from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
+DHCPD_DECLINE (?<[dhcp][operation]>DECLINE) of %{IP:[dhcpv4][client][ip]} from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
+DHCPD_RELEASE (?<[dhcp][operation]>RELEASE) of %{IP:[dhcpv4][client][ip]} from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA} \((?<dhcpd_release>(not )?found)\)
+DHCPD_INFORM (?<[dhcp][operation]>INFORM) from %{IP:[dhcpv4][client][ip]}? %{DHCPD_VIA}
+DHCPD_LEASE (?<[dhcp][operation]>LEASE(QUERY|UNKNOWN|ACTIVE|UNASSIGNED)) (from|to) %{IP:[dhcpv4][client][ip]} for (IP %{IP:[dhcpv4][query][ip]}|client-id %{NOTSPACE:[dhcpv4][query][id]}|MAC address %{MAC:[dhcpv4][query][mac]})( \(%{NUMBER:[dhcpv4][query][associated]} associated IPs\))?
+DHCP_GENERAL %{GREEDYDATA:[dhcp][message]}
+
+# DHCPv6 (Optional - In Development)
+DHCPDv6 %{GREEDYDATA:[dhcpv6][operation]}
+
+# HAPROXY
+HAPROXY %{IP:[client][ip]}:%{INT:[client][port]} \[%{HAPROXYDATE:[haproxy][timestamp]}\] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]}/%{INT:[haproxy][time_backend_response]}/%{NOTSPACE:[host][uptime]} %{INT:[http][response][status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][http][request][captured_cookie]} %{DATA:[haproxy][http][response][captured_cookie]} %{NOTSPACE:[haproxy][termination_state]} %{INT:[haproxy][connections][active]}/%{INT:[haproxy][connections][frontend]}/%{INT:[haproxy][connections][backend]}/%{INT:[haproxy][connections][server]}/%{NOTSPACE:[haproxy][connections][retries]} %{INT:[haproxy][server_queue]}/%{INT:[haproxy][backend_queue]} (\{%{HAPROXYCAPTUREDREQUESTHEADERS}\})?( )?(\{%{HAPROXYCAPTUREDRESPONSEHEADERS}\})?( )?"(<BADREQ>|(%{WORD:[http][request][method]} (%{URIPROTO:[haproxy][mode]}://)?(?:%{USER:[user][name]}(?::[^@]*)?@)?(?:%{URIHOST:[http][request][referrer]})?(?:%{URIPATHPARAM:[http][mode]})?( HTTP/%{NUMBER:[http][version]})?))?"?
+
+# OPENVPN
+OPENVPN (%{OPENVPNIP}|%{OPENVPNUSER}|%{OPENVPNLOG})
+OPENVPNIP %{IP:[vpn][source][ip]}\:%{INT:[vpn][source][port]}%{SPACE}\[%{DATA:[vpn][client]}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
+OPENVPNUSER (%{WORD:[vpn][domain]}?\\)?(?<[vpn][user]>\b[+\w\.-]+\b)?/?%{IP:[vpn][source][ip]}:%{INT:[vpn][source][port]} peer info: IV_PLAT=%{WORD:[vpn][plat]}
+OPENVPNLOG %{GREEDYDATA:[vpn][log][message]}
 
 # PF
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
@@ -39,35 +66,14 @@ PF_APP_LOGOUT User (%{DATA:[pf][app][action]}) for user \'(%{DATA:[pf][app][user
 PF_APP_ERROR webConfigurator (%{DATA:[pf][app][action]}) for \'(%{DATA:[pf][app][user]})\' from (%{GREEDYDATA:[pf][remote][ip]})
 PF_APP_GEN (%{GREEDYDATA:[pf][app][action]})
 
-# DHCPv4 (Optional)
-DHCPD_VIA via (%{IP:[dhcpv4][relay][ip]}|(?<[interface][name]>[^: ]+))
-DHCPD DHCP(%{DHCPD_DISCOVER}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})(: %{GREEDYDATA:[dhcpv4][option][message]})?
-DHCPD_DISCOVER (?<[dhcp][operation]>DISCOVER) from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
-DHCPD_OFFER_ACK (?<[dhcp][operation]>(OFFER|N?ACK)) on %{IP:[dhcpv4][client][ip]} to %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
-DHCPD_REQUEST (?<[dhcp][operation]>REQUEST) for %{IP:[dhcpv4][client][ip]}( \(%{DATA:[dhcpv4][server][ip]}\))? from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
-DHCPD_DECLINE (?<[dhcp][operation]>DECLINE) of %{IP:[dhcpv4][client][ip]} from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
-DHCPD_RELEASE (?<[dhcp][operation]>RELEASE) of %{IP:[dhcpv4][client][ip]} from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA} \((?<dhcpd_release>(not )?found)\)
-DHCPD_INFORM (?<[dhcp][operation]>INFORM) from %{IP:[dhcpv4][client][ip]}? %{DHCPD_VIA}
-DHCPD_LEASE (?<[dhcp][operation]>LEASE(QUERY|UNKNOWN|ACTIVE|UNASSIGNED)) (from|to) %{IP:[dhcpv4][client][ip]} for (IP %{IP:[dhcpv4][query][ip]}|client-id %{NOTSPACE:[dhcpv4][query][id]}|MAC address %{MAC:[dhcpv4][query][mac]})( \(%{NUMBER:[dhcpv4][query][associated]} associated IPs\))?
-DHCP_GENERAL %{GREEDYDATA:[dhcp][message]}
-
-# DHCPv6 (Optional - In Development)
-DHCPDv6 %{GREEDYDATA:[dhcpv6][operation]}
-
-# OPENVPN
-OPENVPN (%{OPENVPNIP}|%{OPENVPNUSER}|%{OPENVPNLOG})
-OPENVPNIP %{IP:[vpn][source][ip]}\:%{INT:[vpn][source][port]}%{SPACE}\[%{DATA:[vpn][client]}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
-OPENVPNUSER (%{WORD:[vpn][domain]}?\\)?(?<[vpn][user]>\b[+\w\.-]+\b)?/?%{IP:[vpn][source][ip]}:%{INT:[vpn][source][port]} peer info: IV_PLAT=%{WORD:[vpn][plat]}
-OPENVPNLOG %{GREEDYDATA:[vpn][log][message]}
-
-# UNBOUND
-UNBOUND %{INT:[process][pgid]}:%{INT:[process][thread][id]}] %{LOGLEVEL:[log][level]}: %{IP:[client][ip]} %{GREEDYDATA:[dns][question][name]}\. %{WORD:[dns][answers][type]} %{WORD:[dns][question][class]}
-
 # SURICATA
 SURICATA \[%{NUMBER:[suricata][rule][uuid]}:%{NUMBER:[suricata][rule][id]}:%{NUMBER:[suricata][rule][version]}\]%{SPACE}%{GREEDYDATA:[suricata][rule][description]}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:[suricata][rule][category]}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:[suricata][priority]}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
 
 # SNORT
 SNORT \[%{INT:[rule][uuid]}\:%{INT:[rule][reference]}\:%{INT:[rule][version]}\].%{GREEDYDATA:[rule][description]}.\[Classification\: %{DATA:[rule][classification]}\].\[Priority\: %{INT:[priority]}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
 
-# HAPROXY
-HAPROXY %{IP:[client][ip]}:%{INT:[client][port]} \[%{HAPROXYDATE:[haproxy][timestamp]}\] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]}/%{INT:[haproxy][time_backend_response]}/%{NOTSPACE:[host][uptime]} %{INT:[http][response][status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][http][request][captured_cookie]} %{DATA:[haproxy][http][response][captured_cookie]} %{NOTSPACE:[haproxy][termination_state]} %{INT:[haproxy][connections][active]}/%{INT:[haproxy][connections][frontend]}/%{INT:[haproxy][connections][backend]}/%{INT:[haproxy][connections][server]}/%{NOTSPACE:[haproxy][connections][retries]} %{INT:[haproxy][server_queue]}/%{INT:[haproxy][backend_queue]} (\{%{HAPROXYCAPTUREDREQUESTHEADERS}\})?( )?(\{%{HAPROXYCAPTUREDRESPONSEHEADERS}\})?( )?"(<BADREQ>|(%{WORD:[http][request][method]} (%{URIPROTO:[haproxy][mode]}://)?(?:%{USER:[user][name]}(?::[^@]*)?@)?(?:%{URIHOST:[http][request][referrer]})?(?:%{URIPATHPARAM:[http][mode]})?( HTTP/%{NUMBER:[http][version]})?))?"?
+# SQUID
+SQUID %{IPORHOST:[source][ip]} %{NOTSPACE:[labels][request_status]}/%{NUMBER:[http][response][body][status_code]} %{NUMBER:[http][response][bytes]} %{NOTSPACE:[http][request][method]} (%{URIPROTO:[url][scheme]}://)?(?<[url][domain]>\S+?)(:%{INT:[url][port]})?(/%{NOTSPACE:[url][path]})?\s+%{NOTSPACE:[http][request][referrer]}\s+%{NOTSPACE:[lables][hierarchy_status]}/%{NOTSPACE:[destination][address]}\s+%{NOTSPACE:[http][response][mime_type]}
+
+# UNBOUND
+UNBOUND %{INT:[process][pgid]}:%{INT:[process][thread][id]}] %{LOGLEVEL:[log][level]}: %{IP:[client][ip]} %{GREEDYDATA:[dns][question][name]}\. %{WORD:[dns][answers][type]} %{WORD:[dns][question][class]}
