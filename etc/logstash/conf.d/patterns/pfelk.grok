@@ -76,4 +76,4 @@ SNORT \[%{INT:[rule][uuid]}\:%{INT:[rule][reference]}\:%{INT:[rule][version]}\].
 SQUID %{IPORHOST:[source][ip]} %{NOTSPACE:[labels][request_status]}/%{NUMBER:[http][response][body][status_code]} %{NUMBER:[http][response][bytes]} %{NOTSPACE:[http][request][method]} (%{URIPROTO:[url][scheme]}://)?(?<[url][domain]>\S+?)(:%{INT:[url][port]})?(/%{NOTSPACE:[url][path]})?\s+%{NOTSPACE:[http][request][referrer]}\s+%{NOTSPACE:[lables][hierarchy_status]}/%{NOTSPACE:[destination][address]}\s+%{NOTSPACE:[http][response][mime_type]}
 
 # UNBOUND
-UNBOUND %{INT:[process][pgid]}:%{INT:[process][thread][id]}] %{LOGLEVEL:[log][level]}: %{IP:[client][ip]} %{GREEDYDATA:[dns][question][name]}\. %{WORD:[dns][answers][type]} %{WORD:[dns][question][class]}
+UNBOUND %{INT:[process][pgid]}:%{INT:[process][thread][id]}] %{LOGLEVEL:[log][level]}: %{IP:[client][ip]} %{GREEDYDATA:[dns][question][name]}\. %{WORD:[dns][question][type]} %{WORD:[dns][question][class]}
