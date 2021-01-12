@@ -3,9 +3,9 @@
 ### Requirements 
 - [ ] Installation of pfELK
 - [ ] Copy files located in the [conf.d](https://github.com/pfelk/pfelk/tree/master/experimental/conf.d) folder to `/etc/logstash/conf.d/`
-- [ ] Copy files located in the [ruby]() folder to `/etc/logstash/conf.d/ruby/`
-- [ ] Copy files located in the [databases]() folder to `/etc/logstash/conf.d/databases/`
-  - Be sure to unzip [ip_rep_basic.yml.zip](https://github.com/pfelk/pfelk/raw/master/experimental/databases/ip_rep_basic.yml.zip)
+- [ ] Copy files located in the [ruby](https://github.com/pfelk/pfelk/tree/master/experimental/conf.d/ruby) folder to `/etc/logstash/conf.d/ruby/`
+- [ ] Copy files located in the [databases](https://github.com/pfelk/pfelk/tree/master/experimental/conf.d/databases) folder to `/etc/logstash/conf.d/databases/`
+  - Be sure to unzip [ip_rep_basic.yml.zip](https://github.com/pfelk/pfelk/raw/master/experimental/conf.d/databases/ip_rep_basic.yml.zip)
     - The file was too large to upload dirclty to GitHub
 
 - [ ] Restart logstash 
