@@ -2,8 +2,6 @@
 
 ### Requirements 
 - [ ] Installation of pfELK
-- [ ] Rename `45-cleanup.conf` => `95-cleanup.conf`
-- [ ] Rename `50-outputs.conf` => `99-outputs.conf`
 - [ ] Copy files located in the [conf.d](https://github.com/pfelk/pfelk/tree/master/experimental/conf.d) folder to `/etc/logstash/conf.d/`
 - [ ] Copy files located in the [ruby]() folder to `/etc/logstash/conf.d/ruby/`
 - [ ] Copy files located in the [databases]() folder to `/etc/logstash/conf.d/ruby/`
