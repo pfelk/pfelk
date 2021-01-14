@@ -1,25 +1,21 @@
 # Configuring 
 ## Table of Contents
-- [Templates](#templates)
-  - [Manual-Method](#one-manual-method)
-  - [Scripted-Method](#two-scripted-method-page_with_curl)
-- [Dashboards](#dashboards)
-  - [Manual-Method](https://github.com/pfelk/pfelk/blob/master/install/configuration.md#one-manual-method-1)
-  - [Scripted-Method](https://github.com/pfelk/pfelk/blob/master/install/configuration.md#two-scripted-method-page_with_curl-1)
-- [Firewall](#firewall)
-  - [pfSense](#one-pfsense)
-  - [OPNsense](#two-opnsense)
-  - [Suricata](#suricata-optional)
-    - [pfSense](#three-pfsense)
-    - [OPNSense](#four-opnsense)
-  - [Snort](#snort-optional)
-  - [HAProxy](#haproxy)
-  - [Squid](#squid)
-  - [Unbound](#unbound)
-- [Extras](#extras)
-  - [Grafana Dashboard](#one-grafana-dashborads-externally-supported)
-  - [Microsoft Azure Sentinel](#two-microsoft-azure-sentinel-externally-supported)
-- [Finished](#finished)
+- [Templates](#one-templates)
+  - [Manual-Method](#a-manual-method)
+  - [Scripted-Method](#b-scripted-method-page_with_curl)
+- [Dashboards](#two-dashboards)
+  - [Manual-Method](#a-manual-method-1)
+  - [Scripted-Method](#b-scripted-method-page_with_curl-1)
+- [Firewall](#three-firewall)
+  - [OPNsense](#b-opnsense)
+  - [pfSense](#a-pfsense)
+  - [Suricata](#four-suricata---optional)
+  - [Snort](#five-snort---optional)
+  - [HAProxy](#six-haproxy---optional)
+  - [Squid](#seven-squid---optional)
+  - [Unbound](#eight-Unbound---optional)
+- [Extras](#eight-extras---optional)
+- [Finished](#nine-finished)
 
 # :one: Templates
  :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
@@ -40,7 +36,8 @@
       - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-suricata)
 - Click the green triangle after pasting the contents (one at a time) into the console
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=6) Guide
+  5. :pushpin: References
+      - [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=6) Guide
 
 - ### :b: Scripted Method :page_with_curl:
   1. Download the pfelk-template-installer
@@ -49,8 +46,8 @@
       - `sudo chmod +x pfelk-template-installer.sh`
   3. Execute the file
       - `sudo ./pfelk-template-installer.sh`
-
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=60) Guide
+  4. :pushpin:  References
+      - [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=60) Guide
 
 # :two: Dashboards 
  :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
@@ -68,8 +65,8 @@
       - [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Snort.ndjson)
       - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Squid.ndjson)
       - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Suricata.ndjson)
-
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=281) Guide
+  7. :pushpin: References
+      - [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=281) Guide
 
 - ### :b: Scripted Method :page_with_curl:
   1. Download the pfelk-dashboard-installer
@@ -80,18 +77,8 @@
       - `sudo ./pfelk-dashboard-installer.sh`
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=228) Guide
-  
 # :three: Firewall 
-- ### :a: pfSense 
-  1. Navigate to _Status -> System Logs_, then click on _Settings_
-  2. At the bottom check _Enable Remote Logging_
-  3. (Optional) Select a specific interface to use for forwarding
-  4. Input the ELK IP address into the field _Remote log servers_ followed by port 5140 (e.g. 192.168.100.50:5140)
-  5. Under _Remote Syslog Contents_ check _Everything_
-  6. Click Save
-
-:pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/pfsenselogs.png)
-- ### :b: OPNsense 
+- ### :a: OPNsense 
   1. Navigate to _System -> Settings -> Logging/Targets_
   2. Add a new _Logging/Target_ (Click the plus icon)
       - Transport = UDP(4)
@@ -101,25 +88,24 @@
       - Hostname = Input the ELK IP address ointo (eg 192.168.100.50)
       - Port = 5140
       - Description = pfELK
-      - Click Save
-  
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=369) Guide
-  
-:pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
-## :four: Suricata - (Optional)
-- ### :a: pfSense 
- 1. On your pfSense web UI go to _Services -> Suricata -> Interfaces_, and enable Suricata on desired interfaces
- 2. You can have separate configuration for each of your interfaces, you can edit them via clicking on the pencil icon
- 3. Enable the EVE JSON output format for log forwarding, enabled the following options within the EVE Output Settings section:
-     - EVE JSON log: Suricata will output selected info in JSON format to a single file or to syslog. 
-     - EVE Output type: SYSLOG
-     - EVE Syslog Output Facility: AUTH
-     - EVE Syslog Output Priority: NOTICE 
-     - EVE Log Alerts: Suricata will output Alerts via EVE
-     - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility should be "LOCAL1", and the Log Priority should be "NOTICE".
+      - Click Save    
+  3. :pushpin: References
+      - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
 
-:pushpin: Reference In-Depth Guide Located [Here](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense)
-- ### :b: OPNsense     
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=369) Guide
+
+- ### :b: pfSense 
+  1. Navigate to _Status -> System Logs_, then click on _Settings_
+  2. At the bottom check _Enable Remote Logging_
+  3. (Optional) Select a specific interface to use for forwarding
+  4. Input the ELK IP address into the field _Remote log servers_ followed by port 5140 (e.g. 192.168.100.50:5140)
+  5. Under _Remote Syslog Contents_ check _Everything_
+  6. Click Save
+  7. :pushpin: References
+      - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/pfsenselogs.png)
+
+## :four: Suricata - (Optional)
+- ### :a: OPNsense     
  1. In OPNsense navigate to _Services -> Intrusion Detection -> Administration_
      - Enable = [X]
      - IPS mode = [ ] or [X]
@@ -132,15 +118,31 @@
      - Save logs = Any Value You Desire
      - Click Apply
    
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG) Guide
+  2. :pushpin: References 
+     - [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG) Guide
+
+- ### :b: pfSense 
+ 1. On your pfSense web UI go to _Services -> Suricata -> Interfaces_, and enable Suricata on desired interfaces
+ 2. You can have separate configuration for each of your interfaces, you can edit them via clicking on the pencil icon
+ 3. Enable the EVE JSON output format for log forwarding, enabled the following options within the EVE Output Settings section:
+     - EVE JSON log: Suricata will output selected info in JSON format to a single file or to syslog. 
+     - EVE Output type: SYSLOG
+     - EVE Syslog Output Facility: AUTH
+     - EVE Syslog Output Priority: NOTICE 
+     - EVE Log Alerts: Suricata will output Alerts via EVE
+     - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility should be "LOCAL1", and the Log Priority should be "NOTICE".
+  4. :pushpin: References
+     - In-Depth Guide Located [Here](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense)
+
 ## :five: Snort - (Optional)
 - ### :a: pfSense - Only
    1. Navigate to _Services -> Snort -> Snort Interfaces_
    2. For each configured interface, click on the pencil, to the right, to edit (repeat these steps for each)
    3. In each "Interface" Settings -> under _Alert Settings_ check _Send Alerts to System Log_
    4. Scroll down and choose _Save_
+   5. :pushpin:  References 
+     - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/snort-log-settings.png)
 
-:pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/snort-log-settings.png)
 ## :six: HAProxy - (Optional)
 - ### :a: OPNsense
    1. Navigate to _Services -> HAProxy -> Settings -> Settings -> Logging Configuration_
@@ -150,23 +152,24 @@
    5. Add the _httplog_ under _HAProxy -> Settings -> Virtual Services -> Public Servers_ -> edit your public service
    6. Enable _advanced mode_ and scroll down
    7. Under _Option pass-through_ add _option httplog_
-
-:pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_haproxy_http_log.PNG)
+   8. :pushpin: References
+     - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_haproxy_http_log.PNG)
+     
 ## :seven: Squid - (Optional)
 - ### :a: OPNsense
    1. In OPNsense navigate to _Services -> Web Proxy -> Administration -> General Proxy Settings_
    2. Enable _advanced mode_
    3. Access log target = Syslog(JSON)
+   4. :pushpin: References
+     - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_squid_syslog.PNG)
 
-:pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_squid_syslog.PNG)
-
-## :e: Unbound - (Optional)
+## :eight: Unbound - (Optional)
 - ### :a: OPNsense
    1. In OPNsense navigate to _Services -> Unbound DNS -> Advanced_
    2. Log level verbosity = ```Level 0```
    3. Log Queries = [X]
-   
-:pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/unbound_logging.png)
+   4. :pushpin: References
+     - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/unbound_logging.png)
    
 - ### :b: pfSense
    1. Navigate to **Services>>DNS Resolver** 
