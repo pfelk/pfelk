@@ -21,13 +21,13 @@
   - [Microsoft Azure Sentinel](#two-microsoft-azure-sentinel-externally-supported)
 - [Finished](#finished)
 
-# Templates
-- This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
-### :one: Manual Method
-- In your web browser navigate to the pfELK IP address using port 5601 (ex: 192.168.0.1:5601)
-- Click ☰ in the upper left corner
-- Click on _Dev Tools_ located near the bottom under the _Management_ heading
-- Paste the contents of each template file located in the [template :file_folder:](https://github.com/pfelk/pfelk/tree/master/etc/logstash/conf.d/templates) and links below
+# :one: Templates
+ :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
+### :a: Manual Method
+1. In your web browser navigate to the pfELK IP address using port 5601 (ex: 192.168.0.1:5601)
+2. Click ☰ in the upper left corner
+3. Click on _Dev Tools_ located near the bottom under the _Management_ heading
+4. Paste the contents of each template file located in the [template :file_folder:](https://github.com/pfelk/pfelk/tree/master/etc/logstash/conf.d/templates) and links below
   - Component Templates
   - :small_red_triangle: **NOTE** _Component Templates must be installed first and in sequential order (e.g. pfelk-settings, pfelk-mappings-ecs etc...)_
     - [pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-settings) - Install First
@@ -42,25 +42,25 @@
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=6) Guide
 
-### :two: Scripted Method :page_with_curl:
-- Download the pfelk-template-installer
+### :b: Scripted Method :page_with_curl:
+1. Download the pfelk-template-installer
   - `wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-template-installer.sh`
-- Make the file executable 
+2. Make the file executable 
   - `sudo chmod +x pfelk-template-installer.sh`
-- Execute the file
+3. Execute the file
   - `sudo ./pfelk-template-installer.sh`
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=60) Guide
 
-# Dashboards 
-- This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
-### :one: Manual Method
- - In your web browser go to the pfELK IP address followed by port 5601 (e.g. 192.168.0.1:5601)
- - Click the menu icon (☰ three horizontal lines) in the upper left
- - Under _Management_ click -> _Stack Management_ 
- - Under _Kibana_ click -> _Saved Objects_
- - The dashboards are located in the [dashboard :file_folder:](https://github.com/pfelk/pfelk/tree/master/Dashboard) and linked below
- - Import one at a time by clicking the import button in the top-right corner
+# :two: Dashboards 
+ :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
+### :a: Manual Method
+ 1. In your web browser go to the pfELK IP address followed by port 5601 (e.g. 192.168.0.1:5601)
+ 2. Click the menu icon (☰ three horizontal lines) in the upper left
+ 3. Under _Management_ click -> _Stack Management_ 
+ 4. Under _Kibana_ click -> _Saved Objects_
+ 5. The dashboards are located in the [dashboard :file_folder:](https://github.com/pfelk/pfelk/tree/master/Dashboard) and linked below
+ 6. Import one at a time by clicking the import button in the top-right corner
    - [Firewall Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Firewall.ndjson)
    - [DHCP Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/DHCP.ndjson) - DHCPv4
    - [HAProxy Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/HAProxy.ndjson)
@@ -71,29 +71,29 @@
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=281) Guide
 
-### :two: Scripted Method :page_with_curl:
-- Download the pfelk-dashboard-installer
+### :b: Scripted Method :page_with_curl:
+1. Download the pfelk-dashboard-installer
   - `wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-dashboard-installer.sh`
-- Make the file executable 
+2. Make the file executable 
   - `sudo chmod +x pfelk-dashboard-installer.sh`
-- Execute the file
+3. Execute the file
   - `sudo ./pfelk-dashboard-installer.sh`
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=228) Guide
   
-# Firewall 
-### :one: pfSense 
-- Navigate to _Status -> System Logs_, then click on _Settings_
-- At the bottom check _Enable Remote Logging_
-- (Optional) Select a specific interface to use for forwarding
-- Input the ELK IP address into the field _Remote log servers_ followed by port 5140 (e.g. 192.168.100.50:5140)
-- Under _Remote Syslog Contents_ check _Everything_
-- Click Save
+# :three: Firewall 
+### :a: pfSense 
+1. Navigate to _Status -> System Logs_, then click on _Settings_
+2. At the bottom check _Enable Remote Logging_
+3. (Optional) Select a specific interface to use for forwarding
+4. Input the ELK IP address into the field _Remote log servers_ followed by port 5140 (e.g. 192.168.100.50:5140)
+5. Under _Remote Syslog Contents_ check _Everything_
+6. Click Save
 
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/pfsenselogs.png)
-### :two: OPNsense 
-- Navigate to _System -> Settings -> Logging/Targets_
-- Add a new _Logging/Target_ (Click the plus icon)
+### :b: OPNsense 
+1. Navigate to _System -> Settings -> Logging/Targets_
+2. Add a new _Logging/Target_ (Click the plus icon)
   - Transport = UDP(4)
   - Applications = Nothing Selected
   - Levels = Nothing Selected
@@ -106,11 +106,11 @@
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=369) Guide
   
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
-## Suricata - (Optional)
-### :three: pfSense 
- - On your pfSense web UI go to _Services -> Suricata -> Interfaces_, and enable Suricata on desired interfaces
- - You can have separate configuration for each of your interfaces, you can edit them via clicking on the pencil icon
- - Enable the EVE JSON output format for log forwarding, enabled the following options within the EVE Output Settings section:
+## :four: Suricata - (Optional)
+### :a: pfSense 
+ 1. On your pfSense web UI go to _Services -> Suricata -> Interfaces_, and enable Suricata on desired interfaces
+ 2. You can have separate configuration for each of your interfaces, you can edit them via clicking on the pencil icon
+ 3. Enable the EVE JSON output format for log forwarding, enabled the following options within the EVE Output Settings section:
    - EVE JSON log: Suricata will output selected info in JSON format to a single file or to syslog. 
    - EVE Output type: SYSLOG
    - EVE Syslog Output Facility: AUTH
@@ -119,8 +119,8 @@
    - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility should be "LOCAL1", and the Log Priority should be "NOTICE".
 
 :pushpin: Reference In-Depth Guide Located [Here](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense)
-### :four: OPNsense     
- - In OPNsense navigate to _Services -> Intrusion Detection -> Administration_
+### :b: OPNsense     
+ 1. In OPNsense navigate to _Services -> Intrusion Detection -> Administration_
    - Enable = [X]
    - IPS mode = [ ] or [X]
    - Promiscuous mode = [ ] or [X]
@@ -133,47 +133,61 @@
    - Click Apply
    
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG) Guide
-## Snort - (Optional)
-### :five: pfSense (Only)
- - In pfSense navigate to _Services -> Snort -> Snort Interfaces_
- - For each configured interface, click on the pencil, to the right, to edit (repeat these steps for each)
- - In each "Interface" Settings -> under _Alert Settings_ check _Send Alerts to System Log_
- - Scroll down and choose _Save_
+## :five: Snort - (Optional)
+### :a: pfSense - Only
+   1. Navigate to _Services -> Snort -> Snort Interfaces_
+   2. For each configured interface, click on the pencil, to the right, to edit (repeat these steps for each)
+   3. In each "Interface" Settings -> under _Alert Settings_ check _Send Alerts to System Log_
+   4. Scroll down and choose _Save_
 
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/snort-log-settings.png)
-## HAProxy 
-### :six: HAProxy log forwarding - (Optional)
- - In OPNsense navigate to _Services -> HAProxy -> Settings -> Settings -> Logging Configuration_
- - Log Host = Enter the IP address of where pfELK is installed and the Port 5190 (e.g. 192.168.100.50:5190)
- - Syslog facility = local0[default]
- - Filter syslog level = info[default]
- - Add the _httplog_ under _HAProxy -> Settings -> Virtual Services -> Public Servers_ -> edit your public service
- - Enable _advanced mode_ and scroll down
- - Under _Option pass-through_ add _option httplog_
+## :six: HAProxy - (Optional)
+### :a: OPNsense
+   1. Navigate to _Services -> HAProxy -> Settings -> Settings -> Logging Configuration_
+   2. Log Host = Enter the IP address of where pfELK is installed and the Port 5190 (e.g. 192.168.100.50:5190)
+   3. Syslog facility = local0[default]
+   4. Filter syslog level = info[default]
+   5. Add the _httplog_ under _HAProxy -> Settings -> Virtual Services -> Public Servers_ -> edit your public service
+   6. Enable _advanced mode_ and scroll down
+   7. Under _Option pass-through_ add _option httplog_
 
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_haproxy_http_log.PNG)
-## Squid
-### :seven: Squid log forwarding - (Optional)
- - In OPNsense navigate to _Services -> Web Proxy -> Administration -> General Proxy Settings_
- - Enable _advanced mode_
- - Access log target = Syslog(JSON)
+## :seven: Squid - (Optional)
+### :a: OPNsense
+   1. In OPNsense navigate to _Services -> Web Proxy -> Administration -> General Proxy Settings_
+   2. Enable _advanced mode_
+   3. Access log target = Syslog(JSON)
 
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_squid_syslog.PNG)
-## Unbound
-### :eight: Configure Unbound DNS log forwarding - (Optional)
- - In OPNsense navigate to _Services -> Unbound DNS -> Advanced_
- - Log level verbosity = ```Level 0```
- - Log Queries = [X]
 
+## :e: Unbound - (Optional)
+### :a: OPNsense
+ - OPNsense
+   1. In OPNsense navigate to _Services -> Unbound DNS -> Advanced_
+   2. Log level verbosity = ```Level 0```
+   3. Log Queries = [X]
+   
 :pushpin: Reference: [Image](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/unbound_logging.png)
+   
+### :b: pfSense
+   1. Navigate to **Services>>DNS Resolver** 
+   2. Add the following line to the custom options: 
+   ```
+   server:
+       log-queries: yes
+   ........
+   * any other custom config options *
+   ```
+   3. Navigate to **Services>>DNS Resolver>>Advance Settings**
+   4. Set **Log Level** to **Level 0: No Logging**
 
-# Extras - (Optional)
-### :one: Grafana Dashborads (Externally Supported)
+## :eight: Extras - (Optional)
+### :a: Grafana Dashborads (Externally Supported)
  - Visit [here](https://github.com/b4b857f6ee/opnsense_grafana_dashboard) to install/configure Grafana Dashboard
-### :two: Microsoft Azure Sentinel (Externally Supported)
+### :b: Microsoft Azure Sentinel (Externally Supported)
  - Visit [here](https://github.com/noodlemctwoodle/pfsense-azure-sentinel) to configure for Azure Sentinel
  
-# Finished
+# :nine: Finished
 ### :clock5: Wait a few mintues after configuring the above and explore the enriched visualizations.
 
 :end:
