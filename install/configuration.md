@@ -37,7 +37,7 @@
 - Click the green triangle after pasting the contents (one at a time) into the console
 
   5. :pushpin: References
-      - [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=6) Guide
+      - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=6)
 
 - ### :b: Scripted Method :page_with_curl:
   1. Download the pfelk-template-installer
@@ -47,7 +47,7 @@
   3. Execute the file
       - `sudo ./pfelk-template-installer.sh`
   4. :pushpin:  References
-      - [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=60) Guide
+      - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=60)
 
 # :two: Dashboards 
  :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
@@ -66,7 +66,7 @@
       - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Squid.ndjson)
       - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Suricata.ndjson)
   7. :pushpin: References
-      - [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=281) Guide
+      - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=281)
 
 - ### :b: Scripted Method :page_with_curl:
   1. Download the pfelk-dashboard-installer
@@ -75,8 +75,9 @@
       - `sudo chmod +x pfelk-dashboard-installer.sh`
   3. Execute the file
       - `sudo ./pfelk-dashboard-installer.sh`
-
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=228) Guide
+  4. :pushpin: References
+      - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=228)
+      
 # :three: Firewall 
 - ### :a: OPNsense 
   1. Navigate to _System -> Settings -> Logging/Targets_
@@ -90,9 +91,8 @@
       - Description = pfELK
       - Click Save    
   3. :pushpin: References
-      - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
-
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/KV27ouVUGuc?t=369) Guide
+      - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
+      - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=369)
 
 - ### :b: pfSense 
   1. Navigate to _Status -> System Logs_, then click on _Settings_
@@ -102,7 +102,7 @@
   5. Under _Remote Syslog Contents_ check _Everything_
   6. Click Save
   7. :pushpin: References
-      - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/pfsenselogs.png)
+      - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/pfsenselogs.png)
 
 ## :four: Suricata - (Optional)
 - ### :a: OPNsense     
@@ -119,7 +119,7 @@
      - Click Apply
    
   2. :pushpin: References 
-     - [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG) Guide
+     - [:movie_camera: YouTube Guide](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-suricata.PNG)
 
 - ### :b: pfSense 
  1. On your pfSense web UI go to _Services -> Suricata -> Interfaces_, and enable Suricata on desired interfaces
@@ -132,7 +132,7 @@
      - EVE Log Alerts: Suricata will output Alerts via EVE
      - Saving this will auto-enable settings at the Logging Settings menu, the Log Facility should be "LOCAL1", and the Log Priority should be "NOTICE".
   4. :pushpin: References
-     - In-Depth Guide Located [Here](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense)
+     - :x: In-Depth Guide Located [Here](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense)
 
 ## :five: Snort - (Optional)
 - ### :a: pfSense - Only
@@ -141,7 +141,7 @@
    3. In each "Interface" Settings -> under _Alert Settings_ check _Send Alerts to System Log_
    4. Scroll down and choose _Save_
    5. :pushpin:  References 
-     - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/snort-log-settings.png)
+       - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/snort-log-settings.png)
 
 ## :six: HAProxy - (Optional)
 - ### :a: OPNsense
@@ -153,7 +153,7 @@
    6. Enable _advanced mode_ and scroll down
    7. Under _Option pass-through_ add _option httplog_
    8. :pushpin: References
-     - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_haproxy_http_log.PNG)
+       - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_haproxy_http_log.PNG)
      
 ## :seven: Squid - (Optional)
 - ### :a: OPNsense
@@ -161,7 +161,7 @@
    2. Enable _advanced mode_
    3. Access log target = Syslog(JSON)
    4. :pushpin: References
-     - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_squid_syslog.PNG)
+       - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense_squid_syslog.PNG)
 
 ## :eight: Unbound - (Optional)
 - ### :a: OPNsense
@@ -169,7 +169,7 @@
    2. Log level verbosity = ```Level 0```
    3. Log Queries = [X]
    4. :pushpin: References
-     - [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/unbound_logging.png)
+       - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/unbound_logging.png)
    
 - ### :b: pfSense
    1. Navigate to **Services>>DNS Resolver** 
