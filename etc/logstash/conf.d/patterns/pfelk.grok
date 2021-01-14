@@ -1,6 +1,6 @@
 # pfelk.grok
 ################################################################################
-# Version: 21.01-1                                                             #
+# Version: 21.01-2                                                             #
 #                                                                              #
 #                                                                              #
 #                                                                              #
@@ -73,7 +73,7 @@ SURICATA \[%{NUMBER:[suricata][rule][uuid]}:%{NUMBER:[suricata][rule][id]}:%{NUM
 SNORT \[%{INT:[rule][uuid]}\:%{INT:[rule][reference]}\:%{INT:[rule][version]}\].%{GREEDYDATA:[rule][description]}.\[Classification\: %{DATA:[rule][classification]}\].\[Priority\: %{INT:[priority]}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
 
 # SQUID
-SQUID %{IPORHOST:[source][ip]} %{NOTSPACE:[labels][request_status]}/%{NUMBER:[http][response][body][status_code]} %{NUMBER:[http][response][bytes]} %{NOTSPACE:[http][request][method]} (%{URIPROTO:[url][scheme]}://)?(?<[url][domain]>\S+?)(:%{INT:[url][port]})?(/%{NOTSPACE:[url][path]})?\s+%{NOTSPACE:[http][request][referrer]}\s+%{NOTSPACE:[lables][hierarchy_status]}/%{NOTSPACE:[destination][address]}\s+%{NOTSPACE:[http][response][mime_type]}
+SQUID %{IPORHOST:[client][ip]} %{NOTSPACE:[labels][request_status]}/%{NUMBER:[http][response][body][status_code]} %{NUMBER:[http][response][bytes]} %{NOTSPACE:[http][request][method]} (%{URIPROTO:[url][scheme]}://)?(?<[url][domain]>\S+?)(:%{INT:[url][port]})?(/%{NOTSPACE:[url][path]})?\s+%{NOTSPACE:[http][request][referrer]}\s+%{NOTSPACE:[lables][hierarchy_status]}/%{NOTSPACE:[destination][address]}\s+%{NOTSPACE:[http][response][mime_type]}
 
 # UNBOUND
 UNBOUND %{INT:[process][pgid]}:%{INT:[process][thread][id]}] %{LOGLEVEL:[log][level]}: %{IP:[client][ip]} %{GREEDYDATA:[dns][question][name]}\. %{WORD:[dns][question][type]} %{WORD:[dns][question][class]}
