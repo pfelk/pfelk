@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 6.7
+# Version    | 6.7.0
 # Email      | support@pfelk.com
 # Website    | https://pfelk.3ilson.dev | https://pfelk.com
 #
@@ -489,8 +489,8 @@ fi
 script_version_check() {
   if dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
 	version=$(grep -i "# Version" "$0" | awk '{print $4}' | cut -d'-' -f1)
-	script_online_version_dots=$(curl "https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-install-${version}.sh" -s | grep "# Version" | awk '{print $4}')
-	script_local_version_dots=$(grep "# Version" "$0" | awk '{print $4}')
+	script_online_version_dots=$(curl "https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh" -s | grep "# Version" | awk '{print $4}' | head -1)
+	script_local_version_dots=$(grep "# Version" "$0" | awk '{print $4}' | head -1)
 	script_online_version="${script_online_version_dots//./}"
 	script_local_version="${script_local_version_dots//./}"
 	# Script version check.
@@ -501,7 +501,7 @@ script_version_check() {
 	  sleep 3
 	  rm --force "$0" 2> /dev/null
 	  rm --force "pfelk-install-${version}.sh" 2> /dev/null
-	  wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-install-${version}.sh" && bash "pfelk-install-${version}.sh" "${script_options[@]}"; exit 0
+	  wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh" && bash "pfelk-installer.sh" "${script_options[@]}"; exit 0
 	fi
   else
 	curl_missing=true
