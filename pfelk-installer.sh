@@ -528,8 +528,8 @@ maxmind_username=$(echo "${maxmind_username}")
 maxmind_password=$(echo "${maxmind_password}")
 maxmind_install=''
 ILM_option=''
-system_free_disk_space=$(df -k / | awk '{print $4}' | tail -n1)
-system_free_disk_space_tmp=$(df -k /tmp | awk '{print $4}' | tail -n1)
+system_free_disk_space=$(df -kh / | awk '{print $4}' | tail -n1)
+system_free_disk_space_tmp=$(df -kh /tmp | awk '{print $4}' | tail -n1)
 #
 #SERVER_IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -1)
 #SERVER_IP=$(/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | head -n1 | awk '{print $2}' | head -1 | sed 's/.*://')
@@ -909,7 +909,7 @@ if [[ "${curl_missing}" == 'true' ]]; then script_version_check; fi
 ###################################################################################################################################################################################################
 
 # Temporarily Disk Space
-if [ "${system_free_disk_space_tmp}" -lt "5000000" ]; then
+if [ "${system_free_disk_space_tmp}" -lt "5" ]; then
   header_red
   echo -e "${WHITE_R}#${RESET} Temporarily disk space is below 5GB. Please expand the disk size!"
   echo -e "${WHITE_R}#${RESET} It is recommend tha available space be expanding to at least 10GB\\n\\n"
@@ -925,7 +925,7 @@ if [ "${system_free_disk_space_tmp}" -lt "5000000" ]; then
 fi
 
 # Disk Space
-if [ "${system_free_disk_space}" -lt "5000000" ]; then
+if [ "${system_free_disk_space}" -lt "5" ]; then
   header_red
   echo -e "${WHITE_R}#${RESET} Free disk space is below 5GB. Please expand the disk size!"
   echo -e "${WHITE_R}#${RESET} It is recommend tha available space be expanding to at least 10GB\\n\\n"
