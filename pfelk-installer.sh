@@ -522,7 +522,10 @@ script_version_check
 # second_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f2)
 # third_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f3)
 #
-system_memory=$(awk '/MemTotal/ {printf( "%.0f\n", $8 / 8192 / 8192)}' /proc/meminfo)
+system_memory=$(awk '/MemTotal/ {printf( "%.0f\n", $2 / 1024 / 1024)}' /proc/meminfo)
+system_swap=$(awk '/SwapTotal/ {printf( "%.0f\n", $2 / 1024 / 1024)}' /proc/meminfo)
+system_swap_var=0
+system_mem_var=4
 #
 maxmind_username=$(echo "${maxmind_username}")
 maxmind_password=$(echo "${maxmind_password}")
@@ -941,15 +944,32 @@ if [ "${system_free_disk_space}" -lt "5" ]; then
 fi
 
 # Memory
-if [[ "${system_swap}" == "0" && "${system_memory}" -lt "4" ]]; then
+if [ "${system_swap}" == "0" ]; then
   header_red
-  echo -e "${WHITE_R}#${RESET} System memory does not meet minimum and may not run!"
-  echo -e "${WHITE_R}#${RESET} It is recommend that ram is expanded to at least 8GB\\n\\n"
+  echo -e "${WHITE_R}#${RESET} Disabling swap!"
   swapoff -a
   sleep 2
+fi
+if [ "${system_memory}" -le "4" ]; then
+  header_red
+  echo -e "${RED}#${RESET} System memory does not meet minimum and may not run!"
+  echo -e "${RED}#${RESET} This system has "${system_memory}"GB of RAM configured!"
+  echo -e "${WHITE_R}#${RESET} It is recommend that ram is expanded to at least 8GB\\n\\n"
+  sleep 2
+  if [[ "${script_option_mem_skip}" != 'true' ]]; then
+    read -rp "Do you want to proceed at your own risk? (Y/n)" yes_no
+    case "$yes_no" in
+      [Yy]*|"") ;;
+      [Nn]*) cancel_script;;
+    esac
+    else
+    cancel_script
+  fi
 else
   header
   echo -e "${WHITE_R}#${RESET} Memory Meets Minimum Requirements!\\n\\n"
+  echo -e "${RED}#${RESET} This system has "${system_memory}"GB of RAM configured!"
+  echo -e "${RED}#${RESET} This system has "${system_swap}"GB swap allocated!"
   swapoff -a
   sleep 2
 fi
