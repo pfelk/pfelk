@@ -9,7 +9,7 @@
 # CAPTIVE PORTAL (Optional)
 CAPTIVEPORTAL (%{CP_PFSENSE}|%{CP_OPNSENSE})
 CP_PFSENSE %{WORD:[observer][ingress][interface][alias]}:\s%{DATA:[observer][ingress][zone]}\s\-\s%{WORD:[event][action]}\:\s%{DATA:[user][name]},\s%{MAC:[client][mac]},\s%{IP:[client][ip]}(,\s%{GREEDYDATA:[event][reason]})?
-CP_OPNSENSE %{WORD:[event][action]}\s*%{GREEDYDATA:[user][name]}\s*(\()?%{IP:[client][ip]}(\))?\s*%{WORD:[observer][ingress][interface][alias]}\s*%{INT:[observer][ingress][zone]}
+CP_OPNSENSE %{WORD:[event][action]}\s%{GREEDYDATA:[user][name]}\s\(%{IP:[client][ip]}\)\s%{WORD:[observer][ingress][interface][alias]}\s%{INT:[observer][ingress][zone]}
 
 # DHCPv4 (Optional)
 DHCPD_VIA via (%{IP:[dhcpv4][relay][ip]}|(?<[interface][name]>[^: ]+))
