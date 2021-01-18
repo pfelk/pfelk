@@ -1,4 +1,4 @@
-## Suricata & Snort Enrichment
+## Suricata & ~Snort~ Enrichment
 
 ### Requirements 
 - [ ] Installation of pfELK
@@ -11,7 +11,7 @@
 - [ ] Restart logstash 
 
 ### Roadmap
-- [ ] Enrich Snort 
+~- [ ] Enrich Snort~
 - [ ] Build out Suricata Dashboard *currenlty works with the built-in SIEM*
 - [ ] Build out Snort Dashboard 
 
