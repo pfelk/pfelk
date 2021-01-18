@@ -1,6 +1,6 @@
 PUT _index_template/pfelk
 {
-  "version": 8,
+  "version": 9,
   "priority": 10,
   "template": {
     "mappings": {
@@ -103,6 +103,7 @@ PUT _index_template/pfelk
     }
   },
   "index_patterns": [
+    "pfelk-captive-*",
     "pfelk-firewall-*",
     "pfelk-snort-*",
     "pfelk-squid-*",
