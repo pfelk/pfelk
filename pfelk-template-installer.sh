@@ -3732,121 +3732,122 @@ curl -X PUT "localhost:9200/_ilm/policy/pfelk-ilm?pretty" -H 'Content-Type: appl
 '
 curl -X PUT "localhost:9200/_index_template/pfelk?pretty" -H 'Content-Type: application/json' -d'
 {
-  "version": 8,
+  "version": 9,
   "priority": 10,
   "template": {
-	"mappings": {
-	  "_routing": {
-		"required": false
-	  },
-	  "numeric_detection": false,
-	  "dynamic_date_formats": [
-		"strict_date_optional_time",
-		"yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
-	  ],
-	  "_source": {
-		"excludes": [],
-		"includes": [],
-		"enabled": true
-	  },
-	  "dynamic": true,
-	  "dynamic_templates": [],
-	  "date_detection": true,
-	  "properties": {
-		"pf": {
-		  "type": "object",
-		  "properties": {
-			"tcp": {
-			  "type": "object",
-			  "properties": {
-				"sequence_number": {
-				  "type": "long"
-				},
-				"data_length": {
-				  "type": "integer"
-				},
-				"flags": {
-				  "type": "keyword"
-				},
-				"options": {
-				  "eager_global_ordinals": false,
-				  "index_phrases": false,
-				  "fielddata": false,
-				  "norms": true,
-				  "index": true,
-				  "store": false,
-				  "type": "text",
-				  "fields": {
-					"keyword": {
-					  "type": "keyword"
-					}
-				  },
-				  "index_options": "positions"
-				},
-				"window": {
-				  "type": "integer"
-				}
-			  }
-			},
-			"ipv4": {
-			  "type": "object",
-			  "properties": {
-				"offset": {
-				  "type": "integer"
-				},
-				"flags": {
-				  "type": "keyword"
-				},
-				"tos": {
-				  "type": "keyword"
-				},
-				"packet": {
-				  "type": "object",
-				  "properties": {
-					"id": {
-					  "type": "integer"
-					}
-				  }
-				},
-				"ttl": {
-				  "type": "integer"
-				}
-			  }
-			},
-			"transport": {
-			  "type": "object",
-			  "properties": {
-				"data_length": {
-				  "type": "integer"
-				}
-			  }
-			},
-			"packet": {
-			  "type": "object",
-			  "properties": {
-				"length": {
-				  "type": "integer"
-				}
-			  }
-			}
-		  }
-		}
-	  }
-	}
+    "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
+      "dynamic_date_formats": [
+        "strict_date_optional_time",
+        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
+      ],
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic": true,
+      "dynamic_templates": [],
+      "date_detection": true,
+      "properties": {
+        "pf": {
+          "type": "object",
+          "properties": {
+            "tcp": {
+              "type": "object",
+              "properties": {
+                "sequence_number": {
+                  "type": "long"
+                },
+                "data_length": {
+                  "type": "integer"
+                },
+                "flags": {
+                  "type": "keyword"
+                },
+                "options": {
+                  "eager_global_ordinals": false,
+                  "index_phrases": false,
+                  "fielddata": false,
+                  "norms": true,
+                  "index": true,
+                  "store": false,
+                  "type": "text",
+                  "fields": {
+                    "keyword": {
+                      "type": "keyword"
+                    }
+                  },
+                  "index_options": "positions"
+                },
+                "window": {
+                  "type": "integer"
+                }
+              }
+            },
+            "ipv4": {
+              "type": "object",
+              "properties": {
+                "offset": {
+                  "type": "integer"
+                },
+                "flags": {
+                  "type": "keyword"
+                },
+                "tos": {
+                  "type": "keyword"
+                },
+                "packet": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "ttl": {
+                  "type": "integer"
+                }
+              }
+            },
+            "transport": {
+              "type": "object",
+              "properties": {
+                "data_length": {
+                  "type": "integer"
+                }
+              }
+            },
+            "packet": {
+              "type": "object",
+              "properties": {
+                "length": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "index_patterns": [
-	"pfelk-firewall-*",
-	"pfelk-snort-*",
-	"pfelk-squid-*",
-	"pfelk-unbound-*"
+    "pfelk-captive-*",
+    "pfelk-firewall-*",
+    "pfelk-snort-*",
+    "pfelk-squid-*",
+    "pfelk-unbound-*"
   ],
   "composed_of": [
-	"pfelk-settings",
-	"pfelk-mappings-ecs"
+    "pfelk-settings",
+    "pfelk-mappings-ecs"
   ],
   "_meta": {
-	"description": "default pfelk indexes installed by pfelk",
-	"managed": true
+    "description": "default pfelk indexes installed by pfelk",
+    "managed": true
   }
 }
 '
