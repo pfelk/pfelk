@@ -50,6 +50,7 @@ wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Snor
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Squid.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Suricata.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Unbound.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/captive.ndjson -P /tmp/pfELK/
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                   pfELK - Installing Saved Objects                                                                              #
@@ -62,3 +63,4 @@ curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/Squid.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/Suricata.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/Unbound.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/captive.ndjson -H 'kbn-xsrf: true'
