@@ -46,7 +46,7 @@ fi
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/DHCP.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Firewall.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/HAProxy.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Snort.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v20.2/v20.2-Snort.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Squid.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Suricata.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/Unbound.ndjson -P /tmp/pfELK/
@@ -59,7 +59,7 @@ wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/Dashboard/v6.1/capt
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/DHCP.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/Firewall.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/HAProxy.ndjson -H 'kbn-xsrf: true'
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/Snort.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/v20.2-Snort.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/Squid.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/Suricata.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/Unbound.ndjson -H 'kbn-xsrf: true'
