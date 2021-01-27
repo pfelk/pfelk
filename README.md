@@ -20,11 +20,11 @@
 
 ### Key features:
 
-1. **ingest** and **enrich** your pfSense/OPNsense **firewall traffic** logs by leveraging *Logstash*
+- **ingest** and **enrich** your pfSense/OPNsense **firewall traffic** logs by leveraging *Logstash*
 
-2. **search** your indexed data in *near-real-time* with the full power of the *Elasticsearch*
+- **search** your indexed data in *near-real-time* with the full power of the *Elasticsearch*
 
-3. **visualize** you network traffic with interactive dashboards, Maps, graphs in *Kibana*
+- **visualize** you network traffic with interactive dashboards, Maps, graphs in *Kibana*
 
 Supported entries include:
  - pfSense/OPNSense setups
@@ -33,10 +33,10 @@ Supported entries include:
  - IPv4/IPv6 mapping
  - pfSense CARP data
  - openVPN log parsing
- - Unbound DNS Resolver with dashboard
- - Suricata IDS with dashboard
- - Snort IDS with dashboard
- - Squid with dashboard
+ - Unbound DNS Resolver with dashboard and Kibana SIEM compliance
+ - Suricata IDS with dashboard and Kibana SIEM compliance
+ - Snort IDS with dashboard and Kibana SIEM compliance 
+ - Squid with dashboard and Kibana SIEM compliance
  - HAProxy with dashboard
  - Captive Portal with dashboard
 
