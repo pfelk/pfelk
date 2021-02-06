@@ -1,6 +1,6 @@
 # pfelk.grok
 ################################################################################
-# Version: 21.01-7                                                             #
+# Version: 21.02                                                               #
 #                                                                              #
 #                                                                              #
 #                                                                              #
@@ -15,8 +15,8 @@ CAPTIVE1 %{WORD:[observer][ingress][interface][alias]}:\s%{DATA:[observer][ingre
 CAPTIVE2 %{WORD:[observer][ingress][interface][alias]}:\s%{DATA:[observer][ingress][zone]}\s\-\s%{GREEDYDATA:[event][action]}\:\s%{GREEDYDATA:[client][user][name]},\s%{MAC:[client][mac]},\s%{IP:[client][ip]}(,\s%{GREEDYDATA:[event][reason]})?
 
 # DHCPv4 (Optional)
-DHCPD_VIA via (%{IP:[dhcpv4][relay][ip]}|(?<[interface][name]>[^: ]+))
-DHCPD DHCP(%{DHCPD_DISCOVER}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})(: %{GREEDYDATA:[dhcpv4][option][message]})?
+DHCPD (%{DHCPD_DISCOVER}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})(: %{GREEDYDATA:[dhcpv4][option][message]})?
+DHCPD_VIA (%{IP:[dhcpv4][relay][ip]}|(?<[interface][name]>[^: ]+))
 DHCPD_DISCOVER (?<[dhcp][operation]>DISCOVER) from %{MAC:[client][mac]}( \(%{DATA:[host][hostname]}\))? %{DHCPD_VIA}
 DHCPD_OFFER_ACK (?<[dhcp][operation]>(OFFER|N?ACK)) on %{IP:[client][ip]} to %{MAC:[client][mac]}( \(%{DATA:[host][hostname]}\))? %{DHCPD_VIA}
 DHCPD_REQUEST (?<[dhcp][operation]>REQUEST) for %{IP:[client][ip]}( \(%{DATA:[server][ip]}\))? from %{MAC:[client][mac]}( \(%{DATA:[host][hostname]}\))? %{DHCPD_VIA}
