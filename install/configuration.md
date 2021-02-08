@@ -180,7 +180,7 @@
    * any other custom config options *
    ```
    3. Navigate to **Services>>DNS Resolver>>Advance Settings**
-   4. Set **Log Level** to **Level 0: No Logging**
+   4. Set **Log Level** to `Level 0`: No Logging**
 
 ## :eight: Extras - (Optional)
 - ### :a: Grafana Dashborads (Externally Supported)
