@@ -125,7 +125,7 @@
  2. You can have separate configuration for each of your interfaces, you can edit them via clicking on the pencil icon
  3. Enable the EVE JSON output format for log forwarding, enabled the following options within the EVE Output Settings section:
      - EVE JSON log: Suricata will output selected info in JSON format to a single file or to syslog. 
-     - EVE Output type: SYSLOG
+     - EVE Output type: FILE
      - EVE Syslog Output Facility: AUTH
      - EVE Syslog Output Priority: NOTICE 
      - EVE Log Alerts: Suricata will output Alerts via EVE
