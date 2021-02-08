@@ -92,6 +92,7 @@
   3. :pushpin: References
       - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/opnsense-remote.png)
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=369)
+      - [WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Prerequisite-%7C--pfSense-OPNsense-Logging)
 
 - ### :b: pfSense 
   1. Navigate to _Status -> System Logs_, then click on _Settings_
@@ -102,6 +103,7 @@
   6. Click Save
   7. :pushpin: References
       - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/pfsenselogs.png)
+      - [WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Prerequisite-%7C--pfSense-OPNsense-Logging)
 
 ## :four: Suricata - (Optional)
 - ### :a: OPNsense     
