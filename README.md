@@ -10,11 +10,26 @@
 ## Welcome to (pfSense/OPNsense) + Elastic Stack  
 ![pfelk dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/Dashboard%20-%20v61.gif)
 
+### Contents
+* [Prerequisites](#prerequisites)
+* [Key Features](#key-features)
+* [How pfelk works?](#how-pfelk-works)
+* [Installation](#installation)
+  * [ansible](#ansible-playbook)
+  * [docker](#docker-compose)
+  * [script installation](#script-installation-method)
+  * [manual installation](#manual-installation-method)
+* [Roadmap](#roadmap)
+* [Comparison to similar solutions](#comparison-to-similar-solutions)
+* [Contributing](#contributing)
+* [License](#license)
+
 ### Prerequisites
-- Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster are tested)
+- Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster tested)
 - pfSense v2.4.4+ or OPNsense 19.7.4+
-- The following was tested with Java v11 LTS and Elastic Stack v7.10.2
-- Minimum of 4GB of RAM but recommend 32GB
+- The following was tested with Java v11 LTS (Java v13 LTS on Ubuntu) and Elastic Stack v7.10.2
+- Minimum of 4GB of RAM but recommend 32GB ([WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Performance))
+- Setting up remote logging ([WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Prerequisite-%7C--pfSense-OPNsense-Logging))
 
 **pfelk** is a highly customizable **open-source** tool for ingesting and visualizing your firewall traffic with the full power of Elasticsearch, Logstash and Kibana.
 
@@ -41,17 +56,6 @@ Supported entries include:
  - Captive Portal with dashboard
 
 **pfelk** aims to replace the vanilla pfSense/OPNsense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
-
-### Contents
-* [How pfelk works?](https://github.com/pfelk/pfelk#how-pfelk-works)
-* [Installation](https://github.com/pfelk/pfelk#installation)
-  * [ansible](https://github.com/pfelk/pfelk#ansible-playbook)
-  * [docker](https://github.com/pfelk/pfelk#docker-compose)
-  * [manual installation/script](https://github.com/pfelk/pfelk#manual-installationscript---preferred-manual-method)
-* [Roadmap](https://github.com/pfelk/pfelk#roadmap)
-* [Comparison to similar solutions](https://github.com/pfelk/pfelk#comparison-to-similar-solutions)
-* [Contributing](https://github.com/pfelk/pfelk#contributing)
-* [License](https://github.com/pfelk/pfelk#license)
 
 ### How pfelk works?
 * ![How pfelk works](https://github.com/pfelk/pfelk/raw/master/Images/pfELK-Overview.PNG)
