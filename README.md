@@ -27,7 +27,6 @@
 ### Prerequisites
 - Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster tested)
 - pfSense v2.4.4+ or OPNsense 19.7.4+
-- The following was tested with Java v11 LTS (Java v13 LTS on Ubuntu) and Elastic Stack v7.11.0
 - Minimum of 4GB of RAM but recommend 32GB ([WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Performance))
 - Setting up remote logging ([WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Prerequisite-%7C--pfSense-OPNsense-Logging))
 
