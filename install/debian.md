@@ -10,41 +10,36 @@
 
 # Preparation
 
-### 0. Disabling Swap
+### 1. Disabling Swap
 Swapping should be disabled for performance and stability.
 ```
 sudo swapoff -a
 ```
 
-### 1. Configuration Date/Time Zone
+### 2. Configuration Date/Time Zone
 The box running this configuration will reports firewall logs based on its clock.  The command below will set the timezone to Eastern Standard Time (EST).  To view available timezones type `sudo timedatectl list-timezones`
 ```
 sudo timedatectl set-timezone EST
 ```
 
-### 2. Add Prerequisites
+### 3. Add Prerequisites
 ```
 apt-get install apt-transport-https gnupg2 software-properties-common dirmngr lsb-release ca-certificates
 ```
 
-### 3. Download and install the public GPG signing key
+### 4. Download and install the public GPG signing key
 ```
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 ```
 
-### 4. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
+### 5. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
 ```
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-7.x.list
 ```
 
-### 5. Update
+### 6. Update
 ```
 apt-get update
-```
-
-### 6. Install Java 14 LTS
-```
-apt install openjdk-14-jre-headless
 ```
 
 ### 7. Install MaxMind (Optional)
