@@ -1,7 +1,12 @@
 ES Versions:
+  * pfelk >= 20.# supports Elastic Stack >= 7.11.0+
   * pfelk >= 6.0  supports Elastic Stack >= 7.0.0+
   * pfelk >= 6.0  supports pfSense >= 2.4.0+
   * pfelk >= 6.0  supports OPNsense >= 19+
+
+v20.3
+  -File Mappings
+  - File locations were amended to mimic docker configuraiton. This will mitigate the need to revise/amend various paths within the respective conf files.
 
 v6.5 202#/##/##
   -SCRIPT
