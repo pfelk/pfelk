@@ -1,0 +1,13 @@
+# pipelines.yml
+################################################################################
+# Version: 21.03                                                               #
+# Required: Yes (DOCKER ONLY                                                   #
+# Description: This is a required file for a Docker installation               #
+# This file is where you define your pipelines. You can define multiple.       #
+# For more information on multiple pipelines, see the documentation:           #
+#   https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html   #
+#                                                                              #
+################################################################################
+#
+- pipeline.id: pfelk
+  path.config: "/usr/share/pfelk/conf.d/*.conf"
