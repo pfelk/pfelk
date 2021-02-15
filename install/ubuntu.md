@@ -118,13 +118,13 @@ sudo mkdir -p /etc/pfELK/logs
 ### 20. Download Script
 `error-data.sh`
 ```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/error-data.sh -P /etc/pfELK/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/error-data.sh -P /etc/pfELK/
 ```
 
 ### 21. Make Script Executable
 `error-data.sh` 
 ```
-sudo chmod +x /etc/pfELK/error-data.sh
+sudo chmod +x /etc/pfelk/scripts/error-data.sh
 ```
 
 # Services
