@@ -18,29 +18,29 @@
 - [Finished](#nine-finished)
 
 # :one: Templates
- :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-installer.sh) script :page_with_curl:
+ :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-template-installer.sh) script :page_with_curl:
 - ### :a: Manual Method
   1. In your web browser navigate to the pfELK IP address using port 5601 (ex: 192.168.0.1:5601)
   2. Click ☰ in the upper left corner
   3. Click on _Dev Tools_ located near the bottom under the _Management_ heading
-  4. Paste the contents of each template file located in the [template :file_folder:](https://github.com/pfelk/pfelk/tree/master/etc/logstash/conf.d/templates) and links below
+  4. Paste the contents of each template file located in the [template :file_folder:](https://github.com/pfelk/pfelk/tree/master/etc/pfelk/templates) and links below
     - Component Templates
     - :small_red_triangle: **NOTE** _Component Templates must be installed first and in sequential order (e.g. pfelk-settings, pfelk-mappings-ecs etc...)_
-      - [pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-settings) - Install First
-      - [pfelk-mappings-ecs](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-mappings-ecs) - Install Second
-      - [pfelk-ilm](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-ilm) - Install Third
+      - [pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/templates/pfelk-settings) - Install First
+      - [pfelk-mappings-ecs](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/templates/pfelk-mappings-ecs) - Install Second
+      - [pfelk-ilm](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/templates/pfelk-ilm) - Install Third
     - Index Templates
       - Click the green triangle after pasting the contents (one at a time) into the console
-        - [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk)
-        - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-dhcp)
-        - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-haproxy)
-        - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/templates/pfelk-suricata)
+        - [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/templates/pfelk)
+        - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/templates/pfelk-dhcp)
+        - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/templates/pfelk-haproxy)
+        - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/templates/pfelk-suricata)
   5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=6)
 
 - ### :b: Scripted Method :page_with_curl:
   1. Download the pfelk-template-installer
-      - `wget https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk-template-installer.sh`
+      - `wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-template-installer.sh`
   2. Make the file executable 
       - `sudo chmod +x pfelk-template-installer.sh`
   3. Execute the file
