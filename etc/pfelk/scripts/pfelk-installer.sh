@@ -2,7 +2,7 @@
 #
 # Version    | 20.03
 # Email      | support@pfelk.com
-# Website    | https://pfelk.com
+# Website    | https://www.pfelk.com
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -158,10 +158,10 @@ help_script() {
   --nogeoip                Do not install MaxMind GeoIP 
   --noip				   Do not configure firewall IP Address. 
                Must Configure Manually via:
-               /etc/logstash/conf.d/01-inputs.conf
+               /etc/pfelk/conf.d/01-inputs.conf
   --nosense                Do not configure pfSense/OPNsense.  
                Must Configure Manually via:
-               /etc/logstash/conf.d/01-inputs.conf\\n\\n"
+               /etc/pfelk/conf.d/01-inputs.conf\\n\\n"
   exit 0
 }
   
@@ -1033,20 +1033,20 @@ sleep 3
 ###################################################################################################################################################################################################
 
 download_pfelk() {
-  mkdir -p /etc/logstash/conf.d/{databases,patterns,templates}
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/05-apps.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/20-interfaces.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
+  mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,templates}
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/01-inputs.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/02-types.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/03-filter.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/05-apps.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/20-interfaces.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/30-geoip.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/35-rules-desc.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/36-ports-desc.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/45-cleanup.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/50-outputs.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/patterns/pfelk.grok -P /etc/pfelk/patterns/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/databases/rule-names.csv -P /etc/pfelk/databases/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/databases/service-names-port-numbers.csv -P /etc/pfelk/databases/
   mkdir -p /etc/pfelk/scripts/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/error-data.sh -P /etc/pfelk/scripts/
   chmod +x /etc/pfelk/scripts/pfelk-error.sh
@@ -1063,7 +1063,7 @@ ILM_option() {
 if [[ "${ILM_option}" == 'true' ]]; then
   header
   echo -e "\\n${GREEN}#${RESET} Modifying 50-outputs.conf for ILM!${RESET}\\n";
-  sed -i 's/#ILM#//' /etc/logstash/conf.d/50-outputs.conf
+  sed -i 's/#ILM#//' /etc/pfelk/conf.d/50-outputs.conf
   sleep 3
 fi
 }
@@ -1088,7 +1088,7 @@ fi
 if [[ "${maxmind_install}" == 'true' ]]; then
   header
   echo -e "\\n${RED}#${RED} Modifying 30-geoip.conf for MaxMind!${RESET}\\n\\n";
-  sed -i 's/#MMR#//' /etc/logstash/conf.d/30-geoip.conf
+  sed -i 's/#MMR#//' /etc/pfelk/conf.d/30-geoip.conf
   sleep 3
 fi
 }
@@ -1206,6 +1206,18 @@ fi
 rm --force "$kibana_temp" 2> /dev/null
 service kibana start || abort
 sleep 3
+
+# Download logstash.yml & Restart Logstash
+update_logstash() {
+  header
+  script_logo
+  rm /etc/logstash/pipelines.yml
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/pipelines.yml -P /etc/logstash/
+  systemctl restart logstash.service
+  echo -e "\\n${WHITE_R}#${RESET} Updated Logstash.yml..."
+  sleep 3
+}
+update_logstash
 
 # Download Kibana.yml & Restart Kibana
 update_kibana() {
