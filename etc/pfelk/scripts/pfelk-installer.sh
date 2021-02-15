@@ -2,7 +2,7 @@
 #
 # Version    | 20.03
 # Email      | support@pfelk.com
-# Website    | https://www.pfelk.com
+# Website    | https://pfelk.3ilson.dev | https://pfelk.com
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -1033,7 +1033,7 @@ sleep 3
 ###################################################################################################################################################################################################
 
 download_pfelk() {
-  mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,templates}
+  mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,scripts,templates}
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/01-inputs.conf -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/02-types.conf -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/03-filter.conf -P /etc/pfelk/conf.d/
