@@ -9,11 +9,8 @@
 #                                                                              #
 ################################################################################
 #
-- pipeline.id: pfelk-docker
-  path.config: "/usr/share/pfelk/conf.d/*.conf"
-  
 - pipeline.id: pfelk
   path.config: "/etc/pfelk/conf.d/*.conf"
-  
+
 # - pipeline.id: main
 #  path.config: "/etc/logstash/conf.d/*.conf"
