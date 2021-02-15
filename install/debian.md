@@ -94,8 +94,8 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf
 
 ### 15. (Optional) Download the Database(s)
 ```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/databases/rule-names.csv -P /etc/pfelk/databases/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/databases/service-names-port-numbers.csv -P /etc/pfelk/databases/
 ```
 
 ### 16. (Optional) Configure Firewall Rule Database
@@ -118,7 +118,7 @@ sudo mkdir -p /etc/pfELK/logs
 ### 20. Download Script
 `error-data.sh`
 ```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/error-data.sh -P /etc/pfELK/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/error-data.sh -P /etc/pfelk/scripts/
 ```
 
 ### 21. Make Script Executable
