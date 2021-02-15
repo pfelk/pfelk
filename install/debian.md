@@ -57,39 +57,42 @@ apt-get install elasticsearch kibana logstash
 
 ### 9. Configure Kibana
 ```
-sudo nano /etc/kibana/kibana.yml
+sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/kibana/kibana.yml -P /etc/kibana/
 ```
 
-### 10. Modify host file (/etc/kibana/kibana.yml)
-- server.port: 5601
-- server.host: "0.0.0.0"
+# Configuration
+
+### 10. Configure Logstash
+```
+sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/pipelines.yml -P /etc/logstash/
+```
 
 ### 11. Create Required Directories
 ```
-sudo mkdir /etc/logstash/conf.d/{databases,patterns,templates}
+sudo mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,scripts,templates}
 ```
 
 ### 12. (Required) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/05-apps.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/20-interfaces.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/01-inputs.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/02-types.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/03-filter.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/05-apps.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/20-interfaces.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/30-geoip.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/45-cleanup.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/50-outputs.conf -P /etc/pfelk/conf.d/
 ```
 
 ### 13. (Optional) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/35-rules-desc.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/36-ports-desc.conf -P /etc/pfelk/conf.d/
 ```
 
 ### 14. Download the grok pattern
 ```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/patterns/pfelk.grok -P /etc/pfelk/patterns/
 ```
 
 ### 15. (Optional) Download the Database(s)
@@ -112,7 +115,7 @@ Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki pa
 # Troubleshooting
 ### 19. Create Logging Directory 
 ```
-sudo mkdir -p /etc/pfELK/logs
+sudo mkdir -p /etc/pfelk/logs
 ```
 
 ### 20. Download Script
