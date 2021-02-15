@@ -138,7 +138,7 @@ output(){
 install-sync(){
 	clear
 	echo -e "Downloading the ${yellow}pfelk_rule_sync.sh${normal} script..."
-	curl --create-dirs https://raw.githubusercontent.com/pfelk/pfelk/master/pfelk_rule_sync.sh -o /usr/local/opnsense/scripts/pfelk/pfelk_rule_sync.sh
+	curl --create-dirs https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk_rule_sync.sh -o /usr/local/opnsense/scripts/pfelk/pfelk_rule_sync.sh
 	echo -e "The file ${yellow}/usr/local/opnsense/scripts/pfelk/pfelk_rule_sync.sh${normal} has been ${blue}created${normal}"
 	chmod +x /usr/local/opnsense/scripts/pfelk/pfelk_rule_sync.sh
 	echo -e "\nPlease provide the ${yellow}IP address (LAN) or Hostname${normal} for your ${blue}pfELK${normal}"; 
