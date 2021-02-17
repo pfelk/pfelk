@@ -73,7 +73,7 @@ Supported entries include:
  * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=MJVbLvdVtyY) Guide
 
 #### script installation method
-* Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-dashboard-installer.sh) repository
+* Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-installer.sh) repository
 * `$ wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-dashboard-installer.sh`
 * Make script executable 
 * `$ chmod +x pfelk-installer.sh`
