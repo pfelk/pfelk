@@ -74,7 +74,7 @@ Supported entries include:
 
 #### script installation method
 * Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-installer.sh) repository
-* `$ wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-dashboard-installer.sh`
+* `$ wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-installer.sh`
 * Make script executable 
 * `$ chmod +x pfelk-installer.sh`
 * Run installer script 
