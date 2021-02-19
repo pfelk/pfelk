@@ -10,4 +10,4 @@
 - Click "Export"
 - Toggle, "include related objets" to off (i.e. do not include)
 
-![Export](https://github.com/a3ilson/pfelk/raw/master/Images/Export.png)
+![Export](https://github.com/a3ilson/pfelk/raw/master/Images/export.png)
