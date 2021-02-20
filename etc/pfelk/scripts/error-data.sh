@@ -16,7 +16,7 @@ echo "# Listing pfelk Directory Structure #" >> /etc/pfelk/logs/error.pfelk.log
 echo "#####################################\n" >> /etc/pfelk/logs/error.pfelk.log
 find /etc/pfelk/ | cat >> /etc/pfelk/logs/error.pfelk.log
 find /etc/logstash/ | cat >> /etc/pfelk/logs/error.pfelk.log
-find /usr/share/GeoIP/ | cat >> /etc/pfelk/logs/error.pfelk.log
+find /var/lib/GeoIP/ | cat >> /etc/pfelk/logs/error.pfelk.log
 #capture all config files
 echo "\n#####################################" >> /etc/pfelk/logs/error.pfelk.log
 echo "# pfelk Config File Details #########" >> /etc/pfelk/logs/error.pfelk.log
