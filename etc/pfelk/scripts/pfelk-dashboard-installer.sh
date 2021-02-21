@@ -43,14 +43,14 @@ fi
 #                                                                                   pfELK - Download Saved Objects                                                                                #
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/dashboard/v20.2-dhcp.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/dashboard/v20.2-firewall.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/dashboard/v20.2-haproxy.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/dashboard/v20.2-snort.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/dashboard/v20.2-squid.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/dashboard/v20.2-suricata.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/dashboard/v20.2-unbound.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/dashboard/v20.2-captive.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-dhcp.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-firewall.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-haproxy.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-snort.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-squid.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-suricata.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-unbound.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-captive.ndjson -P /tmp/pfELK/
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                   pfELK - Installing Saved Objects                                                                              #
