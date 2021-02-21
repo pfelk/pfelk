@@ -57,14 +57,14 @@ sudo apt install elasticsearch; sudo apt install kibana; sudo apt install logsta
 
 ### 9. Configure Kibana
 ```
-sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/kibana/kibana.yml -P /etc/kibana/
+sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/kibana/kibana.yml -P /etc/kibana/
 ```
 
 # Configuration
 
 ### 10. Configure Logstash
 ```
-sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/pipelines.yml -P /etc/logstash/
+sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
 ```
 
 ### 11. Create Required Directories 
