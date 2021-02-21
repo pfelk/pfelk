@@ -8,7 +8,7 @@
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/3ilson)
 ## Welcome to (pfSense/OPNsense) + Elastic Stack  
-![pfelk dashboard](https://raw.githubusercontent.com/pfelk/pfelk/master/Images/Dashboard%20-%20v61.gif)
+![pfelk dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/Images/Dashboard%20-%20v61.gif)
 
 ### Contents
 * [Prerequisites](#prerequisites)
@@ -73,18 +73,18 @@ Supported entries include:
  * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=MJVbLvdVtyY) Guide
 
 #### script installation method
-* Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-installer.sh) repository
-* `$ wget https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-installer.sh`
+* Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-installer.sh) repository
+* `$ wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-installer.sh`
 * Make script executable 
 * `$ chmod +x pfelk-installer.sh`
 * Run installer script 
 * `$ ./pfelk-installer.sh`
-* Finish Configuring [here](https://github.com/pfelk/pfelk/blob/master/install/configuration.md)
+* Finish Configuring [here](https://github.com/pfelk/pfelk/blob/main/install/configuration.md)
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=qcGcsQQoPo0) Guide
 
 #### manual installation method
-* [Ubuntu 18.04 / 20.04](https://github.com/pfelk/pfelk/blob/master/install/ubuntu.md)
-* [Debian 9-10.5](https://github.com/pfelk/pfelk/blob/master/install/debian.md)
+* [Ubuntu 18.04 / 20.04](https://github.com/pfelk/pfelk/blob/main/install/ubuntu.md)
+* [Debian 9-10.5](https://github.com/pfelk/pfelk/blob/main/install/debian.md)
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=_IJAAUqNVRc) Guide
 
 ### Roadmap
@@ -96,7 +96,7 @@ This is the experimental public roadmap for the pfelk project.
 [Comparisions »](https://github.com/pfelk/pfelk/wiki/Comparison)
 
 ### Contributing
-Please reference to the [CONTRIBUTING file](https://github.com/pfelk/pfelk/blob/master/CONTRIBUTING.md). Collectively we can enhance and improve this product. Issues, feature requests, PRs, and documentation contributions are encouraged and welcomed!
+Please reference to the [CONTRIBUTING file](https://github.com/pfelk/pfelk/blob/main/CONTRIBUTING.md). Collectively we can enhance and improve this product. Issues, feature requests, PRs, and documentation contributions are encouraged and welcomed!
 
 ### License
-This project is licensed under the terms of the Apache 2.0 open source license. Please refer to [LICENSE](https://github.com/pfelk/pfelk/blob/master/license) for the full terms.
+This project is licensed under the terms of the Apache 2.0 open source license. Please refer to [LICENSE](https://github.com/pfelk/pfelk/blob/main/license) for the full terms.
