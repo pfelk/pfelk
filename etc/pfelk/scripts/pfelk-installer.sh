@@ -482,7 +482,7 @@ fi
 script_version_check() {
   if dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   version=$(grep -i "# Version" "$0" | awk '{print $4}' | cut -d'-' -f1)
-  script_online_version_dots=$(curl "https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-installer.sh" -s | grep "# Version" | awk '{print $4}' | head -1)
+  script_online_version_dots=$(curl "https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-installer.sh" -s | grep "# Version" | awk '{print $4}' | head -1)
   script_local_version_dots=$(grep "# Version" "$0" | awk '{print $4}' | head -1)
   script_online_version="${script_online_version_dots//./}"
   script_local_version="${script_local_version_dots//./}"
@@ -494,7 +494,7 @@ script_version_check() {
     sleep 3
     rm --force "$0" 2> /dev/null
     rm --force "pfelk-install-${version}.sh" 2> /dev/null
-    wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-installer.sh" && bash "pfelk-installer.sh" "${script_options[@]}"; exit 0
+    wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-installer.sh" && bash "pfelk-installer.sh" "${script_options[@]}"; exit 0
   fi
   else
   curl_missing=true
@@ -1034,21 +1034,21 @@ sleep 3
 
 download_pfelk() {
   mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,scripts,templates}
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/01-inputs.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/02-types.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/03-filter.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/05-apps.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/20-interfaces.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/30-geoip.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/35-rules-desc.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/36-ports-desc.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/45-cleanup.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/conf.d/50-outputs.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/patterns/pfelk.grok -P /etc/pfelk/patterns/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/databases/rule-names.csv -P /etc/pfelk/databases/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/databases/service-names-port-numbers.csv -P /etc/pfelk/databases/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/01-inputs.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/02-types.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/03-filter.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/05-apps.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/20-interfaces.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/35-rules-desc.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/36-ports-desc.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/45-cleanup.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/50-outputs.conf -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/pfelk.grok -P /etc/pfelk/patterns/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/rule-names.csv -P /etc/pfelk/databases/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/service-names-port-numbers.csv -P /etc/pfelk/databases/
   mkdir -p /etc/pfelk/scripts/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/error-data.sh -P /etc/pfelk/scripts/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/error-data.sh -P /etc/pfelk/scripts/
   chmod +x /etc/pfelk/scripts/pfelk-error.sh
   header
   script_logo
@@ -1158,7 +1158,7 @@ if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]];
      { echo -e "\\n${RED}#${RESET} Failed to install pfELK Templates"; sleep 3; }
   else
      echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
+     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
      chmod +x /tmp/pfELK/pfelk-template-installer.sh
      /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
      echo -e "${GREEN}#${RESET} Done."
@@ -1170,7 +1170,7 @@ else
     { echo -e "\\n${WHITE_R}#${RESET} Failed to install pfELK Templates"; sleep 3; }
   else
      echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
+     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
      chmod +x /tmp/pfELK/pfelk-template-installer.sh
      /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
      echo -e "${GREEN}#${RESET} Done."
@@ -1212,7 +1212,7 @@ update_logstash() {
   header
   script_logo
   rm /etc/logstash/pipelines.yml
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/logstash/pipelines.yml -P /etc/logstash/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
   systemctl restart logstash.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Logstash.yml..."
   sleep 3
@@ -1224,7 +1224,7 @@ update_kibana() {
   header
   script_logo
   rm /etc/kibana/kibana.yml
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/kibana/kibana.yml -P /etc/kibana/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/kibana/kibana.yml -P /etc/kibana/
   systemctl restart kibana.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml..."
   sleep 3
@@ -1303,7 +1303,7 @@ if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]];
      { echo -e "\\n${RED}#${RESET} Failed to Install pfELK Dashboards\\n\\n"; sleep 3; }
   else
      echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects (i.e. pfELK Dashboards)!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-dashboard-installer.sh -P /tmp/pfELK/
+     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-dashboard-installer.sh -P /tmp/pfELK/
      chmod +x /tmp/pfELK/pfelk-dashboard-installer.sh
      /tmp/pfELK/pfelk-dashboard-installer.sh > /dev/null 2>&1
      echo -e "${GREEN}#${RESET} Done."
@@ -1315,7 +1315,7 @@ else
     { echo -e "${RED}#${RESET} Failed to Install pfELK Dashboards\\n\\n"; sleep 3; }
   else
      echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects (i.e. pfELK Dashboards)!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/master/etc/pfelk/scripts/pfelk-dashboard-installer.sh -P /tmp/pfELK/
+     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-dashboard-installer.sh -P /tmp/pfELK/
      chmod +x /tmp/pfELK/pfelk-dashboard-installer.sh
      /tmp/pfELK/pfelk-dashboard-installer.sh
      echo -e "${GREEN}#${RESET} Done."
@@ -1333,7 +1333,7 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
   echo -e "\\n"
   echo -e "Open your browser and connect to ${GREEN}http://$SERVER_IP:5601${RESET}\\n"
-  echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> ${GREEN}https://github.com/pfelk/pfelk/blob/master/install/configuration.md${RESET}\\n"
+  echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/configuration.md${RESET}\\n"
   echo -e "\\n"
   sleep 3
   remove_yourself
