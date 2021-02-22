@@ -97,6 +97,7 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/
 
 ### 15. (Optional) Download the Database(s)
 ```
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/private-hostnames.csv -P /etc/pfelk/databases/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/rule-names.csv -P /etc/pfelk/databases/
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/service-names-port-numbers.csv -P /etc/pfelk/databases/
 ```
