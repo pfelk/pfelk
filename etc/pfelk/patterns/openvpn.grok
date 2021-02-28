@@ -21,6 +21,11 @@ OPENVPN_MGT_CMD (?<[openvpn][management]>(CMD)) \'%{GREEDYDATA:[openvpn][managem
 
 OPENVPN_MSG %{IP:[openvpn][client][ip]}:%{INT:[openvpn][client][port]} VERIFY (?<[openvpn][event][kind]]>(WARNING|SCRIPT OK|OK)): (depth=)?(%{INT:[openvpn][event][code]},)? %{GREEDYDATA:[openvpn][tls][issuer]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
 
+OPENVPN_EST %{GREEDYDATA:[openvpn][event][reason]} \[AF_INET]%{IP:[openvpn][client][ip]}:%{INT:[openvpn][client][port]} %{TIME:[openvpn][event][starttime]} IP
+
+OPENVPN_INFO %{GREEDYDATA:[openvpn][event][reason]}\: %{DATA:[openvpn][event][reference]} %{TIME:[openvpn][event][starttime]} IP
+
+
 OPENVPN_IV %{IP:[openvpn][client][ip]}:%{INT:[openvpn][client][port]} (peer info: )|(%{IV_VER}|%{IV_PLAT}|%{IV_PROTO}|%{IV_NCP}|%{IV_CIPHERS}|%{IV_LZ4}|%{IV_LZ4v2}|%{IV_COMP_STUB}|%{IV_COMP_STUBv2}|%{IV_TCPNL}|%{IV_GUI_VER})
 IV_VER IV_VER=%{GREEDYDATA:[openvpn][iv][version]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
 IV_PLAT IV_PLAT=%{WORD:[openvpn][iv][paltform]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
