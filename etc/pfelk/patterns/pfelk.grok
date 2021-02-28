@@ -32,12 +32,6 @@ DHCPDv6 %{GREEDYDATA:[dhcpv6][operation]}
 # HAPROXY
 HAPROXY %{IP:[client][ip]}:%{INT:[client][port]} \[%{HAPROXYDATE:[haproxy][timestamp]}\] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]}/%{INT:[haproxy][time_backend_response]}/%{NOTSPACE:[host][uptime]} %{INT:[http][response][status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][http][request][captured_cookie]} %{DATA:[haproxy][http][response][captured_cookie]} %{NOTSPACE:[haproxy][termination_state]} %{INT:[haproxy][connections][active]}/%{INT:[haproxy][connections][frontend]}/%{INT:[haproxy][connections][backend]}/%{INT:[haproxy][connections][server]}/%{NOTSPACE:[haproxy][connections][retries]} %{INT:[haproxy][server_queue]}/%{INT:[haproxy][backend_queue]} (\{%{HAPROXYCAPTUREDREQUESTHEADERS}\})?( )?(\{%{HAPROXYCAPTUREDRESPONSEHEADERS}\})?( )?"(<BADREQ>|(%{WORD:[http][request][method]} (%{URIPROTO:[haproxy][mode]}://)?(?:%{USER:[user][name]}(?::[^@]*)?@)?(?:%{URIHOST:[http][request][referrer]})?(?:%{URIPATHPARAM:[http][mode]})?( HTTP/%{NUMBER:[http][version]})?))?"?
 
-# OPENVPN
-OPENVPN (%{OPENVPNIP}|%{OPENVPNUSER}|%{OPENVPNLOG})
-OPENVPNIP %{IP:[vpn][source][ip]}\:%{INT:[vpn][source][port]}%{SPACE}\[%{DATA:[vpn][client]}\]%{SPACE}Peer%{SPACE}Connection%{SPACE}Initiated%{SPACE}with%{GREEDYDATA}
-OPENVPNUSER (%{WORD:[vpn][domain]}?\\)?(?<[vpn][user]>\b[+\w\.-]+\b)?/?%{IP:[vpn][source][ip]}:%{INT:[vpn][source][port]} peer info: IV_PLAT=%{WORD:[vpn][plat]}
-OPENVPNLOG %{GREEDYDATA:[vpn][log][message]}
-
 # PF
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
 PF_LOG_DATA %{INT:[rule][ruleset]},%{INT:[rule][id]}?,,%{INT:[rule][uuid]},%{DATA:[interface][name]},(?<[event][reason]>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
