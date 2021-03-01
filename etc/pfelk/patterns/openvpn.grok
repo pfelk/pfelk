@@ -39,7 +39,7 @@ IV_TCPNL IV_TCPNL=%{INT:[openvpn][iv][tcpnl]} %{TIME:[openvpn][event][starttime]
 IV_GUI_VER IV_GUI_VER=%{WORD:[openvpn][iv][gui_ver]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
 
 # OPENVPN - MANAGMENT
-OPENVPN_MGT(%{OPENVPN_MGT_CLIENT}|%{OPENVPN_MGT_CMD})
+OPENVPN_MGT (%{OPENVPN_MGT_CLIENT}|%{OPENVPN_MGT_CMD})
 OPENVPN_MGT_CLIENT (?<[openvpn][management]>(Client)) (?<[openvpn][management][status]>(connected|disconnected))|(%{OPENVPN_MGT_CLIENT_C}|%{OPENVPN_MGT_CLIENT_C})
 OPENVPN_MGT_CLIENT_C %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
 OPENVPN_MGT_CLIENT_D from %{GREEDYDATA:[openvpn][location]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
