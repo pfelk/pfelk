@@ -49,7 +49,7 @@ OPENVPN_MGT_CMD (?<[openvpn][management]>(CMD)) \'%{GREEDYDATA:[openvpn][managem
 OPENVPN_MSG %{OPENVPN_IP} VERIFY (?<[openvpn][event][kind]]>(WARNING|SCRIPT OK|OK)): (depth=)?(%{INT:[openvpn][event][code]},)? %{GREEDYDATA:[openvpn][tls][issuer]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
 
 # OPENVPN - OTHER
-OEPNVPN_OTHER %{OPENVPN_IP} .* %{TIME:[openvpn][event][starttime]} IP
+OPENVPN_OTHER %{OPENVPN_IP} .* %{TIME:[openvpn][event][starttime]} IP
 
 #OPENVPN_USR
 OPENVPN_USR %{USERNAME:[openvpn][user][name]}/%{IP:[openvpn][client][address]}:%{INT:[openvpn][client][port]}|(%{OPENVPN_USR_CIPHER}|%{OPENVPN_USR_OTHER})  
