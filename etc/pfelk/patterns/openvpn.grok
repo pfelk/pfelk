@@ -6,52 +6,49 @@
 #                                                                              #
 ################################################################################
 #
-# OPENVPN
-OPENVPN (%{OPENVPN_AUTH}|%{OPENVPN_MGT}|%{OPENVPN_MSG}|%{OPENVPN_IV}|%{OPENVPN_USR}|%{OPENVPN_EST}|%{OPENVPN_INFO}%{OPENVPN_OTHER})
+# OPENVPN_RAW
+OPENVPN_RAW (%{OPENVPN_AUTH}|%{OPENVPN_MGT}|%{OPENVPN_MSG}|%{OPENVPN_IV}|%{OPENVPN_USR}|%{OPENVPN_EST}|%{OPENVPN_INFO}%{OPENVPN_OTHER})
 
 # OPENVPN - AUTH
-OPENVPN_AUTH user '%{USERNAME:[openvpn][user][name]}' %{WORD:[openvpn][event][action]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
+OPENVPN_AUTH user '%{USERNAME:[openvpn][user][name]}' %{WORD:[openvpn][event][action]} %{TIME:[openvpn][event][starttime]} 
 
 # OPENVPN - EST
-OPENVPN_EST %{GREEDYDATA:[openvpn][event][reason]} \[AF_INET]%{IP:[openvpn][client][ip]}:%{INT:[openvpn][client][port]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-
-# OPENVPN - FINAL
-OPENVPN_FINAL .*\(tos\s*%{BASE16NUM:[openvpn][tos]},\s*ttl\s*%{INT:[openvpn][ttl]},\s*id\s*%{POSINT:[openvpn][process][ppid]},\s*offset\s*%{INT:[openvpn][offset]},\s*flags\s*\[%{WORD:[openvpn][flags]}\],\s*proto\s*%{WORD:[openvpn][protocol][type]}\s*\(%{INT:[openvpn][protocol][id]}\),\s*length\s*%{NUMBER:[openvpn][packet][length]}\)\s*%{IP:[openvpn][client][ip]}\.%{INT:[openvpn][client][port]}\s*>\s*%{IP:[openvpn][server][ip]}\.%{INT:[openvpn][server][port]}:\s*\[%{GREEDYDATA:[openvpn][checksum]}\]\s*%{WORD:[openvpn][network][transport]},\s*length\s*%{INT:[openvpn][transport][data_length]}
+OPENVPN_EST %{GREEDYDATA:[openvpn][event][reason]} \[AF_INET]%{IP:[openvpn][client][ip]}:%{INT:[openvpn][client][port]} %{TIME:[openvpn][event][starttime]} 
 
 # OPENVPN - INFO
-OPENVPN_INFO %{GREEDYDATA:[openvpn][event][reason]}\: %{DATA:[openvpn][event][reference]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
+OPENVPN_INFO %{GREEDYDATA:[openvpn][event][reason]}\: %{DATA:[openvpn][event][reference]} %{TIME:[openvpn][event][starttime]} 
 
 # OPENVPN - IP
 OPENVPN_IP %{IP:[openvpn][client][ip]}:%{INT:[openvpn][client][port]}
 
 # OPENVPN - IV
 OPENVPN_IV %{OPENVPN_IP} (peer info: )|(%{IV_VER}|%{IV_PLAT}|%{IV_PROTO}|%{IV_NCP}|%{IV_CIPHERS}|%{IV_LZ4}|%{IV_LZ4v2}|%{IV_COMP_STUB}|%{IV_COMP_STUBv2}|%{IV_TCPNL}|%{IV_GUI_VER})
-IV_VER IV_VER=%{GREEDYDATA:[openvpn][iv][version]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_PLAT IV_PLAT=%{WORD:[openvpn][iv][paltform]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_PROTO IV_PROTO=%{INT:[openvpn][iv][protocol]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_NCP IV_NCP=%{INT:[openvpn][iv][ncp]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_CIPHERS IV_CIPHERS=%{GREEDYDATA:[openvpn][tls][client][supported_ciphers]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_LZ4 IV_LZ4=%{INT:[openvpn][iv][lz4]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_LZ4v2 IV_LZ4v2=%{INT:[openvpn][iv][lz4v2]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_COMP_STUB IV_COMP_STUB=%{INT:[openvpn][iv][comp_stub]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_COMP_STUBv2 IV_COMP_STUBv2=%{INT:[openvpn][iv][comp_stubv2]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_TCPNL IV_TCPNL=%{INT:[openvpn][iv][tcpnl]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-IV_GUI_VER IV_GUI_VER=%{WORD:[openvpn][iv][gui_ver]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
+IV_VER IV_VER=%{GREEDYDATA:[openvpn][iv][version]} %{TIME:[openvpn][event][starttime]} 
+IV_PLAT IV_PLAT=%{WORD:[openvpn][iv][paltform]} %{TIME:[openvpn][event][starttime]} 
+IV_PROTO IV_PROTO=%{INT:[openvpn][iv][protocol]} %{TIME:[openvpn][event][starttime]} 
+IV_NCP IV_NCP=%{INT:[openvpn][iv][ncp]} %{TIME:[openvpn][event][starttime]} 
+IV_CIPHERS IV_CIPHERS=%{GREEDYDATA:[openvpn][tls][client][supported_ciphers]} %{TIME:[openvpn][event][starttime]} 
+IV_LZ4 IV_LZ4=%{INT:[openvpn][iv][lz4]} %{TIME:[openvpn][event][starttime]} 
+IV_LZ4v2 IV_LZ4v2=%{INT:[openvpn][iv][lz4v2]} %{TIME:[openvpn][event][starttime]} 
+IV_COMP_STUB IV_COMP_STUB=%{INT:[openvpn][iv][comp_stub]} %{TIME:[openvpn][event][starttime]} 
+IV_COMP_STUBv2 IV_COMP_STUBv2=%{INT:[openvpn][iv][comp_stubv2]} %{TIME:[openvpn][event][starttime]} 
+IV_TCPNL IV_TCPNL=%{INT:[openvpn][iv][tcpnl]} %{TIME:[openvpn][event][starttime]} 
+IV_GUI_VER IV_GUI_VER=%{WORD:[openvpn][iv][gui_ver]} %{TIME:[openvpn][event][starttime]} 
 
 # OPENVPN - MANAGMENT
 OPENVPN_MGT (%{OPENVPN_MGT_CLIENT}|%{OPENVPN_MGT_CMD})
 OPENVPN_MGT_CLIENT (?<[openvpn][management]>(Client)) (?<[openvpn][management][status]>(connected|disconnected))|(%{OPENVPN_MGT_CLIENT_C}|%{OPENVPN_MGT_CLIENT_C})
-OPENVPN_MGT_CLIENT_C %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-OPENVPN_MGT_CLIENT_D from %{GREEDYDATA:[openvpn][location]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-OPENVPN_MGT_CMD (?<[openvpn][management]>(CMD)) \'%{GREEDYDATA:[openvpn][management][message]}\' %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
+OPENVPN_MGT_CLIENT_C %{TIME:[openvpn][event][starttime]} 
+OPENVPN_MGT_CLIENT_D from %{GREEDYDATA:[openvpn][location]} %{TIME:[openvpn][event][starttime]} 
+OPENVPN_MGT_CMD (?<[openvpn][management]>(CMD)) \'%{GREEDYDATA:[openvpn][management][message]}\' %{TIME:[openvpn][event][starttime]} 
 
 # OPENVPN - MSG
-OPENVPN_MSG %{OPENVPN_IP} VERIFY (?<[openvpn][event][kind]]>(WARNING|SCRIPT OK|OK)): (depth=)?(%{INT:[openvpn][event][code]},)? %{GREEDYDATA:[openvpn][tls][issuer]} %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
+OPENVPN_MSG %{OPENVPN_IP} VERIFY (?<[openvpn][event][kind]]>(WARNING|SCRIPT OK|OK)): (depth=)?(%{INT:[openvpn][event][code]},)? %{GREEDYDATA:[openvpn][tls][issuer]} %{TIME:[openvpn][event][starttime]} 
 
 # OPENVPN - OTHER
 OPENVPN_OTHER %{OPENVPN_IP} .* %{TIME:[openvpn][event][starttime]} IP
 
 #OPENVPN_USR
 OPENVPN_USR %{USERNAME:[openvpn][user][name]}/%{IP:[openvpn][client][address]}:%{INT:[openvpn][client][port]}|(%{OPENVPN_USR_CIPHER}|%{OPENVPN_USR_OTHER})  
-OPENVPN_USR_CIPHER (?<[openvpn][type]>(Data Channel|Outgoing Data Channel|Outgoing Data Channel))?(\:) %{GREEDYDATA:[openvpn][cipher][message]} '%{GREEDYDATA:[openvpn][tls][cipher]}' (initialized with %{INT:[openvpn][cipher][bit_length]} bit key)?(\s)?%{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
-OPENVPN_USR_OTHER .* %{TIME:[openvpn][event][starttime]} IP %{OPENVPN_FINAL}
+OPENVPN_USR_CIPHER (?<[openvpn][type]>(Data Channel|Outgoing Data Channel|Outgoing Data Channel))?(\:) %{GREEDYDATA:[openvpn][cipher][message]} '%{GREEDYDATA:[openvpn][tls][cipher]}' (initialized with %{INT:[openvpn][cipher][bit_length]} bit key)?(\s)?%{TIME:[openvpn][event][starttime]} 
+OPENVPN_USR_OTHER .* %{TIME:[openvpn][event][starttime]} 
