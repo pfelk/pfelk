@@ -54,4 +54,4 @@ OPENVPN_USR_CIPHER (?<[openvpn][type]>(Data Channel|Outgoing Data Channel|Outgoi
 OPENVPN_USR_OTHER .* %{TIME:[openvpn][event][starttime]} 
 
 #OPENVPN_USER_SENT_CONTROL
-OPENVPN_USER_SENT_CONTROL /%{IP:[openvpn][client][address]}:%{INT:[openvpn][client][port]} SENT CONTROL \[%{USERNAME:[openvpn][user][name]}\]\: \'PUSH_REPLY,dhcp-option DNS %{IP:[openvpn][dns][ip]},redirect-gateway def1,route-gateway %{IP:[openvpn][gateway][ip]},topology subnet,ping 10,ping-restart 60,ifconfig %{IP:[openvpn][client][nat][ip]} %{IP:[openvpn][client][nat][subnet]},peer-id %{INT:[openvpn][peerid]},cipher %{GREEDYDATA:[openvpn][tls][cipher]}
+OPENVPN_USER_SENT_CONTROL /%{IP:[openvpn][client][address]}:%{INT:[openvpn][client][port]} SENT CONTROL \[%{USERNAME:[openvpn][user][name_test]}\]\: \'PUSH_REPLY,dhcp-option DNS %{IP:[openvpn][dns][ip]},redirect-gateway def1,route-gateway %{IP:[openvpn][gateway][ip]},topology subnet,ping 10,ping-restart 60,ifconfig %{IP:[openvpn][client][nat][ip]} %{IP:[openvpn][client][nat][subnet]},peer-id %{INT:[openvpn][peerid]},cipher %{GREEDYDATA:[openvpn][tls][cipher]}
