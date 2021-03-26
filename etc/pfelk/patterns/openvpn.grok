@@ -49,7 +49,7 @@ OPENVPN_MSG %{OPENVPN_IP} VERIFY (?<[openvpn][event][kind]]>(WARNING|SCRIPT OK|O
 OPENVPN_OTHER %{OPENVPN_IP} .* %{TIME:[openvpn][event][starttime]} IP
 
 #OPENVPN_USR
-OPENVPN_USR %{USERNAME:[openvpn][user][name]}/%{IP:[openvpn][client][address]}:%{INT:[openvpn][client][port]}|(%{OPENVPN_USR_CIPHER}|%{OPENVPN_USR_OTHER}|{OPENVPN_USER_SENT_CONTROL})  
+OPENVPN_USR %{USERNAME:[openvpn][user][name]}/%{IP:[openvpn][client][address]}:%{INT:[openvpn][client][port]}|(%{OPENVPN_USR_CIPHER}|%{OPENVPN_USR_OTHER}|%{OPENVPN_USER_SENT_CONTROL})  
 OPENVPN_USR_CIPHER (?<[openvpn][type]>(Data Channel|Outgoing Data Channel|Outgoing Data Channel))?(\:) %{GREEDYDATA:[openvpn][cipher][message]} '%{GREEDYDATA:[openvpn][tls][cipher]}' (initialized with %{INT:[openvpn][cipher][bit_length]} bit key)?(\s)?%{TIME:[openvpn][event][starttime]} 
 OPENVPN_USR_OTHER .* %{TIME:[openvpn][event][starttime]} 
 
