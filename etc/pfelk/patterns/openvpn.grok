@@ -7,7 +7,7 @@
 ################################################################################
 #
 # OPENVPN_RAW
-OPENVPN_RAW (%{OPENVPN_AUTH}|%{OPENVPN_MGT}|%{OPENVPN_MSG}|%{OPENVPN_IV}|%{OPENVPN_USR}|%{OPENVPN_EST}|%{OPENVPN_INFO}%{OPENVPN_OTHER})
+OPENVPN_RAW (%{OPENVPN_AUTH}|%{OPENVPN_MGT}|%{OPENVPN_MSG}|%{OPENVPN_IV}|%{OPENVPN_USR}|%{OPENVPN_EST}|%{OPENVPN_INFO}|%{OPENVPN_OTHER}|%{OPENVPN_USER_SENT_CONTROL})
 
 # OPENVPN - AUTH
 OPENVPN_AUTH user '%{USERNAME:[openvpn][user][name]}' %{WORD:[openvpn][event][action]} %{TIME:[openvpn][event][starttime]} 
