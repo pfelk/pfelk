@@ -3,7 +3,7 @@
 ### Requirements 
 - [ ] Installation of pfELK
 - [ ] Copy files located in the [conf.d](https://github.com/pfelk/pfelk/tree/master/experimental/conf.d) folder to `/etc/pflek/conf.d/`
-- [ ] Copy files located in the [ruby](https://github.com/pfelk/pfelk/tree/master/experimental/conf.d/ruby) folder to `/etc/pfelk/conf.d/ruby/`
+- [ ] Copy files located in the [ruby](https://github.com/pfelk/pfelk/tree/master/experimental/conf.d/ruby) folder to `/etc/pfelk/ruby/`
 - [ ] Copy files located in the [databases](https://github.com/pfelk/pfelk/tree/master/experimental/conf.d/databases) folder to `/etc/pfelk/databases/`
   - Be sure to unzip [ip_rep_basic.yml.zip](https://github.com/pfelk/pfelk/raw/master/experimental/conf.d/databases/ip_rep_basic.yml.zip)
     - The file was too large to upload dirclty to GitHub
