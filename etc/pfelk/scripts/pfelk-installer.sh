@@ -1214,7 +1214,7 @@ update_logstash() {
   header
   script_logo
   rm /etc/logstash/pipelines.yml
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
+  wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
   systemctl restart logstash.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Logstash.yml..."
   sleep 3
@@ -1226,7 +1226,7 @@ update_kibana() {
   header
   script_logo
   rm /etc/kibana/kibana.yml
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/kibana/kibana.yml -P /etc/kibana/
+  wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/kibana/kibana.yml -P /etc/kibana/
   systemctl restart kibana.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml..."
   sleep 3
