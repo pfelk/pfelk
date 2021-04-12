@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 20.04a
+# Version    | 20.04b
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -664,6 +664,7 @@ select opt in "${options[@]}"
        sed -i "s/AccountID.*/AccountID ${maxmind_username}/g" /etc/GeoIP.conf
        sed -i "s/LicenseKey.*/LicenseKey ${maxmind_password}/g" /etc/GeoIP.conf
        echo -e "\\n";
+       mkdir -p /etc/pfelk/GeoIP
        geoipupdate -d /etc/pfelk/GeoIP
        sleep 2
        echo -e "\\n";;
