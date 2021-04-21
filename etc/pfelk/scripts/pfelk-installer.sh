@@ -1014,7 +1014,7 @@ echo -e "\\n${WHITE_R}----${RESET}\\n"
 rm --force /tmp/pfELK/upgrade/upgrade_list &> /dev/null
 { apt-get --just-print upgrade 2>&1 | perl -ne 'if (/Inst\s([\w,\-,\d,\.,~,:,\+]+)\s\[([\w,\-,\d,\.,~,:,\+]+)\]\s\(([\w,\-,\d,\.,~,:,\+]+)\)? /i) {print "$1 ( \e[1;34m$2\e[0m -> \e[1;32m$3\e[0m )\n"}';} | while read -r line; do echo -en "${WHITE_R}-${RESET} $line\n"; echo -en "$line\n" | awk '{print $1}' &>> /tmp/pfELK/upgrade/upgrade_list; done;
 if [[ -f /tmp/pfELK/upgrade/upgrade_list ]]; then number_of_updates=$(wc -l < /tmp/pfELK/upgrade/upgrade_list); else number_of_updates='0'; fi
-if [[ "${number_of_updates}" == '0' ]]; then echo -e "${WHITE_R}#${RESET} There are were no packages that need an upgrade..."; fi
+if [[ "${number_of_updates}" == '0' ]]; then echo -e "${WHITE_R}#${RESET} There are no packages that need an upgrade..."; fi
 echo -e "\\n${WHITE_R}----${RESET}\\n"
 if [[ "${script_option_skip}" != 'true' ]]; then
   read -rp $'\033[39m#\033[0m Do you want to proceed with updating your system? (Y/n) ' yes_no
