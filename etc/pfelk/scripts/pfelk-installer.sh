@@ -321,7 +321,7 @@ get_distro() {
 }
 get_distro
 
-if ! [[ "${os_codename}" =~ (xenial|bionic|cosmic|disco|eoan|focal|stretch|buster|bullseye|bookworm)  ]]; then
+if ! [[ "${os_codename}" =~ (xenial|bionic|cosmic|disco|eoan|focal|stretch|buster|bullseye|bookworm|hirsute)  ]]; then
   clear
   header_red
   echo -e "${WHITE_R}#${RESET} This script is not made for your OS."
