@@ -1,4 +1,4 @@
-![Version badge](https://img.shields.io/badge/ELK-7.12.1-blue.svg)
+![Version badge](https://img.shields.io/badge/ELK-7.13.2-blue.svg)
 [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson)
 
