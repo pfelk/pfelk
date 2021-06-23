@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
     container_name: es01
     environment:
       - node.name=es01
@@ -21,7 +21,7 @@ services:
     networks:
       - elastic
   es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
     container_name: es02
     environment:
       - node.name=es02
@@ -39,7 +39,7 @@ services:
     networks:
       - elastic
   es03:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
     container_name: es03
     environment:
       - node.name=es03
@@ -58,7 +58,7 @@ services:
       - elastic
       
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.12.0
+    image: docker.elastic.co/logstash/logstash:7.13.2
     container_name: logstash
     environment:
       LS_JAVA_OPTS: -Xms8G -Xmx8G
@@ -75,7 +75,7 @@ services:
       - elastic
   
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.12.0
+    image: docker.elastic.co/kibana/kibana:7.13.2
     container_name: kibana
     environment:
       ELASTICSEARCH_HOSTS: http://es01:9200
