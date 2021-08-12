@@ -37,7 +37,7 @@ OPENVPN (%{IP:[openvpn][user][ip]}.%{INT:[openvpn][user][port]})?(%{USERNAME:[op
 
 # PF
 PF_LOG_ENTRY %{PF_LOG_DATA}%{PF_IP_SPECIFIC_DATA}%{PF_IP_DATA}%{PF_PROTOCOL_DATA}?
-PF_LOG_DATA %{INT:[rule][ruleset]},%{INT:[rule][id]}?,,%{WORD:[rule][uuid]},%{DATA:[interface][name]},(?<[event][reason]>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
+PF_LOG_DATA %{INT:[rule][ruleset]},%{INT:[rule][id]}?,,%{DATA:[rule][uuid]},%{DATA:[interface][name]},(?<[event][reason]>\b[\w\-]+\b),%{WORD:[event][action]},%{WORD:[network][direction]},
 PF_IP_SPECIFIC_DATA %{PF_IPv4_SPECIFIC_DATA}|%{PF_IPv6_SPECIFIC_DATA}
 PF_IPv4_SPECIFIC_DATA (?<[network][type]>(4)),%{BASE16NUM:[pf][ipv4][tos]},%{WORD:[pf][ipv4][ecn]}?,%{INT:[pf][ipv4][ttl]},%{INT:[pf][ipv4][packet][id]},%{INT:[pf][ipv4][offset]},%{WORD:[pf][ipv4][flags]},%{INT:[network][iana_number]},%{WORD:[network][transport]},
 PF_IP_DATA %{INT:[pf][packet][length]},%{IP:[source][ip]},%{IP:[destination][ip]},
