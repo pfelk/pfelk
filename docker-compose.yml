@@ -10,6 +10,7 @@ services:
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms8G -Xmx8G"
+      - xpack.security.enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -30,6 +31,7 @@ services:
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms8G -Xmx8G"
+      - xpack.security.enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -48,6 +50,7 @@ services:
       - cluster.initial_master_nodes=es01,es02,es03
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms8G -Xmx8G"
+      - xpack.security.enabled=false
     ulimits:
       memlock:
         soft: -1
