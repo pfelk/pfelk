@@ -130,7 +130,7 @@ output(){
   fi
   if [ "$3" = "help" ]
   then
-    printf "Now go to your pfELK server and paste the results from ${yellow}${path}${normal} into ${blue}/etc/logstash/conf.d/databases/rule-names.csv${normal}\n";
+    printf "Now go to your pfELK server and paste the results from ${yellow}${path}${normal} into ${blue}/etc/pfelk/databases/rule-names.csv${normal}\n";
   fi
   rm /tmp/pfelk_rules*
 }
