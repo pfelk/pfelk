@@ -655,7 +655,7 @@ select opt in "${options[@]}"
        rm --force "$geoip_temp" 2> /dev/null
        
     # GeoIP Cronjob
-       echo 00 17 * * 0 geoipupdate -d /etc/pfelk/GeoIP > /etc/cron.weekly/geoipupdate
+       echo 00 17 * * 0 geoipupdate -d /usr/share/GeoIP > /etc/cron.weekly/geoipupdate
        sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
        maxmind_username=$(echo "${maxmind_username}")
        maxmind_password=$(echo "${maxmind_password}")
