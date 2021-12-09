@@ -929,7 +929,7 @@ if [ "${system_memory}" -le "4" ]; then
   header_red
   echo -e "${RED}#${RESET} System memory does not meet minimum and may not run!"
   echo -e "${RED}#${RESET} This system has "${system_memory}"GB of RAM configured!"
-  echo -e "${WHITE_R}#${RESET} It is recommend that ram is expanded to at least 8GB\\n\\n"
+  echo -e "${RED}#${RESET} It is recommend that ram is expanded to at least 8GB\\n\\n"
   sleep 2
   if [[ "${script_option_mem_skip}" != 'true' ]]; then
     read -rp "Do you want to proceed at your own risk? (Y/n)" yes_no
@@ -943,8 +943,8 @@ if [ "${system_memory}" -le "4" ]; then
 else
   header
   echo -e "${WHITE_R}#${RESET} Memory Meets Minimum Requirements!\\n\\n"
-  echo -e "${RED}#${RESET} This system has "${system_memory}"GB of RAM configured!"
-  echo -e "${RED}#${RESET} This system has "${system_swap}"GB swap allocated!"
+  echo -e "${GREEN}#${RESET} This system has "${system_memory}"GB of RAM configured!"
+  echo -e "${GREEN}#${RESET} This system has "${system_swap}"GB swap allocated!"
   swapoff -a
   sleep 2
 fi
