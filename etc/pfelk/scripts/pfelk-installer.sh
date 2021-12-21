@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 21.12
+# Version    | 21.12a
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -17,6 +17,8 @@
 #          | Ubuntu Disco Dingo  ( 19.04 )
 #          | Ubuntu Eoan Ermine  ( 19.10 )
 #          | Ubuntu Focal Fossa  ( 20.04 )
+#          | Ubuntu Hirsute Hippo (21.04)
+#          | Ubuntu Impish Indri (21.10)
 #          | Debian Stretch ( 9 )
 #          | Debian Buster ( 10 )
 #          | Debian Bullseye ( 11 )
@@ -299,6 +301,7 @@ get_distro() {
     os_codename='buster'
     fi
   fi
+  if [[ "${os_codename}" =~ (impish|hirsute) ]]; then os_codename=focal; fi
   if [[ "${os_codename}" =~ (hera|juno) ]]; then os_codename=bionic; fi
   if [[ "${os_codename}" == 'loki' ]]; then os_codename=xenial; fi
   if [[ "${os_codename}" == 'debbie' ]]; then os_codename=buster; fi
@@ -321,7 +324,7 @@ get_distro() {
 }
 get_distro
 
-if ! [[ "${os_codename}" =~ (xenial|bionic|cosmic|disco|eoan|focal|stretch|buster|bullseye|bookworm|hirsute)  ]]; then
+if ! [[ "${os_codename}" =~ (xenial|bionic|cosmic|disco|eoan|focal|stretch|buster|bullseye|bookworm)  ]]; then
   clear
   header_red
   echo -e "${WHITE_R}#${RESET} This script is not made for your OS."
