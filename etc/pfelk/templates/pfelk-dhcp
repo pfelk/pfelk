@@ -1,10 +1,32 @@
 PUT _index_template/pfelk-dhcp
 {
-  "version": 8,
-  "priority": 40,
+  "version": 22,
+  "priority": 240,
   "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        }
+      }
+    },
     "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
+      "dynamic_date_formats": [
+        "strict_date_optional_time",
+        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
+      ],
+      "dynamic": true,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
       "dynamic_templates": [],
+      "date_detection": true,
       "properties": {
         "dhcpv4": {
           "type": "object",
@@ -87,14 +109,17 @@ PUT _index_template/pfelk-dhcp
     }
   },
   "index_patterns": [
-    "pfelk-dhcp-*"
+    "*-pfelk-dhcp*"
   ],
+  "data_stream": {
+    "hidden": false
+  },
   "composed_of": [
     "pfelk-settings",
     "pfelk-mappings-ecs"
   ],
   "_meta": {
-    "description": "default dhcp indexes installed by pfelk",
-    "managed": true
+    "managed": true,
+    "description": "default dhcp indexes installed by pfelk"
   }
 }
