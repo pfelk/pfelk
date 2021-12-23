@@ -1,8 +1,15 @@
 PUT _index_template/pfelk-suricata
 {
-  "version": 8,
-  "priority": 20,
+  "version": 22,
+  "priority": 220,
   "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        }
+      }
+    },
     "mappings": {
       "_routing": {
         "required": false
@@ -769,14 +776,17 @@ PUT _index_template/pfelk-suricata
     }
   },
   "index_patterns": [
-    "pfelk-suricata-*"
+    "*-pfelk-suricata*"
   ],
+  "data_stream": {
+    "hidden": false
+  },
   "composed_of": [
     "pfelk-settings",
     "pfelk-mappings-ecs"
   ],
   "_meta": {
-    "description": "default suricata indexes installed by pfelk",
-    "managed": true
+    "managed": true,
+    "description": "default suricata indexes installed by pfelk"
   }
 }
