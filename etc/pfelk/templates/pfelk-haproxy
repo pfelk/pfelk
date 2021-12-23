@@ -1,65 +1,88 @@
 PUT _index_template/pfelk-haproxy
 {
-  "version": 8,
-  "priority": 90,
+  "version": 22,
+  "priority": 290,
   "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        }
+      }
+    },
     "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
       "_source": {
         "excludes": [],
         "includes": [],
         "enabled": true
       },
-      "_routing": {
-        "required": false
-      },
       "dynamic": true,
-      "numeric_detection": false,
-      "date_detection": false,
       "dynamic_templates": [],
+      "date_detection": false,
       "properties": {
         "haproxy": {
           "type": "object",
           "properties": {
+            "server_name": {
+              "eager_global_ordinals": false,
+              "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
+            },
+            "termination_state": {
+              "eager_global_ordinals": false,
+              "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
+            },
+            "time_queue": {
+              "type": "long"
+            },
+            "bytes_read": {
+              "type": "long"
+            },
+            "mode": {
+              "type": "keyword"
+            },
+            "backend_queue": {
+              "type": "long"
+            },
             "backend_name": {
               "eager_global_ordinals": false,
               "norms": false,
               "index": true,
               "store": false,
               "type": "keyword",
-              "index_options": "docs",
-              "split_queries_on_whitespace": false,
-              "doc_values": true,
               "fields": {
                 "text": {
                   "type": "text"
                 }
-              }
-            },
-            "backend_queue": {
-              "type": "long"
-            },
-            "bytes_read": {
-              "type": "long"
-            },
-            "connections": {
-              "type": "object",
-              "properties": {
-                "active": {
-                  "type": "long"
-                },
-                "backend": {
-                  "type": "long"
-                },
-                "frontend": {
-                  "type": "long"
-                },
-                "retries": {
-                  "type": "long"
-                },
-                "server": {
-                  "type": "long"
-                }
-              }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
             },
             "frontend_name": {
               "eager_global_ordinals": false,
@@ -67,14 +90,14 @@ PUT _index_template/pfelk-haproxy
               "index": true,
               "store": false,
               "type": "keyword",
-              "index_options": "docs",
-              "split_queries_on_whitespace": false,
-              "doc_values": true,
               "fields": {
                 "text": {
                   "type": "text"
                 }
-              }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
             },
             "http": {
               "type": "object",
@@ -107,47 +130,31 @@ PUT _index_template/pfelk-haproxy
                 }
               }
             },
-            "mode": {
-              "type": "keyword"
-            },
-            "server_name": {
-              "eager_global_ordinals": false,
-              "norms": false,
-              "index": true,
-              "store": false,
-              "type": "keyword",
-              "index_options": "docs",
-              "split_queries_on_whitespace": false,
-              "doc_values": true,
-              "fields": {
-                "text": {
-                  "type": "text"
-                }
-              }
-            },
             "server_queue": {
               "type": "long"
-            },
-            "termination_state": {
-              "eager_global_ordinals": false,
-              "norms": false,
-              "index": true,
-              "store": false,
-              "type": "keyword",
-              "index_options": "docs",
-              "split_queries_on_whitespace": false,
-              "doc_values": true,
-              "fields": {
-                "text": {
-                  "type": "text"
-                }
-              }
             },
             "time_backend_connect": {
               "type": "long"
             },
-            "time_queue": {
-              "type": "long"
+            "connections": {
+              "type": "object",
+              "properties": {
+                "retries": {
+                  "type": "long"
+                },
+                "server": {
+                  "type": "long"
+                },
+                "active": {
+                  "type": "long"
+                },
+                "backend": {
+                  "type": "long"
+                },
+                "frontend": {
+                  "type": "long"
+                }
+              }
             },
             "timestamp": {
               "format": "strict_date_optional_time||epoch_millis||dd/MMM/yyyy:HH:mm:ss.SSS",
@@ -163,14 +170,17 @@ PUT _index_template/pfelk-haproxy
     }
   },
   "index_patterns": [
-    "pfelk-haproxy-*"
+    "*-pfelk-haproxy*"
   ],
+  "data_stream": {
+    "hidden": false
+  },
   "composed_of": [
     "pfelk-settings",
     "pfelk-mappings-ecs"
   ],
   "_meta": {
-    "description": "default haproxy indexes installed by pfelk",
-    "managed": true
+    "managed": true,
+    "description": "default haproxy indexes installed by pfelk"
   }
 }
