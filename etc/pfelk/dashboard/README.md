@@ -1,3 +1,7 @@
+## Breaking Changes
+- Dashbaord v22 is supported for pfELK version =>22.01
+- Dashboard v20 is supported for pfELK version =<21.12
+
 ## Seeking Kibana Dashboard and Visualization Creators
 ### Checklist
 - [ ] Utilize the patterns within this repo
