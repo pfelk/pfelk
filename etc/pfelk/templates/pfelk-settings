@@ -33,7 +33,7 @@ PUT _component_template/pfelk-settings
     }
   },
   "_meta": {
-    "description": "default settings for the pfelk indexes installed by pfelk",
-    "managed": true
+    "managed": true,
+    "description": "default settings for the pfelk indexes installed by pfelk"
   }
 }
