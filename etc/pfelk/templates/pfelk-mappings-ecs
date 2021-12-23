@@ -3605,7 +3605,7 @@ PUT _component_template/pfelk-mappings-ecs
     }
   },
   "_meta": {
-    "description": "ecs for the pfelk indexes installed by pfelk",
-    "managed": true
+    "managed": true,
+    "description": "ecs for the pfelk indexes installed by pfelk"
   }
 }
