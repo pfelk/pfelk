@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 1.0
+# Version    | 22.01
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -43,24 +43,24 @@ fi
 #                                                                                   pfELK - Download Saved Objects                                                                                #
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-dhcp.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-firewall.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-haproxy.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-snort.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-squid.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-suricata.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-unbound.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/v20.2-captive.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-captive.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-dhcp.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-firewall.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-haproxy.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-snort.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-squid.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-suricata.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-unbound.ndjson -P /tmp/pfELK/
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                   pfELK - Installing Saved Objects                                                                              #
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/v20.2-dhcp.ndjson -H 'kbn-xsrf: true'
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/v20.2-firewall.ndjson -H 'kbn-xsrf: true'
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/v20.2-haproxy.ndjson -H 'kbn-xsrf: true'
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/v20.2-snort.ndjson -H 'kbn-xsrf: true'
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/v20.2-squid.ndjson -H 'kbn-xsrf: true'
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/v20.2-suricata.ndjson -H 'kbn-xsrf: true'
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/v20.2-unbound.ndjson -H 'kbn-xsrf: true'
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/v20.2-captive.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-captive.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-dhcp.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-firewall.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-haproxy.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-snort.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-squid.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-suricata.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-unbound.ndjson -H 'kbn-xsrf: true'
