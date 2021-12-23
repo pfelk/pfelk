@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 21.12b
+# Version    | 22.01
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -129,7 +129,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 20.3
+  pfELK Installation Script - version 22.01
 EOF
 }
 
@@ -526,7 +526,6 @@ system_mem_var=4
 maxmind_username=$(echo "${maxmind_username}")
 maxmind_password=$(echo "${maxmind_password}")
 maxmind_install=''
-ILM_option=''
 system_free_disk_space=$(df -kh / | awk '{print $4}' | tail -n1)
 system_free_disk_space_tmp=$(df -kh /tmp | awk '{print $4}' | tail -n1)
 #
@@ -597,28 +596,6 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   echo -e "${GREEN}#${RESET} Successfully installed sudo! \\n" && sleep 2
   fi
 fi
-
-# ILM Preference
-header
-echo -e "${WHITE_R}#${RESET} Do you want to enable ILM?${RESET}"; 
-echo -e "${WHITE_R}#${RESET} ILM is disabled by default but may also be enabled/configured later.${RESET}";
-echo -e "\\n";
-read -rp $'\033[39m#\033[0m Would you like to enable ILM? (y/N) ' yes_no
-case "$yes_no" in
-  [Yy]*)
-  echo -e "${RED}#${RESET} ILM will be configured!\\n"
-  ILM_option=true
-  sleep 3
-  echo -e "\\n"
-  ;;
-  [Nn]*|"")
-  echo -e "${RED}#${RESET} ILM will not be configured!\\n"
-  ILM_option=false
-  sleep 3
-  echo -e "\\n"
-  ;;
-  *) echo "invalid option $REPLY";;
-esac
 
 # MaxMind GeoIP install
 if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
@@ -1062,18 +1039,6 @@ download_pfelk() {
   sleep 4
 }
 download_pfelk
-
-# ILM
-ILM_option() {
-# ILM Configure 
-if [[ "${ILM_option}" == 'true' ]]; then
-  header
-  echo -e "\\n${GREEN}#${RESET} Modifying 50-outputs.conf for ILM!${RESET}\\n";
-  sed -i 's/#ILM#//' /etc/pfelk/conf.d/50-outputs.conf
-  sleep 3
-fi
-}
-ILM_option
 
 # MaxMind
 maxmind_geoip() {
