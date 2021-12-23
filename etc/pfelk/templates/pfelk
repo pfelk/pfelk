@@ -1,8 +1,15 @@
 PUT _index_template/pfelk
 {
-  "version": 9,
-  "priority": 10,
+  "version": 22,
+  "priority": 200,
   "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        }
+      }
+    },
     "mappings": {
       "_routing": {
         "required": false
@@ -103,18 +110,21 @@ PUT _index_template/pfelk
     }
   },
   "index_patterns": [
-    "pfelk-captive-*",
-    "pfelk-firewall-*",
-    "pfelk-snort-*",
-    "pfelk-squid-*",
-    "pfelk-unbound-*"
+    "*-pfelk-captive*",
+    "*-pfelk-firewall*",
+    "*-pfelk-snort*",
+    "*-pfelk-squid*",
+    "*-pfelk-unbound*"
   ],
+  "data_stream": {
+    "hidden": false
+  },
   "composed_of": [
     "pfelk-settings",
     "pfelk-mappings-ecs"
   ],
   "_meta": {
-    "description": "default pfelk indexes installed by pfelk",
-    "managed": true
+    "managed": true,
+    "description": "default pfelk indexes installed by pfelk"
   }
 }
