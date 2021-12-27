@@ -3,6 +3,16 @@ ES Versions:
   * pfelk >= 6.0  supports Elastic Stack >= 7.0.0+
   * pfelk >= 6.0  supports pfSense >= 2.4.0+
   * pfelk >= 6.0  supports OPNsense >= 19+
+  
+v22.01
+  - Updated output (50-outputs.conf) supporting data streams
+  - ILM now supported by default
+  - Updated output (50-outputs.conf); cleaned-up to simplify output reduced consumption of resources
+  - Updated input (01-inputs.conf); reduced ports required to recieve logs to one port
+  - Removed 02-types.conf and 03-filter.conf no longer needed
+  - Simplified initial grok pattern to support pfSense's legacy (archaic) syslog format (however, it does not support multiple log instances [e.g. more than one firewall sending logs])
+  - Data Stream format required update to Kibana saved index patterns (e.g. pfelk-firewall-* to *-pfelk-firewall*)
+  - Data Stream format required updated templates (e.g. pfelk-firewall-* to *-pfelk-firewall*)
 
 v20.3
   -File Mappings
