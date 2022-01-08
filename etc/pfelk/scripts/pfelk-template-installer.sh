@@ -4969,7 +4969,7 @@ curl -X PUT "localhost:9200/_index_template/pfelk-suricata?pretty" -H 'Content-T
   }
 }
 '
-curl -X PUT "localhost:9200/_index_template/pfelk-pfelk-nginx?pretty" -H 'Content-Type: application/json' -d'
+curl -X PUT "localhost:9200/_index_template/pfelk-nginx?pretty" -H 'Content-Type: application/json' -d'
 {
   "version": 22,
   "priority": 295,
