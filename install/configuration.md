@@ -1,23 +1,25 @@
 # Configuring 
 ## Table of Contents
-- [Templates](#one-templates)
+- [Templates](#zero-templates)
   - [Manual-Method](#a-manual-method)
   - [Scripted-Method](#b-scripted-method-page_with_curl)
-- [Dashboards](#two-dashboards)
+- [Dashboards](#one-dashboards)
   - [Manual-Method](#a-manual-method-1)
   - [Scripted-Method](#b-scripted-method-page_with_curl-1)
-- [Firewall](#three-firewall)
-  - [OPNsense](#b-opnsense)
-  - [pfSense](#a-pfsense)
-    - [Suricata](#four-suricata---optional)
-    - [Snort](#five-snort---optional)
-    - [HAProxy](#six-haproxy---optional)
-    - [Squid](#seven-squid---optional)
-    - [Unbound](#eight-Unbound---optional)
+- [Firewall](#two-firewall)
+  - [OPNsense](#a-opnsense)
+  - [pfSense](#b-pfsense)
+    - [Suricata](#three-suricata---optional)
+    - [Snort](#four-snort---optional)
+    - [Proxy](#five-proxy---optional)
+      - [HAProxy](#a-haproxy---opnsense)
+      - [NGINX](#b-nginx---opnsense)
+    - [Squid](#six-squid---optional)
+    - [Unbound](#seven-unbound---optional)
 - [Extras](#eight-extras---optional)
 - [Finished](#nine-finished)
 
-# :one: Templates
+# :zero: Templates
  :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh) script :page_with_curl:
 - ### :a: Manual Method
   1. In your web browser navigate to the pfELK IP address using port 5601 (ex: 192.168.0.1:5601)
@@ -33,8 +35,9 @@
       - Click the green triangle after pasting the contents (one at a time) into the console
         - [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk)
         - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-dhcp)
-        - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-haproxy)
-        - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-suricata)
+        - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-haproxy) - Optional
+        - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-nginx) - Optional
+        - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-suricata) - Optional
   5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=6)
 
@@ -48,7 +51,7 @@
   4. :pushpin:  References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=60)
 
-# :two: Dashboards 
+# :one: Dashboards 
  :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-dashboard-installer.sh) script :page_with_curl:
 - ### :a: Manual Method
   1. In your web browser go to the pfELK IP address followed by port 5601 (e.g. 192.168.0.1:5601)
@@ -60,11 +63,12 @@
       - [Captive Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-captive.ndjson)
       - [DHCP Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-dhcp.ndjson) - DHCPv4
       - [Firewall Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-firewall.ndjson)
-      - [HAProxy Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-haproxy.ndjson)
-      - [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-snort.ndjson)
-      - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-squid.ndjson)
-      - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-suricata.ndjson)
-      - [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-unbound.ndjson)
+      - [HAProxy Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-haproxy.ndjson) - Optional
+      - [HAProxy Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-nginx.ndjson) - Optional
+      - [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-snort.ndjson) - Optional
+      - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-squid.ndjson) - Optional
+      - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-suricata.ndjson) - Optional
+      - [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-unbound.ndjson) - Optional
   7. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=281)
 
@@ -78,7 +82,7 @@
   4. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=228)
       
-# :three: Firewall 
+# :two: Firewall 
 - ### :a: OPNsense 
   1. Navigate to _System -> Settings -> Logging/Targets_
   2. Add a new _Logging/Target_ (Click the plus icon)
@@ -106,7 +110,7 @@
       - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/main/Images/pfsenselogs.png)
       - [WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Prerequisite-%7C--pfSense-OPNsense-Logging)
 
-## :four: Suricata - (Optional)
+## :three: Suricata - (Optional)
 - ### :a: OPNsense     
  1. In OPNsense navigate to _Services -> Intrusion Detection -> Administration_
      - Enable = [X]
@@ -136,7 +140,7 @@
   4. :pushpin: References
      - :x: In-Depth Guide Located [Here](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense)
 
-## :five: Snort - (Optional)
+## :four: Snort - (Optional)
 - ### :a: pfSense - Only
    1. Navigate to _Services -> Snort -> Snort Interfaces_
    2. For each configured interface, click on the pencil, to the right, to edit (repeat these steps for each)
@@ -145,8 +149,8 @@
    5. :pushpin:  References 
        - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/main/Images/snort-log-settings.png)
 
-## :six: HAProxy - (Optional)
-- ### :a: OPNsense
+## :five: Proxy - (Optional)
+- ### :a: HAProxy - (OPNsense)
    1. Navigate to _Services -> HAProxy -> Settings -> Settings -> Logging Configuration_
    2. Log Host = Enter the IP address of where pfELK is installed and the Port 5190 (e.g. 192.168.100.50:5190)
    3. Syslog facility = local0[default]
@@ -156,8 +160,11 @@
    7. Under _Option pass-through_ add _option httplog_
    8. :pushpin: References
        - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/main/Images/opnsense_haproxy_http_log.PNG)
+       
+- ### :b: NGINX - (OPNsense)
+   1. :construction: In Progress 
      
-## :seven: Squid - (Optional)
+## :six: Squid - (Optional)
 - ### :a: OPNsense
    1. In OPNsense navigate to _Services -> Web Proxy -> Administration -> General Proxy Settings_
    2. Enable _advanced mode_
@@ -165,7 +172,7 @@
    4. :pushpin: References
        - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/main/Images/opnsense_squid_syslog.PNG)
 
-## :eight: Unbound - (Optional)
+## :seven: Unbound - (Optional)
 - ### :a: OPNsense
    1. In OPNsense navigate to _Services -> Unbound DNS -> Advanced_
    2. Log level verbosity = ```Level 0```
