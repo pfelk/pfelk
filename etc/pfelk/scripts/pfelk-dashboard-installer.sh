@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.01
+# Version    | 22.02
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -47,6 +47,7 @@ wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/2
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-dhcp.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-firewall.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-haproxy.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-nginx.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-snort.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-squid.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-suricata.ndjson -P /tmp/pfELK/
@@ -60,6 +61,7 @@ curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-dhcp.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-firewall.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-haproxy.ndjson -H 'kbn-xsrf: true'
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-nginx.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-snort.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-squid.ndjson -H 'kbn-xsrf: true'
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-suricata.ndjson -H 'kbn-xsrf: true'
