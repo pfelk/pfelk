@@ -84,3 +84,6 @@ SQUID %{IPORHOST:[client][ip]} %{NOTSPACE:[labels][request_status]}/%{NUMBER:[ht
 
 # UNBOUND
 UNBOUND %{INT:[process][pgid]}:%{INT:[process][thread][id]}] %{LOGLEVEL:[log][level]}: %{IP:[client][ip]} %{GREEDYDATA:[dns][question][name]}\. %{WORD:[dns][question][type]} %{WORD:[dns][question][class]}
+
+# NGINX
+NGINX %{IPORHOST:[client][ip]} (?:-|(%{WORD}.%{WORD})) %{USER:[nginx][access][user_name]} \[%{HTTPDATE:timestamp}\] "(?:%{WORD:[nginx][access][method]} %{NOTSPACE:[nginx][access][url]}(?: HTTP/%{NUMBER:[nginx][access][http_version]})?|%{DATA:rawrequest})" %{NUMBER:[nginx][access][response_code]} (?:%{NUMBER:[nginx][access][body_sent][bytes]}|-) %{QS:[nginx][access][referrer]} %{QS:[nginx][access][agent]} %{QS:[nginx][access][forwarder]} %{DATA:[nginx][access][http_server]}" sn="%{DATA:[nginx][ingress_controller][upstream][name]}" rt=%{NUMBER:[nginx][ingress_controller][http][request][time]} ua="%{DATA:[nginx][ingress_controller][upstream][ip]}:%{NUMBER:[nginx][ingress_controller][upstream][port]}" us="%{NUMBER:[nginx][ingress_controller][upstream][response][status_code]}" ut="%{NUMBER:[nginx][ingress_controller][upstream][response][time]}" ul="%{NUMBER:[nginx][ingress_controller][upstream][response][length]}" cs=%{DATA:[nginx][ingress_controller][upstream][cachestatus]}
