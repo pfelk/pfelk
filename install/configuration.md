@@ -152,7 +152,7 @@
 ## :five: Proxy - (Optional)
 - ### :a: HAProxy - (OPNsense)
    1. Navigate to _Services -> HAProxy -> Settings -> Settings -> Logging Configuration_
-   2. Log Host = Enter the IP address of where pfELK is installed and the Port 5190 (e.g. 192.168.100.50:5190)
+   2. Log Host = Enter the IP address of where pfELK is installed and the Port 5140 (e.g. 192.168.100.50:5140)
    3. Syslog facility = local0[default]
    4. Filter syslog level = info[default]
    5. Add the _httplog_ under _HAProxy -> Settings -> Virtual Services -> Public Servers_ -> edit your public service
@@ -162,8 +162,13 @@
        - :o: [Screenshot](https://raw.githubusercontent.com/pfelk/pfelk/main/Images/opnsense_haproxy_http_log.PNG)
        
 - ### :b: NGINX - (OPNsense)
-   1. :construction: In Progress 
-     
+   1. Navigate to _Services -> Nginx -> Other -> SYSLOG Targets_
+   2. Host = Enter the IP address of where pfELK is installed and the Port 5140 (e.g. 192.168.100.50:5140)
+   3. Facility = local0
+   4. Filter syslog level = info
+   5. Add the created syslog target to your HTTP Server(s) under _HTTP(S) -> HTTP Server -> Select Server -> advanced mode -> SYSLOG Targets_
+   6. Enable Extended Log on same page under _Access Log Format_ -> _Extended_
+   
 ## :six: Squid - (Optional)
 - ### :a: OPNsense
    1. In OPNsense navigate to _Services -> Web Proxy -> Administration -> General Proxy Settings_
