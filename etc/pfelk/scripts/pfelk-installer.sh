@@ -123,7 +123,7 @@ fi
 script_logo() {
   cat << "EOF"
 
-    ________________.____     ____  __. .___                 __         .__  .__                
+        ________________.____     ____  __. .___                 __         .__  .__                
 _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  | |  |   ___________ 
 \____ \   __\ |    __)_ |    |   |      <   |   |/    \ /  ___/\   __\__  \ |  | |  | _/ __ \_  __ \
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
@@ -1141,6 +1141,7 @@ else
      echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
      wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
      chmod +x /tmp/pfELK/pfelk-template-installer.sh
+     sleep 20
      /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
      echo -e "${GREEN}#${RESET} Done."
      sleep 3
