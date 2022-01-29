@@ -1,6 +1,6 @@
 # pfelk.grok
 ################################################################################
-# Version: 22.02a                                                               #
+# Version: 22.02a b                                                               #
 #                                                                              #
 #                                                                              #
 #                                                                              #
@@ -41,7 +41,7 @@ NGINX_LOG %{WORD:[nginx][access][method]}\s*%{NOTSPACE:[nginx][access][url]}\s*H
 NGINX_EXT (\s\"\-\"\s*)\"%{IPORHOST:[nginx][access][forwarder]}\"(%{NGINX_EXT_SN}%{NGINX_EXT_RT}%{NGINX_EXT_UA}%{NGINX_EXT_US}%{NGINX_EXT_UT}%{NGINX_EXT_UL})?
 NGINX_EXT_SN \s*sn=(\"%{HOSTNAME:[nginx][ingress_controller][upstream][name]}\"|"")
 NGINX_EXT_RT \s*rt=(%{NUMBER:[nginx][ingress_controller][http][request][time]}|"")
-NGINX_EXT_UA \s*ua=((%"{IP:[nginx][ingress_controller][upstream][socket]}":%{INT:[nginx][ingress_controller][upstream][port]})|("%{NOTSPACE:[nginx][ingress_controller][upstream][socket]}"))
+NGINX_EXT_UA \s*ua=((%"{IP:[nginx][ingress_controller][upstream][socket]}":%{INT:[nginx][ingress_controller][upstream][port]})|("%{NOTSPACE:[nginx][ingress_controller][upstream][socket]}")|"-")
 NGINX_EXT_US \s*us=(\"%{NUMBER:[nginx][ingress_controller][upstream][response][status_code]}\"|"-")
 NGINX_EXT_UT \s*ut=(\"%{NUMBER:[nginx][ingress_controller][upstream][response][time]}\"|"-")
 NGINX_EXT_UL \s*ul=(\"%{NUMBER:[nginx][ingress_controller][upstream][response][length]}\"|"-")
