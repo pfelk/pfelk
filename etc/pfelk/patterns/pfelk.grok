@@ -37,7 +37,7 @@ HAPROXY_TCP %{IP:[haproxy][client][ip]}:%{INT:[haproxy][client][port]} [%{HAPROX
 # NGINX
 NGINX %{NGINX_META}%{NGINX_LOG}%{NGINX_EXT}
 NGINX_META %{IPORHOST:[client][ip]}(\s-\s-\s*)\[%{HTTPDATE:timestamp}\]\s*\"
-NGINX_LOG %{WORD:[nginx][access][method]}\s*%{NOTSPACE:[nginx][access][url]}\s*HTTP/%{NUMBER:[nginx][access][http_version]}\"\s%{NUMBER:[nginx][access][response_code]}\s%{NUMBER:[nginx][access][body_sent][bytes]}\s"%{NOTSPACE:[nginx][access][referrer]}"\s%"%{DATA:[nginx][access][agent]}"
+NGINX_LOG %{WORD:[nginx][access][method]}\s*%{NOTSPACE:[nginx][access][url]}\s*HTTP/%{NUMBER:[nginx][access][http_version]}\"\s%{NUMBER:[nginx][access][response_code]}\s%{NUMBER:[nginx][access][body_sent][bytes]}\s"%{NOTSPACE:[nginx][access][referrer]}"\s"%{DATA:[nginx][access][agent]}"
 NGINX_EXT (\s\"\-\"\s*)\"%{IPORHOST:[nginx][access][forwarder]}\"(%{NGINX_EXT_SN}%{NGINX_EXT_RT}%{NGINX_EXT_UA}%{NGINX_EXT_US}%{NGINX_EXT_UT}%{NGINX_EXT_UL})?
 NGINX_EXT_SN \s*sn=(\"%{HOSTNAME:[nginx][ingress_controller][upstream][name]}\"|"")
 NGINX_EXT_RT \s*rt=(%{NUMBER:[nginx][ingress_controller][http][request][time]}|"")
