@@ -251,7 +251,9 @@ PUT _index_template/pfelk-nginx
                         "time_list": {
                           "type": "keyword"
                         }
-                      }
+                      },
+                    "socket": {
+                      "type": "keyword"
                     }
                   }
                 },
