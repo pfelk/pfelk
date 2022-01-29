@@ -4982,17 +4982,17 @@ curl -X PUT "localhost:9200/_index_template/pfelk-nginx?pretty" -H 'Content-Type
       }
     },
     "mappings": {
+      "dynamic": true,
+      "numeric_detection": false,
+      "date_detection": false,
       "_source": {
-        "excludes": [],
+        "enabled": true,
         "includes": [],
-        "enabled": true
+        "excludes": []
       },
       "_routing": {
         "required": false
       },
-      "dynamic": true,
-      "numeric_detection": false,
-      "date_detection": false,
       "dynamic_templates": [],
       "properties": {
         "nginx": {
@@ -5149,11 +5149,11 @@ curl -X PUT "localhost:9200/_index_template/pfelk-nginx?pretty" -H 'Content-Type
                         "id": {
                           "type": "keyword"
                         },
-                        "time": {
-                          "type": "double"
-                        },
                         "length": {
                           "type": "long"
+                        },
+                        "time": {
+                          "type": "double"
                         }
                       }
                     }
