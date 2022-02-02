@@ -169,6 +169,9 @@
    5. Add the created syslog target to your HTTP Server(s) under _HTTP(S) -> HTTP Server -> Select Server -> advanced mode -> SYSLOG Targets_
    6. Enable Extended Log on same page under _Access Log Format_ -> _Extended_
    
+- ### :b: NGINX - (pfSense)
+   - [WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-NGINX-on-pfSense)
+   
 ## :six: Squid - (Optional)
 - ### :a: OPNsense
    1. In OPNsense navigate to _Services -> Web Proxy -> Administration -> General Proxy Settings_
