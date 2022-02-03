@@ -53,7 +53,7 @@ Supported entries include:
  - Squid with dashboard and Kibana SIEM compliance
  - HAProxy with dashboard
  - Captive Portal with dashboard
- - NGINX wth dashboard
+ - NGINX with dashboard
 
 **pfelk** aims to replace the vanilla pfSense/OPNsense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
 
