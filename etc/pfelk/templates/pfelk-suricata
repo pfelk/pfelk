@@ -1,7 +1,7 @@
 PUT _index_template/pfelk-suricata
 {
   "version": 22,
-  "priority": 220,
+  "priority": 55,
   "template": {
     "settings": {
       "index": {
