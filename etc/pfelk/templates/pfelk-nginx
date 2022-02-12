@@ -1,7 +1,7 @@
 PUT _index_template/pfelk-nginx
 {
   "version": 22,
-  "priority": 295,
+  "priority": 56,
   "template": {
     "settings": {
       "index": {
