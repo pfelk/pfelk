@@ -1,7 +1,7 @@
 PUT _index_template/pfelk-dhcp
 {
   "version": 22,
-  "priority": 240,
+  "priority": 51,
   "template": {
     "settings": {
       "index": {
