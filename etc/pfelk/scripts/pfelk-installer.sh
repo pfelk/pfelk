@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.02a
+# Version    | 22.03
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -32,7 +32,7 @@
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
 # GeoIP        | 4.8.0
-# Elasticstack | 7.17.0
+# Elasticstack | 8.0.0
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -129,7 +129,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.01
+  pfELK Installation Script - version 22.03
 EOF
 }
 
@@ -420,7 +420,7 @@ fi
 dpkg_locked_message() {
   header_red
   echo -e "${WHITE_R}#${RESET} dpkg is locked... Waiting for other software managers to finish!"
-  echo -e "${WHITE_R}#${RESET} If this is everlasting, please open an issue on pfELK (pfelk.3ilson.dev) on github!\\n\\n"
+  echo -e "${WHITE_R}#${RESET} If this is everlasting, please open an issue on pfELK (pfelk.com) on github!\\n\\n"
   sleep 5
   if [[ -z "$dpkg_wait" ]]; then
   echo "pfelk_lock_active" >> /tmp/pfelk_lock
@@ -552,7 +552,7 @@ port_5190_service=''
 port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
-elk_version=7.17.0
+elk_version=8.0.0
 maxmind_version=4.8.0
 
 ###################################################################################################################################################################################################
