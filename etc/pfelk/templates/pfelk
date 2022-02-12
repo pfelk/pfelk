@@ -1,7 +1,7 @@
 PUT _index_template/pfelk
 {
   "version": 22,
-  "priority": 200,
+  "priority": 50,
   "template": {
     "settings": {
       "index": {
