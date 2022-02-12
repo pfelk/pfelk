@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.02
+# Version    | 22.03
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -3735,7 +3735,7 @@ curl -X PUT "localhost:9200/_ilm/policy/pfelk-ilm?pretty" -H 'Content-Type: appl
 curl -X PUT "localhost:9200/_index_template/pfelk?pretty" -H 'Content-Type: application/json' -d'
 {
   "version": 22,
-  "priority": 200,
+  "priority": 50,
   "template": {
     "settings": {
       "index": {
@@ -3866,7 +3866,7 @@ curl -X PUT "localhost:9200/_index_template/pfelk?pretty" -H 'Content-Type: appl
 curl -X PUT "localhost:9200/_index_template/pfelk-dhcp?pretty" -H 'Content-Type: application/json' -d'
 {
   "version": 22,
-  "priority": 240,
+  "priority": 51,
   "template": {
     "settings": {
       "index": {
@@ -3992,7 +3992,7 @@ curl -X PUT "localhost:9200/_index_template/pfelk-dhcp?pretty" -H 'Content-Type:
 curl -X PUT "localhost:9200/_index_template/pfelk-haproxy?pretty" -H 'Content-Type: application/json' -d'
 {
   "version": 22,
-  "priority": 290,
+  "priority": 57,
   "template": {
     "settings": {
       "index": {
@@ -4179,7 +4179,7 @@ curl -X PUT "localhost:9200/_index_template/pfelk-haproxy?pretty" -H 'Content-Ty
 curl -X PUT "localhost:9200/_index_template/pfelk-suricata?pretty" -H 'Content-Type: application/json' -d'
 {
   "version": 22,
-  "priority": 220,
+  "priority": 55,
   "template": {
     "settings": {
       "index": {
@@ -4972,7 +4972,7 @@ curl -X PUT "localhost:9200/_index_template/pfelk-suricata?pretty" -H 'Content-T
 curl -X PUT "localhost:9200/_index_template/pfelk-nginx?pretty" -H 'Content-Type: application/json' -d'
 {
   "version": 22,
-  "priority": 295,
+  "priority": 56,
   "template": {
     "settings": {
       "index": {
