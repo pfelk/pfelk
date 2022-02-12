@@ -1,7 +1,7 @@
 PUT _index_template/pfelk-haproxy
 {
   "version": 22,
-  "priority": 290,
+  "priority": 57,
   "template": {
     "settings": {
       "index": {
