@@ -11,7 +11,8 @@
 #
 - pipeline.id: pfelk
   path.config: "/etc/pfelk/conf.d/*.conf"
-#  pipeline.ecs_compatibility: v1
-  
+  pipeline.ecs_compatibility: v8 #Disable if not running Elastic v8+
+
+
 # - pipeline.id: main
 #  path.config: "/etc/logstash/conf.d/*.conf"
