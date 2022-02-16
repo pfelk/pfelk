@@ -27,17 +27,6 @@ header_red() {
   echo -e "${RED}#####################################################################################################${RESET}\\n"
 }
 #
-# Check for root (sudo)
-if [[ "$EUID" -ne 0 ]]; then
-  header_red
-  echo -e "${WHITE_R}#${RESET} The script need to be run as root...\\n\\n"
-  echo -e "${WHITE_R}#${RESET} For Ubuntu based systems run the command below to login as root"
-  echo -e "${GREEN}#${RESET} sudo -i\\n"
-  echo -e "${WHITE_R}#${RESET} For Debian based systems run the command below to login as root"
-  echo -e "${GREEN}#${RESET} su\\n\\n"
-  exit 1
-fi
-#
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                   pfELK - Install Required Templates                                                                            #
