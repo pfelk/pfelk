@@ -45,7 +45,7 @@
   1. Download the pfelk-template-installer
       - `wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh`
   2. Make the file executable 
-      - `sudo chmod +x pfelk-template-installer.sh`
+      - `chmod +x pfelk-template-installer.sh`
   3. Execute the file
       - `./pfelk-template-installer.sh`
   4. :pushpin:  References
