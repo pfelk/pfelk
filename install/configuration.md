@@ -47,7 +47,7 @@
   2. Make the file executable 
       - `sudo chmod +x pfelk-template-installer.sh`
   3. Execute the file
-      - `sudo ./pfelk-template-installer.sh`
+      - `./pfelk-template-installer.sh`
   4. :pushpin:  References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=60)
 
