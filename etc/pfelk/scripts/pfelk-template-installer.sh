@@ -32,7 +32,7 @@ header_red() {
 #                                                                                   pfELK - Install Required Templates                                                                            #
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
-curl -X PUT "localhost:9200/_component_template/pfelk-settings?pretty" -H 'Content-Type: application/json' -d'
+curl -X PUT "localhost:9200/_component_template/pfelk-mappings-ecs?pretty" -H 'Content-Type: application/json' -d'
 {
   "template": {
     "settings": {
@@ -5806,7 +5806,7 @@ curl -X PUT "localhost:9200/_component_template/pfelk-settings?pretty" -H 'Conte
   }
 }
 '
-curl -X PUT "localhost:9200/_ilm/policy/pfelk-ilm?pretty" -H 'Content-Type: application/json' -d'
+curl -X PUT "localhost:9200/_ilm/policy/pfelk?pretty" -H 'Content-Type: application/json' -d'
 {
   "policy": {
     "phases": {
