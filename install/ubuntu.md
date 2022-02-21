@@ -104,45 +104,40 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases
 ### 16. (Optional) Configure Firewall Rule Database
 To configure pfSense/OPNsense to update the firewall rule database, follow [this reference](https://github.com/pfelk/pfelk/wiki/References:-Rule-Descriptions).
 
-### 17. (Optional) Amend 02-types.conf with unique observer.name field (line 8).  
-Amend "OPNsense" as desired.  This will be useful if monitoring multiple instances. Reference the [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Multiple-Instances) for further assistance.
-```
-      add_field => [ "[observer][name]", "OPNsense" ]
-```
-### 18. (Optional) Amend 20-interfaces.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
+### 17. (Optional) Amend 20-interfaces.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
 Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Customized-Interface-Names)
 
 # Troubleshooting
-### 19. Create Logging Directory 
+### 18. Create Logging Directory 
 ```
 sudo mkdir -p /etc/pfelk/logs
 ```
 
-### 20. Download Script
+### 19. Download Script
 `error-data.sh`
 ```
 sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/error-data.sh -P /etc/pfelk/scripts/
 ```
 
-### 21. Make Script Executable
+### 20. Make Script Executable
 `error-data.sh` 
 ```
 sudo chmod +x /etc/pfelk/scripts/error-data.sh
 ```
 
 # Services
-### 22. Start Services on Boot (you'll need to reboot or start manually to proceed)
+### 21. Start Services on Boot (you'll need to reboot or start manually to proceed)
 ```
 sudo /bin/systemctl daemon-reload
 sudo /bin/systemctl enable elasticsearch.service
 sudo /bin/systemctl enable kibana.service
 sudo /bin/systemctl enable logstash.service
 ```
-### 23. Start Services Manually
+### 22. Start Services Manually
 ```
 systemctl start elasticsearch.service 
 systemctl start kibana.service
 systemctl start logstash.service
 ```
 
-### 24. Complete Configuration --> [Configuration](configuration.md)
+### 23. Complete Configuration --> [Configuration](configuration.md)
