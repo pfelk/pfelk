@@ -1,7 +1,7 @@
 PUT _index_template/pfelk-haproxy
 {
-  "version": 22,
-  "priority": 57,
+  "version": 23,
+  "priority": 325,
   "template": {
     "settings": {
       "index": {
@@ -173,14 +173,14 @@ PUT _index_template/pfelk-haproxy
     "*-pfelk-haproxy*"
   ],
   "data_stream": {
-    "hidden": false
+    "hidden": false,
+    "allow_custom_routing": false
   },
   "composed_of": [
-    "pfelk-settings",
     "pfelk-mappings-ecs"
   ],
   "_meta": {
-    "managed": true,
-    "description": "default haproxy indexes installed by pfelk"
+    "description": "default haproxy indexes installed by pfelk",
+    "managed": true
   }
 }
