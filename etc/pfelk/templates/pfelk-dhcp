@@ -1,7 +1,7 @@
 PUT _index_template/pfelk-dhcp
 {
-  "version": 22,
-  "priority": 51,
+  "version": 23,
+  "priority": 305,
   "template": {
     "settings": {
       "index": {
@@ -112,14 +112,14 @@ PUT _index_template/pfelk-dhcp
     "*-pfelk-dhcp*"
   ],
   "data_stream": {
-    "hidden": false
+    "hidden": false,
+    "allow_custom_routing": false
   },
   "composed_of": [
-    "pfelk-settings",
     "pfelk-mappings-ecs"
   ],
   "_meta": {
-    "managed": true,
-    "description": "default dhcp indexes installed by pfelk"
+    "description": "default dhcp indexes installed by pfelk",
+    "managed": true
   }
 }
