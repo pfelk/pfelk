@@ -1,7 +1,7 @@
 PUT _index_template/pfelk-nginx
 {
-  "version": 22,
-  "priority": 56,
+  "version": 23,
+  "priority": 320,
   "template": {
     "settings": {
       "index": {
@@ -11,17 +11,17 @@ PUT _index_template/pfelk-nginx
       }
     },
     "mappings": {
-      "dynamic": true,
-      "numeric_detection": false,
-      "date_detection": false,
       "_source": {
-        "enabled": true,
+        "excludes": [],
         "includes": [],
-        "excludes": []
+        "enabled": true
       },
       "_routing": {
         "required": false
       },
+      "dynamic": true,
+      "numeric_detection": false,
+      "date_detection": false,
       "dynamic_templates": [],
       "properties": {
         "nginx": {
@@ -295,10 +295,10 @@ PUT _index_template/pfelk-nginx
     "*-pfelk-nginx*"
   ],
   "data_stream": {
-    "hidden": false
+    "hidden": false,
+    "allow_custom_routing": false
   },
   "composed_of": [
-    "pfelk-settings",
     "pfelk-mappings-ecs"
   ],
   "_meta": {
