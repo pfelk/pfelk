@@ -30,7 +30,7 @@ PUT _ilm/policy/pfelk
     },
     "_meta": {
       "managed": true,
-      "description": "default policy for the logs index template installed by x-pack"
+      "description": "default policy for the pfelk index templates installed by pfelk"
     }
   }
 }
