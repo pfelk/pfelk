@@ -1,7 +1,7 @@
 PUT _index_template/pfelk
 {
-  "version": 22,
-  "priority": 50,
+  "version": 23,
+  "priority": 300,
   "template": {
     "settings": {
       "index": {
@@ -117,14 +117,14 @@ PUT _index_template/pfelk
     "*-pfelk-unbound*"
   ],
   "data_stream": {
-    "hidden": false
+    "hidden": false,
+    "allow_custom_routing": false
   },
   "composed_of": [
-    "pfelk-settings",
     "pfelk-mappings-ecs"
   ],
   "_meta": {
-    "managed": true,
-    "description": "default pfelk indexes installed by pfelk"
+    "description": "default pfelk indexes installed by pfelk",
+    "managed": true
   }
 }
