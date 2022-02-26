@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.03
+# Version    | 22.03a
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -129,7 +129,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.03
+  pfELK Installation Script - version 22.03a
 EOF
 }
 
@@ -1194,6 +1194,7 @@ update_kibana() {
   script_logo
   rm /etc/kibana/kibana.yml
   wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/kibana/kibana.yml -P /etc/kibana/
+  chown kibana /etc/kibana/kibana.yml
   systemctl restart kibana.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml..."
   sleep 3
@@ -1303,6 +1304,11 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   echo -e "\\n"
   echo -e "Open your browser and connect to ${GREEN}http://$SERVER_IP:5601${RESET}\\n"
   echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/configuration.md${RESET}\\n"
+  echo -e "${GREEN} Enrollment Token${RESET}"
+  /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana --url "https://$SERVER_IP:9200"
+  echo -e "\\n"
+  echo -e "${GREEN} Kibana Verification Code${RESET}"
+  /usr/share/kibana/bin/kibana-verification-code
   echo -e "\\n"
   sleep 3
   remove_yourself
