@@ -79,7 +79,7 @@ Supported entries include:
 * Make script executable 
 * `$ chmod +x pfelk-installer.sh`
 * Run installer script 
-* `$ ./pfelk-installer.sh`
+* `$ sudo ./pfelk-installer.sh`
 * Finish Configuring [here](https://github.com/pfelk/pfelk/blob/main/install/configuration.md)
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=qcGcsQQoPo0) Guide
 
