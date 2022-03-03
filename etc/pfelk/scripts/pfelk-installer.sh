@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.03b
+# Version    | 22.03.1
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -129,7 +129,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.03b
+  pfELK Installation Script - version 22.03.1
 EOF
 }
 
