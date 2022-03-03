@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.03.1
+# Version    | 22.03.2
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -129,7 +129,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.03.1
+  pfELK Installation Script - version 22.03.2
 EOF
 }
 
@@ -1094,9 +1094,8 @@ update_elasticsearch() {
   rm /etc/elasticsearch/elasticsearch.yml
   wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/elasticsearch/elasticsearch.yml -P /etc/elasticsearch/
   chown elasticsearch /etc/elasticsearch/elasticsearch.yml
-  systemctl restart elasticsearch.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Elasticsearch.yml..."
-  sleep 6
+  sleep 1
 }
 update_elasticsearch
 
@@ -1127,6 +1126,18 @@ else
   fi
 fi
 rm --force "$logstash_temp" 2> /dev/null
+
+# Download logstash.yml & Restart Logstash
+update_logstash() {
+  header
+  script_logo
+  rm /etc/logstash/pipelines.yml
+  wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
+  echo -e "\\n${WHITE_R}#${RESET} Updated Logstash.yml..."
+  sleep 1
+}
+update_logstash
+
 service logstash start || abort
 sleep 3
 
@@ -1187,20 +1198,6 @@ else
   fi
 fi
 rm --force "$kibana_temp" 2> /dev/null
-service kibana start || abort
-sleep 3
-
-# Download logstash.yml & Restart Logstash
-update_logstash() {
-  header
-  script_logo
-  rm /etc/logstash/pipelines.yml
-  wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
-  systemctl restart logstash.service
-  echo -e "\\n${WHITE_R}#${RESET} Updated Logstash.yml..."
-  sleep 3
-}
-update_logstash
 
 # Download Kibana.yml & Restart Kibana
 update_kibana() {
@@ -1211,9 +1208,13 @@ update_kibana() {
   chown kibana /etc/kibana/kibana.yml
   systemctl restart kibana.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml..."
-  sleep 3
+  sleep 1
 }
 update_kibana
+
+service kibana start || abort
+sleep 3
+
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
