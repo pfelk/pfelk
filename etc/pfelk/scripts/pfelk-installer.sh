@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.03a
+# Version    | 22.03b
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -129,7 +129,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.03a
+  pfELK Installation Script - version 22.03b
 EOF
 }
 
@@ -521,7 +521,7 @@ script_version_check
 system_memory=$(awk '/MemTotal/ {printf( "%.0f\n", $2 / 1024 / 1024)}' /proc/meminfo)
 system_swap=$(awk '/SwapTotal/ {printf( "%.0f\n", $2 / 1024 / 1024)}' /proc/meminfo)
 system_swap_var=0
-system_mem_var=4
+system_mem_var=8
 #
 maxmind_username=$(echo "${maxmind_username}")
 maxmind_password=$(echo "${maxmind_password}")
@@ -1086,6 +1086,20 @@ else
   fi
 fi
 rm --force "$elasticsearch_temp" 2> /dev/null
+
+# Download elsaticsearch.yml & Restart elasticsearch
+update_elasticsearch() {
+  header
+  script_logo
+  rm /etc/elasticsearch/elasticsearch.yml
+  wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/elasticsearch/elasticsearch.yml -P /etc/elasticsearch/
+  chown elasticsearch /etc/elasticsearch/elasticsearch.yml
+  systemctl restart elasticsearch.service
+  echo -e "\\n${WHITE_R}#${RESET} Updated Elasticsearch.yml..."
+  sleep 6
+}
+update_elasticsearch
+
 service elasticsearch start || abort
 sleep 3
 
@@ -1304,12 +1318,12 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   echo -e "\\n"
   echo -e "Open your browser and connect to ${GREEN}http://$SERVER_IP:5601${RESET}\\n"
   echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/configuration.md${RESET}\\n"
-  echo -e "${GREEN} Enrollment Token${RESET}"
-  /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana --url "https://$SERVER_IP:9200"
-  echo -e "\\n"
-  echo -e "${GREEN} Kibana Verification Code${RESET}"
-  /usr/share/kibana/bin/kibana-verification-code
-  echo -e "\\n"
+  # xpack # echo -e "${GREEN} Enrollment Token${RESET}"
+  # xpack # /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana --url "https://$SERVER_IP:9200"
+  # xpack # echo -e "\\n"
+  # xpack # echo -e "${GREEN} Kibana Verification Code${RESET}"
+  # xpack # /usr/share/kibana/bin/kibana-verification-code
+  # xpack # echo -e "\\n"
   sleep 3
   remove_yourself
 else
