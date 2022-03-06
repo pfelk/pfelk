@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.03.3
+# Version    | 22.03.4
 # Email      | support@pfelk.com
 # Website    | https://pfelk.com
 #
@@ -129,7 +129,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.03.3
+  pfELK Installation Script - version 22.03.4
 EOF
 }
 
@@ -1089,18 +1089,15 @@ rm --force "$elasticsearch_temp" 2> /dev/null
 
 # Download elsaticsearch.yml & Restart elasticsearch
 update_elasticsearch() {
-  header
-  script_logo
   rm /etc/elasticsearch/elasticsearch.yml
   wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/elasticsearch/elasticsearch.yml -P /etc/elasticsearch/
   # chown elasticsearch /etc/elasticsearch/elasticsearch.yml
   echo -e "\\n${WHITE_R}#${RESET} Updated Elasticsearch.yml..."
-  sleep 1
+  sleep 3
+  service elasticsearch start || abort
+  sleep 1 
 }
 update_elasticsearch
-
-service elasticsearch start || abort
-sleep 3
 
 # Logstash install
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
