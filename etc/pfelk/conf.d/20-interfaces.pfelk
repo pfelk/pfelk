@@ -1,6 +1,6 @@
-# 20-interfaces.conf
+# 20-interfaces.pfelk
 ################################################################################
-# Version: 22.02                                                               #
+# Version: 22.04                                                               #
 # Required: No - Optional                                                      #
 # Description: Adds interface.alias and network.name based on interface.name   #
 # The interface.alias and network.name fields may be amended as desired        #
