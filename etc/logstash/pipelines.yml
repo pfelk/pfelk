@@ -10,7 +10,7 @@
 ################################################################################
 #
 - pipeline.id: pfelk
-  path.config: "/etc/pfelk/conf.d/*.conf"
+  path.config: "/etc/pfelk/conf.d/*.pfelk"
   pipeline.ecs_compatibility: v8 #Disable if not running Elastic v8+
 
 # https://github.com/elastic/logstash/blob/main/config/pipelines.yml
