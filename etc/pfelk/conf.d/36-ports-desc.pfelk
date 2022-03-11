@@ -1,6 +1,6 @@
-# 36-ports-desc.conf
+# 36-ports-desc.pfelk
 ################################################################################
-# Version: 22.01                                                               #
+# Version: 22.04.                                                              #
 # Required: No - Optional                                                      #
 # Description: Checks for the presense of the port field, if present runs      #
 # translates the port into a referenced description.                           #
