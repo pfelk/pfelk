@@ -1,6 +1,6 @@
-# 50-outputs.conf
+# 50-outputs.pfelk
 ################################################################################
-# Version: 22.01(datastream)                                                   #
+# Version: 22.04                                                               #
 # Required: Yes                                                                #
 # Description: Sends enriched logs to Elasticsearch.                           #
 #                                                                              #
