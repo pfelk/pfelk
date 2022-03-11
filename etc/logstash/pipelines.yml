@@ -1,6 +1,6 @@
 # pipelines.yml
 ################################################################################
-# Version: 22.01                                                               #
+# Version: 22.04                                                               #
 # Required: Yes                                                                #
 # Description: This is a required file for a pfelk installation                #
 # This file is where you define your pipelines. You can define multiple.       #
