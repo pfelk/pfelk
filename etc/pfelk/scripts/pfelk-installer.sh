@@ -954,7 +954,7 @@ fi
 ###################################################################################################################################################################################################
 
 start_pfelk() {
-  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
   header
   script_logo
   sleep 4
