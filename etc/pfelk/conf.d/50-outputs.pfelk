@@ -33,31 +33,15 @@ filter {
     mutate { add_field => { "[data_stream][namespace]" => "unknown" } }
   }
 }
-output {
-#  if [type] == "beats" {
-#    elasticsearch {
-#      hosts => ["http://es01:9200"]
-#      index => "%{[@metadata][beat]}-%{[@metadata][version]}"
-#      ecs_compatibility => "v1"
-#      manage_template => false
-#      ### X-Pack Username and Password ###
-#      user => USERNAMEHERE
-#      password => PASSWORDHERE
-#    }
-#  }
   elasticsearch {
-    # Unsecured Method
-    hosts => ["http://localhost:9200"]
     data_stream => "true"
     data_stream_type => "logs"
     data_stream_dataset => "pfelk"
-    #
+    ###  Unsecured Method ###
+    # hosts => ["http://localhost:9200"]
     ### X-Pack Security Method ###
-    # hosts => ["https://localhost:9200"]
-    # cacert => '/etc/logstash/config/certs/http_ca.crt'
-    # data_stream => "true"
-    # data_stream_type => "logs"
-    # data_stream_dataset => "pfelk"
+    hosts => ["https://localhost:9200"]
+    cacert => '/etc/logstash/config/certs/http_ca.crt'
     # user => USERNAMEHERE
     # password => PASSWORDHERE
   }
