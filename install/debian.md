@@ -29,7 +29,7 @@ apt-get install apt-transport-https gnupg2 software-properties-common dirmngr ls
 
 ### 4. Download and install the public GPG signing key
 ```
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
 ```
 
 ### 5. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
