@@ -42,8 +42,9 @@ output {
     # hosts => ["http://localhost:9200"]
     ### X-Pack Security Method ###
     hosts => ["https://localhost:9200"]
+    # ssl => true
     cacert => '/etc/logstash/config/certs/http_ca.crt'
-    # user => USERNAMEHERE
-    # password => PASSWORDHERE
+    user => "pfelk_logstash"
+    password => "pf31k-l0g$tas#-p@sSw0Rd"
   }
 }
