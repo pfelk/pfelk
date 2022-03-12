@@ -1,0 +1,14 @@
+# logstash.yml
+################################################################################
+# Version: 21.03                                                               #
+# Required: Yes (DOCKER ONLY)                                                  #
+# Description: This is a required file for a Docker installation               #
+#                                                                              #
+################################################################################
+#
+http.host: "0.0.0.0"
+#path.config: /usr/share/logstash/pipeline/pipelines.yml
+xpack.monitoring.elasticsearch.hosts: [ "http://es01:9200" ]
+
+## X-Pack security credentials
+xpack.monitoring.enabled: true
