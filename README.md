@@ -54,7 +54,7 @@ Supported entries include:
 **pfelk** aims to replace the vanilla pfSense/OPNsense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
 
 ### How pfelk works?
-* ![How pfelk works](https://raw.githubusercontent.com/pfelk/pfelk/main/Images/pfELK-Overview.PNG)
+* ![How pfelk works](https://raw.githubusercontent.com/pfelk/pfelk/main/Images/overview-pfelk.png)
 
 ### Quick start
 
