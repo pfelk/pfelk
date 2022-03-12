@@ -1309,7 +1309,7 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   script_logo
   echo -e "\\n"
   echo -e "${GREEN}#${RESET} pfELK was installed successfully"
-  systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
+  systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (https://github.com/pfelk/pfelk) on github!"
   echo -e "\\n"
   echo -e "Open your browser and connect to ${GREEN}http://$SERVER_IP:5601${RESET}\\n"
   echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/configuration.md${RESET}\\n"
