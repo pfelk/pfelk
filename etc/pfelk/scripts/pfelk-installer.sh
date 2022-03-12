@@ -1016,11 +1016,8 @@ download_pfelk() {
   mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,scripts,templates}
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/01-inputs.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/05-apps.pfelk -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/20-interfaces.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.pfelk -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/35-rules-desc.pfelk -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/36-ports-desc.pfelk -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/45-cleanup.pfelk -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/49-cleanup.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/50-outputs.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/pfelk.pfelk -P /etc/pfelk/patterns/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/openvpn.pfelk -P /etc/pfelk/patterns/
