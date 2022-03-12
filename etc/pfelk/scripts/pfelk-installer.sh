@@ -1193,13 +1193,12 @@ else
 fi
 rm --force "$kibana_temp" 2> /dev/null
 
-# Download Kibana.yml & Restart Kibana
+# Update Kibana.yml & Restart Kibana
 update_kibana() {
   header
   script_logo
-  rm /etc/kibana/kibana.yml
-  wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/kibana/kibana.yml -P /etc/kibana/
-  # chown kibana /etc/kibana/kibana.yml
+  sed -i 's/#server.port: 5601/server.port: 5601/'  /etc/kibana/kibana.yml
+  sed -i 's/#server.host: "localhost"/server.host: "0.0.0.0"/' /etc/kibana/kibana.yml
   systemctl restart kibana.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml..."
   sleep 1
