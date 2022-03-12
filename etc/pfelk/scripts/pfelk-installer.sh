@@ -1125,6 +1125,7 @@ rm --force "$logstash_temp" 2> /dev/null
 update_logstash() {
   header
   script_logo
+  sed -i 's?ExecStart=/usr/share/logstash/bin/logstash "--path.settings" "/etc/logstash"?ExecStart=/usr/share/logstash/bin/logstash "--pipeline.unsafe_shutdown" "--path.settings" "/etc/logstash"?' /etc/systemd/system/logstash.service
   rm /etc/logstash/pipelines.yml
   wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
   echo -e "\\n${WHITE_R}#${RESET} Updated Logstash.yml..."
