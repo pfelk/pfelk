@@ -24,7 +24,7 @@ sudo timedatectl set-timezone EST
 
 ### 3. Download and install the public GPG signing key
 ```
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
 ```
 
 ### 4. Download and install apt-transport-https package
