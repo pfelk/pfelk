@@ -33,6 +33,7 @@ filter {
     mutate { add_field => { "[data_stream][namespace]" => "unknown" } }
   }
 }
+output {
   elasticsearch {
     data_stream => "true"
     data_stream_type => "logs"
