@@ -136,6 +136,13 @@ sudo /bin/systemctl enable elasticsearch.service
 sudo /bin/systemctl enable kibana.service
 sudo /bin/systemctl enable logstash.service
 ```
+
+# Logstash Stop on Failure 
+### 22. Start Services on Boot (you'll need to reboot or start manually to proceed)
+```
+sed -i 's?ExecStart=/usr/share/logstash/bin/logstash "--path.settings" "/etc/logstash"?ExecStart=/usr/share/logstash/bin/logstash "--pipeline.unsafe_shutdown" "--path.settings" "/etc/logstash"?' /etc/systemd/system/logstash.service
+```
+
 ### 22. Start Services Manually
 ```
 systemctl start elasticsearch.service 
