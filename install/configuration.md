@@ -51,7 +51,7 @@
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=60)
 
 # :one: Dashboards 
- :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-dashboard-installer.sh) script :page_with_curl:
+ :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh) script :page_with_curl:
 - ### :a: Manual Method
   1. In your web browser go to the pfELK IP address followed by port 5601 (e.g. 192.168.0.1:5601)
   2. Click the menu icon (☰ three horizontal lines) in the upper left
