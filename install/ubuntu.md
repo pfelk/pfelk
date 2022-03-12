@@ -34,7 +34,7 @@ sudo apt install apt-transport-https
 
 ### 5. Add Elasticsearch|Logstash|Kibana Repositories (version 8+)
 ```
-echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 ```
 
 ### 6. Update
