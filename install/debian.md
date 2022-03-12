@@ -34,7 +34,7 @@ wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearm
 
 ### 5. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
 ```
-echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-8.x.list
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 ```
 
 ### 6. Update
