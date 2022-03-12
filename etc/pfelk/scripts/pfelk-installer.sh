@@ -1271,31 +1271,31 @@ if [[ "${netcat_installed}" == 'true' ]]; then
   sleep 2
 fi
 
-# Download/Install Dashboard (saved objects)
+# Download/Install Kibana saved objects
 install_kibana_saved_objects() {
 header
   script_logo
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
   SERVICE_KIBANA=$(systemctl is-active kibana)
   if ! [ "$SERVICE_KIBANA" = 'active' ]; then
-     { echo -e "\\n${RED}#${RESET} Failed to Install pfELK Dashboards\\n\\n"; sleep 3; }
+     { echo -e "\\n${RED}#${RESET} Failed to Install pfELK - Kibana Saved Objects\\n\\n"; sleep 3; }
   else
-     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects (i.e. pfELK Dashboards)!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-dashboard-installer.sh -P /tmp/pfELK/
-     chmod +x /tmp/pfELK/pfelk-dashboard-installer.sh
-     /tmp/pfELK/pfelk-dashboard-installer.sh > /dev/null 2>&1
+     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects!${RESET}";
+     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh -P /tmp/pfELK/
+     chmod +x /tmp/pfELK/pfelk-kibana-saved-objects.sh
+     /tmp/pfELK/pfelk-kibana-saved-objects.sh > /dev/null 2>&1
      echo -e "${GREEN}#${RESET} Done."
      sleep 3
   fi
 else
   SERVICE_KIBANA=$(systemctl is-active kibana)
   if ! [ "$SERVICE_KIBANA" = 'active' ]; then
-    { echo -e "${RED}#${RESET} Failed to Install pfELK Dashboards\\n\\n"; sleep 3; }
+    { echo -e "${RED}#${RESET} Failed to Install pfELK - Kibana Saved Objects\\n\\n"; sleep 3; }
   else
-     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects (i.e. pfELK Dashboards)!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-dashboard-installer.sh -P /tmp/pfELK/
-     chmod +x /tmp/pfELK/pfelk-dashboard-installer.sh
-     /tmp/pfELK/pfelk-dashboard-installer.sh
+     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects!${RESET}";
+     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh -P /tmp/pfELK/
+     chmod +x /tmp/pfELK/pfelk-kibana-saved-objects.sh
+     /tmp/pfELK/pfelk-kibana-saved-objects.sh
      echo -e "${GREEN}#${RESET} Done."
      sleep 3
   fi
