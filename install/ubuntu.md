@@ -143,11 +143,11 @@ sudo /bin/systemctl enable logstash.service
 sed -i 's?ExecStart=/usr/share/logstash/bin/logstash "--path.settings" "/etc/logstash"?ExecStart=/usr/share/logstash/bin/logstash "--pipeline.unsafe_shutdown" "--path.settings" "/etc/logstash"?' /etc/systemd/system/logstash.service
 ```
 
-### 22. Start Services Manually
+### 23. Start Services Manually
 ```
 systemctl start elasticsearch.service 
 systemctl start kibana.service
 systemctl start logstash.service
 ```
 
-### 23. Complete Configuration --> [Configuration](configuration.md)
+### 24. Complete Configuration --> [Configuration](configuration.md)
