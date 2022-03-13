@@ -31,7 +31,7 @@
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
 # GeoIP        | 4.9.0
-# Elasticstack | 8.1.0
+# Elasticstack | 8.2.0
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -551,7 +551,7 @@ port_5190_service=''
 port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
-elk_version=8.1.0
+elk_version=8.2.0
 maxmind_version=4.9.0
 
 ###################################################################################################################################################################################################
@@ -1187,7 +1187,6 @@ update_kibana() {
   script_logo
   sed -i 's/#server.port: 5601/server.port: 5601/'  /etc/kibana/kibana.yml
   sed -i 's/#server.host: "localhost"/server.host: "0.0.0.0"/' /etc/kibana/kibana.yml
-  systemctl restart kibana.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml..."
   sleep 1
 }
