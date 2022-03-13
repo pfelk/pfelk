@@ -138,4 +138,4 @@
 # :three: Start Logstash
   1. `systemctl start logstash.service`
 
-# :four: Configuration --> # [Configuration](Configuration.md)
+# :four: Configuration --> # [Configuration](configuration.md)
