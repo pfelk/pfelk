@@ -1,3 +1,6 @@
+# Version    | 22.04
+# Email      | https://github.com/pfelk/pfelk
+#
 echo "pfelk: Generating pfelk Error Data"
 #create log folder
 sudo mkdir /etc/pfelk/logs
@@ -21,12 +24,12 @@ find /var/lib/GeoIP/ | cat >> /etc/pfelk/logs/error.pfelk.log
 echo "\n#####################################" >> /etc/pfelk/logs/error.pfelk.log
 echo "# pfelk Config File Details #########" >> /etc/pfelk/logs/error.pfelk.log
 echo "#####################################\n" >> /etc/pfelk/logs/error.pfelk.log
-cat /etc/pfelk/conf.d/*.conf >> /etc/pfelk/logs/error.pfelk.log
+cat /etc/pfelk/conf.d/*.pfelk >> /etc/pfelk/logs/error.pfelk.log
 #capture all config files
 echo "\n#####################################" >> /etc/pfelk/logs/error.pfelk.log
 echo "# Logstash Config File Details #########" >> /etc/pfelk/logs/error.pfelk.log
 echo "#####################################\n" >> /etc/pfelk/logs/error.pfelk.log
-cat /etc/logstash/conf.d/*.conf >> /etc/pfelk/logs/error.pfelk.log
+cat /etc/logstash/conf.d/*.pfelk >> /etc/pfelk/logs/error.pfelk.log
 echo "\n#####################################" >> /etc/pfelk/logs/error.pfelk.log
 echo "# Listing Logstash Pipelines.yml #" >> /etc/pfelk/logs/error.pfelk.log
 echo "#####################################\n" >> /etc/pfelk/logs/error.pfelk.log

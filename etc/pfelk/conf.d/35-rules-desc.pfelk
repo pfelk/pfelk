@@ -1,6 +1,6 @@
-# 35-rules-desc.conf
+# 35-rules-desc.pfelk
 ################################################################################
-# Version: 22.01                                                               #
+# Version: 22.04                                                               #
 # Required: No - Optional                                                      #
 # Description: Checks for the presense of the rule_number field, if present    #
 # runs translates the rule_number into a referenced description.               #

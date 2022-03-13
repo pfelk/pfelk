@@ -1,6 +1,6 @@
-# 37-enhanced_user_agent.conf
+# 37-enhanced_user_agent.pfelk
 ################################################################################
-# Version: 21.02                                                               #
+# Version: 21.04                                                               #
 # Required: No - Optional                                                      #
 # Description: enriches user_agent.original field for suricata/squid logs      #
 #                                                                              #

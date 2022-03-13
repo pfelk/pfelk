@@ -1,6 +1,6 @@
-# 01-inputs.conf
+# 01-inputs.pfelk
 ################################################################################
-# Version: 22.02                                                               #
+# Version: 22.04                                                               #
 # Required: Yes                                                                #
 # Description: Sets the type, port to listen, and initial grok pattern. User   #
 # may amend at their own risk, as desired.                                     #
@@ -22,12 +22,6 @@ input {
     #ssl_verify_mode => "force_peer"
     tags => ["pfelk"]
   }
-  ### Beats ###
-#  beats {
-#    id => "beats"
-#    type => "beats"
-#    port => 5044
-#  }
 }
 #### Syslog Date Format Fix #### 
 filter {

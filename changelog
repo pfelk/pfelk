@@ -1,8 +1,16 @@
 ES Versions:
+  * pfelk >= 22.# supports Elasticstack >=8.1.0+
   * pfelk >= 20.# supports Elastic Stack >= 7.11.0+
   * pfelk >= 6.0  supports Elastic Stack >= 7.0.0+
   * pfelk >= 6.0  supports pfSense >= 2.4.0+
   * pfelk >= 6.0  supports OPNsense >= 19+
+  
+v22.04
+  - Revised to accomidate default security implemented by Elastic
+  - Renamed *.conf to *.pfelk to mitigate conflict where other *.conf files reside 
+  - Made various refinements 
+  - Cleaned up various files
+  - Possibly last supported version...too time consuming to continue to support
   
 v22.01
   - Updated output (50-outputs.conf) supporting data streams

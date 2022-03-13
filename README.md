@@ -1,10 +1,6 @@
-![Version badge](https://img.shields.io/badge/ELK-8.0.0-blue.svg)
+![Version badge](https://img.shields.io/badge/ELK-8.1.0-blue.svg)
 [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson)
-
-[![Star](https://img.shields.io/github/stars/pfelk/pfelk?style=plastic)](https://github.com/pfelk/pfelk/stargazers) 
-[![Fork](https://img.shields.io/github/forks/pfelk/pfelk?style=plastic)](https://github.com/pfelk/pfelk/network/members)
-[![Issues](https://img.shields.io/github/issues/pfelk/pfelk?style=plastic)](https://github.com/pfelk/pfelk/issues)
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/3ilson)
 ## Welcome to (pfSense/OPNsense) + Elastic Stack  
@@ -58,7 +54,7 @@ Supported entries include:
 **pfelk** aims to replace the vanilla pfSense/OPNsense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
 
 ### How pfelk works?
-* ![How pfelk works](https://raw.githubusercontent.com/pfelk/pfelk/main/Images/pfELK-Overview.PNG)
+* ![How pfelk works](https://github.com/pfelk/pfelk/raw/main/Images/overview-pfelk.png)
 
 ### Quick start
 

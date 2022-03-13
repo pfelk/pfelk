@@ -1,8 +1,7 @@
 #!/bin/bash
 #
-# Version    | 22.03.4
-# Email      | support@pfelk.com
-# Website    | https://pfelk.com
+# Version    | 22.04
+# Website    | https://github.com/pfelk/pfelk
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -31,8 +30,8 @@
 ###################################################################################################################################################################################################
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
-# GeoIP        | 4.8.0
-# Elasticstack | 8.0.0
+# GeoIP        | 4.9.0
+# Elasticstack | 8.1.0
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -129,7 +128,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.03.4
+  pfELK Installation Script - version 22.04
 EOF
 }
 
@@ -553,7 +552,7 @@ port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
 elk_version=8.0.0
-maxmind_version=4.8.0
+maxmind_version=4.9.0
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -954,7 +953,7 @@ fi
 ###################################################################################################################################################################################################
 
 start_pfelk() {
-  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
   header
   script_logo
   sleep 4
@@ -1014,19 +1013,13 @@ sleep 3
 
 download_pfelk() {
   mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,scripts,templates}
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/01-inputs.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/05-apps.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/20-interfaces.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/35-rules-desc.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/36-ports-desc.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/45-cleanup.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/50-outputs.conf -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/pfelk.grok -P /etc/pfelk/patterns/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/openvpn.grok -P /etc/pfelk/patterns/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/private-hostnames.csv -P /etc/pfelk/databases/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/rule-names.csv -P /etc/pfelk/databases/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/service-names-port-numbers.csv -P /etc/pfelk/databases/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/01-inputs.pfelk -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/05-apps.pfelk -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.pfelk -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/49-cleanup.pfelk -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/50-outputs.pfelk -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/pfelk.pfelk -P /etc/pfelk/patterns/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/openvpn.pfelk -P /etc/pfelk/patterns/
   mkdir -p /etc/pfelk/scripts/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/error-data.sh -P /etc/pfelk/scripts/
   chmod +x /etc/pfelk/scripts/pfelk-error.sh
@@ -1087,18 +1080,6 @@ else
 fi
 rm --force "$elasticsearch_temp" 2> /dev/null
 
-# Download elsaticsearch.yml & Restart elasticsearch
-update_elasticsearch() {
-  rm /etc/elasticsearch/elasticsearch.yml
-  wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/elasticsearch/elasticsearch.yml -P /etc/elasticsearch/
-  # chown elasticsearch /etc/elasticsearch/elasticsearch.yml
-  echo -e "\\n${WHITE_R}#${RESET} Updated Elasticsearch.yml..."
-  sleep 3
-  service elasticsearch start || abort
-  sleep 1 
-}
-update_elasticsearch
-
 # Logstash install
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
@@ -1124,52 +1105,54 @@ else
 fi
 rm --force "$logstash_temp" 2> /dev/null
 
-# Download logstash.yml & Restart Logstash
+# Updating logstash.yml & Restarting Logstash
 update_logstash() {
   header
   script_logo
+  sed -i 's?ExecStart=/usr/share/logstash/bin/logstash "--path.settings" "/etc/logstash"?ExecStart=/usr/share/logstash/bin/logstash "--pipeline.unsafe_shutdown" "--path.settings" "/etc/logstash"?' /etc/systemd/system/logstash.service
   rm /etc/logstash/pipelines.yml
   wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
-  echo -e "\\n${WHITE_R}#${RESET} Updated Logstash.yml..."
-  sleep 1
+  chown logstash /etc/logstash/pipelines.yml
+  echo -e "\\n${WHITE_R}#${RESET} Updated logstash.yml..."
+  sleep 2
 }
 update_logstash
 
-service logstash start || abort
-sleep 3
+# service logstash start || abort
+# sleep 3
 
 # Download/Install Required Templates
-install_templates() {
-header
-script_logo
-if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  SERVICE_ELASTIC=$(systemctl is-active elasticsearch)
-  if ! [ "$SERVICE_ELASTIC" = 'active' ]; then
-     { echo -e "\\n${RED}#${RESET} Failed to install pfELK Templates"; sleep 3; }
-  else
-     echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
-     chmod +x /tmp/pfELK/pfelk-template-installer.sh
-     /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
-     echo -e "${GREEN}#${RESET} Done."
-     sleep 3
-  fi
-else
-  SERVICE_ELASTIC=$(systemctl is-active elasticsearch)
-  if ! [ "$SERVICE_ELASTIC" = 'active' ]; then
-    { echo -e "\\n${WHITE_R}#${RESET} Failed to install pfELK Templates"; sleep 3; }
-  else
-     echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
-     chmod +x /tmp/pfELK/pfelk-template-installer.sh
-     sleep 20
-     /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
-     echo -e "${GREEN}#${RESET} Done."
-     sleep 3
-  fi
-fi
-}
-install_templates
+# install_templates() {
+# header
+# script_logo
+# if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
+#   SERVICE_ELASTIC=$(systemctl is-active elasticsearch)
+#   if ! [ "$SERVICE_ELASTIC" = 'active' ]; then
+#      { echo -e "\\n${RED}#${RESET} Failed to install pfELK Templates"; sleep 3; }
+#   else
+#      echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
+#      wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
+#      chmod +x /tmp/pfELK/pfelk-template-installer.sh
+#      /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
+#      echo -e "${GREEN}#${RESET} Done."
+#      sleep 3
+#   fi
+# else
+#   SERVICE_ELASTIC=$(systemctl is-active elasticsearch)
+#   if ! [ "$SERVICE_ELASTIC" = 'active' ]; then
+#     { echo -e "\\n${WHITE_R}#${RESET} Failed to install pfELK Templates"; sleep 3; }
+#   else
+#      echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
+#      wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
+#      chmod +x /tmp/pfELK/pfelk-template-installer.sh
+#      sleep 20
+#      /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
+#      echo -e "${GREEN}#${RESET} Done."
+#      sleep 3
+#   fi
+# fi
+# }
+# install_templates
 
 # Kibana install
 if dpkg -l | grep "kibana" | grep -q "^ii\\|^hi"; then
@@ -1196,13 +1179,12 @@ else
 fi
 rm --force "$kibana_temp" 2> /dev/null
 
-# Download Kibana.yml & Restart Kibana
+# Update Kibana.yml & Restart Kibana
 update_kibana() {
   header
   script_logo
-  rm /etc/kibana/kibana.yml
-  wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/kibana/kibana.yml -P /etc/kibana/
-  # chown kibana /etc/kibana/kibana.yml
+  sed -i 's/#server.port: 5601/server.port: 5601/'  /etc/kibana/kibana.yml
+  sed -i 's/#server.host: "localhost"/server.host: "0.0.0.0"/' /etc/kibana/kibana.yml
   systemctl restart kibana.service
   echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml..."
   sleep 1
@@ -1211,7 +1193,6 @@ update_kibana
 
 service kibana start || abort
 sleep 3
-
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -1275,33 +1256,33 @@ if [[ "${netcat_installed}" == 'true' ]]; then
   sleep 2
 fi
 
-# Download/Install Dashboard (saved objects)
+# Download/Install Kibana saved objects
 install_kibana_saved_objects() {
 header
   script_logo
 if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
   SERVICE_KIBANA=$(systemctl is-active kibana)
   if ! [ "$SERVICE_KIBANA" = 'active' ]; then
-     { echo -e "\\n${RED}#${RESET} Failed to Install pfELK Dashboards\\n\\n"; sleep 3; }
+     { echo -e "\\n${RED}#${RESET} Failed to Install pfELK - Kibana Saved Objects\\n\\n"; sleep 3; }
   else
-     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects (i.e. pfELK Dashboards)!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-dashboard-installer.sh -P /tmp/pfELK/
-     chmod +x /tmp/pfELK/pfelk-dashboard-installer.sh
-     /tmp/pfELK/pfelk-dashboard-installer.sh > /dev/null 2>&1
-     echo -e "${GREEN}#${RESET} Done."
-     sleep 3
+     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects!${RESET}";
+     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh -P /etc/pfelk/tmp/
+     chmod +x /etc/pfelk/tmp/pfelk-kibana-saved-objects.sh
+#      /tmp/pfELK/pfelk-kibana-saved-objects.sh > /dev/null 2>&1
+      echo -e "${GREEN}#${RESET} Done."
+     sleep 2
   fi
 else
   SERVICE_KIBANA=$(systemctl is-active kibana)
   if ! [ "$SERVICE_KIBANA" = 'active' ]; then
-    { echo -e "${RED}#${RESET} Failed to Install pfELK Dashboards\\n\\n"; sleep 3; }
+    { echo -e "${RED}#${RESET} Failed to Install pfELK - Kibana Saved Objects\\n\\n"; sleep 3; }
   else
-     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects (i.e. pfELK Dashboards)!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-dashboard-installer.sh -P /tmp/pfELK/
-     chmod +x /tmp/pfELK/pfelk-dashboard-installer.sh
-     /tmp/pfELK/pfelk-dashboard-installer.sh
+     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects!${RESET}";
+     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh -P /etc/pfelk/tmp/
+     chmod +x /tmp/pfELK/pfelk-kibana-saved-objects.sh
+#      /tmp/pfELK/pfelk-kibana-saved-objects.sh
      echo -e "${GREEN}#${RESET} Done."
-     sleep 3
+     sleep 2
   fi
 fi
 }
@@ -1312,22 +1293,26 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   script_logo
   echo -e "\\n"
   echo -e "${GREEN}#${RESET} pfELK was installed successfully"
-  systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (pfelk.3ilson.dev) on github!"
+  systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (https://github.com/pfelk/pfelk) on github!"
   echo -e "\\n"
   echo -e "Open your browser and connect to ${GREEN}http://$SERVER_IP:5601${RESET}\\n"
+  echo -e "Please check the documentation on github to configure your security --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/security.md${RESET}\\n"
   echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/configuration.md${RESET}\\n"
-  # xpack # echo -e "${GREEN} Enrollment Token${RESET}"
-  # xpack # /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana --url "https://$SERVER_IP:9200"
-  # xpack # echo -e "\\n"
-  # xpack # echo -e "${GREEN} Kibana Verification Code${RESET}"
-  # xpack # /usr/share/kibana/bin/kibana-verification-code
-  # xpack # echo -e "\\n"
+  echo -e "${GREEN} Enrollment Token${RESET}"
+  /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana --url "https://$SERVER_IP:9200"
+  echo -e "\\n"
+  echo -e "${GREEN} Kibana Verification Code${RESET}"
+  /usr/share/kibana/bin/kibana-verification-code
+  echo -e "\\n"
+  mkdir /etc/logstash/config/
+  cp /etc/elasticsearch/certs /etc/logstash/config/ -r
+  chown logstash /etc/logstash/config -r
   sleep 3
   remove_yourself
 else
   header_red
   script_logo
   echo -e "\\n${RED}#${RESET} Failed to successfully install pfELK"
-  echo -e "${RED}#${RESET} Please contact pfELK (${RED}pfELK.3ilson.dev${RESET}) on github!${RESET}\\n\\n"
+  echo -e "${RED}#${RESET} Please contact pfELK (${RED}https://github.com/pfelk/pfelk${RESET}) via github!${RESET}\\n\\n"
   remove_yourself
 fi

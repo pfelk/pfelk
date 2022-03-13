@@ -29,12 +29,12 @@ apt-get install apt-transport-https gnupg2 software-properties-common dirmngr ls
 
 ### 4. Download and install the public GPG signing key
 ```
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
 ```
 
-### 5. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
+### 5. Add Elasticsearch|Logstash|Kibana Repositories (version 8+)
 ```
-echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | tee -a /etc/apt/sources.list.d/elastic-8.x.list
+echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 ```
 
 ### 6. Update
@@ -74,18 +74,21 @@ sudo mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,scripts,template
 
 ### 12. (Required) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/01-inputs.conf -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/05-apps.conf -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/20-interfaces.conf -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.conf -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/45-cleanup.conf -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/50-outputs.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/01-inputs.pfelk -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/05-apps.pfelk -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.pfelk -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/49-cleanup.pfelk -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/50-outputs.pfelk -P /etc/pfelk/conf.d/
 ```
 
 ### 13. (Optional) Download the following configuration files
 ```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/35-rules-desc.conf -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/36-ports-desc.conf -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/20-interfaces.pfelk -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/35-rules-desc.pfelk -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/36-ports-desc.pfelk -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/37-enhanced_user_agent.pfelk -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/38-enhanced_url.pfelk -P /etc/pfelk/conf.d/
+sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/45-enhanced_private.pfelk -P /etc/pfelk/conf.d/
 ```
 
 ### 14. Download the grok pattern
@@ -133,11 +136,20 @@ sudo /bin/systemctl enable elasticsearch.service
 sudo /bin/systemctl enable kibana.service
 sudo /bin/systemctl enable logstash.service
 ```
-### 22. Start Services Manually
+
+# Logstash Stop on Failure 
+### 22. Start Services on Boot (you'll need to reboot or start manually to proceed)
+```
+sed -i 's?ExecStart=/usr/share/logstash/bin/logstash "--path.settings" "/etc/logstash"?ExecStart=/usr/share/logstash/bin/logstash "--pipeline.unsafe_shutdown" "--path.settings" "/etc/logstash"?' /etc/systemd/system/logstash.service
+```
+
+### 23. Start Services Manually
 ```
 systemctl start elasticsearch.service 
 systemctl start kibana.service
 systemctl start logstash.service
 ```
 
-### 23. Complete Configuration --> [Configuration](configuration.md)
+### 24. Complete Configuration --> [Security](security.md)
+
+### 25. Complete Configuration --> [Configuration](configuration.md)

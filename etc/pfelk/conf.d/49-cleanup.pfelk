@@ -1,6 +1,6 @@
-# 45-cleanup.conf
+# 49-cleanup.pfelk
 ################################################################################
-# Version: 22.02                                                               #
+# Version: 22.04                                                               #
 # Required: No - Optional                                                      #
 # Description: Removed unwanted logs based on the process.pid field and        #
 # additional fields. Additionally, pf.tcp.options is split (multiple values)   #
