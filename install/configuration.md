@@ -1,8 +1,7 @@
 # Configuring 
 ## Table of Contents
+- [Security](#security)
 - [Templates](#zero-templates)
-  - [Manual-Method](#a-manual-method)
-  - [Scripted-Method](#b-scripted-method-page_with_curl)
 - [Dashboards](#one-dashboards)
   - [Manual-Method](#a-manual-method-1)
   - [Scripted-Method](#b-scripted-method-page_with_curl-1)
@@ -19,9 +18,10 @@
 - [Extras](#eight-extras---optional)
 - [Finished](#nine-finished)
 
+# Security
+
+
 # :zero: Templates
- :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh) script :page_with_curl:
-- ### :a: Manual Method
   1. In your web browser navigate to the pfELK IP address using port 5601 (ex: 192.168.0.1:5601)
   2. Click ☰ in the upper left corner
   3. Click on _Dev Tools_ located near the bottom under the _Management_ heading
@@ -40,18 +40,7 @@
   5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=6)
 
-- ### :b: Scripted Method :page_with_curl:
-  1. Download the pfelk-template-installer
-      - `wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh`
-  2. Make the file executable 
-      - `chmod +x pfelk-template-installer.sh`
-  3. Execute the file
-      - `./pfelk-template-installer.sh`
-  4. :pushpin:  References
-      - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=60)
-
 # :one: Dashboards 
- :triangular_flag_on_post: This step may be omited, it you installed utilzing the [pflek-installer.sh](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh) script :page_with_curl:
 - ### :a: Manual Method
   1. In your web browser go to the pfELK IP address followed by port 5601 (e.g. 192.168.0.1:5601)
   2. Click the menu icon (☰ three horizontal lines) in the upper left
@@ -73,12 +62,14 @@
 
 - ### :b: Scripted Method :page_with_curl:
   1. Download the pfelk-dashboard-installer
-      - `wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-dashboard-installer.sh`
-  2. Make the file executable 
+      - `wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh`
+  2. Edit the file and update with the elastic password
+      - `sudo nano /pfelk-kibana-saved-objects.sh`
+  3. Make the file executable 
       - `sudo chmod +x pfelk-dashboard-installer.sh`
-  3. Execute the file
+  4. Execute the file
       - `sudo ./pfelk-dashboard-installer.sh`
-  4. :pushpin: References
+  5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=228)
       
 # :two: Firewall 
