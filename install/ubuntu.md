@@ -150,4 +150,6 @@ systemctl start kibana.service
 systemctl start logstash.service
 ```
 
-### 24. Complete Configuration --> [Configuration](configuration.md)
+### 24. Complete Configuration --> [Security](security.md)
+
+### 25. Complete Configuration --> [Configuration](configuration.md)
