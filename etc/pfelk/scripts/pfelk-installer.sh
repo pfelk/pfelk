@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.04.1
+# Version    | 22.04.3
 # Website    | https://github.com/pfelk/pfelk
 #
 ###################################################################################################################################################################################################
@@ -128,7 +128,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.04.1
+  pfELK Installation Script - version 22.04.3
 EOF
 }
 
@@ -1018,8 +1018,8 @@ download_pfelk() {
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/49-cleanup.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/50-outputs.pfelk -P /etc/pfelk/conf.d/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/pfelk.pfelk -P /etc/pfelk/patterns/
-  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/openvpn.pfelk -P /etc/pfelk/patterns/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/pfelk.grok -P /etc/pfelk/patterns/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/openvpn.grok -P /etc/pfelk/patterns/
   mkdir -p /etc/pfelk/scripts/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/error-data.sh -P /etc/pfelk/scripts/
   chmod +x /etc/pfelk/scripts/pfelk-error.sh
