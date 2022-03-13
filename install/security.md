@@ -14,7 +14,7 @@
   2. Reset the elastic user password to a known password
      - `sudo sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic`
   3. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
-     - Input `elastic` as the user name and the password provided in step 2 above
+     - Input `elastic` as the user name and the password provided in step 1 above
   4. Add Roles (copy and past each into the CLI and update with elastic password from step 2 above)
 ```
 curl -X PUT "localhost:5601/api/security/role/pfelk_writer" -H 'kbn-xsrf: true' -H 'Content-Type: application/json' -u elastic:PASSWORDGOESHERE -d'
