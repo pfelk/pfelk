@@ -1114,7 +1114,7 @@ update_logstash() {
   wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
   chown logstash /etc/logstash/pipelines.yml
   echo -e "\\n${WHITE_R}#${RESET} Updated logstash.yml..."
-  sleep 1
+  sleep 2
 }
 update_logstash
 
