@@ -1,13 +1,13 @@
 # Configuring 
 ## Table of Contents
-- [Security](#security)
-- [Templates](#zero-templates)
-- [Dashboards](#one-dashboards)
+- [Security](#zero-security)
+- [Templates](#one-templates)
+- [Dashboards](#two-dashboards)
   - [Manual-Method](a-manual-method)
   - [Scripted-Method](#b-scripted-method-page_with_curl)
 - [Logstash](#three-start-logstash)
 
-# Security
+# :zero: Security
   0. Naviaget to the pfELK IP address (example: 192.168.0.1:5601)
      - Input the blah key 
      - Input the blah pin
@@ -76,7 +76,7 @@ curl -X PUT "localhost:5601/api/security/role/pfelk_viewer" -H 'kbn-xsrf: true' 
      - `sudo nano /etc/pfelk/conf.d/50-outputs.conf`
        - update password to the pfelk_logstash user password from step 5
 
-# :zero: Templates
+# :one: Templates
   1. In your web browser navigate to the pfELK IP address using port 5601 (example: 192.168.0.1:5601)
   2. Click ☰ in the upper left corner
   3. Click on _Dev Tools_ located near the bottom under the _Management_ heading
@@ -95,7 +95,7 @@ curl -X PUT "localhost:5601/api/security/role/pfelk_viewer" -H 'kbn-xsrf: true' 
   5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=6)
 
-# :one: Dashboards 
+# :two: Dashboards 
 - ### :a: Manual Method
   1. In your web browser go to the pfELK IP address followed by port 5601 (e.g. 192.168.0.1:5601)
   2. Click the menu icon (☰ three horizontal lines) in the upper left
