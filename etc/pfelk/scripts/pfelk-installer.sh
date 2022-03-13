@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.04
+# Version    | 22.04.1
 # Website    | https://github.com/pfelk/pfelk
 #
 ###################################################################################################################################################################################################
@@ -89,7 +89,7 @@ abort() {
   if [[ "${set_lc_all}" == 'true' ]]; then unset LC_ALL; fi
   echo -e "\\n\\n${RED}#########################################################################${RESET}\\n"
   echo -e "${WHITE_R}#${RESET} An error occurred. Aborting script..."
-  echo -e "${WHITE_R}#${RESET} Please open an issue (pfelk.3ilson.dev) on github!\\n"
+  echo -e "${WHITE_R}#${RESET} Please open an issue (https://github.com/pfelk/pfelk) on github!\\n"
   echo -e "${WHITE_R}#${RESET} Creating support file..."
   mkdir -p "/tmp/pfELK/support" &> /dev/null
   if dpkg -l lsb-release 2> /dev/null | grep -iq "^ii\\|^hi"; then lsb_release -a &> "/tmp/pfELK/support/lsb-release"; fi
@@ -128,7 +128,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.04
+  pfELK Installation Script - version 22.04.1
 EOF
 }
 
@@ -1079,6 +1079,8 @@ else
   fi
 fi
 rm --force "$elasticsearch_temp" 2> /dev/null
+service elasticsearch start || abort
+sleep 3
 
 # Logstash install
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
@@ -1306,7 +1308,7 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   echo -e "\\n"
   mkdir /etc/logstash/config/
   cp /etc/elasticsearch/certs /etc/logstash/config/ -r
-  chown logstash /etc/logstash/config -r
+  chown -R logstash /etc/logstash/config/
   sleep 3
   remove_yourself
 else
