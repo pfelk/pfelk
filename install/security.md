@@ -131,3 +131,5 @@ curl -X PUT "localhost:5601/api/security/role/pfelk_viewer" -H 'kbn-xsrf: true' 
 
 # :three: Start Logstash
   1. `systemctl start logstash.service`
+
+# :four: Configuration --> # [Configuration](Configuration.md)
