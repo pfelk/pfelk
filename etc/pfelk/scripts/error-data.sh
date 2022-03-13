@@ -1,4 +1,5 @@
 # Version    | 22.04
+# Email      | https://github.com/pfelk/pfelk
 #
 echo "pfelk: Generating pfelk Error Data"
 #create log folder
