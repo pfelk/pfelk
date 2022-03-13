@@ -64,11 +64,11 @@
   1. Download the pfelk-dashboard-installer
       - `wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh`
   2. Edit the file and update with the elastic password
-      - `sudo nano /pfelk-kibana-saved-objects.sh`
+      - `sudo nano pfelk-kibana-saved-objects.sh`
   3. Make the file executable 
-      - `sudo chmod +x pfelk-dashboard-installer.sh`
+      - `sudo chmod +x pfelk-kibana-saved-objects.sh`
   4. Execute the file
-      - `sudo ./pfelk-dashboard-installer.sh`
+      - `sudo ./pfelk-kibana-saved-objects.sh`
   5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=228)
       
