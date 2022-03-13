@@ -10,71 +10,77 @@
 # :zero: Security
   0. Naviaget to the pfELK IP address (example: 192.168.0.1:5601)
      - Input Enrollment Token
+     - ![token](https://github.com/pfelk/pfelk/raw/main/Images/security/enrollment%20token.png)
      - Input Kibana Verification Code
+     - ![code](https://github.com/pfelk/pfelk/raw/main/Images/security/kcode.png)
   2. Reset the elastic user password to a known password
      - `sudo sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic`
   3. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
      - Input `elastic` as the user name and the password provided in step 1 above
+     - ![elastic](https://github.com/pfelk/pfelk/raw/main/Images/security/elasticlogin.png)
   4. Add Roles (copy and past each into the CLI and update with elastic password from step 2 above)
-```
-curl -X PUT "localhost:5601/api/security/role/pfelk_writer" -H 'kbn-xsrf: true' -H 'Content-Type: application/json' -u elastic:PASSWORDGOESHERE -d'
-{
-  "metadata" : {
-    "version" : 2204
-  },
-  "elasticsearch": {
-    "cluster" : ["manage_index_templates", "monitor", "manage_ilm"],
-    "indices" : [{
-      "names": [ "*-pfelk-*" ], 
-      "privileges": ["write","create","create_index","manage","manage_ilm"]  
-    }]
-  },
-  "kibana": [
-    {
-      "base": [],
-      "feature": {
-        "dashboard": ["read"]
-      },
-      "spaces": [
-        "marketing"
-      ]
-    }
-  ]
-}
-'
-```
-
-
-```
-curl -X PUT "localhost:5601/api/security/role/pfelk_viewer" -H 'kbn-xsrf: true' -H 'Content-Type: application/json' -u elastic:PASSWORDGOESHERE -d'
-{
-  "metadata" : {
-    "version" : 22
-  },
-  "elasticsearch": {
-    "cluster" : [ ],
-    "indices" : [ ]
-  },
-  "kibana": [
-    {
-      "base": ["all"],
-      "feature": {
-      },
-      "spaces": [
-        "default"
-      ]
-    }
-  ]
-}
-'
-```
+     - ![writer](https://github.com/pfelk/pfelk/raw/main/Images/security/pfelkwriter.png)
+     - ![viewer](https://github.com/pfelk/pfelk/raw/main/Images/security/pfelkviewer.png)
+    a. 
+          ```
+          curl -X PUT "localhost:5601/api/security/role/pfelk_writer" -H 'kbn-xsrf: true' -H 'Content-Type: application/json' -u elastic:PASSWORDGOESHERE -d'
+          {
+            "metadata" : {
+              "version" : 2204
+            },
+            "elasticsearch": {
+              "cluster" : ["manage_index_templates", "monitor", "manage_ilm"],
+              "indices" : [{
+                "names": [ "*-pfelk-*" ], 
+                "privileges": ["write","create","create_index","manage","manage_ilm"]  
+              }]
+            },
+            "kibana": [
+              {
+                "base": [],
+                "feature": {
+                  "dashboard": ["read"]
+                },
+                "spaces": [
+                  "marketing"
+                ]
+              }
+            ]
+          }
+          '
+          ```
+     b.
+      ```
+      curl -X PUT "localhost:5601/api/security/role/pfelk_viewer" -H 'kbn-xsrf: true' -H 'Content-Type: application/json' -u elastic:PASSWORDGOESHERE -d'
+      {
+        "metadata" : {
+          "version" : 22
+        },
+        "elasticsearch": {
+          "cluster" : [ ],
+          "indices" : [ ]
+        },
+        "kibana": [
+          {
+            "base": ["all"],
+            "feature": {
+            },
+            "spaces": [
+              "default"
+            ]
+          }
+        ]
+      }
+      '
+      ```
   5. Create `pfelk_logstash` user
-     - sdf
+     - ![logstash](https://github.com/pfelk/pfelk/raw/main/Images/security/logstash_user.png)
   7. Create `pfelk_viewer` user
-     - sdf 
+     - ![viewer](https://github.com/pfelk/pfelk/raw/main/Images/security/viewer_user.png)
   9. Update 50-outputs.pfelk (only if you used a password other than `pf31k-l0g$tas#-p@sSw0Rd`)
      - `sudo nano /etc/pfelk/conf.d/50-outputs.conf`
        - update password to the pfelk_logstash user password from step 5
+       - ![output](https://github.com/pfelk/pfelk/raw/main/Images/security/50-outputs.png)
 
 # :one: Templates
   1. In your web browser navigate to the pfELK IP address using port 5601 (example: 192.168.0.1:5601)
