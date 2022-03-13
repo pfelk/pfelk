@@ -9,8 +9,8 @@
 
 # :zero: Security
   0. Naviaget to the pfELK IP address (example: 192.168.0.1:5601)
-     - Input the blah key 
-     - Input the blah pin
+     - Input Enrollment Token
+     - Input Kibana Verification Code
   2. Reset the elastic user password to a known password
      - `sudo sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic`
   3. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
