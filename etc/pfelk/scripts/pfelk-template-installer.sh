@@ -9,6 +9,21 @@
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
 #
+
+# Set if using Secure Elasticsearch setup with SSL
+# PFELK_DOCKER_HOME=
+# PASSWORD=
+
+function install_template(){
+  if [ -n "$PFELK_DOCKER_HOME" ]; then
+     wget "https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/$1" -P /tmp/pfELK/templates && cat "/tmp/pfELK/templates/$1" | sed '1d' > "/tmp/pfELK/templates/$1.3tmp"
+     curl -X PUT -H "Content-Type: application/json" -d "@/tmp/pfELK/templates/$1.3tmp" "https://localhost:9200/$2/$1?pretty" -u "elastic:$PASSWORD" --cacert "$PFELK_DOCKER_HOME/certs/ca/ca.crt"
+  else
+     wget "https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/$1" -P /tmp/pfELK/templates && cat "/tmp/pfELK/templates/$1" | sed '1d' > "/tmp/pfELK/templates/$1.3tmp"
+     curl -X PUT -H "Content-Type: application/json" -d "@/tmp/pfELK/templates/$1.3tmp" "localhost:9200/$2/$1?pretty"
+  fi
+}
+
 RESET='\033[0m'
 WHITE_R='\033[39m'
 RED='\033[1;31m' # Light Red.
@@ -33,16 +48,16 @@ header_red() {
 ###################################################################################################################################################################################################
 #
 ### component>>template>>pfelk-mappings-ecs
-wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-mappings-ecs -P /tmp/pfELK/templates && cat /tmp/pfELK/templates/pfelk-mappings-ecs | sed '1d' > /tmp/pfELK/templates/pfelk-mappings-ecs.3tmp && curl -X PUT -H "Content-Type: application/json" -d @/tmp/pfELK/templates/pfelk-mappings-ecs.3tmp localhost:9200/_component_template/pfelk-mappings-ecs?pretty
+install_template pfelk-mappings-ecs _component_template
 
-### ilm>>pfelk 
-wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-ilm -P /tmp/pfELK/templates && cat /tmp/pfELK/templates/pfelk-ilm | sed '1d' > /tmp/pfELK/templates/pfelk-ilm.3tmp && curl -X PUT -H "Content-Type: application/json" -d @/tmp/pfELK/templates/pfelk-ilm.3tmp localhost:9200/_ilm/policy/pfelk?pretty
+### ilm>>pfelk
+install_template pfelk-ilm '_ilm/policy'
 
 ### index>>template>>pfelk
-wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk -P /tmp/pfELK/templates && cat /tmp/pfELK/templates/pfelk | sed '1d' > /tmp/pfELK/templates/pfelk.3tmp && curl -X PUT -H "Content-Type: application/json" -d @/tmp/pfELK/templates/pfelk.3tmp localhost:9200/_index_template/pfelk?pretty
+install_template pfelk _index_template
 
 ### index>>template>>pfelk-dhcp
-wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-dhcp -P /tmp/pfELK/templates && cat /tmp/pfELK/templates/pfelk-dhcp | sed '1d' > /tmp/pfELK/templates/pfelk-dhcp.3tmp && curl -X PUT -H "Content-Type: application/json" -d @/tmp/pfELK/templates/pfelk-dhcp.3tmp localhost:9200/_index_template/pfelk-dhcp?pretty
+install_template pfelk-dhcp _index_template
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -51,10 +66,10 @@ wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfel
 ###################################################################################################################################################################################################
 
 ### index>>template>>pfelk-haproxy
-wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-haproxy -P /tmp/pfELK/templates && cat /tmp/pfELK/templates/pfelk-haproxy | sed '1d' > /tmp/pfELK/templates/pfelk-haproxy.3tmp && curl -X PUT -H "Content-Type: application/json" -d @/tmp/pfELK/templates/pfelk-haproxy.3tmp localhost:9200/_index_template/pfelk-haproxy?pretty
+# install_template pfelk-haproxy _index_template
 
 ### index>>template>>pfelk-nginx
-wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-nginx -P /tmp/pfELK/templates && cat /tmp/pfELK/templates/pfelk-nginx | sed '1d' > /tmp/pfELK/templates/pfelk-nginx.3tmp && curl -X PUT -H "Content-Type: application/json" -d @/tmp/pfELK/templates/pfelk-nginx.3tmp localhost:9200/_index_template/pfelk-nginx?pretty
+# install_template pfelk-nginx _index_template
 
 ### pfelk-suricata
-wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-suricata -P /tmp/pfELK/templates && cat /tmp/pfELK/templates/pfelk-suricata | sed '1d' > /tmp/pfELK/templates/pfelk-suricata.3tmp && curl -X PUT -H "Content-Type: application/json" -d @/tmp/pfELK/templates/pfelk-suricata.3tmp localhost:9200/_index_template/pfelk-suricata?pretty
+# install_template pfelk-suricata _index_template
