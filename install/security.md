@@ -1,11 +1,12 @@
 # Configuring 
 ## Table of Contents
 - [Security](#zero-security)
-- [Templates](#one-templates)
-- [Dashboards](#two-dashboards)
+- [Certificates](#one-certificates)
+- [Templates](#two-templates)
+- [Dashboards](#three-dashboards)
   - [Manual-Method](a-manual-method)
   - [Scripted-Method](#b-scripted-method-page_with_curl)
-- [Logstash](#three-start-logstash)
+- [Logstash](#four-start-logstash)
 
 # :zero: Security
   0. Naviaget to the pfELK IP address (example: 192.168.0.1:5601)
@@ -82,7 +83,15 @@
        - update password to the pfelk_logstash user password from step 5
        - ![output](https://github.com/pfelk/pfelk/raw/main/Images/security/50-outputs.png)
 
-# :one: Templates
+# :one: Certificates
+  1. `mkdir /etc/logstash/config/`
+     - Create directory for certificates accessible by logstash
+  3. `cp /etc/elasticsearch/certs /etc/logstash/config/ -r`
+     - Copy the Elasticsearch certificates to logstash directory
+  5. `chown -R logstash /etc/logstash/config/`
+     - Mkae new folder and contents accessilbe by the logstash user
+
+# :two: Templates
   1. In your web browser navigate to the pfELK IP address using port 5601 (example: 192.168.0.1:5601)
   2. Click ☰ in the upper left corner
   3. Click on _Dev Tools_ located near the bottom under the _Management_ heading
@@ -101,7 +110,7 @@
   5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=6)
 
-# :two: Dashboards 
+# :three: Dashboards 
 - ### :a: Manual Method
   1. In your web browser go to the pfELK IP address followed by port 5601 (e.g. 192.168.0.1:5601)
   2. Click the menu icon (☰ three horizontal lines) in the upper left
@@ -135,7 +144,7 @@
   5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=228)
 
-# :three: Start Logstash
+# :four: Start Logstash
   1. `systemctl start logstash.service`
 
-# :four: Configuration --> # [Configuration](configuration.md)
+# :five: Configuration --> # [Configuration](configuration.md)
