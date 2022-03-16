@@ -138,7 +138,7 @@ sudo /bin/systemctl enable logstash.service
 ```
 
 # Logstash Stop on Failure 
-### 22. Start Services on Boot (you'll need to reboot or start manually to proceed)
+### 22. Amend logstash.service to Stop on Failure
 ```
 sed -i 's?ExecStart=/usr/share/logstash/bin/logstash "--path.settings" "/etc/logstash"?ExecStart=/usr/share/logstash/bin/logstash "--pipeline.unsafe_shutdown" "--path.settings" "/etc/logstash"?' /etc/systemd/system/logstash.service
 ```
