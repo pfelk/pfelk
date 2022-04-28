@@ -50,7 +50,7 @@
      - Enable syslog alerts = [ ] or [X]
      - Enable eve syslog output [X]
      - Pattern matcher = Default / Aho-Corasick /Hyperscan
-     - Interfaces = Select As Nessessary (must have at least one or nothing will be detected)
+     - Interfaces = Select As Necessary (must have at least one or nothing will be detected)
      - Rotate log = Default / Weekly / Daily
      - Save logs = Any Value You Desire
      - Click Apply
@@ -138,6 +138,6 @@
   - Visit [here](https://github.com/noodlemctwoodle/pfsense-azure-sentinel) to configure for Azure Sentinel
  
 # :seven: Finished
-- ### :clock5: Wait a few mintues after configuring the above and explore the enriched visualizations.
+- ### :clock5: Wait a few minutes after configuring the above and explore the enriched visualizations.
 
 :end:
