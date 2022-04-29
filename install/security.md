@@ -9,13 +9,13 @@
 - [Logstash](#four-start-logstash)
 
 # :zero: Security
-  0. Naviaget to the pfELK IP address (example: 192.168.0.1:5601)
+  0. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
      - Input Enrollment Token
      - ![token](https://github.com/pfelk/pfelk/raw/main/Images/security/enrollment%20token.png)
      - Input Kibana Verification Code
      - ![code](https://github.com/pfelk/pfelk/raw/main/Images/security/kcode.png)
   2. Reset the elastic user password to a known password
-     - `sudo sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic`
+     - `sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic`
   3. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
      - Input `elastic` as the user name and the password provided in step 1 above
      - ![elastic](https://github.com/pfelk/pfelk/raw/main/Images/security/elasticlogin.png)
@@ -89,7 +89,7 @@
   3. `cp /etc/elasticsearch/certs /etc/logstash/config/ -r`
      - Copy the Elasticsearch certificates to logstash directory
   5. `chown -R logstash /etc/logstash/config/`
-     - Mkae new folder and contents accessilbe by the logstash user
+     - Make new folder and contents accessible by the logstash user
 
 # :two: Templates
   1. In your web browser navigate to the pfELK IP address using port 5601 (example: 192.168.0.1:5601)
@@ -136,7 +136,7 @@
   2. Update with the elastic password
       - `sudo nano pfelk-kibana-saved-objects.sh`
       - or
-      - ` sed -i 's?PASSWORDGOESHERE?newpassword?' pfelk-kibana-saved-objects.sh` where `newpassword` is replaced with the elastic password from Secuirty Step 2
+      - ` sed -i 's?PASSWORDGOESHERE?newpassword?' pfelk-kibana-saved-objects.sh` where `newpassword` is replaced with the elastic password from Security Step 2
   3. Make the file executable 
       - `sudo chmod +x pfelk-kibana-saved-objects.sh`
   4. Execute the file
