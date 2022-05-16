@@ -50,7 +50,7 @@ Feature requests are tracked as [GitHub Issues](https://github.com/a3ilson/pfelk
 * Ensure the title captures the subject of the requested feature
 * Describe the feature in as much detail as possible
 * Provide examples to help us understand the requested feature(s)
-* Follow the directions in the [feature template](https://github.com/a3ilson/pfelk/issues/new/choose)
+* Follow the directions in the [feature template](https://github.com/pfelk/pfelk/issues/new/choose)
 
 #### Pull Requests 
 
