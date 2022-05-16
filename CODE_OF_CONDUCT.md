@@ -57,7 +57,7 @@ If a community member engages in unacceptable behavior, the community organizers
 
 ## 7. Reporting Guidelines
 
-If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a community organizer as soon as possible. support@3ilson.dev.
+If you are subject to or witness unacceptable behavior, or have any other concerns, please notify a community organizer as soon as possible. 
 
 
 
