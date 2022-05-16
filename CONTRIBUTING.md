@@ -30,7 +30,7 @@ Please help improve documentation with your inputs to our READMEs, examples, and
 
 **Before submitting a bug report:**
 * Ensure you are submitting this issue to the correct repository, since we have one for all individual deployments (pfelk, ansible-pfelk, docker-pfelk) listed here: https://github.com/pfelk/pfelk
-* Ensure the bug was not already reported by searching for [existing issues in pfELK](https://github.com/a3ilson/pfelk/issues)
+* Ensure the bug was not already reported by searching for [existing issues in pfELK](https://github.com/pfelk/pfelk/issues)
   * If an issue is already open, comment to that issue and provide any additional details, to assist.
 * Check the [FAQs](#) for common questions and problems <<<-coming soon->>>
 
