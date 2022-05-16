@@ -75,11 +75,8 @@ We expect all community participants (contributors, paid or otherwise; sponsors;
 
 This code of conduct and its related procedures also applies to unacceptable behavior occurring outside the scope of community activities when such behavior has the potential to adversely affect the safety and well-being of community members.
 
-## 10. Contact info
 
-support@3ilson.dev
-
-## 11. License and attribution
+## 10. License and attribution
 
 The Citizen Code of Conduct is distributed by [Stumptown Syndicate](http://stumptownsyndicate.org) under a [Creative Commons Attribution-ShareAlike license](http://creativecommons.org/licenses/by-sa/3.0/). 
 
