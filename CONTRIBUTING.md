@@ -60,6 +60,3 @@ Feature requests are tracked as [GitHub Issues](https://github.com/a3ilson/pfelk
 * Describe the problem and solution
 * Reference and include the issue number(s)
 * Verify any and all changes were extensively tested
-
-If this helped, feel free to make a contribution:
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/a3ilson) 
