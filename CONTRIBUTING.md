@@ -39,7 +39,7 @@ Bugs and issues are tracked as [GitHub Issues](https://github.com/a3ilson/pfelk/
 * Ensure the title captures the subject of the issue
 * Describe the exact procedures in replicating the issue(s)
 * Explain the issue(s)
-* Fill out the [Bug/Error template](https://github.com/a3ilson/pfelk/issues/new/choose) 
+* Fill out the [Bug/Error template](https://github.com/pfelk/pfelk/issues/new/choose) 
 
 #### Feature Requests :sparkles:
 
