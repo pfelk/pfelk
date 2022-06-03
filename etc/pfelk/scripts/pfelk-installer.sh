@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.04.3
+# Version    | 22.06
 # Website    | https://github.com/pfelk/pfelk
 #
 ###################################################################################################################################################################################################
@@ -18,6 +18,7 @@
 #          | Ubuntu Focal Fossa  ( 20.04 )
 #          | Ubuntu Hirsute Hippo (21.04)
 #          | Ubuntu Impish Indri (21.10)
+#          | Ubuntu Jammy Jellyfish (22.04)
 #          | Debian Stretch ( 9 )
 #          | Debian Buster ( 10 )
 #          | Debian Bullseye ( 11 )
@@ -31,7 +32,7 @@
 #
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
 # GeoIP        | 4.9.0
-# Elasticstack | 8.1.0
+# Elasticstack | 8.2.2
 #
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -128,7 +129,7 @@ _______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  |
 |  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
 |   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
 |__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.04.3
+  pfELK Installation Script - version 22.06
 EOF
 }
 
@@ -300,6 +301,7 @@ get_distro() {
     os_codename='buster'
     fi
   fi
+  if [[ "${os_codename}" =~ (jammy) ]]; then os_codename=jammy; fi  
   if [[ "${os_codename}" =~ (impish|hirsute) ]]; then os_codename=focal; fi
   if [[ "${os_codename}" =~ (hera|juno) ]]; then os_codename=bionic; fi
   if [[ "${os_codename}" == 'loki' ]]; then os_codename=xenial; fi
@@ -323,7 +325,7 @@ get_distro() {
 }
 get_distro
 
-if ! [[ "${os_codename}" =~ (xenial|bionic|cosmic|disco|eoan|focal|stretch|buster|bullseye|bookworm)  ]]; then
+if ! [[ "${os_codename}" =~ (xenial|bionic|cosmic|disco|eoan|focal|jammy|stretch|buster|bullseye|bookworm)  ]]; then
   clear
   header_red
   echo -e "${WHITE_R}#${RESET} This script is not made for your OS."
@@ -551,7 +553,7 @@ port_5190_service=''
 port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
-elk_version=8.1.0
+elk_version=8.2.2
 maxmind_version=4.9.0
 
 ###################################################################################################################################################################################################
@@ -580,7 +582,7 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename}-security main") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename}-security main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (bionic|cosmic|disco|eoan|focal) ]]; then
+  elif [[ "${repo_codename}" =~ (bionic|cosmic|disco|eoan|focal|jammy) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -672,7 +674,7 @@ if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi";
   echo -e "${WHITE_R}#${RESET} Installing lsb-release..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install lsb-release &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install lsb-release in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic|disco|eoan|focal) ]]; then
+  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic|disco|eoan|focal|jammy) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} main universe") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -702,7 +704,7 @@ if ! dpkg -l apt-transport-https 2> /dev/null | awk '{print $1}' | grep -iq "^ii
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu ${repo_codename}-security main universe") -eq 0 ]]; then
     echo -e "deb http://security.ubuntu.com/ubuntu ${repo_codename}-security main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (disco|eoan|focal) ]]; then
+  elif [[ "${repo_codename}" =~ (disco|eoan|focal|jammy) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main universe") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -732,7 +734,7 @@ if ! dpkg -l software-properties-common 2> /dev/null | awk '{print $1}' | grep -
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu ${repo_codename}-security main") -eq 0 ]]; then
     echo -e "deb http://security.ubuntu.com/ubuntu ${repo_codename}-security main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (trusty|xenial|bionic|cosmic|disco|eoan|focal) ]]; then
+  elif [[ "${repo_codename}" =~ (trusty|xenial|bionic|cosmic|disco|eoan|focal|jammy) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -758,7 +760,7 @@ if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu ${repo_codename}-security main") -eq 0 ]]; then
     echo -e "deb http://security.ubuntu.com/ubuntu ${repo_codename}-security main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (disco|eoan|focal) ]]; then
+  elif [[ "${repo_codename}" =~ (disco|eoan|focal|jammy) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -784,7 +786,7 @@ if ! dpkg -l dirmngr 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; the
   echo -e "${WHITE_R}#${RESET} Installing dirmngr..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install dirmngr &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install dirmngr in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic|disco|eoan|focal) ]]; then
+  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic|disco|eoan|focal|jammy) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} universe") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -813,7 +815,7 @@ if ! dpkg -l wget 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu ${repo_codename}-security main") -eq 0 ]]; then
     echo -e "deb http://security.ubuntu.com/ubuntu ${repo_codename}-security main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (disco|eoan|focal) ]]; then
+  elif [[ "${repo_codename}" =~ (disco|eoan|focal|jammy) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -839,7 +841,7 @@ if ! dpkg -l netcat 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   echo -e "${WHITE_R}#${RESET} Installing netcat..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install netcat &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install netcat in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic|disco|eoan|focal) ]]; then
+  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic|disco|eoan|focal|jammy) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} universe") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
