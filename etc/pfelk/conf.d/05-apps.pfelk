@@ -261,6 +261,10 @@ filter {
         match => [ "[dns][question][name]", "(?<[dns][question][registered_domain]>[^.]+\.[^.]+)$" ] 
       }
     }
+    grok {
+      match => [ "[dns][question][name]", "(\.)?(?<[dns][question][tld]>[^.]+)$" ]
+    }
+
     mutate {
       remove_tag => "unbound-registered_domain"
     }
