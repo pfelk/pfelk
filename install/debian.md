@@ -107,7 +107,7 @@ sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases
 ### 16. (Optional) Configure Firewall Rule Database
 To configure pfSense/OPNsense to update the firewall rule database, follow [this reference](https://github.com/pfelk/pfelk/wiki/References:-Rule-Descriptions).
 
-### 17. (Optional) Amend 20-interfaces.conf as desired, to map/reference the interface.name, interface.alias and network.name fields. 
+### 17. (Optional) Amend 20-interfaces.pfelk as desired, to map/reference the interface.name, interface.alias and network.name fields. 
 Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Customized-Interface-Names)
 
 # Troubleshooting
