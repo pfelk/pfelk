@@ -645,6 +645,7 @@ select opt in "${options[@]}"
        sed -i "s/AccountID.*/AccountID ${maxmind_username}/g" /etc/GeoIP.conf
        sed -i "s/LicenseKey.*/LicenseKey ${maxmind_password}/g" /etc/GeoIP.conf
        echo -e "\\n";
+       mkdir -p /var/lib/GeoIP
        geoipupdate -d /var/lib/GeoIP
        sleep 2
        echo -e "\\n";;
