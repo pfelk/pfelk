@@ -160,10 +160,10 @@ help_script() {
   --nogeoip                Do not install MaxMind GeoIP 
   --noip				   Do not configure firewall IP Address. 
                Must Configure Manually via:
-               /etc/pfelk/conf.d/01-inputs.conf
+               /etc/pfelk/conf.d/01-inputs.pfelk
   --nosense                Do not configure pfSense/OPNsense.  
                Must Configure Manually via:
-               /etc/pfelk/conf.d/01-inputs.conf\\n\\n"
+               /etc/pfelk/conf.d/01-inputs.pfelk\\n\\n"
   exit 0
 }
   
@@ -1037,7 +1037,7 @@ download_pfelk
 maxmind_geoip() {
 # MaxMind check to ensure GeoIP database files were downloaded - Success
 if [[ "${maxmind_install}" == 'true' ]] && [[ -f /var/lib/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /var/lib/GeoIP/GeoLite2-ASN.mmdb ]]; then
-  echo "\\n${GREEN}#${RESET} MaxMind Files Present"
+  echo -e "\\n${GREEN}#${RESET} MaxMind Files Present"
   sleep 3
 fi
 # MaxMind check to ensure GeoIP database files are downloaded - Error Display
@@ -1051,8 +1051,8 @@ fi
 # MaxMind configuration, if utilized 
 if [[ "${maxmind_install}" == 'true' ]]; then
   header
-  echo -e "\\n${RED}#${RED} Modifying 30-geoip.conf for MaxMind!${RESET}\\n\\n";
-  sed -i 's/#MMR#//' /etc/pfelk/conf.d/30-geoip.conf
+  echo -e "\\n${RED}#${RED} Modifying 30-geoip.pfelk for MaxMind!${RESET}\\n\\n";
+  sed -i 's/#MMR#//' /etc/pfelk/conf.d/30-geoip.pfelk
   sleep 3
 fi
 }
