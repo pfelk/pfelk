@@ -1052,7 +1052,7 @@ fi
 if [[ "${maxmind_install}" == 'true' ]]; then
   header
   echo -e "\\n${RED}#${RED} Modifying 30-geoip.pfelk for MaxMind!${RESET}\\n\\n";
-  sed -i 's/#MMR#//' /etc/pfelk/conf.d/30-geoip.pfelk
+  sed -i 's/^#MMR#//' /etc/pfelk/conf.d/30-geoip.pfelk
   sleep 3
 fi
 }
