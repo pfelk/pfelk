@@ -1036,12 +1036,12 @@ download_pfelk
 # MaxMind
 maxmind_geoip() {
 # MaxMind check to ensure GeoIP database files were downloaded - Success
-if [[ "${maxmind_install}" == 'true' ]] && [[ -f /etc/pfelk/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /etc/pfelk/GeoIP/GeoLite2-ASN.mmdb ]]; then
+if [[ "${maxmind_install}" == 'true' ]] && [[ -f /var/lib/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /var/lib/GeoIP/GeoLite2-ASN.mmdb ]]; then
   echo "\\n${GREEN}#${RESET} MaxMind Files Present"
   sleep 3
 fi
 # MaxMind check to ensure GeoIP database files are downloaded - Error Display
-if [[ "${maxmind_install}" == 'true' ]] && ! [[ -f /etc/pfelk/GeoIP/GeoLite2-City.mmdb ]] && ! [[ -f /etc/pfelk/GeoIP/GeoLite2-ASN.mmdb ]]; then
+if [[ "${maxmind_install}" == 'true' ]] && ! [[ -f /var/lib/GeoIP/GeoLite2-City.mmdb ]] && ! [[ -f /var/lib/GeoIP/GeoLite2-ASN.mmdb ]]; then
   echo -e "\\n${RED}#${RESET} Please Check Your MaxMind Configuration!"
   echo -e "${RED}#${RESET} MaxMind Files Where Not Found."
   echo -e "${RED}#${RESET} Defaulting to Elastic GeoIP Database Files."
