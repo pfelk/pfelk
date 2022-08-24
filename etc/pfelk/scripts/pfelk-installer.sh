@@ -160,10 +160,10 @@ help_script() {
   --nogeoip                Do not install MaxMind GeoIP 
   --noip				   Do not configure firewall IP Address. 
                Must Configure Manually via:
-               /etc/pfelk/conf.d/01-inputs.conf
+               /etc/pfelk/conf.d/01-inputs.pfelk
   --nosense                Do not configure pfSense/OPNsense.  
                Must Configure Manually via:
-               /etc/pfelk/conf.d/01-inputs.conf\\n\\n"
+               /etc/pfelk/conf.d/01-inputs.pfelk\\n\\n"
   exit 0
 }
   
@@ -636,7 +636,7 @@ select opt in "${options[@]}"
        rm --force "$geoip_temp" 2> /dev/null
        
     # GeoIP Cronjob
-       echo 00 17 * * 0 geoipupdate -d /var/lib/GeoIP > /etc/cron.weekly/geoipupdate
+       echo "00 17 * * 0 geoipupdate -d /var/lib/GeoIP" > /etc/cron.weekly/geoipupdate
        sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
        maxmind_username=$(echo "${maxmind_username}")
        maxmind_password=$(echo "${maxmind_password}")
@@ -645,6 +645,7 @@ select opt in "${options[@]}"
        sed -i "s/AccountID.*/AccountID ${maxmind_username}/g" /etc/GeoIP.conf
        sed -i "s/LicenseKey.*/LicenseKey ${maxmind_password}/g" /etc/GeoIP.conf
        echo -e "\\n";
+       mkdir -p /var/lib/GeoIP
        geoipupdate -d /var/lib/GeoIP
        sleep 2
        echo -e "\\n";;
@@ -1035,12 +1036,12 @@ download_pfelk
 # MaxMind
 maxmind_geoip() {
 # MaxMind check to ensure GeoIP database files were downloaded - Success
-if [[ "${maxmind_install}" == 'true' ]] && [[ -f /etc/pfelk/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /etc/pfelk/GeoIP/GeoLite2-ASN.mmdb ]]; then
-  echo "\\n${GREEN}#${RESET} MaxMind Files Present"
+if [[ "${maxmind_install}" == 'true' ]] && [[ -f /var/lib/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /var/lib/GeoIP/GeoLite2-ASN.mmdb ]]; then
+  echo -e "\\n${GREEN}#${RESET} MaxMind Files Present"
   sleep 3
 fi
 # MaxMind check to ensure GeoIP database files are downloaded - Error Display
-if [[ "${maxmind_install}" == 'true' ]] && ! [[ -f /etc/pfelk/GeoIP/GeoLite2-City.mmdb ]] && ! [[ -f /etc/pfelk/GeoIP/GeoLite2-ASN.mmdb ]]; then
+if [[ "${maxmind_install}" == 'true' ]] && ! [[ -f /var/lib/GeoIP/GeoLite2-City.mmdb ]] && ! [[ -f /var/lib/GeoIP/GeoLite2-ASN.mmdb ]]; then
   echo -e "\\n${RED}#${RESET} Please Check Your MaxMind Configuration!"
   echo -e "${RED}#${RESET} MaxMind Files Where Not Found."
   echo -e "${RED}#${RESET} Defaulting to Elastic GeoIP Database Files."
@@ -1050,8 +1051,8 @@ fi
 # MaxMind configuration, if utilized 
 if [[ "${maxmind_install}" == 'true' ]]; then
   header
-  echo -e "\\n${RED}#${RED} Modifying 30-geoip.conf for MaxMind!${RESET}\\n\\n";
-  sed -i 's/#MMR#//' /etc/pfelk/conf.d/30-geoip.conf
+  echo -e "\\n${RED}#${RED} Modifying 30-geoip.pfelk for MaxMind!${RESET}\\n\\n";
+  sed -i 's/^#MMR#//' /etc/pfelk/conf.d/30-geoip.pfelk
   sleep 3
 fi
 }
