@@ -9,7 +9,9 @@
 - [Logstash](#four-start-logstash)
 
 # :zero: Security
-  0. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
+  0. Obtain the Enrollment token
+     - sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana
+  1. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
      - Input Enrollment Token
      - ![token](https://github.com/pfelk/pfelk/raw/main/Images/security/enrollment%20token.png)
      - Input Kibana Verification Code
