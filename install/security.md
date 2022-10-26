@@ -10,11 +10,12 @@
 
 # :zero: Security
   0. Obtain the Enrollment token
-     - sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana
+     - `sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana`
   1. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
      - Input Enrollment Token
      - ![token](https://github.com/pfelk/pfelk/raw/main/Images/security/enrollment%20token.png)
      - Input Kibana Verification Code
+     - `sudo /usr/share/kibana/bin/kibana-verification-code`
      - ![code](https://github.com/pfelk/pfelk/raw/main/Images/security/kcode.png)
   2. Reset the elastic user password to a known password
      - `sudo /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic`
