@@ -1,4 +1,4 @@
-![Version badge](https://img.shields.io/badge/ELK-8.2.2-blue.svg)
+![Version badge](https://img.shields.io/badge/ELK-8.4.3-blue.svg)
 [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/3ilson)
@@ -84,7 +84,7 @@ Supported entries include:
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=qcGcsQQoPo0) Guide
 
 #### manual installation method
-* [Ubuntu 18.04 / 20.04](https://github.com/pfelk/pfelk/blob/main/install/ubuntu.md)
+* [Ubuntu 18.04-22.04](https://github.com/pfelk/pfelk/blob/main/install/ubuntu.md)
 * [Debian 9-10.5](https://github.com/pfelk/pfelk/blob/main/install/debian.md)
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=_IJAAUqNVRc) Guide
 
