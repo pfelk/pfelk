@@ -78,11 +78,11 @@ PF_SPEC \+
 
 # PF
 PF_CARP_DATA (%{WORD:[pf][carp][type]}),(%{INT:[pf][carp][ttl]}),(%{INT:[pf][carp][vhid]}),(%{INT:[pf][carp][version]}),(%{INT:[pf][carp][advbase]}),(%{INT:[pf][carp][advskew]})
-PF_APP (%{DATA:[pf][app]}):
+PF_APP (%{DATA:[pf][app][page]}):
 PF_APP_DATA (%{PF_APP_LOGOUT}|%{PF_APP_LOGIN}|%{PF_APP_ERROR}|%{PF_APP_GEN})
 PF_APP_LOGIN (%{DATA:[pf][app][action]}) for user \'(%{DATA:[pf][app][user]})\' from: (%{IP:[pf][remote][ip]})
 PF_APP_LOGOUT User (%{DATA:[pf][app][action]}) for user \'(%{DATA:[pf][app][user]})\' from: (%{IP:[pf][remote][ip]})
-PF_APP_ERROR webConfigurator (%{DATA:[pf][app][action]}) for \'(%{DATA:[pf][app][user]})\' from (%{IP:[pf][remote][ip]})
+PF_APP_ERROR webConfigurator (%{DATA:[pf][app][action]}) for user \'(%{DATA:[pf][app][user]})\' from (%{IP:[pf][remote][ip]})
 PF_APP_GEN (%{GREEDYDATA:[pf][app][action]})
 
 # SURICATA

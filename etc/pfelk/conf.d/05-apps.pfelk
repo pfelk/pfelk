@@ -146,7 +146,7 @@ filter {
     }
     grok {
       patterns_dir => [ "/etc/pfelk/patterns" ]
-      match => { "filter_message" => [ "%{PF_APP}", "%{PF_APP_DATA}" ] }
+      match => { "filter_message" => "%{PF_APP} %{PF_APP_DATA}" }
     }
     mutate {
       lowercase => [ "[pf][app][action]" ]
