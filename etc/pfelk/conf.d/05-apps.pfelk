@@ -1,6 +1,6 @@
 # 05-apps.pfelk
 ################################################################################
-# Version: 22.04                                                               #
+# Version: 22.12                                                               #
 # Required: Yes                                                                #
 # Description: Parses events based on process.name and further enriches events #
 #                                                                              #
@@ -193,6 +193,7 @@ filter {
     if [suricata][eve][dest_port] and ![destination][port] {
       mutate {
         add_field => { "[destination][port]" => "%{[suricata][eve][dest_port]}" }
+        add_field => { "[threatintel][indicator][ip]" => "%{[source][ip]} %{[suricate][eve][http][url]}" }
       }
     }
     if "suricata_json" not in [tags] {
