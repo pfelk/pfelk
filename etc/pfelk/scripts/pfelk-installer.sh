@@ -904,6 +904,7 @@ if [ "${system_swap}" == "0" ]; then
   header_red
   echo -e "${WHITE_R}#${RESET} Disabling swap!"
   swapoff -a
+  sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
   sleep 2
 fi
 if [ "${system_memory}" -le "4" ]; then
