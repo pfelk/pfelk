@@ -14,6 +14,7 @@
 Swapping should be disabled for performance and stability.
 ```
 sudo swapoff -a
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
 
 ### 2. Configuration Date/Time Zone
