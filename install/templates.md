@@ -2,7 +2,7 @@
 ## Table of Contents
 - [Templates](#two-templates)
 - [Dashboards](#three-dashboards)
-  - [Manual-Method](a-manual-method)
+  - [Manual-Method](#a-manual-method)
   - [Scripted-Method](#b-scripted-method-page_with_curl)
 - [Logstash](#four-start-logstash)
 
