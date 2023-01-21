@@ -140,4 +140,4 @@
 # :seven: Finished
 - ### :clock5: Wait a few minutes after configuring the above and explore the enriched visualizations.
 
-:end:
+<sub>[Install](ubuntu.md)</sub> • <sub>[Security](security.md)</sub> • <sub>[Templates](templates.md)</sub> • **[Configuration](configuration.md)**
