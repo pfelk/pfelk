@@ -151,4 +151,4 @@ systemctl start kibana.service
 systemctl start logstash.service
 ```
 
-**[Install](install.md)** • <sub>[Security](security.md)</sub> • <sub>[Templates](templates.md)</sub> • <sub>[Configuration](configuration.md)</sub>
+**[Install](ubuntu.md)** • <sub>[Security](security.md)</sub> • <sub>[Templates](templates.md)</sub> • <sub>[Configuration](configuration.md)</sub>
