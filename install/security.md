@@ -2,7 +2,6 @@
 ## Table of Contents
 - [Security](#zero-security)
 - [Certificates](#one-certificates)
-- [Templates](#two-templates)
 
 
 # :zero: Security
