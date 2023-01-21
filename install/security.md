@@ -90,4 +90,4 @@
   5. `chown -R logstash /etc/logstash/config/`
      - Make new folder and contents accessible by the logstash user
 
-# :three: Configuration --> # [Templates](templates.md)
+<sub>[Install](install.md)</sub> • **[Security](security.md)** • <sub>[Templates](templates.md)</sub> • <sub>[Configuration](configuration.md)</sub>
