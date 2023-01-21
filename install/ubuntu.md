@@ -153,4 +153,6 @@ systemctl start logstash.service
 
 ### 24. Complete Configuration --> [Security](security.md)
 
-### 25. Complete Configuration --> [Configuration](configuration.md)
+### 25. Complete Templates --> [Templates](teamplates.md)
+
+### 26. Complete Configuration --> [Configuration](configuration.md)
