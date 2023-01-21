@@ -68,7 +68,6 @@ Supported entries include:
 
 #### docker-compose
  * Clone the [docker-pfelk](https://github.com/pfelk/docker-pfelk) repository
- * Setup MaxMind
  * `$ docker-compose up`
  * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=MJVbLvdVtyY) Guide
 
