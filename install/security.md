@@ -3,10 +3,7 @@
 - [Security](#zero-security)
 - [Certificates](#one-certificates)
 - [Templates](#two-templates)
-- [Dashboards](#three-dashboards)
-  - [Manual-Method](a-manual-method)
-  - [Scripted-Method](#b-scripted-method-page_with_curl)
-- [Logstash](#four-start-logstash)
+
 
 # :zero: Security
   0. Obtain the Enrollment token
