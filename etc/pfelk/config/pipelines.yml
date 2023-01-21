@@ -1,8 +1,8 @@
 # pipelines.yml
 ################################################################################
-# Version: 22.04                                                               #
-# Required: Yes (DOCKER ONLY)                                                  #
-# Description: This is a required file for a Docker installation               #
+# Version: 23.01                                                               #
+# Required: Yes                                                                #
+# Description: This is a required file for a pfelk installation                #
 # This file is where you define your pipelines. You can define multiple.       #
 # For more information on multiple pipelines, see the documentation:           #
 #   https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html   #
@@ -10,4 +10,5 @@
 ################################################################################
 #
 - pipeline.id: pfelk
-  path.config: "/usr/share/pfelk/conf.d/*.pfelk"
+  path.config: "/etc/pfelk/conf.d/*.pfelk"
+  pipeline.ecs_compatibility: v8 #Disable if not running Elastic v8+
