@@ -151,6 +151,4 @@ systemctl start kibana.service
 systemctl start logstash.service
 ```
 
-### 24. Complete Configuration --> [Security](security.md)
-
-### 25. Complete Configuration --> [Configuration](configuration.md)
+**[Install](debian.md)** • <sub>[Security](security.md)</sub> • <sub>[Templates](templates.md)</sub> • <sub>[Configuration](configuration.md)</sub>
