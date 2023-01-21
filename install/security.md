@@ -1,4 +1,4 @@
-# Configuring 
+# Security 
 ## Table of Contents
 - [Security](#zero-security)
 - [Certificates](#one-certificates)
