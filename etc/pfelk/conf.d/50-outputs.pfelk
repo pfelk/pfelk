@@ -1,6 +1,6 @@
 # 50-outputs.pfelk
 ################################################################################
-# Version: 22.04                                                               #
+# Version: 23.01                                                               #
 # Required: Yes                                                                #
 # Description: Sends enriched logs to Elasticsearch.                           #
 #                                                                              #
@@ -46,6 +46,6 @@ output {
     # cacert => '/usr/share/logstash/config/certs/ca/ca.crt' #For use with Docker#
     cacert => '/etc/logstash/config/certs/http_ca.crt'
     user => "pfelk_logstash"
-    password => "pf31k-l0g$tas#-p@sSw0Rd"
+    password => "changeme"
   }
 }
