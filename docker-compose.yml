@@ -238,7 +238,8 @@ services:
       - /etc/pfelk/patterns:/etc/pfelk/patterns:ro,Z
       - /etc/pfelk/databases:/etc/pfelk/databases:ro,Z
     ports:
-      - 5140:5140
+      - 5140:5140/tcp
+      - 5140:5140/udp
     environment:
       LS_JAVA_OPTS: -Xmx1G -Xms1G
     mem_limit: ${MEM_LIMIT}
