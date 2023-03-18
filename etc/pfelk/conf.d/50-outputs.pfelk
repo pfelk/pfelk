@@ -7,27 +7,27 @@
 ################################################################################
 #
 filter {
-  if [process][name] == "captiveportal" {
+  if [log][syslog][appname] == "captiveportal" {
     mutate { add_field => { "[data_stream][namespace]" => "captiveportal" } }
-  } else if [process][name] == "dhcp" {
+  } else if [log][syslog][appname] == "dhcp" {
     mutate { add_field => { "[data_stream][namespace]" => "dhcp" } }
-  } else if [process][name] == "firewall" {
+  } else if [log][syslog][appname] == "firewall" {
     mutate { add_field => { "[data_stream][namespace]" => "firewall" } }
   } else if "bind9" in [tags] or "dpinger" in [tags] or "ntpd" in [tags] or "web_portal" in [tags] {
     mutate { add_field => { "[data_stream][namespace]" => "firewall_processes" } }
-  } else if [process][name] == "haproxy" {
+  } else if [log][syslog][appname] == "haproxy" {
     mutate { add_field => { "[data_stream][namespace]" => "haproxy" } }
-  } else if [process][name] == "nginx" {
+  } else if [log][syslog][appname] == "nginx" {
     mutate { add_field => { "[data_stream][namespace]" => "nginx" } }
-  } else if [process][name] == "openvpn" {
+  } else if [log][syslog][appname] == "openvpn" {
     mutate { add_field => { "[data_stream][namespace]" => "openvpn" } }
-  } else if [process][name] == "unbound" {
+  } else if [log][syslog][appname] == "unbound" {
     mutate { add_field => { "[data_stream][namespace]" => "unbound" } }
-  } else if [process][name] == "suricata" {
+  } else if [log][syslog][appname] == "suricata" {
     mutate { add_field => { "[data_stream][namespace]" => "suricata" } }
-  } else if [process][name] == "snort" {
+  } else if [log][syslog][appname] == "snort" {
     mutate { add_field => { "[data_stream][namespace]" => "snort" } }
-  } else if [process][name] == "squid" {
+  } else if [log][syslog][appname] == "squid" {
     mutate { add_field => { "[data_stream][namespace]" => "squid" } }
   } else {
     mutate { add_field => { "[data_stream][namespace]" => "unknown" } }
