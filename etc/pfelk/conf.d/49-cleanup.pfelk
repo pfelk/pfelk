@@ -1,6 +1,6 @@
 # 49-cleanup.pfelk
 ################################################################################
-# Version: 22.04                                                               #
+# Version: 23.03                                                               #
 # Required: No - Optional                                                      #
 # Description: Removed unwanted logs based on the process.pid field and        #
 # additional fields. Additionally, pf.tcp.options is split (multiple values)   #
@@ -12,7 +12,7 @@ filter {
 #	drop { }
 #  }
   mutate {
-    remove_field => ["filter_message"]
+    remove_field => ["filter_message", "pfelk"]
     split => { "[pf][tcp][options]" => ";" }
     rename => { "message" => "[event][original]" }
   }
