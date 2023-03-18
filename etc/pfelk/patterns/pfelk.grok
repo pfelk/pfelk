@@ -1,6 +1,6 @@
 # pfelk.grok
 ################################################################################
-# Version: 23.03c                                                              #
+# Version: 23.03d                                                              #
 #                                                                              #
 #                                                                              #
 #                                                                              #
@@ -45,7 +45,7 @@ DHCPD_REUSE (?<[dhcpv4][operation]>reuse_lease): lease age %{INT:[dhcpv4][lease]
 DHCPDv6 (%{DHCPv6_REPLY}|%{DHCPv6_ACTION}|%{DHCPv6_REUSE})
 DHCPv6_REPLY (?<[dhcpv6][operation]>Reply) NA: address %{IP:[dhcpv6][client][ip]} to client with duid %{GREEDYDATA:[dhcpv6][duid]}\siaid\s\=\s%{INT:[dhcpv6][iaid]} valid for %{INT:[dhcpv6][lease][duration]} seconds
 DHCPv6_ACTION (?<[dhcpv6][operation]>(Request|Picking|Sending Reply|Sending Advertise|Confirm|Solicit|Renew))(\s)?(message)?(\s)?(to|from)?(\s)?(pool address)? %{IP:[dhcpv6][client][ip]}(\s)?(port %{INT:[dhcpv6][client][port]})?(, transaction ID %{BASE16FLOAT:[dhcpv6][transaction][id]})?
-DHCPv6_REUSE (?<[dhcpv6][operation]>Reusing lease) for: %{IPV6:[dhcpv6][client][ip]}, age %{INT:[dhcpv6][lease][age]}.*%{NUMBER:[dhcpv6][lease][age][preferred]}, valid %{NUMBER:[dhcpv6][lease][age][valid]}
+DHCPv6_REUSE (?<[dhcpv6][operation]>Reusing lease) for: %{IPV6:[dhcpv6][client][ip]}, age %{INT:[dhcpv6][lease][age]}.*preferred: %{NUMBER:[dhcpv6][lease][age][preferred]}, valid %{NUMBER:[dhcpv6][lease][age][valid]}
 
 # HAPROXY
 HA_PROXY (%{HAPROXY}|%{HAPROXY_TCP})
