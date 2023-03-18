@@ -1,6 +1,6 @@
 # 05-apps.pfelk
 ################################################################################
-# Version: 22.12                                                               #
+# Version: 23.03                                                               #
 # Required: Yes                                                                #
 # Description: Parses events based on process.name and further enriches events #
 #                                                                              #
@@ -9,12 +9,12 @@
 filter {
   ### captive portal ###
   # Rename pfSense captive portal log from logportalauth to captiveportal
-  if [process][name] =~ /^logportalauth/ {
+  if [log][syslog][appname] =~ /^logportalauth/ {
     mutate {
-      replace => { "[process][name]" => "captiveportal" }
+      replace => { "[log][syslog][appname]" => "captiveportal" }
     }
   }
-  if [process][name] =~ /^captiveportal/ {
+  if [log][syslog][appname] =~ /^captiveportal/ {
     mutate {
       add_tag => "captive" 
       add_field => { "[ecs][version]" => "1.7.0" }
@@ -27,43 +27,31 @@ filter {
     }
   }
   ### dhcpd ###
-  if [process][name] =~ /^dhcpd$/ {
+  if [log][syslog][appname] =~ /^dhcpd$/ {
     mutate {
       add_tag => [ "dhcp", "dhcpdv4" ]
       add_field => { "[event][dataset]" => "pfelk.dhcp" }
-      replace => { "[process][name]" => "dhcp" }
+      replace => { "[log][syslog][appname]" => "dhcp" }
     }
     grok {
       patterns_dir => [ "/etc/pfelk/patterns" ]
       match => [ "filter_message", "%{DHCPD}"]
     }
   }
-  ### dhcp6 ###
-  if [process][name] =~ /^dhcp6c/ {
-    mutate {
-      add_tag => [ "dhcp", "dhcpdv6" ]
-      add_field => { "[event][dataset]" => "pfelk.dhcp" }
-      replace => { "[process][name]" => "dhcp" }
-    }
-    grok {
-      patterns_dir => ["/etc/pfelk/patterns" ]
-      match => [ "filter_message", "%{DHCPDv6}" ]
-    }
-  }
   ### dpinger ###
-  if [process][name] =~ /^dpinger/ {
+  if [log][syslog][appname] =~ /^dpinger/ {
     mutate {
       add_tag => "dpinger"
       add_field => { "[event][dataset]" => "pfelk.dpinger" }
     }
   }
   ### filterlog ###
-  if [process][name] =~ /^filterlog$/ {
+  if [log][syslog][appname] =~ /^filterlog$/ {
     mutate {
       add_tag => "firewall"
       add_field => { "[ecs][version]" => "1.7.0" }
       add_field => { "[event][dataset]" => "pfelk.firewall" }
-      replace => { "[process][name]" => "firewall" }
+      replace => { "[log][syslog][appname]" => "firewall" }
     }
     grok {
       patterns_dir => [ "/etc/pfelk/patterns" ]
@@ -81,7 +69,7 @@ filter {
     }
   }
   ### haproxy ###
-  if [process][name] =~ /^haproxy/ {
+  if [log][syslog][appname] =~ /^haproxy/ {
     mutate {
       add_tag => "haproxy"
       add_field => { "[event][dataset]" => "pfelk.haproxy" }
@@ -92,11 +80,11 @@ filter {
     }
   }
   ### nginx ###
-  if [process][name] =~ /^nginx/ {
+  if [log][syslog][appname] =~ /^nginx/ {
     mutate {
       add_tag => "nginx"
       add_field => { "[event][dataset]" => "pfelk.nginx" }
-      replace => { "[process][name]" => "nginx" }
+      replace => { "[log][syslog][appname]" => "nginx" }
     }
     grok {
       patterns_dir => [ "/etc/pfelk/patterns" ]
@@ -104,7 +92,7 @@ filter {
     }
   }
   ### openvpn ###
-  if [process][name] =~ /^openvpn/ {
+  if [log][syslog][appname] =~ /^openvpn/ {
     mutate {
       add_tag => "openvpn"
       add_field => { "[event][dataset]" => "pfelk.openvpn" }
@@ -121,7 +109,7 @@ filter {
     }
   }
   ### named ###
-  if [process][name] =~ /^named/ {
+  if [log][syslog][appname] =~ /^named/ {
     mutate {
       add_tag => "bind9"
       add_field => { "[event][dataset]" => "pfelk.bind9" }
@@ -132,14 +120,14 @@ filter {
     }
   }
   ### ntpd ###
-  if [process][name] =~ /^ntpd/ {
+  if [log][syslog][appname] =~ /^ntpd/ {
     mutate {
       add_tag => "ntpd"
       add_field => { "[event][dataset]" => "pfelk.ntpd" }
     }
   }
   ### php-fpm ###
-  if [process][name] =~ /^php-fpm/ {
+  if [log][syslog][appname] =~ /^php-fpm/ {
     mutate {
       add_tag => "web_portal"
       add_field => { "[event][dataset]" => "pfelk.webportal" }
@@ -153,7 +141,7 @@ filter {
     }
   }
   ### snort ###
-  if [process][name] =~ /^snort/ {
+  if [log][syslog][appname] =~ /^snort/ {
     mutate {
       add_tag => "snort"
       add_field => { "[ecs][version]" => "1.7.0" }
@@ -167,7 +155,7 @@ filter {
     }
   }
   ### suricata ###
-  if [process][name] =~ /^suricata$/ {
+  if [log][syslog][appname] =~ /^suricata$/ {
     if [filter_message] =~ /^{.*}$/ {
       json {
         source => "filter_message"
@@ -209,9 +197,9 @@ filter {
     }
   }
   ### squid ###
-  if [process][name] == "(squid-1)" {
+  if [log][syslog][appname] == "(squid-1)" {
     mutate {
-      replace => [ "[process][name]", "squid" ]
+      replace => [ "[log][syslog][appname]", "squid" ]
       add_field => { "[event][dataset]" => "pfelk.squid" }
     }
     if [filter_message] =~ /^{.*}$/ {
@@ -242,7 +230,7 @@ filter {
     }
   }
   ### unbound ###
-  if [process][name] =~ /^unbound/ {
+  if [log][syslog][appname] =~ /^unbound/ {
     mutate {
       add_tag => "unbound"
       add_field => { "[ecs][version]" => "1.9.0" }
