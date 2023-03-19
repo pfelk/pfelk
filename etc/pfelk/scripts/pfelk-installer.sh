@@ -1,94 +1,81 @@
 #!/bin/bash
-#
-# Version    | 23.01
+# Version    | 23.03
 # Website    | https://github.com/pfelk/pfelk
-#
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                   pfELK Easy Installation Script                                                                                #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-# 
+########################################################
+#pfELK Installation Script                             #
+########################################################
 # OS       | List of Supported Distributions/OS
-#          | Ubuntu Xenial Xerus ( 16.04 )
-#          | Ubuntu Bionic Beaver ( 18.04 )
-#          | Ubuntu Cosmic Cuttlefish ( 18.10 )
-#          | Ubuntu Disco Dingo  ( 19.04 )
-#          | Ubuntu Eoan Ermine  ( 19.10 )
 #          | Ubuntu Focal Fossa  ( 20.04 )
 #          | Ubuntu Hirsute Hippo (21.04)
 #          | Ubuntu Impish Indri (21.10)
 #          | Ubuntu Jammy Jellyfish (22.04)
-#          | Debian Stretch ( 9 )
-#          | Debian Buster ( 10 )
 #          | Debian Bullseye ( 11 )
 #          | Debian Bookworm ( 12 )
-#
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                   Dynamic Dependency Version                                                                                    #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-#
+########################################################
+# Dependency Version                                   #
+########################################################
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
-# GeoIP        | 4.10.0
-# Elasticstack | 8.6.0
-#
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                           Color Codes                                                                                           #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
+# GeoIP        | 4.11.1
+# Elastic      | https://www.elastic.co/guide/en/elasticsearch/reference/current/es-release-notes.html
+# Elasticstack | 8.6.2
+########################################################
+#Color Codes                                           #
+########################################################
 RESET='\033[0m'
-GRAY='\033[0;37m'
 WHITE='\033[1;37m'
-GRAY_R='\033[39m'
 WHITE_R='\033[39m'
-RED='\033[1;31m' # Light Red.
-GREEN='\033[1;32m' # Light Green.
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                           Start Checks                                                                                          #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+########################################################
+#Start Checks                                          #
+########################################################
+#Green Header
 header() {
   clear
-  clear
-  echo -e "${GREEN}#####################################################################################################${RESET}\\n"
+  echo -e "${GREEN}###############################################################################################${RED}pfELK${GREEN}#${RESET}\\n"
 }
-
+#Red Header
 header_red() {
   clear
-  clear
-  echo -e "${RED}#####################################################################################################${RESET}\\n"
+  echo -e "${RED}###############################################################################################${GREEN}pfELK${GREEN}#${RESET}\\n"
 }
-
-# Check for root (sudo)
+#Logo
+script_logo() {
+  cat << "EOF"
+         __ ______ _      _  __  _____           _        _ _           
+        / _|  ____| |    | |/ / |_   _|         | |      | | |          
+  _ __ | |_| |__  | |    | ' /    | |  _ __  ___| |_ __ _| | | ___ _ __ 
+ | '_ \|  _|  __| | |    |  <     | | | '_ \/ __| __/ _` | | |/ _ \ '__|
+ | |_) | | | |____| |____| . \   _| |_| | | \__ \ || (_| | | |  __/ |   
+ | .__/|_| |______|______|_|\_\ |_____|_| |_|___/\__\__,_|_|_|\___|_|   
+ | |                                                                    
+ |_|                                                                    
+EOF
+}
+#Check for root (sudo)
 if [[ "$EUID" -ne 0 ]]; then
   header_red
-  echo -e "${WHITE_R}#${RESET} The script need to be run as root...\\n\\n"
+  script_logo
+  echo -e "${RED}#${RESET} The script must run as root...\\n\\n"
   echo -e "${WHITE_R}#${RESET} For Ubuntu based systems run the command below to login as root"
   echo -e "${GREEN}#${RESET} sudo -i\\n"
   echo -e "${WHITE_R}#${RESET} For Debian based systems run the command below to login as root"
   echo -e "${GREEN}#${RESET} su\\n\\n"
   exit 1
 fi
-
+#Language
 if ! env | grep "LC_ALL\\|LANG" | grep -iq "en_US\\|C.UTF-8"; then
   header
+  script_logo
   echo -e "${WHITE_R}#${RESET} Your language is not set to English ( en_US ), the script will temporarily set the language to English."
   echo -e "${WHITE_R}#${RESET} Information: This is done to prevent issues in the script..."
   export LC_ALL=C &> /dev/null
   set_lc_all=true
-  sleep 3
 fi
-
+#Error...Abort Script
 abort() {
   if [[ "${set_lc_all}" == 'true' ]]; then unset LC_ALL; fi
-  echo -e "\\n\\n${RED}#########################################################################${RESET}\\n"
+  echo -e "\\n\\n${RED}###############################################################################################${GREEN}23.03${RED}#${RESET}\\n"
   echo -e "${WHITE_R}#${RESET} An error occurred. Aborting script..."
   echo -e "${WHITE_R}#${RESET} Please open an issue (https://github.com/pfelk/pfelk) on github!\\n"
   echo -e "${WHITE_R}#${RESET} Creating support file..."
@@ -119,81 +106,17 @@ abort() {
 if uname -a | tr '[:upper:]' '[:lower:]'; then
   pfELK_dir='/tmp/pfELK'
 fi
-
-script_logo() {
-  cat << "EOF"
-
-        ________________.____     ____  __. .___                 __         .__  .__                
-_______/ ____\_   _____/|    |   |    |/ _| |   | ____   _______/  |______  |  | |  |   ___________ 
-\____ \   __\ |    __)_ |    |   |      <   |   |/    \ /  ___/\   __\__  \ |  | |  | _/ __ \_  __ \
-|  |_> >  |   |        \|    |___|    |  \  |   |   |  \\___ \  |  |  / __ \|  |_|  |_\  ___/|  | \/
-|   __/|__|  /_______  /|_______ \____|__ \ |___|___|  /____  > |__| (____  /____/____/\___  >__|   
-|__|                 \/         \/       \/          \/     \/            \/               \/   
-  pfELK Installation Script - version 22.12
-EOF
-}
-
+#Start
 start_script() {
-  mkdir -p /tmp/pfELK/logs 2> /dev/null
   mkdir -p /tmp/pfELK/upgrade/ 2> /dev/null
-  mkdir -p /tmp/pfELK/dpkg/ 2> /dev/null
-  mkdir -p /tmp/pfELK/geoip/ 2> /dev/null  
   header
   script_logo
+  echo -e "${GREEN}...............................................................................................(0%)"
   echo -e "\\n${WHITE_R}#${RESET} Starting the pfELK Install Script..."
   echo -e "${WHITE_R}#${RESET} Thank you for using pfELK Install Script :-)\\n\\n"
   sleep 4
 }
 start_script
-
-help_script() {
-  if [[ "${script_option_help}" == 'true' ]]; then header; script_logo; else echo -e "${WHITE_R}----${RESET}\\n"; fi
-  echo -e "    Easy pfELK Install Script Options\\n"
-  echo -e "
-  Script usage:
-  bash $0 [options]
-  
-  Script options:
-  --clean                  Purges pfELK (Elasticstack+pfELK)
-  --help 			       Displays this information :) 
-  --noelastic			   Do not install Elasticsearch
-  --nogeoip                Do not install MaxMind GeoIP 
-  --noip				   Do not configure firewall IP Address. 
-               Must Configure Manually via:
-               /etc/pfelk/conf.d/01-inputs.pfelk
-  --nosense                Do not configure pfSense/OPNsense.  
-               Must Configure Manually via:
-               /etc/pfelk/conf.d/01-inputs.pfelk\\n\\n"
-  exit 0
-}
-  
-rm --force /tmp/pfELK/script_options &> /dev/null
-script_option_list=(--clean --help --nogeoip --noip --nosense)
-
-while [ -n "$1" ]; do
-  case "$1" in
-  --clean)
-     script_options_clean=true
-     # Note: Will configure to purge Elasticsearch, logstash, kibana and delete (rm -rf /data/pfELK)
-     ;;
-  --help)
-     script_option_help=true
-     help_script;;
-  --noelasticsearch)
-     script_option_elasticsearch=true
-     echo "--noelasticsearch" &>> /tmp/pfELK/script_options;;
-  --nogeoip)
-     script_option_geoip=true
-     echo "--nogeoip" &>> /tmp/pfELK/script_options;;
-  --noip)
-     echo "--noip" &>> /tmp/pfELK/script_options;;
-  --nosense)
-     script_option_nosense=true
-     echo "--nosense" &>> /tmp/pfELK/script_options;;
-  esac
-  shift
-done
-
 # shellcheck disable=SC2016
 grep -io '${pfELK_dir}/logs/.*log' "$0" | grep -v 'awk' | awk '!a[$0]++' &> /tmp/pfELK/log_files
 while read -r log_file; do
@@ -206,7 +129,10 @@ while read -r log_file; do
   fi
 done < /tmp/pfELK/log_files
 rm --force /tmp/pfELK/log_files
-
+#Update
+header
+script_logo
+echo -e "${GREEN}###............................................................................................(4%)"
 run_apt_get_update() {
   if ! [[ -d /tmp/pfELK/keys ]]; then mkdir -p /tmp/pfELK/keys; fi
   if ! [[ -f /tmp/pfELK/keys/missing_keys && -s /tmp/pfELK/keys/missing_keys ]]; then
@@ -220,9 +146,6 @@ run_apt_get_update() {
   grep -o 'NO_PUBKEY.*' /tmp/pfELK/keys/apt_update | sed 's/NO_PUBKEY //g' | tr ' ' '\n' | awk '!a[$0]++' &> /tmp/pfELK/keys/missing_keys
   fi
   if [[ -f /tmp/pfELK/keys/missing_keys && -s /tmp/pfELK/keys/missing_keys ]]; then
-  #header
-  #echo -e "${WHITE_R}#${RESET} Some keys are missing... The script will try to add the missing keys."
-  #echo -e "\\n${WHITE_R}----${RESET}\\n"
   while read -r key; do
     echo -e "${WHITE_R}#${RESET} Key ${key} is missing... adding!"
     http_proxy=$(env | grep -i "http.*Proxy" | cut -d'=' -f2 | sed 's/[";]//g')
@@ -248,9 +171,6 @@ run_apt_get_update() {
   done < /tmp/pfELK/keys/missing_keys
   rm --force /tmp/pfELK/keys/missing_keys
   rm --force /tmp/pfELK/keys/apt_update
-  #header
-  #echo -e "${WHITE_R}#${RESET} Running apt-get update again.\\n\\n"
-  #sleep 2
   apt-get update &> /tmp/pfELK/keys/apt_update
   if grep -qo 'NO_PUBKEY.*' /tmp/pfELK/keys/apt_update; then
     if [[ "${hide_apt_update}" == 'true' ]]; then hide_apt_update=true; fi
@@ -258,88 +178,47 @@ run_apt_get_update() {
   fi
   fi
 }
-
+#Cancel Script
 cancel_script() {
   if [[ "${set_lc_all}" == 'true' ]]; then unset LC_ALL &> /dev/null; fi
   header
   echo -e "${WHITE_R}#${RESET} Cancelling the script!\\n\\n"
   exit 0
 }
-
-http_proxy_found() {
-  header
-  echo -e "${GREEN}#${RESET} HTTP Proxy found. | ${WHITE_R}${http_proxy}${RESET}\\n\\n"
-}
-
-remove_yourself() {
-  if [[ "${set_lc_all}" == 'true' ]]; then unset LC_ALL &> /dev/null; fi
-  if [[ "${delete_script}" == 'true' || "${script_option_skip}" == 'true' ]]; then
-  if [[ -e "$0" ]]; then
-    rm --force "$0" 2> /dev/null
-  fi
-  fi
-}
-
-# Get distro
+#Distro Listing
 get_distro() {
   if [[ -z "$(command -v lsb_release)" ]]; then
   if [[ -f "/etc/os-release" ]]; then
-    if grep -iq VERSION_CODENAME /etc/os-release; then
-    os_codename=$(grep VERSION_CODENAME /etc/os-release | sed 's/VERSION_CODENAME//g' | tr -d '="' | tr '[:upper:]' '[:lower:]')
-    elif ! grep -iq VERSION_CODENAME /etc/os-release; then
-    os_codename=$(grep PRETTY_NAME /etc/os-release | sed 's/PRETTY_NAME=//g' | tr -d '="' | awk '{print $4}' | sed 's/\((\|)\)//g' | sed 's/\/sid//g' | tr '[:upper:]' '[:lower:]')
-    if [[ -z "${os_codename}" ]]; then
-      os_codename=$(grep PRETTY_NAME /etc/os-release | sed 's/PRETTY_NAME=//g' | tr -d '="' | awk '{print $3}' | sed 's/\((\|)\)//g' | sed 's/\/sid//g' | tr '[:upper:]' '[:lower:]')
+    if grep -iq VERSION_CODENAME /etc/os-release; then os_codename=$(grep VERSION_CODENAME /etc/os-release | sed 's/VERSION_CODENAME//g' | tr -d '="' | tr '[:upper:]' '[:lower:]')
+    elif ! grep -iq VERSION_CODENAME /etc/os-release; then os_codename=$(grep PRETTY_NAME /etc/os-release | sed 's/PRETTY_NAME=//g' | tr -d '="' | awk '{print $4}' | sed 's/\((\|)\)//g' | sed 's/\/sid//g' | tr '[:upper:]' '[:lower:]')
+    if [[ -z "${os_codename}" ]]; then os_codename=$(grep PRETTY_NAME /etc/os-release | sed 's/PRETTY_NAME=//g' | tr -d '="' | awk '{print $3}' | sed 's/\((\|)\)//g' | sed 's/\/sid//g' | tr '[:upper:]' '[:lower:]')
     fi
     fi
   fi
   else
   os_codename=$(lsb_release -cs | tr '[:upper:]' '[:lower:]')
-  if [[ "${os_codename}" == 'n/a' ]]; then
-    os_codename=$(lsb_release -is | tr '[:upper:]' '[:lower:]')
-    if [[ "${os_codename}" == 'parrot' ]]; then
-    os_codename='buster'
-    fi
+  if [[ "${os_codename}" == 'n/a' ]]; then os_codename=$(lsb_release -is | tr '[:upper:]' '[:lower:]')
   fi
-  if [[ "${os_codename}" =~ (jammy) ]]; then os_codename=jammy; fi  
+  if [[ "${os_codename}" =~ (jammy) ]]; then os_codename=jammy; fi
   if [[ "${os_codename}" =~ (impish|hirsute) ]]; then os_codename=focal; fi
-  if [[ "${os_codename}" =~ (hera|juno) ]]; then os_codename=bionic; fi
-  if [[ "${os_codename}" == 'loki' ]]; then os_codename=xenial; fi
-  if [[ "${os_codename}" == 'debbie' ]]; then os_codename=buster; fi
-  fi
-  if [[ "${os_codename}" =~ (precise|maya) ]]; then
-  repo_codename=precise
-  elif [[ "${os_codename}" =~ (trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  repo_codename=trusty
-  elif [[ "${os_codename}" =~ (xenial|sarah|serena|sonya|sylvia) ]]; then
-  repo_codename=xenial
-  elif [[ "${os_codename}" =~ (bionic|tara|tessa|tina|tricia) ]]; then
-  repo_codename=bionic
-  elif [[ "${os_codename}" =~ (stretch|continuum) ]]; then
-  repo_codename=stretch
-  elif [[ "${os_codename}" =~ (buster|debbie) ]]; then
-  repo_codename=buster
-  else
-  repo_codename="${os_codename}"
   fi
 }
 get_distro
-
-if ! [[ "${os_codename}" =~ (xenial|bionic|cosmic|disco|eoan|focal|jammy|stretch|buster|bullseye|bookworm)  ]]; then
+#Codenames
+if ! [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm)  ]]; then
   clear
   header_red
   echo -e "${WHITE_R}#${RESET} This script is not made for your OS."
-  echo -e "${WHITE_R}#${RESET} Feel free to contact pfELK (pfelk.3ilson.dev) on github, if you need help with installing pfELK or alternate installation options."
   echo -e ""
   echo -e "OS_CODENAME = ${os_codename}"
   echo -e ""
-  echo -e ""
   exit 1
 fi
-
+#Localhost
 if ! grep -iq '^127.0.0.1.*localhost' /etc/hosts; then
   clear
   header_red
+  scrip_logo
   echo -e "${WHITE_R}#${RESET} '127.0.0.1   localhost' does not exist in your /etc/hosts file."
   echo -e "${WHITE_R}#${RESET} You may see experience issues if it does not exist..\\n\\n"
   read -rp $'\033[39m#\033[0m Do you want to add "127.0.0.1   localhost" to your /etc/hosts file? (Y/n) ' yes_no
@@ -354,21 +233,21 @@ if ! grep -iq '^127.0.0.1.*localhost' /etc/hosts; then
     [Nn]*) ;;
   esac
 fi
-
+#Path
 if [[ $(echo "${PATH}" | grep -c "/sbin") -eq 0 ]]; then
   PATH="$PATH:/sbin:/bin:/usr/bin:/usr/sbin:/usr/local/sbin:/usr/local/bin"
 fi
-
+#Repositories
 if ! [[ -d /etc/apt/sources.list.d ]]; then mkdir -p /etc/apt/sources.list.d; fi
 if ! [[ -d /tmp/pfELK/keys ]]; then mkdir -p /tmp/pfELK/keys; fi
-
-# Check if --show-progress is supported in wget version
+#Check if --show-progress is supported in wget version
 if wget --help | grep -q '\--show-progress'; then echo "--show-progress" &>> /tmp/pfELK/wget_option; fi
 if [[ -f /tmp/pfELK/wget_option && -s /tmp/pfELK/wget_option ]]; then IFS=" " read -r -a wget_progress <<< "$(tr '\r\n' ' ' < /tmp/pfELK/wget_option)"; fi
-
-# Check if MaxMind GeoIP is already installed
+#Check if MaxMind GeoIP is already installed
 if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
   header
+  script_logo
+  echo -e "${GREEN}...............................................................................................(0%)"
   echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed on your system!${RESET}\\n\\n"
   read -rp $'\033[39m#\033[0m Would you like to remove MaxMind GeoIP? (Y/n) ' yes_no
   case "$yes_no" in
@@ -378,10 +257,11 @@ if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
     [Nn]*);;
   esac
 fi
-
-# Check if Elasticsearch is already installed
+#Check if Elasticsearch is already installed
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
   header
+  script_logo
+  echo -e "${GREEN}...............................................................................................(0%)"
   echo -e "${WHITE_R}#${RESET} Elasticsearch is already installed on your system!${RESET}\\n\\n"
   read -rp $'\033[39m#\033[0m Would you like to remove Elasticsearch? (Y/n) ' yes_no
   case "$yes_no" in
@@ -391,10 +271,11 @@ if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
     [Nn]*);;
   esac
 fi
-
-# Check if Logstash is already installed
+#Check if Logstash is already installed
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
+  script_logo
+  echo -e "${GREEN}...............................................................................................(0%)"
   echo -e "${WHITE_R}#${RESET} Logstash is already installed on your system!${RESET}\\n\\n"
   read -rp $'\033[39m#\033[0m Would you like to remove Logstash? (Y/n) ' yes_no
   case "$yes_no" in
@@ -404,10 +285,11 @@ if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
     [Nn]*);; 
   esac
 fi
-
-# Check if Kibana is already installed
+#Check if Kibana is already installed
 if dpkg -l | grep "kibana" | grep -q "^ii\\|^hi"; then
   header
+  script_logo
+  echo -e "${GREEN}...............................................................................................(0%)"
   echo -e "${WHITE_R}#${RESET} Kibana is already installed on your system!${RESET}\\n\\n"
   read -rp $'\033[39m#\033[0m Would you like to remove Kibana? (Y/n) ' yes_no
   case "$yes_no" in
@@ -417,24 +299,23 @@ if dpkg -l | grep "kibana" | grep -q "^ii\\|^hi"; then
     [Nn]*);;
   esac
 fi
-
+#Packages Locked
 dpkg_locked_message() {
   header_red
   echo -e "${WHITE_R}#${RESET} dpkg is locked... Waiting for other software managers to finish!"
-  echo -e "${WHITE_R}#${RESET} If this is everlasting, please open an issue on pfELK (pfelk.com) on github!\\n\\n"
+  echo -e "${WHITE_R}#${RESET} If this is everlasting, please open an issue on pfELK on github!\\n\\n"
   sleep 5
   if [[ -z "$dpkg_wait" ]]; then
   echo "pfelk_lock_active" >> /tmp/pfelk_lock
   fi
 }
-
+#Packages Locked Wait
 dpkg_locked_60_message() {
   header
   echo -e "${WHITE_R}#${RESET} dpkg is already locked for 60 seconds..."
   echo -e "${WHITE_R}#${RESET} Would you like to force remove the lock?\\n\\n"
 }
-
-# Check if dpkg is locked
+#Packages Locked Check
 if dpkg -l psmisc 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   while fuser /var/lib/dpkg/lock /var/lib/apt/lists/lock /var/cache/apt/archives/lock >/dev/null 2>&1; do
   dpkg_locked_message
@@ -482,7 +363,7 @@ else
   done;
   rm --force /tmp/pfelk_dpkg_lock 2> /dev/null
 fi
-
+#Script Version Check
 script_version_check() {
   if dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   version=$(grep -i "# Version" "$0" | awk '{print $4}' | cut -d'-' -f1)
@@ -494,101 +375,75 @@ script_version_check() {
   if [[ "${script_online_version::3}" -gt "${script_local_version::3}" ]]; then
     header_red
     echo -e "${WHITE_R}#${RESET} You're currently running script version ${script_local_version_dots} while ${script_online_version_dots} is the latest!"
-    echo -e "${WHITE_R}#${RESET} Downloading and executing version ${script_online_version_dots} of the Easy pfELK Installation Script..\\n\\n"
+    echo -e "${WHITE_R}#${RESET} Downloading and executing version ${script_online_version_dots} of the pfELK Installation Script..\\n\\n"
     sleep 3
     rm --force "$0" 2> /dev/null
     rm --force "pfelk-install-${version}.sh" 2> /dev/null
-    wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-installer.sh" && bash "pfelk-installer.sh" "${script_options[@]}"; exit 0
+    wget -q "${wget_progress[@]}" "https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-installer.sh" && bash "pfelk-installer.sh"; exit 0
   fi
   else
   curl_missing=true
   fi
 }
 script_version_check
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                            Variables                                                                                            #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
-# dpkg -l | grep "elasticsearch\\|logstash\\|kibana" | awk '{print $3}' | sed 's/.*://' | sed 's/-.*//g' &> /tmp/pfELK/elk_version
-# elk_version_installed=$(sort -V /tmp/pfELK/elk_version | tail -n 1)
-# rm --force /tmp/pfELK/elk_version &> /dev/null
-# first_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f1)
-# second_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f2)
-# third_digits_elk_version_installed=$(echo "${elk_version_installed}" | cut -d'.' -f3)
-#
+########################################################
+#Variables                                             #
+########################################################
 system_memory=$(awk '/MemTotal/ {printf( "%.0f\n", $2 / 1024 / 1024)}' /proc/meminfo)
 system_swap=$(awk '/SwapTotal/ {printf( "%.0f\n", $2 / 1024 / 1024)}' /proc/meminfo)
 system_swap_var=0
 system_mem_var=8
-#
+#MaxMind
 maxmind_username=$(echo "${maxmind_username}")
 maxmind_password=$(echo "${maxmind_password}")
 maxmind_install=''
 system_free_disk_space=$(df -kh / | awk '{print $4}' | tail -n1)
 system_free_disk_space_tmp=$(df -kh /tmp | awk '{print $4}' | tail -n1)
-#
-#SERVER_IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -1)
-#SERVER_IP=$(/sbin/ifconfig | grep 'inet ' | grep -v '127.0.0.1' | head -n1 | awk '{print $2}' | head -1 | sed 's/.*://')
+#IP Address
 SERVER_IP=$(ip addr | grep -A8 -m1 MULTICAST | grep -m1 inet | cut -d' ' -f6 | cut -d'/' -f1)
 if [[ -z "${SERVER_IP}" ]]; then SERVER_IP=$(hostname -I | head -n 1 | awk '{ print $NF; }'); fi
 PUBLIC_SERVER_IP=$(curl ifconfi.me/ -s)
 architecture=$(dpkg --print-architecture)
 get_distro
-#
+#Port Check
 port_5601_in_use=''
 port_5601_pid=''
 port_5601_service=''
 port_5140_in_use=''
 port_5140_pid=''
 port_5140_service=''
-port_5141_in_use=''
-port_5141_pid=''
-port_5141_service=''
-port_5190_in_use=''
-port_5190_pid=''
-port_5190_service=''
 port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
-elk_version=8.6.0
-maxmind_version=4.10.0
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                        Required Packages                                                                                        #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
+elk_version=8.6.2
+maxmind_version=4.11.1
+########################################################
+#Required Packages                                     #
+########################################################
 # Install needed packages if not installed
 install_required_packages() {
   sleep 2
   installing_required_package=yes
+  script_logo
   header
+  echo -e "${GREEN}...............................................................................................(1%)"
   echo -e "${WHITE_R}#${RESET} Installing required packages for the script.\\n"
   hide_apt_update=true
   run_apt_get_update
-  sleep 2
 }
-
+#Package Installation
 if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing sudo..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install sudo &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install sudo in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename}-security main") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename}-security main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (bionic|cosmic|disco|eoan|focal|jammy) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" =~ (stretch|buster|bullseye|bookworm) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  elif [[ "${os_codename}" =~ (bullseye|bookworm) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://ftp.us.debian.org/debian ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
   fi
   required_package="sudo"
@@ -597,15 +452,23 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   echo -e "${GREEN}#${RESET} Successfully installed sudo! \\n" && sleep 2
   fi
 fi
-
-# MaxMind GeoIP install
+#MaxMind GeoIP install
 if dpkg -l | grep "geoipupdate" | grep -q "^ii\\|^hi"; then
    header
    echo -e "${WHITE_R}#${RESET} MaxMind GeoIP is already installed!${RESET}"; 
    echo -e "${WHITE_R}#${RESET} Ensure MaxMind GeoIP is properly configured!${RESET}";
    echo -e "${RED}# WARNING${RESET} Running Logstash without properly configured GeoIP settings will result in fatal errors...\\n\\n"
-   sleep 5;
+i=100005
+sp="/-\|"
+echo -n ' '
+while [ $i -gt 1 ]
+do
+printf "\b${sp:i--%${#sp}:1}"
+done;
 else
+header
+script_logo
+echo -e "${GREEN}...............................................................................................(1%)"
 echo -e "${WHITE_R}#${RESET} Select GeoIP Database Type.${RESET}"; 
 GeoIPType='Please specify GeoIP database type: '
 options=("MaxMind" "Elastic")
@@ -633,9 +496,8 @@ select opt in "${options[@]}"
        else
          echo -e "${RED}#${RESET} Failed to install MaxMind v${maxmind_version}...\\n"
        fi
-       rm --force "$geoip_temp" 2> /dev/null
-       
-    # GeoIP Cronjob
+       rm --force "$geoip_temp" 2> /dev/null    
+#GeoIP Cronjob
        echo "00 17 * * 0 geoipupdate -d /var/lib/GeoIP" > /etc/cron.weekly/geoipupdate
        sed -i 's/EditionIDs.*/EditionIDs GeoLite2-Country GeoLite2-City GeoLite2-ASN/g' /etc/GeoIP.conf
        maxmind_username=$(echo "${maxmind_username}")
@@ -653,14 +515,26 @@ select opt in "${options[@]}"
        echo -e "${RED}#${RESET} MaxMind v${maxmind_version} not installed!"
        echo -e "${RED}#WARNING${RESET} Running Logstash without MaxMind will result in fatal errors...\\n"
        maxmind_install=false
-       sleep 2;;
+       i=100005
+       sp="/-\|"
+       echo -n ' '
+       while [ $i -gt 1 ]
+       do
+       printf "\b${sp:i--%${#sp}:1}"
+       done;;
        esac
     echo -e "\\n"
     break
     ;;
     "Elastic")
     echo -e "${RED}#${RESET} Elastic's Built-In GeoIP Selected!\\n"
-    sleep 3
+    i=100005
+    sp="/-\|"
+    echo -n ' '
+    while [ $i -gt 1 ]
+    do
+    printf "\b${sp:i--%${#sp}:1}"
+    done
     echo -e "\\n"
     break
     ;;
@@ -668,20 +542,19 @@ select opt in "${options[@]}"
   esac
   done
 fi
-
-# lsb-release install
+#lsb-release install
 if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing lsb-release..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install lsb-release &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install lsb-release in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic|disco|eoan|focal|jammy) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} main universe") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${os_codename} main universe") -eq 0 ]]; then
+    echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${os_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye|bookworm) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  elif [[ "${os_codename}" =~ (bullseye|bookworm) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://ftp.us.debian.org/debian ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
   fi
   required_package="lsb-release"
@@ -690,32 +563,19 @@ if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi";
   echo -e "${GREEN}#${RESET} Successfully installed lsb-release! \\n" && sleep 2
   fi
 fi
-
-# apt-transport install
+#apt-transport install
 if ! dpkg -l apt-transport-https 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing apt-transport-https..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install apt-transport-https &>> "${pfELK_dir}/logs/required.log"; then
-  echo -e "${RED}#${RESET} Failed to install apt-transport-https in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu ${repo_codename}-security main") -eq 0 ]]; then
-    echo -e "deb http://security.ubuntu.com/ubuntu ${repo_codename}-security main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  echo -e "${RED}#${RESET} Failed to install apt-transport-https on first attempt...\\n"
+  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main universe") -eq 0 ]]; then
+    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (bionic|cosmic) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu ${repo_codename}-security main universe") -eq 0 ]]; then
-    echo -e "deb http://security.ubuntu.com/ubuntu ${repo_codename}-security main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" =~ (disco|eoan|focal|jammy) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main universe") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" == "jessie" ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.debian.org/debian-security ${repo_codename}/updates main") -eq 0 ]]; then
-    echo -e "deb http://security.debian.org/debian-security ${repo_codename}/updates main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" =~ (stretch|buster|bullseye|bookworm) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  elif [[ "${os_codename}" =~ (bullseye|bookworm) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://ftp.us.debian.org/debian ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
   fi
   required_package="apt-transport-https"
@@ -724,24 +584,19 @@ if ! dpkg -l apt-transport-https 2> /dev/null | awk '{print $1}' | grep -iq "^ii
   echo -e "${GREEN}#${RESET} Successfully installed apt-transport-https! \\n" && sleep 2
   fi
 fi
-
-# software-properties-common install
+#software-properties-common install
 if ! dpkg -l software-properties-common 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing software-properties-common..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install software-properties-common &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install software-properties-common in the first run...\\n"
-  if [[ "${repo_codename}" == "precise" ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu ${repo_codename}-security main") -eq 0 ]]; then
-    echo -e "deb http://security.ubuntu.com/ubuntu ${repo_codename}-security main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (trusty|xenial|bionic|cosmic|disco|eoan|focal|jammy) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye|bookworm) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  elif [[ "${os_codename}" =~ (bullseye|bookworm) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://ftp.us.debian.org/debian ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
   fi
   required_package="software-properties-common"
@@ -750,28 +605,19 @@ if ! dpkg -l software-properties-common 2> /dev/null | awk '{print $1}' | grep -
   echo -e "${GREEN}#${RESET} Successfully installed software-properties-common! \\n" && sleep 2
   fi
 fi
-
-# curl install
+#curl install
 if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing curl..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install curl &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install curl in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu ${repo_codename}-security main") -eq 0 ]]; then
-    echo -e "deb http://security.ubuntu.com/ubuntu ${repo_codename}-security main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (disco|eoan|focal|jammy) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" == "jessie" ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.debian.org/debian-security ${repo_codename}/updates main") -eq 0 ]]; then
-    echo -e "deb http://security.debian.org/debian-security ${repo_codename}/updates main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" =~ (stretch|buster|bullseye|bookworm) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  elif [[ "${os_codename}" =~ (bullseye|bookworm) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://ftp.us.debian.org/debian ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
   fi
   required_package="curl"
@@ -780,23 +626,22 @@ if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   echo -e "${GREEN}#${RESET} Successfully installed curl! \\n" && sleep 2
   fi
 fi
-
-# dirmngr install
+#dirmngr install
 if ! dpkg -l dirmngr 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing dirmngr..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install dirmngr &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install dirmngr in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic|disco|eoan|focal|jammy) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} universe") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${os_codename} universe") -eq 0 ]]; then
+    echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${os_codename} universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} main restricted") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} main restricted" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${os_codename} main restricted") -eq 0 ]]; then
+    echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${os_codename} main restricted" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye|bookworm) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  elif [[ "${os_codename}" =~ (bullseye|bookworm) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://ftp.us.debian.org/debian ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
   fi
   required_package="dirmngr"
@@ -805,28 +650,19 @@ if ! dpkg -l dirmngr 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; the
   echo -e "${GREEN}#${RESET} Successfully installed dirmngr! \\n" && sleep 2
   fi
 fi
-
-# wget install
+#wget install
 if ! dpkg -l wget 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
   echo -e "${WHITE_R}#${RESET} Installing wget..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install wget &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install wget in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.ubuntu.com/ubuntu ${repo_codename}-security main") -eq 0 ]]; then
-    echo -e "deb http://security.ubuntu.com/ubuntu ${repo_codename}-security main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
-  elif [[ "${repo_codename}" =~ (disco|eoan|focal|jammy) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" == "jessie" ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://security.debian.org/debian-security ${repo_codename}/updates main") -eq 0 ]]; then
-    echo -e "deb http://security.debian.org/debian-security ${repo_codename}/updates main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" =~ (stretch|buster|bullseye|bookworm) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
+  elif [[ "${os_codename}" =~ (bullseye|bookworm) ]]; then
+    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${os_codename} main") -eq 0 ]]; then
+    echo -e "deb http://ftp.us.debian.org/debian ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
   fi
   required_package="wget"
@@ -836,38 +672,11 @@ if ! dpkg -l wget 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   fi
 fi
 
-# netcat install
-if ! dpkg -l netcat 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
-  if [[ "${installing_required_package}" != 'yes' ]]; then install_required_packages; fi
-  echo -e "${WHITE_R}#${RESET} Installing netcat..."
-  if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install netcat &>> "${pfELK_dir}/logs/required.log"; then
-  echo -e "${RED}#${RESET} Failed to install netcat in the first run...\\n"
-  if [[ "${repo_codename}" =~ (precise|trusty|xenial|bionic|cosmic|disco|eoan|focal|jammy) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${repo_codename} universe") -eq 0 ]]; then
-    echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${repo_codename} universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  elif [[ "${repo_codename}" =~ (jessie|stretch|buster|bullseye|bookworm) ]]; then
-    if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://ftp.[A-Za-z0-9]*.debian.org/debian ${repo_codename} main") -eq 0 ]]; then
-    echo -e "deb http://ftp.us.debian.org/debian ${repo_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
-    fi
-  fi
-  required_package="netcat"
-  apt_get_install_package
-  else
-  echo -e "${GREEN}#${RESET} Successfully installed netcat! \\n" && sleep 2
-  fi
-  netcat_installed=true
-fi
-
 if [[ "${curl_missing}" == 'true' ]]; then script_version_check; fi
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                             Checks                                                                                              #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
-# Temporarily Disk Space
+########################################################
+#Checks                                                #
+########################################################
+#Temporarily Disk Space
 if [ "${system_free_disk_space_tmp}" -lt "5" ]; then
   header_red
   echo -e "${WHITE_R}#${RESET} Temporarily disk space is below 5GB. Please expand the disk size!"
@@ -882,8 +691,7 @@ if [ "${system_free_disk_space_tmp}" -lt "5" ]; then
   cancel_script
   fi
 fi
-
-# Disk Space
+#Disk Space
 if [ "${system_free_disk_space}" -lt "5" ]; then
   header_red
   echo -e "${WHITE_R}#${RESET} Free disk space is below 5GB. Please expand the disk size!"
@@ -898,17 +706,25 @@ if [ "${system_free_disk_space}" -lt "5" ]; then
   cancel_script
   fi
 fi
-
-# Memory
+#Memory
 if [ "${system_swap}" == "0" ]; then
   header_red
+  script_logo
+  echo -e "${GREEN}#..............................................................................................(1%)"
   echo -e "${WHITE_R}#${RESET} Disabling swap!"
   swapoff -a
   sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
-  sleep 2
+i=100005
+sp="/-\|"
+echo -n ' '
+while [ $i -gt 1 ]
+do
+printf "\b${sp:i--%${#sp}:1}"
+done
 fi
 if [ "${system_memory}" -le "4" ]; then
   header_red
+  script_logo
   echo -e "${RED}#${RESET} System memory does not meet minimum and may not run!"
   echo -e "${RED}#${RESET} This system has "${system_memory}"GB of RAM configured!"
   echo -e "${RED}#${RESET} It is recommend that ram is expanded to at least 8GB\\n\\n"
@@ -924,47 +740,41 @@ if [ "${system_memory}" -le "4" ]; then
   fi
 else
   header
-  echo -e "${WHITE_R}#${RESET} Memory Meets Minimum Requirements!\\n\\n"
+  script_logo
+  echo -e "${GREEN}#.............................................................................................(2%)"
+  echo -e "${WHITE_R}#${RESET} Memory Meets Minimum Requirements!\\n"
   echo -e "${GREEN}#${RESET} This system has "${system_memory}"GB of RAM configured!"
   echo -e "${GREEN}#${RESET} This system has "${system_swap}"GB swap allocated!"
   swapoff -a
-  sleep 2
+  i=100005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 fi
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                  Ask to keep script or delete                                                                                   #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
-script_removal() {
-  header
-  read -rp $'\033[39m#\033[0m Do you want to keep the script on your system after completion? (Y/n) ' yes_no
-  case "$yes_no" in
-    [Yy]*|"") ;;
-    [Nn]*) delete_script=true;;
-  esac
-}
-
-if [[ "${script_option_skip}" != 'true' ]]; then
-  script_removal
-fi
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                 Installation Script starts here                                                                                 #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
+########################################################
+#Installation Script starts here                       #
+########################################################
 start_pfelk() {
-  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --yes --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
   header
   script_logo
-  sleep 4
+  i=100005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 }
 start_pfelk
-
+#Upgrade Packages
 system_upgrade() {
+  header
+  script_logo
+  echo -e "${GREEN}##.............................................................................................(3%)"
   if [[ -f /tmp/pfELK/upgrade/upgrade_list && -s /tmp/pfELK/upgrade/upgrade_list ]]; then
   while read -r package; do
     echo -e "\\n------- updating ${package} ------- $(date +%F-%R) -------\\n" &>> "${pfELK_dir}/logs/upgrade.log"
@@ -982,15 +792,23 @@ system_upgrade() {
   if apt-get -y autoremove &>> "${pfELK_dir}/logs/apt-cleanup.log"; then echo -e "${GREEN}#${RESET} Successfully ran apt-get autoremove! \\n"; else echo -e "${RED}#${RESET} Failed to run apt-get autoremove"; fi
   echo -e "${WHITE_R}#${RESET} Running apt-get autoclean..."
   if apt-get -y autoclean &>> "${pfELK_dir}/logs/apt-cleanup.log"; then echo -e "${GREEN}#${RESET} Successfully ran apt-get autoclean! \\n"; else echo -e "${RED}#${RESET} Failed to run apt-get autoclean"; fi
-  sleep 3
+  i=100005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 }
-
+#Upgrade Packages
 rm --force /tmp/pfELK/upgrade/upgrade_list &> /dev/null
 header
+script_logo
+echo -e "${GREEN}##.............................................................................................(3%)"
 echo -e "${WHITE_R}#${RESET} Checking if your system is up-to-date...\\n" && sleep 1
 hide_apt_update=true
 run_apt_get_update
-
+#Upgrade Packages
 echo -e "${WHITE_R}#${RESET} The package(s) below can be upgraded!"
 echo -e "\\n${WHITE_R}----${RESET}\\n"
 rm --force /tmp/pfELK/upgrade/upgrade_list &> /dev/null
@@ -1007,16 +825,18 @@ case "$yes_no" in
   [Yy]*|"") echo -e "\\n${WHITE_R}----${RESET}\\n"; system_upgrade;;
   [Nn]*) ;;
 esac
-sleep 3
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                               Download and Configure pfELK Files                                                                                #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
+i=100005
+sp="/-\|"
+echo -n ' '
+while [ $i -gt 1 ]
+do
+printf "\b${sp:i--%${#sp}:1}"
+done
+########################################################
+#Download and Configure pfELK Files                    #
+########################################################
 download_pfelk() {
-  mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,scripts,templates}
+  mkdir -p /etc/pfelk/{conf.d,config,logs,docker,databases,patterns,scripts,templates}
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/01-inputs.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/05-apps.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.pfelk -P /etc/pfelk/conf.d/
@@ -1024,49 +844,83 @@ download_pfelk() {
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/50-outputs.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/pfelk.grok -P /etc/pfelk/patterns/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/openvpn.grok -P /etc/pfelk/patterns/
-  mkdir -p /etc/pfelk/scripts/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/error-data.sh -P /etc/pfelk/scripts/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/.env -P /etc/pfelk/docker/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/docker-compose.yml -P /etc/pfelk/docker/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/config/logstash.yml -P /etc/pfelk/config/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/config/pipelines.yml -P /etc/pfelk/config/
   chmod +x /etc/pfelk/scripts/pfelk-error.sh
   header
   script_logo
+  echo -e "${GREEN}###............................................................................................(5%)"
   echo -e "\\n${WHITE_R}#${RESET} Setting up pfELK File Structure...\\n"
-  sleep 4
+  i=100005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 }
 download_pfelk
-
-# MaxMind
+#MaxMind
 maxmind_geoip() {
-# MaxMind check to ensure GeoIP database files were downloaded - Success
+#MaxMind check to ensure GeoIP database files were downloaded - Success
 if [[ "${maxmind_install}" == 'true' ]] && [[ -f /var/lib/GeoIP/GeoLite2-City.mmdb ]] && [[ -f /var/lib/GeoIP/GeoLite2-ASN.mmdb ]]; then
   echo -e "\\n${GREEN}#${RESET} MaxMind Files Present"
-  sleep 3
+  i=100005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 fi
-# MaxMind check to ensure GeoIP database files are downloaded - Error Display
+#MaxMind check to ensure GeoIP database files are downloaded - Error Display
 if [[ "${maxmind_install}" == 'true' ]] && ! [[ -f /var/lib/GeoIP/GeoLite2-City.mmdb ]] && ! [[ -f /var/lib/GeoIP/GeoLite2-ASN.mmdb ]]; then
   echo -e "\\n${RED}#${RESET} Please Check Your MaxMind Configuration!"
   echo -e "${RED}#${RESET} MaxMind Files Where Not Found."
   echo -e "${RED}#${RESET} Defaulting to Elastic GeoIP Database Files."
   maxmind_install=false
-  sleep 4
+  i=100005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 fi
-# MaxMind configuration, if utilized 
+#MaxMind configuration, if utilized 
 if [[ "${maxmind_install}" == 'true' ]]; then
   header
   echo -e "\\n${RED}#${RED} Modifying 30-geoip.pfelk for MaxMind!${RESET}\\n\\n";
   sed -i 's/^#MMR#//' /etc/pfelk/conf.d/30-geoip.pfelk
-  sleep 3
+  i=100005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 fi
 }
 maxmind_geoip
-
-# Elasticsearch install
+#Elasticsearch install
 if dpkg -l | grep "elasticsearch" | grep -q "^ii\\|^hi"; then
   header
   echo -e "${WHITE_R}#${RESET} Elasticsearch is already installed!${RESET}\\n\\n";
 else
   header
+  script_logo
+  echo -e "${GREEN}###............................................................................................(5%)"
   echo -e "${WHITE_R}#${RESET} Installing Elasticsearch...\\n"
-  sleep 2
+  i=300005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
   if [[ "${script_option_elasticsearch}" != 'true' ]]; then
     elasticsearch_temp="$(mktemp --tmpdir=/tmp elasticsearch_"${elk_version}"_XXX.deb)"
     echo -e "${WHITE_R}#${RESET} Downloading Elasticsearch..."
@@ -1085,15 +939,22 @@ fi
 rm --force "$elasticsearch_temp" 2> /dev/null
 service elasticsearch start || abort
 sleep 3
-
-# Logstash install
+#Logstash install
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
+  script_logo
+  echo -e "${GREEN}####################...........................................................................(30%)"
   echo -e "${WHITE_R}#${RESET} Logstash is already installed!${RESET}\\n\\n";
 else
   header
   echo -e "${WHITE_R}#${RESET} Installing Logstash...\\n"
-  sleep 2
+  i=300005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
   if [[ "${script_option_logstash}" != 'true' ]]; then
     logstash_temp="$(mktemp --tmpdir=/tmp logstash_"${elk_version}"_XXX.deb)"
     echo -e "${WHITE_R}#${RESET} Downloading Logstash..."
@@ -1105,69 +966,59 @@ else
   echo "logstash logstash/has_backup boolean true" 2> /dev/null | debconf-set-selections
   if DEBIAN_FRONTEND=noninteractive dpkg -i "$logstash_temp" &>> "${pfELK_dir}/logs/logstash_install.log"; then
     echo -e "${GREEN}#${RESET} Successfully installed Logstash! \\n"
+    i=300005
+    sp="/-\|"
+    echo -n ' '
+    while [ $i -gt 1 ]
+    do
+    printf "\b${sp:i--%${#sp}:1}"
+    done
   else
     echo -e "${RED}#${RESET} Failed to install Logstash...\\n"
+    i=300005
+    sp="/-\|"
+    echo -n ' '
+    while [ $i -gt 1 ]
+    do
+    printf "\b${sp:i--%${#sp}:1}"
+    done
   fi
 fi
 rm --force "$logstash_temp" 2> /dev/null
-
-# Updating logstash.yml & Restarting Logstash
+#Updating logstash.yml & Restarting Logstash
 update_logstash() {
   header
   script_logo
-  sed -i 's?ExecStart=/usr/share/logstash/bin/logstash "--path.settings" "/etc/logstash"?ExecStart=/usr/share/logstash/bin/logstash "--pipeline.unsafe_shutdown" "--path.settings" "/etc/logstash"?' /etc/systemd/system/logstash.service
+  echo -e "${GREEN}#####################################..........................................................(45%)"
   rm /etc/logstash/pipelines.yml
   wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/config/pipelines.yml -P /etc/logstash/
   chown logstash /etc/logstash/pipelines.yml
   echo -e "\\n${WHITE_R}#${RESET} Updated logstash.yml..."
-  sleep 2
+  i=300005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 }
 update_logstash
-
-# service logstash start || abort
-# sleep 3
-
-# Download/Install Required Templates
-# install_templates() {
-# header
-# script_logo
-# if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-#   SERVICE_ELASTIC=$(systemctl is-active elasticsearch)
-#   if ! [ "$SERVICE_ELASTIC" = 'active' ]; then
-#      { echo -e "\\n${RED}#${RESET} Failed to install pfELK Templates"; sleep 3; }
-#   else
-#      echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
-#      wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
-#      chmod +x /tmp/pfELK/pfelk-template-installer.sh
-#      /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
-#      echo -e "${GREEN}#${RESET} Done."
-#      sleep 3
-#   fi
-# else
-#   SERVICE_ELASTIC=$(systemctl is-active elasticsearch)
-#   if ! [ "$SERVICE_ELASTIC" = 'active' ]; then
-#     { echo -e "\\n${WHITE_R}#${RESET} Failed to install pfELK Templates"; sleep 3; }
-#   else
-#      echo -e "\\n${WHITE_R}#${RESET} Installing pfELK Templates!${RESET}";
-#      wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-template-installer.sh -P /tmp/pfELK/
-#      chmod +x /tmp/pfELK/pfelk-template-installer.sh
-#      sleep 20
-#      /tmp/pfELK/pfelk-template-installer.sh > /dev/null 2>&1
-#      echo -e "${GREEN}#${RESET} Done."
-#      sleep 3
-#   fi
-# fi
-# }
-# install_templates
-
-# Kibana install
+#Kibana install
 if dpkg -l | grep "kibana" | grep -q "^ii\\|^hi"; then
   header
+  script_logo
+  echo -e "${GREEN}#######################################........................................................(46%)"
   echo -e "${WHITE_R}#${RESET} Kibana is already installed!${RESET}\\n\\n";
 else
   header
   echo -e "${WHITE_R}#${RESET} Installing Kibana...\\n"
-  sleep 2
+  i=300005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
   if [[ "${script_option_kibana}" != 'true' ]]; then
     kibana_temp="$(mktemp --tmpdir=/tmp kibana_"${elk_version}"_XXX.deb)"
     echo -e "${WHITE_R}#${RESET} Downloading Kibana..."
@@ -1184,41 +1035,43 @@ else
   fi
 fi
 rm --force "$kibana_temp" 2> /dev/null
-
-# Update Kibana.yml & Restart Kibana
+#Update Kibana.yml
 update_kibana() {
   header
   script_logo
+  echo -e "${GREEN}###########################################################....................................(67%)"
   sed -i 's/#server.port: 5601/server.port: 5601/'  /etc/kibana/kibana.yml
   sed -i 's/#server.host: "localhost"/server.host: "0.0.0.0"/' /etc/kibana/kibana.yml
-  echo -e "\\n${WHITE_R}#${RESET} Updated Kibana.yml..."
-  sleep 1
+  echo -e "\\n${WHITE_R}#${RESET} Updating Kibana.yml..."
+  i=300005
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 }
 update_kibana
-
+#Restart Kibana
 service kibana start || abort
-sleep 3
-
-###################################################################################################################################################################################################
-#                                                                                                                                                                                                 #
-#                                                                                               Finish                                                                                            #
-#                                                                                                                                                                                                 #
-###################################################################################################################################################################################################
-
-# Check if Elasticsearch service is enabled
-if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  SERVICE_ELASTIC=$(systemctl is-enabled elasticsearch)
-  if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
-    systemctl enable elasticsearch 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Elasticsearch"; sleep 3; }
-  fi
-  else
+i=300005
+sp="/-\|"
+echo -n ' '
+while [ $i -gt 1 ]
+do
+printf "\b${sp:i--%${#sp}:1}"
+done
+########################################################
+#Finish                                                #
+########################################################
+#Check if Elasticsearch service is enabled
+if [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm) ]]; then
   SERVICE_ELASTIC=$(systemctl is-enabled elasticsearch)
   if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
     systemctl enable elasticsearch 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Elasticsearch"; sleep 3; }
   fi
 fi
-
-# Add symbolic link for elasticsearch
+#Add symbolic link for elasticsearch
 add_es_syslink() {
   cd /etc/rc0.d
   ln -sf ../init.d/elasticsearch K02elasticsearch
@@ -1226,98 +1079,162 @@ add_es_syslink() {
   ln -sf ../init.d/elasticsearch K02elasticsearch
 }
 add_es_syslink
-
-# Check if Logstash service is enabled
-if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  SERVICE_LOGSTASH=$(systemctl is-enabled logstash)
-  if [ "$SERVICE_LOGSTASH" = 'disabled' ]; then
-    systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Logstash"; sleep 3; }
-  fi
-  else
+#Check if Logstash service is enabled
+if [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm) ]]; then
   SERVICE_LOGSTASH=$(systemctl is-enabled logstash)
   if [ "$SERVICE_LOGSTASH" = 'disabled' ]; then
     systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Logstash"; sleep 3; }
   fi
 fi
-
-# Check if Kibana service is enabled
-if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
-  SERVICE_KIBANA=$(systemctl is-enabled kibana)
-  if [ "$SERVICE_KIBANA" = 'disabled' ]; then
-    systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
-  fi
-  else
+#Check if Kibana service is enabled
+if [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm) ]]; then
   SERVICE_KIBANA=$(systemctl is-enabled kibana)
   if [ "$SERVICE_KIBANA" = 'disabled' ]; then
     systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
   fi
 fi
-
-if [[ "${netcat_installed}" == 'true' ]]; then
-  header
-  echo -e "${WHITE_R}#${RESET} The script installed netcat, we do not need this anymore.\\n"
-  echo -e "${WHITE_R}#${RESET} Uninstalling netcat..."
-  apt-get purge netcat -y &> /dev/null && echo -e "${GREEN}#${RESET} Successfully uninstalled netcat." || echo -e "${RED}#${RESET} Failed to uninstall netcat."
-  sleep 2
+#Check if elastic is active
+STATUS_ELASTIC=$(systemctl is-active elasticsearch)
+  if [ "$STATUS_ELASTIC" = 'active' ]; then
+  echo -e "Elastic is running and active\\n"
+  elif [ "$STATUS_ELASTIC" = 'inactive' ]; then
+    echo -e "Elastic is not active\\n"
+     INPUT="y"
+     n=0
+     while true; do
+     echo -n "Press 'y' to try again or 's' to skip: "; read INPUT;
+     if [ "$INPUT" == "y" ]; then
+        until [ "$n" -ge 3 ]
+        do
+        systemctl is-active elasticsearch && break
+        n=$((n+1))
+        sleep 3
+        done
+        n=0
+     elif [ "$INPUT" == "s" ]; then
+     echo "Let's roll the dice."
+     sleep 2
+     break
+     else
+     n=0
+  fi
+done
+fi
+#Check if kibana is active
+STATUS_KIBANA=$(systemctl is-active kibana)
+  if [ "$STATUS_KIBANA" = 'active' ]; then
+  echo -e "Kibana is running and active\\n"
+  elif [ "$STATUS_KIBANA" = 'inactive' ]; then
+    echo -e "Kibana is not active\\n"
+     INPUT="y"
+     n=0
+     while true; do
+     echo -n "Press 'y' to try again or 's' to skip: "; read INPUT;
+     if [ "$INPUT" == "y" ]; then
+        until [ "$n" -ge 3 ]
+        do
+        systemctl is-active kibana && break
+        n=$((n+1))
+        sleep 3
+        done
+        n=0
+     elif [ "$INPUT" == "s" ]; then
+     echo "Let's roll the dice."
+     sleep 2
+     break
+     else
+     n=0
+  fi
+done
+fi
+#Check if logstash is active
+STATUS_LOGSTASH=$(systemctl is-active logstash)
+  if [ "$STATUS_LOGSTASH" = 'active' ]; then
+  echo -e "Logstash is running and active"
+  elif [ "$STATUS_LOGSTASH" = 'inactive' ]; then
+    echo -e "Logstash is not active\\n"
+     INPUT="y"
+     n=0
+     while true; do
+     echo -n "Press 'y' to try again or 's' to skip: "; read INPUT;
+     if [ "$INPUT" == "y" ]; then
+        until [ "$n" -ge 3 ]
+        do
+        systemctl is-active logstash && break
+        n=$((n+1))
+        sleep 3
+        done
+        n=0
+     elif [ "$INPUT" == "s" ]; then
+     echo "Let's roll the dice."
+     sleep 2
+     break
+     else
+     n=0
+  fi
+done
 fi
 
-# Download/Install Kibana saved objects
+#Download/Install Kibana saved objects
 install_kibana_saved_objects() {
 header
-  script_logo
-if ! [[ "${os_codename}" =~ (precise|maya|trusty|qiana|rebecca|rafaela|rosa) ]]; then
+script_logo
+echo -e "${GREEN}###############################################################................................(71%)"
+if [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm) ]]; then
   SERVICE_KIBANA=$(systemctl is-active kibana)
   if ! [ "$SERVICE_KIBANA" = 'active' ]; then
-     { echo -e "\\n${RED}#${RESET} Failed to Install pfELK - Kibana Saved Objects\\n\\n"; sleep 3; }
+     { echo -e "\\n${RED}#${RESET} Failed to Download pfELK - Kibana Saved Objects\\n\\n"; sleep 3; }
   else
-     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects!${RESET}";
+     echo -e "\\n${WHITE_R}#${RESET} Downloading Kibana Saved Objects!${RESET}";
      wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh -P /etc/pfelk/tmp/
      chmod +x /etc/pfelk/tmp/pfelk-kibana-saved-objects.sh
-#      /tmp/pfELK/pfelk-kibana-saved-objects.sh > /dev/null 2>&1
       echo -e "${GREEN}#${RESET} Done."
-     sleep 2
-  fi
-else
-  SERVICE_KIBANA=$(systemctl is-active kibana)
-  if ! [ "$SERVICE_KIBANA" = 'active' ]; then
-    { echo -e "${RED}#${RESET} Failed to Install pfELK - Kibana Saved Objects\\n\\n"; sleep 3; }
-  else
-     echo -e "\\n${WHITE_R}#${RESET} Installing Kibana Saved Objects!${RESET}";
-     wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh -P /etc/pfelk/tmp/
-     chmod +x /tmp/pfELK/pfelk-kibana-saved-objects.sh
-#      /tmp/pfELK/pfelk-kibana-saved-objects.sh
-     echo -e "${GREEN}#${RESET} Done."
-     sleep 2
+      i=300005
+      sp="/-\|"
+      echo -n ' '
+      while [ $i -gt 1 ]
+      do
+      printf "\b${sp:i--%${#sp}:1}"
+      done
   fi
 fi
 }
 install_kibana_saved_objects
-
+#Final Checks
 if dpkg -l | grep "logstash" | grep -q "^ii\\|^hi"; then
   header
   script_logo
+  echo -e "${GREEN}####################################################################...........................(74%)"
   echo -e "\\n"
   echo -e "${GREEN}#${RESET} pfELK was installed successfully"
   systemctl is-active -q kibana && echo -e "${GREEN}#${RESET} Logstash is active ( running )" || echo -e "${RED}#${RESET} Logstash failed to start... Please open an issue (https://github.com/pfelk/pfelk) on github!"
-  echo -e "\\n"
-  echo -e "Open your browser and connect to ${GREEN}http://$SERVER_IP:5601${RESET}\\n"
-  echo -e "Please check the documentation on github to configure your security --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/security.md${RESET}\\n"
-  echo -e "Please check the documentation on github to configure your pfSense/OPNsense --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/configuration.md${RESET}\\n"
+
+#Finalization
+  header
+  script_logo
+  echo -e "${GREEN}##############################################################################################.(99%)${RESET}"
+  echo -e "Navigate broswer to: ${GREEN}http://$SERVER_IP:5601${RESET}\\n"
+  echo -e "Finish conguring Elastic Stack security --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/security.md${RESET}\\n"
+  echo -e "Finish conguring pfSense/OPNsense --> ${GREEN}https://github.com/pfelk/pfelk/blob/main/install/configuration.md${RESET}\\n"
   echo -e "${GREEN} Enrollment Token${RESET}"
   /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana --url "https://$SERVER_IP:9200"
   echo -e "\\n"
   echo -e "${GREEN} Kibana Verification Code${RESET}"
   /usr/share/kibana/bin/kibana-verification-code
   echo -e "\\n"
-  mkdir /etc/logstash/config/
+  mkdir -p /etc/logstash/config/
   cp /etc/elasticsearch/certs /etc/logstash/config/ -r
   chown -R logstash /etc/logstash/config/
-  sleep 3
-  remove_yourself
+  i=30000
+  sp="/-\|"
+  echo -n ' '
+  while [ $i -gt 1 ]
+  do
+  printf "\b${sp:i--%${#sp}:1}"
+  done
 else
   header_red
   script_logo
-  echo -e "\\n${RED}#${RESET} Failed to successfully install pfELK"
+  echo -e "\\n${RED}#${RESET} Failed to install pfELK"
   echo -e "${RED}#${RESET} Please contact pfELK (${RED}https://github.com/pfelk/pfelk${RESET}) via github!${RESET}\\n\\n"
-  remove_yourself
 fi
