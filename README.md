@@ -42,7 +42,7 @@
 Supported entries include:
  - pfSense/OPNSense setups
  - TCP/UDP/ICMP protocols
- - DHCP message types with dashboard (dhcpdv4)
+ - DHCP (v4/v6) message types with dashboard
  - IPv4/IPv6 mapping
  - pfSense CARP data
  - openVPN log parsing
