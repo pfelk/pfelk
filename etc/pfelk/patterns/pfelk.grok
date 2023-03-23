@@ -1,6 +1,6 @@
 # pfelk.grok
 ################################################################################
-# Version: 23.03e                                                              #
+# Version: 23.03g                                                              #
 #                                                                              #
 #                                                                              #
 #                                                                              #
@@ -13,7 +13,7 @@ PFELK (%{PFSENSE}|%{OPNSENSE})
 # pfSense
 PFSENSE (%{PFSENSE_LOG}|%{PFSENSE5424_LOG})
 PFSENSE5424_LOG (%{INT:[log][syslog][version]}\s*)%{TIMESTAMP_ISO8601:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}\s%{POSINT:[log][syslog][procid]}(\s\-\s\-\s)%{GREEDYDATA:filter_message}
-PFSENSE_LOG %{SYSLOGTIMESTAMP:[event][created]}\s%{PROG:[log][syslog][appname]}\[%{POSINT:[log][syslog][procid]}\]\:\s%{GREEDYDATA:filter_message}
+PFSENSE_LOG %{SYSLOGTIMESTAMP:[event][created]}\s(%{SYSLOGHOST:[log][syslog][hostname]}\s)?%{PROG:[log][syslog][appname]}(\[%{POSINT:[log][syslog][procid]}\])?\:\s%{GREEDYDATA:filter_message}
 
 # OPNsense
 OPNSENSE (%{OPNSENSE_LOG}|%{OPNSENSE5424_LOG})
