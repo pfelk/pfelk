@@ -1,5 +1,5 @@
 #!/bin/bash
-# Version    | 23.03
+# Version    | 23.03a
 # Website    | https://github.com/pfelk/pfelk
 ########################################################
 #pfELK Installation Script                             #
@@ -109,6 +109,10 @@ fi
 #Start
 start_script() {
   mkdir -p /tmp/pfELK/upgrade/ 2> /dev/null
+  mkdir -p /tmp/pfELK/logs 2> /dev/null
+  mkdir -p /tmp/pfELK/upgrade/ 2> /dev/null
+  mkdir -p /tmp/pfELK/dpkg/ 2> /dev/null
+  mkdir -p /tmp/pfELK/geoip/ 2> /dev/null  
   header
   script_logo
   echo -e "${GREEN}...............................................................................................(0%)"
