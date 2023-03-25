@@ -1160,6 +1160,7 @@ STATUS_LOGSTASH=$(systemctl is-active logstash)
      INPUT="y"
      n=0
      while true; do
+     ehco "You Musth Skip! - security must be configured prior to logstash being active and running"
      echo -n "Press 'y' to try again or 's' to skip: "; read INPUT;
      if [ "$INPUT" == "y" ]; then
         until [ "$n" -ge 3 ]
