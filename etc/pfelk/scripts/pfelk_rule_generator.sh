@@ -77,7 +77,7 @@ firewall_opt(){
 }
 
 opnsense_pfctl(){
-  pfctl -vv -sr | grep label | sed -r 's/@([[:digit:]]+).*"([^"]{32})"/"\2","\1"/g' | sort -k 1.1 > /tmp/pfelk_rules_pfctl.tmp
+  pfctl -vv -sr | grep label | sed -r 's/@([[:digit:]]+).*"([^"]{32})".*/"\2","\1"/g' | sort -k 1.1 > /tmp/pfelk_rules_pfctl.tmp
 }
 
 opnsense_opt1(){
