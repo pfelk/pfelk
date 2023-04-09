@@ -58,7 +58,8 @@ sudo apt install elasticsearch; sudo apt install kibana; sudo apt install logsta
 
 ### 9. Configure Kibana
 ```
-sudo wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/kibana/kibana.yml -P /etc/kibana/
+sudo sed -i 's/#server.port: 5601/server.port: 5601/'  /etc/kibana/kibana.yml
+sudo sed -i 's/#server.host: "localhost"/server.host: "0.0.0.0"/' /etc/kibana/kibana.yml
 ```
 
 # Configuration
