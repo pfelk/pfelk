@@ -24,7 +24,7 @@
 * [License](#license)
 
 ### Prerequisites
-- Ubuntu Server v18.04+ or Debian Server 9+ (stretch and buster tested)
+- Ubuntu Server v20.04+ or Debian Server 11+ (stretch and buster tested)
 - pfSense v2.5.0+ or OPNsense 23.0+
 - Minimum of 8GB of RAM but recommend 32GB ([WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Performance))
 - Setting up remote logging ([WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Prerequisite-%7C--pfSense-OPNsense-Logging))
@@ -84,8 +84,8 @@ Supported entries include:
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=qcGcsQQoPo0) Guide
 
 #### manual installation method
-* [Ubuntu 18.04-22.04](https://github.com/pfelk/pfelk/blob/main/install/ubuntu.md)
-* [Debian 9-10.5](https://github.com/pfelk/pfelk/blob/main/install/debian.md)
+* [Ubuntu 20.04-22.04](https://github.com/pfelk/pfelk/blob/main/install/ubuntu.md)
+* [Debian 11-12](https://github.com/pfelk/pfelk/blob/main/install/debian.md)
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=_IJAAUqNVRc) Guide
 
 ### Roadmap
