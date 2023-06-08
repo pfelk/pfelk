@@ -1,5 +1,5 @@
 #!/bin/bash
-# Version    | 23.05
+# Version    | 23.06
 # Website    | https://github.com/pfelk/pfelk
 ########################################################
 #pfELK Installation Script                             #
@@ -17,7 +17,7 @@
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
 # GeoIP        | 5.1.1
 # Elastic      | https://www.elastic.co/guide/en/elasticsearch/reference/current/es-release-notes.html
-# Elasticstack | 8.7.1
+# Elasticstack | 8.8.1
 ########################################################
 #Color Codes                                           #
 ########################################################
@@ -419,7 +419,7 @@ port_5140_service=''
 port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
-elk_version=8.7.1
+elk_version=8.8.1
 maxmind_version=5.1.1
 ########################################################
 #Required Packages                                     #
