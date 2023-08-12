@@ -1,8 +1,8 @@
 # 02-firewall.pfelk
 ################################################################################
-# Version: 23.08                                                               #
-# Required: True                                                                #
-# Description: Parses events based on process.name and further enriches events #
+# Version: 23.08a                                                              #
+# Required: True                                                               #
+# Description: Enriches pf (firewall) logs (OPNsense/pfSense) 			       #
 #                                                                              #
 ################################################################################
 #
