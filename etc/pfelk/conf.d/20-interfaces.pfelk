@@ -1,7 +1,7 @@
 # 20-interfaces.pfelk
 ################################################################################
-# Version: 22.04                                                               #
-# Required: No - Optional                                                      #
+# Version: 22.08                                                               #
+# Required: False - Optional                                                   #
 # Description: Adds interface.alias and network.name based on interface.name   #
 # The interface.alias and network.name fields may be amended as desired        #
 ################################################################################
