@@ -1,5 +1,5 @@
 #!/bin/bash
-# Version    | 23.06
+# Version    | 23.08
 # Website    | https://github.com/pfelk/pfelk
 ########################################################
 #pfELK Installation Script                             #
@@ -15,9 +15,9 @@
 # Dependency Version                                   #
 ########################################################
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
-# GeoIP        | 5.1.1
+# GeoIP        | 6.0.0
 # Elastic      | https://www.elastic.co/guide/en/elasticsearch/reference/current/es-release-notes.html
-# Elasticstack | 8.8.1
+# Elasticstack | 8.9.0
 ########################################################
 #Color Codes                                           #
 ########################################################
@@ -419,8 +419,8 @@ port_5140_service=''
 port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
-elk_version=8.8.1
-maxmind_version=5.1.1
+elk_version=8.9.0
+maxmind_version=6.0.0
 ########################################################
 #Required Packages                                     #
 ########################################################
@@ -842,6 +842,7 @@ done
 download_pfelk() {
   mkdir -p /etc/pfelk/{conf.d,config,logs,docker,databases,patterns,scripts,templates}
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/01-inputs.pfelk -P /etc/pfelk/conf.d/
+  wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/02-firewall.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/05-apps.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.pfelk -P /etc/pfelk/conf.d/
   wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/49-cleanup.pfelk -P /etc/pfelk/conf.d/
