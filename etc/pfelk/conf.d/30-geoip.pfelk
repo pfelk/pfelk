@@ -1,7 +1,7 @@
 # 30-geoip.pfelk
 ################################################################################
-# Version: 22.04                                                               #
-# Required: No - Optional                                                      #
+# Version: 22.08                                                               #
+# Required: False - Optional                                                    #
 # Description: Enriches source.ip and destination.ip fields with GeoIP data    #
 # For MaxMind, remove all instances of "#MMR#" or leave for built-in GeoIP     #
 ################################################################################
