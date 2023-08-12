@@ -1,31 +1,21 @@
 # 36-ports-desc.pfelk
 ################################################################################
-# Version: 22.04.                                                              #
-# Required: No - Optional                                                      #
+# Version: 23.08                                                               #
+# Required: False - Optional                                                   #
 # Description: Checks for the presense of the port field, if present runs      #
 # translates the port into a referenced description.                           #
 ################################################################################
 #
 filter {
   if "firewall" in [tags] {
-    if [destination][port] {
+    if [network][iana_number] {
       translate {
-        source => "[destination][port]"
-        target => "[destination][service]"
+        source => "[network][iana_number]"
+        target => "[network][application]"
         dictionary_path => "/etc/pfelk/databases/service-names-port-numbers.csv"
         refresh_interval => 300
         refresh_behaviour => replace
-        #fallback => "%{[destination][port]}"
-      }
-    }
-    if [source][port] {
-      translate {
-        source => "[source][port]"
-        target => "[source][service]"
-        dictionary_path => "/etc/pfelk/databases/service-names-port-numbers.csv"
-        refresh_interval => 300
-        refresh_behaviour => replace
-        #fallback => "%{[source][port]}"
+        #fallback => "%{[network][iana_number]}"
       }
     }
   }
