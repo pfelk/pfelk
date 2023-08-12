@@ -1,6 +1,6 @@
 # pfelk.grok
 ################################################################################
-# Version: 23.08                                                               #
+# Version: 23.08a                                                              #
 #                                                                              #
 #                                                                              #
 #                                                                              #
@@ -8,17 +8,16 @@
 #
 #
 # PFELK
-PFELK (%{PFSENSE}|%{OPNSENSE})
+PFELK (%{PFSENSE}|%{OPNSENSE}|%{RFC5424})
 
 # pfSense
-PFSENSE (%{PFSENSE_LOG}|%{PFSENSE5424_LOG})
-PFSENSE5424_LOG (%{INT:[log][syslog][version]}\s*)%{TIMESTAMP_ISO8601:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}(\s%{POSINT:[log][syslog][procid]})?(\s\-\s\-\s(\-\s)?)?%{GREEDYDATA:filter_message}
-PFSENSE_LOG %{SYSLOGTIMESTAMP:[event][created]}\s(%{SYSLOGHOST:[log][syslog][hostname]}\s)?%{PROG:[log][syslog][appname]}(\[%{POSINT:[log][syslog][procid]}\])?\:\s%{GREEDYDATA:filter_message}
+PFSENSE %{SYSLOGTIMESTAMP:[event][created]}\s(%{SYSLOGHOST:[log][syslog][hostname]}\s)?%{PROG:[log][syslog][appname]}(\[%{POSINT:[log][syslog][procid]}\])?\:\s%{GREEDYDATA:filter_message}
 
 # OPNsense
-OPNSENSE (%{OPNSENSE_LOG}|%{OPNSENSE5424_LOG})
-OPNSENSE5424_LOG (%{INT:[log][syslog][version]}\s*)%{TIMESTAMP_ISO8601:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}\s%{POSINT:[log][syslog][procid]}\s-\s\[meta\ssequenceId\=\\\"%{NUMBER:[event][sequence]}\\\"\]\s%{GREEDYDATA:filter_message}
-OPNSENSE_LOG %{SYSLOGTIMESTAMP:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}\[%{POSINT:[log][syslog][procid]}\]\:\s%{GREEDYDATA:filter_message}
+OPNSENSE %{SYSLOGTIMESTAMP:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}\[%{POSINT:[log][syslog][procid]}\]\:\s%{GREEDYDATA:filter_message}
+
+# OPNsense||pfSense RFC5424
+RFC5424 (%{INT:[log][syslog][version]}\s*)%{TIMESTAMP_ISO8601:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}(\s%{POSINT:[log][syslog][procid]})?(\s\-\s\-\s(\-\s)?)?(\s\-\s\[meta\ssequenceId\=(\\)?\"%{NUMBER:[event][sequence]}(\\)?\"\])?\s%{GREEDYDATA:filter_message}
 
 # CAPTIVE PORTAL (Optional)
 CAPTIVEPORTAL (%{CP_PFSENSE}|%{CP_OPNSENSE})
