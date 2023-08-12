@@ -1,7 +1,7 @@
 # 38-enhanced_url.pfelk
 ################################################################################
-# Version: 21.04                                                               #
-# Required: No - Optional                                                      #
+# Version: 23.08                                                               #
+# Required: False - Optional                                                   #
 # Description: URL parsing, normalization, and enrichment for url.original     #
 # field(s) found in suricata and squid logs.                                   #
 ################################################################################

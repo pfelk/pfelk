@@ -1,7 +1,7 @@
 # 05-apps.pfelk
 ################################################################################
-# Version: 23.03                                                               #
-# Required: Yes                                                                #
+# Version: 23.08                                                               #
+# Required: True                                                               #
 # Description: Parses events based on process.name and further enriches events #
 #                                                                              #
 ################################################################################
@@ -43,29 +43,6 @@ filter {
     mutate {
       add_tag => "dpinger"
       add_field => { "[event][dataset]" => "pfelk.dpinger" }
-    }
-  }
-  ### filterlog ###
-  if [log][syslog][appname] =~ /^filterlog$/ {
-    mutate {
-      add_tag => "firewall"
-      add_field => { "[ecs][version]" => "1.7.0" }
-      add_field => { "[event][dataset]" => "pfelk.firewall" }
-      replace => { "[log][syslog][appname]" => "firewall" }
-    }
-    grok {
-      patterns_dir => [ "/etc/pfelk/patterns" ]
-      match => [ "filter_message", "%{PF_LOG_ENTRY}" ]
-    }
-    if [network][direction] =~ /^out$/ {
-      mutate {
-        rename => { "[pf][transport][data_length]" => "[destination][bytes]" }
-      }
-    }
-    if [network][direction] =~ /^in$/ {
-      mutate {
-        rename => { "[pf][transport][data_length]" => "[source][bytes]" }
-      }
     }
   }
   ### haproxy ###

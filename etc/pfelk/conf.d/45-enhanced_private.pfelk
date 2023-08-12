@@ -1,7 +1,7 @@
 # 45-enhanced_private.pfelk
 ################################################################################
-# Version: 22.04                                                              #
-# Required: No - Optional                                                      #
+# Version: 23.08                                                               #
+# Required: False - Optional                                                   #
 # Description: Adds customized host.hostname via dictionary lookup with domain #
 # and adds cusotmiazed GeoIP data for local IP address                         #
 ################################################################################
