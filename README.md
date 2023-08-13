@@ -14,7 +14,6 @@
 * [Key Features](#key-features)
 * [How pfelk works?](#how-pfelk-works)
 * [Installation](#installation)
-  * [ansible](#ansible-playbook)
   * [docker](#docker-compose)
   * [script installation](#script-installation-method)
   * [manual installation](#manual-installation-method)
@@ -62,14 +61,11 @@ Supported entries include:
 ### Quick start
 
 ### Installation
-#### ansible-playbook
- * Clone the [ansible-pfelk](https://github.com/pfelk/ansible-pfelk) repository
- * `$ ansible-playbook -i hosts --ask-become deploy-stack.yml`
 
 #### docker-compose
- * Clone the [docker-pfelk](https://github.com/pfelk/docker-pfelk) repository
+ * [Manual Method] or [Scripted Installed](#) - Scripted Method Coming Soon
  * `$ docker-compose up`
- * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=MJVbLvdVtyY) Guide
+ * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=MJVbLvdVtyY) Guide (Update Coming Soon
 
 #### script installation method
 * Download installer script from [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-installer.sh) repository
@@ -86,6 +82,7 @@ Supported entries include:
 #### manual installation method
 * [Ubuntu 20.04-22.04](https://github.com/pfelk/pfelk/blob/main/install/ubuntu.md)
 * [Debian 11-12](https://github.com/pfelk/pfelk/blob/main/install/debian.md)
+* [Docker](https://github.com/pfelk/pfelk/blob/main/install/docker.md)
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=_IJAAUqNVRc) Guide
 
 ### Roadmap
