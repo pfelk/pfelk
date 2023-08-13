@@ -1,7 +1,7 @@
 # pipelines.yml
 ################################################################################
-# Version: 23.01                                                               #
-# Required: Yes                                                                #
+# Version: 23.08                                                               #
+# Required: True (Docker)                                                      #
 # Description: This is a required file for a pfelk installation                #
 # This file is where you define your pipelines. You can define multiple.       #
 # For more information on multiple pipelines, see the documentation:           #
