@@ -113,6 +113,8 @@ sudo nano /etc/pfelk/conf.d/50-outputs.pfelk
 ```
     cacert => '/usr/share/logstash/config/certs/ca/ca.crt'
     user => "elastic"
+    # cacert => '/etc/logstash/config/certs/http_ca.crt' #[Disable if using Docker]
+    # user => "pfelk_logstash" #[Disable if using Docker]
     password => "changeme"
 ```
 
