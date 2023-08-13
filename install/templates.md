@@ -46,7 +46,7 @@
   7. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=281)
 
-- ### :b: Scripted Method :page_with_curl:
+- ### :b: Scripted Method :page_with_curl: (Not for docker)
   1. Download the pfelk-dashboard-installer
       - `wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/scripts/pfelk-kibana-saved-objects.sh`
   2. Update with the elastic password
