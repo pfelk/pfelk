@@ -2,7 +2,7 @@
 ################################################################################
 # Version: 23.08a                                                              #
 # Required: True                                                               #
-# Description: Enriches pf (firewall) logs (OPNsense/pfSense) 			       #
+# Description: Enriches pf (firewall) logs (OPNsense/pfSense) 		       #
 #                                                                              #
 ################################################################################
 #
