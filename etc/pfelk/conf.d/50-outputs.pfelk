@@ -1,7 +1,7 @@
 # 50-outputs.pfelk
 ################################################################################
-# Version: 23.01                                                               #
-# Required: Yes                                                                #
+# Version: 23.08                                                               #
+# Required: True                                                               #
 # Description: Sends enriched logs to Elasticsearch.                           #
 #                                                                              #
 ################################################################################
@@ -43,7 +43,7 @@ output {
     ### X-Pack Security Method ###
     hosts => ["https://localhost:9200"]
     # ssl => true
-    # cacert => '/usr/share/logstash/config/certs/ca/ca.crt' #For use with Docker#
+    # [DOCKER] cacert => '/usr/share/logstash/config/certs/ca/ca.crt'
     cacert => '/etc/logstash/config/certs/http_ca.crt'
     user => "pfelk_logstash"
     password => "changeme"
