@@ -78,7 +78,7 @@
   7. Create `pfelk_viewer` user
      - ![viewer](https://github.com/pfelk/pfelk/raw/main/Images/security/viewer_user.png)
   9. Update 50-outputs.pfelk (only if you used a password other than `pf31k-l0g$tas#-p@sSw0Rd`)
-     - `sudo nano /etc/pfelk/conf.d/50-outputs.conf`
+     - `sudo nano /etc/pfelk/conf.d/50-outputs.pfelk`
        - update password to the pfelk_logstash user password from step 5
        - ![output](https://github.com/pfelk/pfelk/raw/main/Images/security/50-outputs.png)
 
