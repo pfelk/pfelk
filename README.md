@@ -63,7 +63,7 @@ Supported entries include:
 ### Installation
 
 #### docker-compose
- * [Manual Method] or [Scripted Installed](#) - Scripted Method Coming Soon
+ * [Manual Method](https://github.com/pfelk/pfelk/blob/main/install/docker.md) or [Scripted Installed](#) - Scripted Method Coming Soon
  * `$ docker-compose up`
  * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=MJVbLvdVtyY) Guide (Update Coming Soon
 
