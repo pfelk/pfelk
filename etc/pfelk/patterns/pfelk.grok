@@ -74,7 +74,9 @@ PF_APP_ERROR webConfigurator (%{DATA:[pf][app][action]}) for user \'(%{DATA:[pf]
 PF_APP_GEN (%{GREEDYDATA:[pf][app][action]})
 
 # SURICATA
-SURICATA \[%{NUMBER:[suricata][rule][uuid]}:%{NUMBER:[suricata][rule][id]}:%{NUMBER:[suricata][rule][version]}\]%{SPACE}%{GREEDYDATA:[suricata][rule][description]}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:[suricata][rule][category]}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:[suricata][priority]}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
+SURICATA (%{SURICATA_LOG}|%{SURICATA_NOTICE})
+SURICATA_LOG \[%{NUMBER:[suricata][rule][uuid]}:%{NUMBER:[suricata][rule][id]}:%{NUMBER:[suricata][rule][version]}\]%{SPACE}%{GREEDYDATA:[suricata][rule][description]}%{SPACE}\[Classification:%{SPACE}%{GREEDYDATA:[suricata][rule][category]}\]%{SPACE}\[Priority:%{SPACE}%{NUMBER:[suricata][priority]}\]%{SPACE}{%{WORD:[network][transport]}}%{SPACE}%{IP:[source][ip]}:%{NUMBER:[source][port]}%{SPACE}->%{SPACE}%{IP:[destination][ip]}:%{NUMBER:[destination][port]}
+SURICATA_NOTICE \[%{NUMBER:[event][code]}\]\s\<%{WORD:[event][action]}\>\s\-\-\s%{GREEDYDATA:[package][description]}
 
 # SNORT
 SNORT \[%{INT:[rule][uuid]}\:%{INT:[rule][reference]}\:%{INT:[rule][version]}\].%{GREEDYDATA:[vulnerability][description]}.\[Classification\: %{DATA:[vulnerability][classification]}\].\[Priority\: %{INT:[event][severity]}\].\{%{DATA:[network][transport]}\}.%{IP:[source][ip]}(\:%{INT:[source][port]})?.->.%{IP:[destination][ip]}(\:%{INT:[destination][port]})?
