@@ -95,7 +95,7 @@ Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki pa
 
 ### 14. Configure Credentials | .env
 ```
-sudo nano /etc/pfelk/doocker/.env
+sudo nano /etc/pfelk/docker/.env
 ```
 #### Amend `.env` Credentials as Desired
 ```
