@@ -1,7 +1,7 @@
 # logstash.yml
 ################################################################################
-# Version: 23.01                                                               #
-# Required: Yes (DOCKER ONLY)                                                  #
+# Version: 23.08                                                               #
+# Required: True (Docker)                                                      #
 # Description: This is a required file for a Docker installation               #
 #                                                                              #
 ################################################################################
