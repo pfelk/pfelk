@@ -25,7 +25,7 @@
 ### Prerequisites
 - Ubuntu Server v20.04+ or Debian Server 11+ (stretch and buster tested)
 - pfSense v2.5.0+ or OPNsense 23.0+
-- Minimum of 8GB of RAM but recommend 32GB ([WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Performance))
+- Minimum of 8GB of RAM (Docker requires more) and recommend 32GB ([WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Performance))
 - Setting up remote logging ([WiKi Reference](https://github.com/pfelk/pfelk/wiki/How-To:-Prerequisite-%7C--pfSense-OPNsense-Logging))
 
 **pfelk** is a highly customizable **open-source** tool for ingesting and visualizing your firewall traffic with the full power of Elasticsearch, Logstash and Kibana.
