@@ -12,7 +12,7 @@
 ### Contents
 * [Prerequisites](#prerequisites)
 * [Key Features](#key-features)
-* [How pfelk works?](#pfelk-overview)
+* [pfelk overview](#pfelk-overview)
 * [Installation](#installation)
   * [docker](#docker-compose)
   * [script installation](#script-installation-method)
