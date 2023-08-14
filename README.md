@@ -12,7 +12,7 @@
 ### Contents
 * [Prerequisites](#prerequisites)
 * [Key Features](#key-features)
-* [How pfelk works?](#how-pfelk-works)
+* [How pfelk works?](#pfelk-overview)
 * [Installation](#installation)
   * [docker](#docker-compose)
   * [script installation](#script-installation-method)
@@ -55,8 +55,8 @@ Supported entries include:
 
 **pfelk** aims to replace the vanilla pfSense/OPNsense web UI with extended search and visualization features. You can deploy this solution via **ansible-playbook**, **docker-compose**, **bash script**, or manually.
 
-### pfelk visual
-* ![How pfelk works](https://github.com/pfelk/pfelk/raw/main/Images/pfelk-visual.png)
+### pfelk overview
+* ![pfelk-overview](https://github.com/pfelk/pfelk/raw/main/Images/pfelk-visual.png)
 
 ### Quick start
 
@@ -88,7 +88,7 @@ Supported entries include:
 ### Roadmap
 This is the experimental public roadmap for the pfelk project.
 
-[See the roadmap »](https://github.com/pfelk/pfelk/projects)
+[See the roadmap »](https://github.com/orgs/pfelk/projects/11)
 
 ### Comparison to similar solutions
 [Comparisions »](https://github.com/pfelk/pfelk/wiki/Comparison)
