@@ -48,7 +48,7 @@ filter {
           "[pf][offset]" =>	       "%{[pf_csv][13]}"
           "[pf][flags]" =>	       "%{[pf_csv][14]}"
           "[network]iana_number]" =>   "%{[pf_csv][15]}"
-          "[network][[protocol]" =>    "%{[pf_csv][16]}"
+          "[network][protocol]" =>    "%{[pf_csv][16]}"
           "[pf][packet][length]" =>    "%{[pf_csv][17]}"
           "[source][ip]" =>	       "%{[pf_csv][18]}"
           "[destination][ip]" =>       "%{[pf_csv][19]}"
@@ -75,7 +75,7 @@ filter {
       # [UDP]
       # [ECS compliant fields] source.port, destination.port 
       # [Not ECS compliant fields] pf.data_length
-      if [network][[protocol] == "udp" {
+      if [network][protocol] == "udp" {
         mutate {
           add_field => {
             "[source][port]" =>	        "%{[pf_csv][20]}"
