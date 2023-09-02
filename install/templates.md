@@ -52,7 +52,8 @@
   2. Update with the elastic password
       - `sudo nano pfelk-kibana-saved-objects.sh`
       - or
-      - ` sed -i 's?PASSWORDGOESHERE?newpassword?' pfelk-kibana-saved-objects.sh` where `newpassword` is replaced with the elastic password from Security Step 2
+      - ` sed -i 's?PASSWORDGOESHERE?newpassword?' pfelk-kibana-saved-objects.sh` where `newpassword` is replaced with the elastic password from [installation step, i2](https://github.com/pfelk/pfelk/blob/main/install/install.md#i2-%EF%B8%8F-obatin-and-note-built-in-superuser-password-%EF%B8%8F)
+        
   3. Make the file executable 
       - `sudo chmod +x pfelk-kibana-saved-objects.sh`
   4. Execute the file
