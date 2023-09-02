@@ -2,7 +2,7 @@
 
 # Preparation
 
-### 1. Disabling Swap
+### p1. Disabling Swap
 Swapping should be disabled for performance and stability.
 ```
 sudo swapoff -a
@@ -11,38 +11,38 @@ sudo swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 ```
 
-### 2. Configuration Date/Time Zone
+### p2. Configuration Date/Time Zone
 The box running this configuration will reports firewall logs based on its clock.  The command below will set the timezone to Eastern Standard Time (EST).  To view available timezones type `sudo timedatectl list-timezones`
 ```
 sudo timedatectl set-timezone EST
 ```
 
-### 3. ⚠️ (Debian Only) Add Prerequisites
+### p3. ⚠️ (Debian Only) Add Prerequisites
 ```
 apt-get install apt-transport-https gnupg2 software-properties-common dirmngr lsb-release ca-certificates
 ```
 
-### 4. Download and install the public GPG signing key
+### p4. Download and install the public GPG signing key
 ```
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
 ```
 
-### 5. Download and install apt-transport-https package
+### p5. Download and install apt-transport-https package
 ```
 sudo apt install apt-transport-https
 ```
 
-### 6. Add Elasticsearch|Logstash|Kibana Repositories (version 8+)
+### p6. Add Elasticsearch|Logstash|Kibana Repositories (version 8+)
 ```
 echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 ```
 
-### 6. Update
+### p6. Update
 ```
 apt-get update
 ```
 
-### 7. ⚠️  Install MaxMind (Optional)
+### p7. ⚠️  Install MaxMind (Optional)
 Follow the steps [here](https://github.com/pfelk/pfelk/wiki/How-To:-MaxMind-via-GeoIP-with-pfELK), to install and utilize MaxMind. Otherwise the built-in GeoIP from Elastic will be utilized.
 
 
