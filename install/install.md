@@ -103,11 +103,6 @@ systemctl start kibana.service
 - `sudo chown -R logstash /etc/logstash/config/`
 
 
-### i9b. Start Logstash
-```
-systemctl start logstash.service
-```
-
 # Proceed to Install ➡️ [Security](security.md)
 
 <sub>[Preparation](preparation.md)</sub> • **[Install](install.md)** • <sub>[Security](security.md)</sub> • <sub>[Templates](templates.md)</sub> • <sub>[Configuration](configuration.md)</sub>
