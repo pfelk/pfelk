@@ -135,8 +135,14 @@ sudo chmod +x /etc/pfelk/scripts/error-data.sh
 ### 21. Start Services on Boot (you'll need to reboot or start manually to proceed)
 ```
 sudo /bin/systemctl daemon-reload
+```
+```
 sudo /bin/systemctl enable elasticsearch.service
+```
+```
 sudo /bin/systemctl enable kibana.service
+```
+```
 sudo /bin/systemctl enable logstash.service
 ```
 
@@ -148,8 +154,12 @@ sed -i 's?ExecStart=/usr/share/logstash/bin/logstash "--path.settings" "/etc/log
 
 ### 23. Start Services Manually
 ```
-systemctl start elasticsearch.service 
+systemctl start elasticsearch.service
+```
+```
 systemctl start kibana.service
+```
+```
 systemctl start logstash.service
 ```
 
