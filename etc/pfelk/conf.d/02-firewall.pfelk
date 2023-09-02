@@ -1,6 +1,6 @@
 # 02-firewall.pfelk
 ################################################################################
-# Version: 23.08a                                                              #
+# Version: 23.09                                                               #
 # Required: True                                                               #
 # Description: Enriches pf (firewall) logs (OPNsense/pfSense) 		       #
 #                                                                              #
@@ -47,7 +47,7 @@ filter {
           "[pf][id]" =>		       "%{[pf_csv][12]}"
           "[pf][offset]" =>	       "%{[pf_csv][13]}"
           "[pf][flags]" =>	       "%{[pf_csv][14]}"
-          "[network]iana_number]" =>   "%{[pf_csv][15]}"
+          "[network][iana_number]" =>   "%{[pf_csv][15]}"
           "[network][protocol]" =>    "%{[pf_csv][16]}"
           "[pf][packet][length]" =>    "%{[pf_csv][17]}"
           "[source][ip]" =>	       "%{[pf_csv][18]}"
