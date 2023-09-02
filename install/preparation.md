@@ -24,7 +24,7 @@ apt-get install apt-transport-https gnupg2 software-properties-common dirmngr ls
 
 ### p4. Download and install the public GPG signing key
 ```
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
+sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --dearmor -o /usr/share/keyrings/elasticsearch-keyring.gpg
 ```
 
 ### p5. Download and install apt-transport-https package
@@ -39,7 +39,7 @@ echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://arti
 
 ### p6. Update
 ```
-apt-get update
+sudo apt-get update
 ```
 
 ### p7. ⚠️  Install MaxMind (Optional)
