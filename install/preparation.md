@@ -46,5 +46,6 @@ apt-get update
 Follow the steps [here](https://github.com/pfelk/pfelk/wiki/How-To:-MaxMind-via-GeoIP-with-pfELK), to install and utilize MaxMind. Otherwise the built-in GeoIP from Elastic will be utilized.
 
 
+# Proceed to Install ➡️ [Install](install.md)
 
 **[Preparation](preparation.md)** • <sub>[Install](install.md)</sub> • <sub>[Security](security.md)</sub> • <sub>[Templates](templates.md)</sub> • <sub>[Configuration](configuration.md)</sub>
