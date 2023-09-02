@@ -3,9 +3,10 @@
 ## Table of Contents
 
 - [Installation](#installation)
+- [Configuration](#configuration)
 - [Services](#services)
+- [Certificates](#certificates)
 
-- 
 # 1️⃣ Installation
 - Elasticsearch v8+ | Kibana v8+ | Logstash v8+
 
@@ -107,5 +108,6 @@ systemctl start kibana.service
 systemctl start logstash.service
 ```
 
+# Proceed to Install ➡️ [Security](security.md)
 
 <sub>[Preparation](preparation.md)</sub> • **[Install](install.md)** • <sub>[Security](security.md)</sub> • <sub>[Templates](templates.md)</sub> • <sub>[Configuration](configuration.md)</sub>
