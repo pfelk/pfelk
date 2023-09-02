@@ -37,12 +37,12 @@ sudo apt install apt-transport-https
 echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 ```
 
-### p6. Update
+### p7. Update
 ```
 sudo apt-get update
 ```
 
-### p7. ⚠️  Install MaxMind (Optional)
+### p8. ⚠️  Install MaxMind (Optional)
 Follow the steps [here](https://github.com/pfelk/pfelk/wiki/How-To:-MaxMind-via-GeoIP-with-pfELK), to install and utilize MaxMind. Otherwise the built-in GeoIP from Elastic will be utilized.
 
 
