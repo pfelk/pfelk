@@ -80,8 +80,8 @@ Supported entries include:
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=qcGcsQQoPo0) Guide
 
 #### manual installation method
-* [Ubuntu 20.04-22.04](https://github.com/pfelk/pfelk/blob/main/install/ubuntu.md)
-* [Debian 11-12](https://github.com/pfelk/pfelk/blob/main/install/debian.md)
+* [Ubuntu 20.04-22.04](https://github.com/pfelk/pfelk/blob/main/install/preparation.md)
+* [Debian 11-12](https://github.com/pfelk/pfelk/blob/main/install/preparation.md)
 * [Docker](https://github.com/pfelk/pfelk/blob/main/install/docker.md)
 * [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=_IJAAUqNVRc) Guide
 
