@@ -72,7 +72,7 @@ sudo /bin/systemctl enable kibana.service
 sudo /bin/systemctl enable logstash.service
 ```
 
-### i9a. Start Elasticsearch & Kibana
+### i9. Start Elasticsearch & Kibana
 ```
 systemctl start elasticsearch.service
 ```
