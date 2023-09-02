@@ -135,7 +135,7 @@
 - ### :b: Microsoft Azure Sentinel (Externally Supported)
   - Visit [here](https://github.com/noodlemctwoodle/pfsense-azure-sentinel) to configure for Azure Sentinel
  
-# :seven: Finished
+# 🏁 Finished
 - ### :clock5: Wait a few minutes after configuring the above and explore the enriched visualizations.
 
-<sub>[Install](ubuntu.md)</sub> • <sub>[Security](security.md)</sub> • <sub>[Templates](templates.md)</sub> • **[Configuration](configuration.md)**
+<sub>[Preparation](preparation.md)</sub> • <sub>[Install](install.md)</sub> • <sub>[Security](security.md)</sub> • <sub>[Templates](templates.md)</sub> • **[Configuration](configuration.md)**
