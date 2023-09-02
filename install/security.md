@@ -11,7 +11,7 @@
      - ![code](https://github.com/pfelk/pfelk/raw/main/Images/security/kcode.png)
 
   3. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
-     - Input `elastic` as the user name and the password utilized to upgrade 50-outputs.pfelk in the [installation step](https://github.com/pfelk/pfelk/blob/main/install/install.md#i2-%EF%B8%8F-obatin-and-note-built-in-superuser-password-%EF%B8%8F)
+     - Input `elastic` as the user name and the password utilized to upgrade 50-outputs.pfelk in the [installation step, i2](https://github.com/pfelk/pfelk/blob/main/install/install.md#i2-%EF%B8%8F-obatin-and-note-built-in-superuser-password-%EF%B8%8F)
 
 # Proceed to Install ➡️ [Templates](templates.md)
 
