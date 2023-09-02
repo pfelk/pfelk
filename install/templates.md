@@ -63,4 +63,6 @@
 # :three: Start Logstash
   1. `systemctl start logstash.service`
 
-<sub>[Install](ubuntu.md)</sub> • <sub>[Security](security.md)</sub> • **[Templates](templates.md)** • <sub>[Configuration](configuration.md)</sub>
+# Proceed to Install ➡️ [Configuration](configuration.md)
+
+<sub>[Preparation](preparation.md)</sub> • <sub>[Install](install.md)</sub> • <sub>[Security](security.md)</sub> • **[Templates](templates.md)** • <sub>[Configuration](configuration.md)</sub>
