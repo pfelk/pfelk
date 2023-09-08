@@ -9,7 +9,7 @@
 ### firewall-1 ###
 filter {
 ### Change first.network.local to pfSesne or OPNsense host name ###
-  if [host][name] == "first.network.local" {
+  if [log][syslog][hostname] == "first.network.local" {
     ### Change interface as desired ###
     if [interface][name] =~ /^igb0$/ {
       mutate {
@@ -86,7 +86,7 @@ filter {
 ### firewall-2 ###
 filter {
 ### Change first.network.local to pfSesne or OPNsense host name ###
-  if [host][name] == "second.network.local" {
+  if [log][syslog][hostname] == "second.network.local" {
     ### Change interface as desired ###
     if [interface][name] =~ /^igb0$/ {
       mutate {
