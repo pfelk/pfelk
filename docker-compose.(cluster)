@@ -3,6 +3,7 @@ version: "2.2"
 services:
   setup:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    container_name: pfelk-setup
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
     user: "0"
@@ -72,6 +73,7 @@ services:
       setup:
         condition: service_healthy
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    container_name: pfelk-es01
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata01:/usr/share/elasticsearch/data
@@ -115,6 +117,7 @@ services:
     depends_on:
       - es01
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    container_name: pfelk-es02
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata02:/usr/share/elasticsearch/data
@@ -155,6 +158,7 @@ services:
     depends_on:
       - es02
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    container_name: pfelk-es03
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
       - esdata03:/usr/share/elasticsearch/data
@@ -200,6 +204,7 @@ services:
       es03:
         condition: service_healthy
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    container_name: pfelk-kibana
     volumes:
       - certs:/usr/share/kibana/config/certs
       - kibanadata:/usr/share/kibana/data
@@ -231,6 +236,7 @@ services:
       es03:
         condition: service_healthy
     image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+    container_name: pfelk-logstash
     volumes:
       - certs:/usr/share/logstash/config/certs
       - /etc/pfelk/config:/usr/share/logstash/config
