@@ -42,10 +42,9 @@ output {
     #[DOCKER]# hosts => ["https://es01:9200"]
     #[DOCKER]# ssl => true
     #[DOCKER]# cacert => '/usr/share/logstash/config/certs/ca/ca.crt'
-    #[DOCKER]# user => "elastic"
     hosts => ["https://localhost:9200"]
     cacert => '/etc/logstash/config/certs/http_ca.crt' #[Disable if using Docker]
-    user => "elastic" #[Disable if using Docker]
+    user => "elastic" 
     password => "changeme"
   }
 }
