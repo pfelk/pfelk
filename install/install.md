@@ -32,7 +32,7 @@ sudo sed -i 's/#server.host: "localhost"/server.host: "0.0.0.0"/' /etc/kibana/ki
 
 ### i4. Configure Logstash
 ```
-sudo wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/logstash/pipelines.yml -P /etc/logstash/
+sudo wget -q -N https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/config/pipelines.yml -P /etc/logstash/
 ```
 
 ### i5. Create Required Directories
