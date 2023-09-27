@@ -1,4 +1,4 @@
-![Version badge](https://img.shields.io/badge/ELK-8.9.1-blue.svg)
+![Version badge](https://img.shields.io/badge/ELK-8.10.2-blue.svg)
 [![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/3ilson)
