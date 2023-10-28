@@ -15,7 +15,7 @@
 sudo apt-get install elasticsearch kibana logstash
 ```
 
-### i2. ⚠️ Obatin and Note Built-in superuser Password ⚠️ 
+### i2. ⚠️ Obtain and Note Built-in superuser Password ⚠️ 
 Scroll up after the installation and observer the output line which reads: `The generated password for the elastic built-in superuser is :`
 - Copy the password for later use
 - If skipped, a later step is provided for resetting this password
