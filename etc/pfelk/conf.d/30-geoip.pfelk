@@ -18,12 +18,12 @@ filter {
       if "IP_Private_Source" not in [tags] {
         geoip {
           source => "[source][ip]"
-#MMR#          database => "/var/lib/GeoIP/GeoLite2-City.mmdb"
+#MMR#          database => "/usr/share/GeoIP/GeoLite2-City.mmdb"
         }
         geoip {
           source => "[source][ip]"
           default_database_type => 'ASN'
-#MMR#          database => "/var/lib/GeoIP/GeoLite2-ASN.mmdb"
+#MMR#          database => "/usr/share/GeoIP/GeoLite2-ASN.mmdb"
         }
         mutate {
           add_tag => "GeoIP_Source"
@@ -40,13 +40,13 @@ filter {
       if "IP_Private_Destination" not in [tags] {
         geoip {
           source => "[destination][ip]"
-#MMR#          database => "/var/lib/GeoIP/GeoLite2-City.mmdb"
+#MMR#          database => "/usr/share/GeoIP/GeoLite2-City.mmdb"
 #ECSv8#          target => "[destination]"
         }
         geoip {
           source => "[destination][ip]"
           default_database_type => 'ASN'
-#MMR#          database => "/var/lib/GeoIP/GeoLite2-ASN.mmdb"
+#MMR#          database => "/usr/share/GeoIP/GeoLite2-ASN.mmdb"
         }
         mutate {
           add_tag => "GeoIP_Destination"
@@ -66,12 +66,12 @@ filter {
       if "IP_Private_Proxy" not in [tags] {
         geoip {
           source => "[client][ip]"
-#MMR#          database => "/var/lib/GeoIP/GeoLite2-City.mmdb"
+#MMR#          database => "/usr/share/GeoIP/GeoLite2-City.mmdb"
         }
         geoip {
           source => "[client][ip]"
           default_database_type => 'ASN'
-#MMR#          database => "/var/lib/GeoIP/GeoLite2-ASN.mmdb"
+#MMR#          database => "/usr/share/GeoIP/GeoLite2-ASN.mmdb"
        }
         mutate {
           add_tag => "GeoIP_Source"
