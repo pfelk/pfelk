@@ -44,13 +44,13 @@ fi
 ###################################################################################################################################################################################################
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-captive.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.03-dhcp.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.04-firewall.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.09-firewall.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-haproxy.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-nginx.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-snort.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-squid.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-suricata.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-unbound.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.08-unbound.ndjson -P /tmp/pfELK/
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                   pfELK - Installing Saved Objects                                                                              #
@@ -58,10 +58,10 @@ wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/2
 ###################################################################################################################################################################################################
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-captive.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/23.03-dhcp.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.04-firewall.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/23.09-firewall.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-haproxy.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-nginx.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-snort.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-squid.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-suricata.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-unbound.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/23.08-unbound.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
