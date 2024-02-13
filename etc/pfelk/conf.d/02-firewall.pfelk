@@ -13,10 +13,10 @@ filter {
       add_tag => "firewall"
       add_field => { "[event][dataset]" => "pfelk.firewall" }
       replace => { "[log][syslog][appname]" => "firewall" }
-      copy => { "filter_message" => "pf_csv" }
+      copy => { "filter_message" => "pfelk_csv" }
     }
     mutate {
-      split => { "pf_csv" => "," }
+      split => { "pfelk_csv" => "," }
     }
 
     # [Common Fields]
@@ -24,15 +24,15 @@ filter {
     # [Not ECS compliant fields] pf.rule.subid, 
     mutate {
       add_field => {
-        "[rule][id]" =>		  "%{[pf_csv][0]}"
-        "[pf][rule][subid]" =>    "%{[pf_csv][1]}"
-        "[pf][anchor]" =>	  "%{[pf_csv][2]}"
-        "[rule][uuid]" =>         "%{[pf_csv][3]}"
-        "[interface][name]" =>    "%{[pf_csv][4]}"
-        "[event][reason]" =>      "%{[pf_csv][5]}"
-        "[event][action]" =>      "%{[pf_csv][6]}"
-        "[network][direction]" => "%{[pf_csv][7]}"
-        "[network][type]" =>      "%{[pf_csv][8]}"
+        "[rule][id]" =>		  "%{[pfelk_csv][0]}"
+        "[pf][rule][subid]" =>    "%{[pfelk_csv][1]}"
+        "[pf][anchor]" =>	  "%{[pfelk_csv][2]}"
+        "[rule][uuid]" =>         "%{[pfelk_csv][3]}"
+        "[interface][name]" =>    "%{[pfelk_csv][4]}"
+        "[event][reason]" =>      "%{[pfelk_csv][5]}"
+        "[event][action]" =>      "%{[pfelk_csv][6]}"
+        "[network][direction]" => "%{[pfelk_csv][7]}"
+        "[network][type]" =>      "%{[pfelk_csv][8]}"
       }
     }
     # [IPv4]
@@ -41,17 +41,17 @@ filter {
     if [network][type] == "4" {
       mutate {
       add_field => {
-          "[pf][tos]" =>	       "%{[pf_csv][9]}"
-          "[pf][ecn]" =>	       "%{[pf_csv][10]}"
-          "[pf][ttl]" =>	       "%{[pf_csv][11]}"
-          "[pf][id]" =>		       "%{[pf_csv][12]}"
-          "[pf][offset]" =>	       "%{[pf_csv][13]}"
-          "[pf][flags]" =>	       "%{[pf_csv][14]}"
-          "[network][iana_number]" =>   "%{[pf_csv][15]}"
-          "[network][protocol]" =>    "%{[pf_csv][16]}"
-          "[pf][packet][length]" =>    "%{[pf_csv][17]}"
-          "[source][ip]" =>	       "%{[pf_csv][18]}"
-          "[destination][ip]" =>       "%{[pf_csv][19]}"
+          "[pf][tos]" =>	       "%{[pfelk_csv][9]}"
+          "[pf][ecn]" =>	       "%{[pfelk_csv][10]}"
+          "[pf][ttl]" =>	       "%{[pfelk_csv][11]}"
+          "[pf][id]" =>		       "%{[pfelk_csv][12]}"
+          "[pf][offset]" =>	       "%{[pfelk_csv][13]}"
+          "[pf][flags]" =>	       "%{[pfelk_csv][14]}"
+          "[network][iana_number]" =>   "%{[pfelk_csv][15]}"
+          "[network][protocol]" =>    "%{[pfelk_csv][16]}"
+          "[pf][packet][length]" =>    "%{[pfelk_csv][17]}"
+          "[source][ip]" =>	       "%{[pfelk_csv][18]}"
+          "[destination][ip]" =>       "%{[pfelk_csv][19]}"
         }
       }
       # [TCP]
@@ -60,15 +60,15 @@ filter {
       if [network][protocol] == "tcp" {
         mutate {
           add_field => {
-            "[source][port]" =>			"%{[pf_csv][20]}"
-            "[destination][port]" =>		"%{[pf_csv][21]}"
-            "[pf][data_length]" =>		"%{[pf_csv][22]}"
-            "[pf][tcp][flags]" =>		"%{[pf_csv][23]}"
-            "[pf][tcp][sequence_number]" =>     "%{[pf_csv][24]}"
-            "[pf][tcp][ack]" =>		        "%{[pf_csv][25]}"
-            "[pf][tcp][window]" =>		"%{[pf_csv][26]}"
-            "[pf][tcp][urg]" =>			"%{[pf_csv][27]}"
-            "[pf][tcp][options]" =>	        "%{[pf_csv][28]}"
+            "[source][port]" =>			"%{[pfelk_csv][20]}"
+            "[destination][port]" =>		"%{[pfelk_csv][21]}"
+            "[pf][data_length]" =>		"%{[pfelk_csv][22]}"
+            "[pf][tcp][flags]" =>		"%{[pfelk_csv][23]}"
+            "[pf][tcp][sequence_number]" =>     "%{[pfelk_csv][24]}"
+            "[pf][tcp][ack]" =>		        "%{[pfelk_csv][25]}"
+            "[pf][tcp][window]" =>		"%{[pfelk_csv][26]}"
+            "[pf][tcp][urg]" =>			"%{[pfelk_csv][27]}"
+            "[pf][tcp][options]" =>	        "%{[pfelk_csv][28]}"
           }
         }
       }
@@ -78,9 +78,9 @@ filter {
       if [network][protocol] == "udp" {
         mutate {
           add_field => {
-            "[source][port]" =>	        "%{[pf_csv][20]}"
-            "[destination][port]" =>	"%{[pf_csv][21]}"
-            "[pf][data_length]" =>	"%{[pf_csv][22]}"
+            "[source][port]" =>	        "%{[pfelk_csv][20]}"
+            "[destination][port]" =>	"%{[pfelk_csv][21]}"
+            "[pf][data_length]" =>	"%{[pfelk_csv][22]}"
           }
         }
       }
@@ -91,14 +91,14 @@ filter {
     if [network][type] == "6" {
       mutate {
         add_field => {
-            "[pf][class]" =>              "%{[pf_csv][9]}"
-            "[pf][flow]" =>		  "%{[pf_csv][10]}"
-            "[pf][hoplimit]" =>		  "%{[pf_csv][11]}"
-            "[network][protocol]" =>      "%{[pf_csv][12]}"
-            "[network][iana_number]" =>	  "%{[pf_csv][13]}"
-            "[pf][packet][length]" =>	  "%{[pf_csv][14]}"
-            "[source][ip]" =>		  "%{[pf_csv][15]}"
-            "[destination][ip]" =>	  "%{[pf_csv][16]}"
+            "[pf][class]" =>              "%{[pfelk_csv][9]}"
+            "[pf][flow]" =>		  "%{[pfelk_csv][10]}"
+            "[pf][hoplimit]" =>		  "%{[pfelk_csv][11]}"
+            "[network][protocol]" =>      "%{[pfelk_csv][12]}"
+            "[network][iana_number]" =>	  "%{[pfelk_csv][13]}"
+            "[pf][packet][length]" =>	  "%{[pfelk_csv][14]}"
+            "[source][ip]" =>		  "%{[pfelk_csv][15]}"
+            "[destination][ip]" =>	  "%{[pfelk_csv][16]}"
         }
       }
       # [TCP]
@@ -107,15 +107,15 @@ filter {
       if [network][protocol] == "tcp" {
         mutate {
           add_field => {
-            "[source][port]" =>			"%{[pf_csv][17]}"
-            "[destination][port]" =>		"%{[pf_csv][18]}"
-            "[pf][data_length]" =>		"%{[pf_csv][19]}"
-            "[pf][tcp][flags]" =>		"%{[pf_csv][20]}"
-            "[pf][tcp][sequence_number]" =>     "%{[pf_csv][21]}"
-            "[pf][tcp][ack]" =>			"%{[pf_csv][22]}"
-            "[pf][tcp][window]" =>		"%{[pf_csv][23]}"
-            "[pf][tcp][urg]" =>			"%{[pf_csv][24]}"
-            "[pf][tcp][options]" =>		"%{[pf_csv][25]}"
+            "[source][port]" =>			"%{[pfelk_csv][17]}"
+            "[destination][port]" =>		"%{[pfelk_csv][18]}"
+            "[pf][data_length]" =>		"%{[pfelk_csv][19]}"
+            "[pf][tcp][flags]" =>		"%{[pfelk_csv][20]}"
+            "[pf][tcp][sequence_number]" =>     "%{[pfelk_csv][21]}"
+            "[pf][tcp][ack]" =>			"%{[pfelk_csv][22]}"
+            "[pf][tcp][window]" =>		"%{[pfelk_csv][23]}"
+            "[pf][tcp][urg]" =>			"%{[pfelk_csv][24]}"
+            "[pf][tcp][options]" =>		"%{[pfelk_csv][25]}"
           }
         }
       }
@@ -125,9 +125,9 @@ filter {
       if [network][protocol] == "udp" {
         mutate {
           add_field => {
-            "[source][port]" =>		"%{[pf_csv][17]}"
-            "[destination][port]" =>	"%{[pf_csv][18]}"
-            "[pf][data_length]" =>	"%{[pf_csv][19]}"
+            "[source][port]" =>		"%{[pfelk_csv][17]}"
+            "[destination][port]" =>	"%{[pfelk_csv][18]}"
+            "[pf][data_length]" =>	"%{[pfelk_csv][19]}"
           }
         }
       }
