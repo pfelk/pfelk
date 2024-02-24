@@ -42,7 +42,7 @@ sudo apt-get install docker-compose
 
 ### 6. Create Required Directories 
 ```
-sudo mkdir -p /etc/pfelk/{conf.d,config,logs,databases,patterns,scripts,templates}
+sudo mkdir -p /etc/pfelk/{conf.d,config,logs,databases,docker,patterns,scripts,templates}
 ```
 
 ### 7. (Required) Download the pfelk docker files
