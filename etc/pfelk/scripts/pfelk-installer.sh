@@ -17,7 +17,7 @@
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
 # GeoIP        | 6.1.0
 # Elastic      | https://www.elastic.co/guide/en/elasticsearch/reference/current/es-release-notes.html
-# Elasticstack | 8.12.1
+# Elasticstack | 8.12.2
 ########################################################
 #Color Codes                                           #
 ########################################################
@@ -419,7 +419,7 @@ port_5140_service=''
 port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
-elk_version=8.12.1
+elk_version=8.12.2
 maxmind_version=6.1.0
 ########################################################
 #Required Packages                                     #
