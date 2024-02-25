@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.04
+# Version    | 24.02
 # Email      | https://github.com/pfelk/pfelk
 #
 ###################################################################################################################################################################################################
@@ -47,17 +47,26 @@ header_red() {
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
 #
-### component>>template>>pfelk-mappings-ecs
-install_template pfelk-mappings-ecs _component_template
+### component>>template>>pfelk-settings
+install_template component_template_pfelk-settings _component_template
+
+### component>>template>>pfelk-mappings
+install_template component_template_pfelk-mappings _component_template
 
 ### ilm>>pfelk
 install_template pfelk-ilm '_ilm/policy'
 
-### index>>template>>pfelk
-install_template pfelk _index_template
+### index>>template>>pfelk-firewall
+install_template index_template_pfelk-firewall _index_template
 
 ### index>>template>>pfelk-dhcp
-install_template pfelk-dhcp _index_template
+install_template index_template_pfelk-dhcp _index_template
+
+### index>>template>>pfelk-unbound
+install_template index_template_pfelk-unbound _index_template
+
+### index>>template>>pfelk-other
+install_template index_template_pfelk-other _index_template
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
