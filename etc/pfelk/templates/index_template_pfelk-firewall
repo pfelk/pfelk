@@ -1,0 +1,222 @@
+PUT _index_template/pfelk-firewall
+{
+  "version": 2024,
+  "priority": 300,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        },
+        "number_of_shards": "1",
+        "auto_expand_replicas": "0-1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "dynamic": false,
+      "_source": {
+        "enabled": true,
+        "includes": [],
+        "excludes": []
+      },
+      "_routing": {
+        "required": false
+      },
+      "dynamic_templates": [],
+      "properties": {
+        "destination": {
+          "type": "object",
+          "properties": {
+            "as": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "long"
+                },
+                "organization": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "bytes": {
+              "type": "long"
+            },
+            "geo": {
+              "type": "object",
+              "properties": {
+                "city_name": {
+                  "type": "keyword"
+                },
+                "continent_code": {
+                  "type": "keyword"
+                },
+                "country_code": {
+                  "type": "keyword"
+                },
+                "country_iso_code": {
+                  "type": "keyword"
+                },
+                "country_name": {
+                  "type": "keyword"
+                },
+                "location": {
+                  "ignore_malformed": false,
+                  "type": "geo_point",
+                  "ignore_z_value": true
+                },
+                "postal_code": {
+                  "type": "keyword"
+                },
+                "region_iso_code": {
+                  "type": "keyword"
+                },
+                "region_name": {
+                  "type": "keyword"
+                },
+                "timezone": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "ip": {
+              "type": "ip"
+            },
+            "packets": {
+              "type": "long"
+            },
+            "port": {
+              "type": "integer"
+            }
+          }
+        },
+        "network": {
+          "type": "object",
+          "properties": {
+            "direction": {
+              "type": "keyword"
+            },
+            "iana_number": {
+              "type": "keyword"
+            },
+            "protocol": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "as": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "long"
+                },
+                "organization": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "bytes": {
+              "type": "long"
+            },
+            "geo": {
+              "type": "object",
+              "properties": {
+                "city_name": {
+                  "type": "keyword"
+                },
+                "continent_code": {
+                  "type": "keyword"
+                },
+                "country_iso_code": {
+                  "type": "keyword"
+                },
+                "country_name": {
+                  "type": "keyword"
+                },
+                "location": {
+                  "type": "geo_point"
+                },
+                "postal_code": {
+                  "type": "keyword"
+                },
+                "region_iso_code": {
+                  "type": "keyword"
+                },
+                "region_name": {
+                  "type": "keyword"
+                },
+                "timezone": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "ip": {
+              "type": "ip"
+            },
+            "packets": {
+              "type": "long"
+            },
+            "port": {
+              "type": "integer"
+            }
+          }
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "keyword"
+            },
+            "reason": {
+              "type": "keyword"
+            }
+          }
+        },
+        "rule": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "uuid": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "*-pfelk-firewall*"
+  ],
+  "data_stream": {
+    "hidden": false,
+    "allow_custom_routing": false
+  },
+  "composed_of": [
+    "data-streams-mappings",
+    "pfelk-settings",
+    "pfelk-mappings"
+  ],
+  "allow_auto_create": true,
+  "_meta": {
+    "managed": true,
+    "description": "default pfelk indexes installed by pfelk"
+  }
+}
