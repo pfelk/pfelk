@@ -1,6 +1,6 @@
 # 05-apps.pfelk
 ################################################################################
-# Version: 23.08                                                               #
+# Version: 24.02                                                               #
 # Required: True                                                               #
 # Description: Parses events based on process.name and further enriches events #
 #                                                                              #
@@ -228,7 +228,7 @@ filter {
       }
     }
     grok {
-      match => [ "[dns][question][name]", "(\.)?(?<[dns][question][tld]>[^.]+)$" ]
+      match => [ "[dns][question][name]", "(\.)?(?<[dns][question][top_level_domain]>[^.]+)$" ]
     }
 
     mutate {
