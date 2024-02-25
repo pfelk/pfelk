@@ -1,0 +1,150 @@
+PUT _index_template/pfelk-unbound
+{
+  "version": 2024,
+  "priority": 310,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        },
+        "number_of_shards": "1",
+        "auto_expand_replicas": "0-1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "_routing": {
+        "required": false
+      },
+      "dynamic": false,
+      "dynamic_templates": [],
+      "properties": {
+        "client": {
+          "type": "object",
+          "properties": {
+            "as": {
+              "type": "object",
+              "properties": {
+                "geo": {
+                  "type": "object",
+                  "properties": {
+                    "city_name": {
+                      "type": "keyword"
+                    },
+                    "country_iso_code": {
+                      "type": "keyword"
+                    },
+                    "country_name": {
+                      "type": "keyword"
+                    },
+                    "location": {
+                      "type": "geo_point"
+                    },
+                    "region_name": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "organization": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "ip": {
+              "type": "ip"
+            },
+            "geo": {
+              "type": "object",
+              "properties": {
+                "city_name": {
+                  "type": "keyword"
+                },
+                "country_iso_code": {
+                  "type": "keyword"
+                },
+                "country_anme": {
+                  "type": "keyword"
+                },
+                "location": {
+                  "type": "geo_point"
+                },
+                "region_name": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "dns": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "object",
+              "properties": {
+                "class": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "keyword"
+                },
+                "registered_domain": {
+                  "type": "keyword"
+                },
+                "top_level_domain": {
+                  "type": "keyword"
+                },
+                "type": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "process": {
+          "type": "object",
+          "properties": {
+            "pgid": {
+              "type": "integer"
+            },
+            "thread": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "*-pfelk-unbound*"
+  ],
+  "data_stream": {
+    "hidden": false,
+    "allow_custom_routing": false
+  },
+  "composed_of": [
+    "data-streams-mappings",
+    "pfelk-settings",
+    "pfelk-mappings"
+  ],
+  "allow_auto_create": true,
+  "_meta": {
+    "managed": true,
+    "description": "default pfelk indexes installed by pfelk"
+  }
+}
