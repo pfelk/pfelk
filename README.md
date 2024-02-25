@@ -1,5 +1,6 @@
 ![Version badge](https://img.shields.io/badge/ELK-8.12.2-blue.svg)
-[![Gitter](https://badges.gitter.im/pfelk/community.svg)](https://gitter.im/pfelk/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+[![](https://dcbadge.vercel.app/api/server/h3DJs2Kj8k)](https://discord.gg/h3DJs2Kj8k)
 
 [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/3ilson)
 
