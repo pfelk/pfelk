@@ -13,16 +13,22 @@
   3. Click on _Dev Tools_ located near the bottom under the _Management_ heading
   4. Paste the contents of each template file located in the [template :file_folder:](https://github.com/pfelk/pfelk/tree/main/etc/pfelk/templates) and links below
     - Component Templates
-    - :small_red_triangle: **NOTE** _Component Templates must be installed first and in sequential order (e.g. pfelk-settings, pfelk-mappings-ecs etc...)_
-      - [pfelk-mappings-ecs](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-mappings-ecs) - Install First
-      - [pfelk-ilm](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-ilm) - Install Second
+    - :small_red_triangle: **NOTE** _Component Templates must be installed first and in sequential order (e.g. pfelk-settings, pfelk-mappings)_
+      - [component_pfelk-mappings](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/component_template_pfelk-mappings) - Install First
+      - [component_pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/component_template_pfelk-settings) - Install Second
+      - [pfelk-ilm](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-ilm) - Install Third
+      - [component_pfelk-mappings-ecs](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-mappings-ecs) - Legacy/Optional (NOT recommended)
+         - Install If Needed (might be needed for HAPROXY, NGINX, SNORT, CAPTIVE, SURICATA etc...)
     - Index Templates
       - Click the green triangle after pasting the contents (one at a time) into the console
-        - [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk)
-        - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-dhcp)
+        - [pfelk-firewall](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-firewall)
+        - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-dhcp) - Optional
+        - [pfelk-unbound](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-unbound) - Optional
+        - [pfelk-other](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-other) - Optional
         - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-haproxy) - Optional
         - [pfelk-nginx](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-nginx) - Optional
         - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-suricata) - Optional
+        - [pfelk](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-other) - Legacy (User ONLY with "pfelk-mappings-ecs")
   5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=6)
 
@@ -34,16 +40,16 @@
   4. Under _Kibana_ click -> _Saved Objects_
   5. The dashboards are located in the [dashboard :file_folder:](https://github.com/pfelk/pfelk/tree/main/etc/pfelk/dashboard) and linked below
   6. Import one at a time by clicking the import button in the top-right corner
+      - [Firewall Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.09-firewall.ndjson)
       - [Captive Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-captive.ndjson) - Optional
       - [DHCP Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.02-dhcp.ndjson) - DHCPv4 & DHCPv6
-      - [Firewall Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.09-firewall.ndjson)
       - [HAProxy Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-haproxy.ndjson) - Optional
       - [NGINX Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-nginx.ndjson) - Optional
       - [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-snort.ndjson) - Optional
       - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-squid.ndjson) - Optional
       - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-suricata.ndjson) - Optional
       - [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.08-unbound.ndjson) - Optional
-  7. :pushpin: References
+  8. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=281)
 
 - ### :b: Scripted Method :page_with_curl: (Not for docker)
