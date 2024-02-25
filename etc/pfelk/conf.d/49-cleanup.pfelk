@@ -1,14 +1,14 @@
 # 49-cleanup.pfelk
 ################################################################################
-# Version: 23.08                                                               #
+# Version: 24.02                                                               #
 # Required: False - Optional                                                   #
 # Description: Removed unwanted logs based on the process.pid field and        #
 # additional fields. Additionally, pf.tcp.options is split (multiple values)   #
 ################################################################################
 #
-# Update as needed to remove unwanted logs based on the process.pid field
+# Update as needed to remove unwanted logs based on the log.syslog.priority field
 filter {
-#  if [process][pid] in ["78", "46", "45", "43"] {
+#  if [log][syslog][priority] in ["78", "46", "45", "43"] {
 #	drop { }
 #  }
   mutate {
