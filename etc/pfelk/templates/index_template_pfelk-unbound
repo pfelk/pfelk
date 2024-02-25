@@ -61,19 +61,23 @@ PUT _index_template/pfelk-unbound
                 }
               }
             },
-            "ip": {
-              "type": "ip"
-            },
             "geo": {
               "type": "object",
               "properties": {
                 "city_name": {
                   "type": "keyword"
                 },
-                "country_iso_code": {
-                  "type": "keyword"
+                "country_name": {
+                  "type": "keyword",
+                  "index": true,
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "split_queries_on_whitespace": false,
+                  "doc_values": true,
+                  "store": false,
+                  "index_options": "docs"
                 },
-                "country_anme": {
+                "country_iso_code": {
                   "type": "keyword"
                 },
                 "location": {
@@ -83,6 +87,9 @@ PUT _index_template/pfelk-unbound
                   "type": "keyword"
                 }
               }
+            },
+            "ip": {
+              "type": "ip"
             }
           }
         },
