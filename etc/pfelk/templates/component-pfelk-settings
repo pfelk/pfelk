@@ -1,0 +1,33 @@
+PUT _component_template/pfelk-settings
+{
+  "version": 2024,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "logs"
+        },
+        "codec": "best_compression",
+        "default_pipeline": "logs@default-pipeline",
+        "mapping": {
+          "ignore_malformed": "true"
+        }
+      }
+    },
+    "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "dynamic": false,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      }
+    }
+  },
+  "_meta": {
+    "description": "default settings for the pfelk index templates installed by pfelk",
+    "managed": true
+  }
+}
