@@ -1,64 +1,82 @@
 PUT _index_template/pfelk-dhcp
 {
-  "version": 23,
+  "version": 2024,
   "priority": 305,
   "template": {
     "settings": {
       "index": {
         "lifecycle": {
           "name": "pfelk"
-        }
+        },
+        "number_of_shards": "1",
+        "auto_expand_replicas": "0-1",
+        "number_of_replicas": "0"
       }
     },
     "mappings": {
-      "_routing": {
-        "required": false
-      },
-      "numeric_detection": false,
-      "dynamic_date_formats": [
-        "strict_date_optional_time",
-        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
-      ],
-      "dynamic": true,
       "_source": {
         "excludes": [],
         "includes": [],
         "enabled": true
       },
-      "dynamic_templates": [],
+      "_routing": {
+        "required": false
+      },
+      "dynamic": true,
+      "numeric_detection": false,
       "date_detection": true,
+      "dynamic_date_formats": [
+        "strict_date_optional_time",
+        "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
+      ],
+      "dynamic_templates": [],
       "properties": {
-        "dhcpv4": {
+        "dhcp": {
           "type": "object",
           "properties": {
-            "server": {
-              "type": "object",
-              "properties": {
-                "ip": {
-                  "type": "ip"
-                },
-                "Mac": {
-                  "type": "keyword"
-                }
-              }
-            },
-            "query": {
-              "type": "object",
-              "properties": {
-                "associated": {
-                  "type": "text"
-                },
-                "ip": {
-                  "type": "ip"
-                },
-                "Mac": {
-                  "type": "keyword"
-                }
-              }
-            },
             "client": {
               "type": "object",
               "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "mac": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "error": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "text"
+                }
+              }
+            },
+            "message": {
+              "type": "text"
+            },
+            "operation": {
+              "type": "keyword"
+            }
+          }
+        },
+        "dhcpv4": {
+          "type": "object",
+          "properties": {
+            "client": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "index_options": "docs",
+                  "split_queries_on_whitespace": false,
+                  "doc_values": true
+                },
                 "ip": {
                   "type": "ip"
                 },
@@ -77,13 +95,53 @@ PUT _index_template/pfelk-dhcp
                   "type": "text"
                 }
               }
+            },
+            "query": {
+              "type": "object",
+              "properties": {
+                "associated": {
+                  "type": "text"
+                },
+                "ip": {
+                  "type": "ip"
+                },
+                "mac": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "split_queries_on_whitespace": false,
+                  "index_options": "docs",
+                  "doc_values": true
+                }
+              }
+            },
+            "server": {
+              "type": "object",
+              "properties": {
+                "Mac": {
+                  "type": "keyword"
+                },
+                "ip": {
+                  "type": "ip"
+                }
+              }
+            },
+            "operation": {
+              "type": "keyword"
+            },
+            "lease": {
+              "type": "object",
+              "properties": {
+                "duration": {
+                  "type": "long"
+                }
+              }
             }
           }
         },
         "dhcpv6": {
-          "type": "object"
-        },
-        "dhcp": {
           "type": "object",
           "properties": {
             "client": {
@@ -92,13 +150,46 @@ PUT _index_template/pfelk-dhcp
                 "ip": {
                   "type": "ip"
                 },
-                "mac": {
-                  "type": "keyword"
+                "port": {
+                  "type": "integer"
+                },
+                "transaction": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "keyword"
+                    }
+                  }
                 }
               }
             },
-            "message": {
-              "type": "text"
+            "duid": {
+              "type": "keyword"
+            },
+            "iaid": {
+              "type": "keyword"
+            },
+            "lease": {
+              "type": "object",
+              "properties": {
+                "age": {
+                  "type": "object",
+                  "properties": {
+                    "length": {
+                      "type": "integer"
+                    },
+                    "preferred": {
+                      "type": "integer"
+                    },
+                    "valid": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "duration": {
+                  "type": "long"
+                }
+              }
             },
             "operation": {
               "type": "keyword"
@@ -116,10 +207,13 @@ PUT _index_template/pfelk-dhcp
     "allow_custom_routing": false
   },
   "composed_of": [
-    "pfelk-mappings-ecs"
+    "data-streams-mappings",
+    "pfelk-settings",
+    "pfelk-mappings"
   ],
+  "allow_auto_create": true,
   "_meta": {
-    "description": "default dhcp indexes installed by pfelk",
-    "managed": true
+    "managed": true,
+    "description": "default dhcp indexes installed by pfelk"
   }
 }
