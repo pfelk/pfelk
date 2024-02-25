@@ -17,7 +17,6 @@ filter {
   if [log][syslog][appname] =~ /^captiveportal/ {
     mutate {
       add_tag => "captive" 
-      add_field => { "[ecs][version]" => "1.7.0" }
       add_field => { "[event][dataset]" => "pfelk.captive" }
       rename => { "filter_message" => "captiveportalmessage" }
     }
@@ -121,7 +120,6 @@ filter {
   if [log][syslog][appname] =~ /^snort/ {
     mutate {
       add_tag => "snort"
-      add_field => { "[ecs][version]" => "1.7.0" }
       add_field => { "[event][dataset]" => "pfelk.snort" }
       add_field => { "[event][category]" => "intrusion_detection" }
       add_field => { "[agent][type]" => "snort" }
@@ -210,7 +208,6 @@ filter {
   if [log][syslog][appname] =~ /^unbound/ {
     mutate {
       add_tag => "unbound"
-      add_field => { "[ecs][version]" => "1.9.0" }
       add_field => { "[event][dataset]" => "pfelk.unbound" }
     }
     grok {
