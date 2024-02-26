@@ -19,6 +19,14 @@ PUT _component_template/pfelk-mappings
         "@timestamp": {
           "type": "date"
         },
+        "data_stream": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "keyword"
+            }
+          }
+        },
         "event": {
           "type": "object",
           "properties": {
@@ -32,7 +40,14 @@ PUT _component_template/pfelk-mappings
               "type": "text"
             },
             "sequence": {
-              "type": "long"
+              "type": "keyword",
+              "index": true,
+              "index_options": "docs",
+              "eager_global_ordinals": false,
+              "norms": false,
+              "split_queries_on_whitespace": false,
+              "doc_values": true,
+              "store": false
             }
           }
         },
@@ -85,7 +100,14 @@ PUT _component_template/pfelk-mappings
                   "type": "integer"
                 },
                 "procid": {
-                  "type": "integer"
+                  "type": "keyword",
+                  "index": true,
+                  "index_options": "docs",
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "split_queries_on_whitespace": false,
+                  "doc_values": true,
+                  "store": false
                 },
                 "severity": {
                   "type": "object",
@@ -99,7 +121,14 @@ PUT _component_template/pfelk-mappings
                   }
                 },
                 "version": {
-                  "type": "integer"
+                  "type": "keyword",
+                  "index": true,
+                  "index_options": "docs",
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "split_queries_on_whitespace": false,
+                  "doc_values": true,
+                  "store": false
                 }
               }
             }
@@ -228,17 +257,6 @@ PUT _component_template/pfelk-mappings
         },
         "type": {
           "type": "keyword"
-        },
-        "@version": {
-          "type": "integer"
-        },
-        "data_stream": {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "keyword"
-            }
-          }
         }
       }
     }
