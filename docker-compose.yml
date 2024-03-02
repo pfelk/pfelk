@@ -247,8 +247,6 @@ services:
     ports:
       - 5140:5140/tcp
       - 5140:5140/udp
-    environment:
-      LS_JAVA_OPTS: -Xmx1G -Xms1G
     mem_limit: ${LS_MEM_LIMIT}
     restart: unless-stopped
 
