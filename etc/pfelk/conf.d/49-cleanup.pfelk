@@ -16,4 +16,18 @@ filter {
     split => { "[pf][tcp][options]" => ";" }
     rename => { "message" => "[event][original]" }
   }
+  ruby {
+    code => '
+      if event.get("[pf][tcp][sequence_number]")
+        sequence_number = event.get("[pf][tcp][sequence_number]")
+        if sequence_number.include?(":")
+          start_num, end_num = sequence_number.split(":")
+          event.set("[pf][tcp][sequence_number]", start_num.to_i)
+          event.set("[pf][tcp][sequence_number_range_end]", end_num.to_i)
+        else
+          event.set("[pf][tcp][sequence_number]", sequence_number.to_i)
+        end
+      end
+    '
+  }
 }
