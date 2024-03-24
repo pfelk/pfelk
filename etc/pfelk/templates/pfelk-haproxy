@@ -176,9 +176,6 @@ PUT _index_template/pfelk-haproxy
     "hidden": false,
     "allow_custom_routing": false
   },
-  "composed_of": [
-    "pfelk-mappings-ecs"
-  ],
   "_meta": {
     "description": "default haproxy indexes installed by pfelk",
     "managed": true
