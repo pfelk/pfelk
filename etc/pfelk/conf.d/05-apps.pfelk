@@ -58,7 +58,7 @@ filter {
   }
   ### kea-dhcp4 ###
   ### In-progress ###
-  if [log][syslog][appname] =~ /^kea-dhcp$/ {
+  if [log][syslog][appname] =~ /^kea-dhcp4$/ {
     mutate {
       add_tag => [ "kea-dhcp", "dhcp4" ]
       add_field => { "[event][dataset]" => "pfelk.kea-dhcp4" }
@@ -71,7 +71,7 @@ filter {
   }
   ### kea-dhcp6 ###
   ### In-progress ###
-  if [log][syslog][appname] =~ /^kea-dhcp$/ {
+  if [log][syslog][appname] =~ /^kea-dhcp6$/ {
     mutate {
       add_tag => [ "kea-dhcp", "dhcp6" ]
       add_field => { "[event][dataset]" => "pfelk.kea-dhcp6" }
