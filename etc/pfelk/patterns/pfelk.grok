@@ -25,7 +25,7 @@ CP_PFSENSE (%{CAPTIVE1}|%{CAPTIVE2})
 CAPTIVE1 %{WORD:[observer][ingress][interface][alias]}:\s%{DATA:[observer][ingress][zone]}\s\-\s%{WORD:[event][action]}\:\s%{GREEDYDATA:[client][user][name]},\s%{MAC:[client][mac]},\s%{IP:[client][ip]}(,\s%{GREEDYDATA:[event][reason]})?
 CAPTIVE2 %{WORD:[observer][ingress][interface][alias]}:\s%{DATA:[observer][ingress][zone]}\s\-\s%{GREEDYDATA:[event][action]}\:\s%{GREEDYDATA:[client][user][name]},\s%{MAC:[client][mac]},\s%{IP:[client][ip]}(,\s%{GREEDYDATA:[event][reason]})?
 
-# DHCPv4 (Optional)
+# DHCPv4 (Optional) - DEPRECIATED
 DHCPD DHCP(%{DHCPD_DISCOVER}|%{DHCPD_DUPLICATE}|%{DHCPD_OFFER_ACK}|%{DHCPD_REQUEST}|%{DHCPD_DECLINE}|%{DHCPD_RELEASE}|%{DHCPD_INFORM}|%{DHCPD_LEASE})|%{DHCPD_REUSE}|%{DHCPDv6}|(%{GREEDYDATA:[DHCPD][message]})?
 DHCPD_DISCOVER (?<[dhcp][operation]>DISCOVER) from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
 DHCPD_DECLINE (?<[dhcp][operation]>DECLINE) of %{IP:[dhcpv4][client][ip]} from %{MAC:[dhcpv4][client][mac]}( \(%{DATA:[dhcpv4][option][hostname]}\))? %{DHCPD_VIA}
@@ -38,7 +38,7 @@ DHCPD_REQUEST (?<[dhcp][operation]>REQUEST) for %{IP:[dhcpv4][client][ip]}( \(%{
 DHCPD_VIA via (%{IP:[dhcpv4][relay][ip]}|(?<[interface][name]>[^: ]+))
 DHCPD_REUSE (?<[dhcpv4][operation]>reuse_lease): lease age %{INT:[dhcpv4][lease][duration]}.* lease for %{IPV4:[dhcpv4][client][ip]}
 
-# DHCPv6 (Optional - In Development)
+# DHCPv6 (Optional) - DEPRECIATED
 DHCPDv6 (%{DHCPv6_REPLY}|%{DHCPv6_ACTION}|%{DHCPv6_REUSE})
 DHCPv6_REPLY (?<[dhcpv6][operation]>Advertise|Reply) NA: address %{IP:[dhcpv6][client][ip]} to client with duid %{GREEDYDATA:[dhcpv6][duid]}\siaid\s\=\s%{INT:[dhcpv6][iaid]} valid for %{INT:[dhcpv6][lease][duration]} seconds
 DHCPv6_ACTION (?<[dhcpv6][operation]>(Request|Picking|Sending Reply|Sending Advertise|Confirm|Solicit|Renew))(\s)?(message)?(\s)?(to|from)?(\s)?(pool address)? %{IP:[dhcpv6][client][ip]}(\s)?(port %{INT:[dhcpv6][client][port]})?(, transaction ID %{BASE16FLOAT:[dhcpv6][transaction][id]})?
@@ -50,7 +50,10 @@ HAPROXY %{IP:[client][ip]}:%{INT:[client][port]} \[%{HAPROXYDATE:[haproxy][times
 HAPROXY_TCP %{IP:[haproxy][client][ip]}:%{INT:[haproxy][client][port]} [%{HAPROXYDATE:haproxy_timestamp}] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]} %{INT:[haproxy][time_backend_response]}%{NOTSPACE:[haproxy][time_duration]}%{INT:[haproxy][http_status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][captured_request_cookie]}%{DATA:[haproxy][captured_response_cookie]} %{NOTSPACE:[haproxy][termination_state]}
 
 # KEA-DHCP
-KEADHCP4 %{GREEDYDATA:filter_message}
+KEADHCP4 %KEADHCP_INFO
+KEADHCP_INFO \[kea-%{WORD:[kea][type]}\.%{WORD:[kea][action]}\.%{BASE16NUM:[kea][id]}\]\s%{KEADHCP_TYPE}
+KEADHCP_TYPE (?<[kea][dhcp][operation]>ALLOC)|(?<[kea][dhcp][operation]>ADVERT)\s%{KEADHCP_LOG}
+KEADHCP_LOG \[hwtype=%{INT:[kea][dhcp][hardware_type]}\s%{MAC:[dhcp][client][mac]}\],\scid=\[%{GREEDYDATA:[kea][dhcp][id]}\]\,\stid=%{BASE16NUM:[kea][dhcp][lease][id]}\:\slease\s(%{IPV4:[kea][dhcp][client][ip]}|%{IPV6:[kea][dhcp][client][ip]}) has been allocated for %{NUMBER:[kea][dhcp][lease][duration]} seconds
 KEADHCP6 %{GREEDYDATA:filter_message}
 
 # NGINX
