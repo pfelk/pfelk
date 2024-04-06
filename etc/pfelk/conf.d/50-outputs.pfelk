@@ -1,6 +1,6 @@
 # 50-outputs.pfelk
 ################################################################################
-# Version: 23.09a                                                              #
+# Version: 24.04                                                               #
 # Required: True                                                               #
 # Description: Sends enriched logs to Elasticsearch.                           #
 #                                                                              #
@@ -17,6 +17,8 @@ filter {
     mutate { add_field => { "[data_stream][namespace]" => "firewall_processes" } }
   } else if [log][syslog][appname] == "haproxy" {
     mutate { add_field => { "[data_stream][namespace]" => "haproxy" } }
+  } else if [log][syslog][appname] == "kea-dhcp" {
+    mutate { add_field => { "[data_stream][namespace]" => "kea-dhcp" } }
   } else if [log][syslog][appname] == "nginx" {
     mutate { add_field => { "[data_stream][namespace]" => "nginx" } }
   } else if [log][syslog][appname] == "openvpn" {
@@ -42,7 +44,7 @@ output {
     #[DOCKER]# hosts => ["https://es01:9200"]
     #[DOCKER]# ssl => true
     #[DOCKER]# cacert => '/usr/share/logstash/config/certs/ca/ca.crt'
-    hosts => ["https://localhost:9200"]
+    hosts => ["https://localhost:9200"] #[Disable if using Docker]
     cacert => '/etc/logstash/config/certs/http_ca.crt' #[Disable if using Docker]
     user => "elastic" 
     password => "changeme"
