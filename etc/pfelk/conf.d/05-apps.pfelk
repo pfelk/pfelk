@@ -1,6 +1,6 @@
 # 05-apps.pfelk
 ################################################################################
-# Version: 24.02                                                               #
+# Version: 24.04                                                               #
 # Required: True                                                               #
 # Description: Parses events based on process.name and further enriches events #
 #                                                                              #
@@ -25,7 +25,8 @@ filter {
       match => [ "captiveportalmessage", "%{CAPTIVEPORTAL}" ]
     }
   }
-  ### dhcpd ###
+  ### dhcpd ### 
+  ## Depreciated - see KEADHCP ###
   if [log][syslog][appname] =~ /^dhcpd$/ {
     mutate {
       add_tag => [ "dhcp", "dhcpdv4" ]
@@ -53,6 +54,32 @@ filter {
     grok {
       patterns_dir => [ "/etc/pfelk/patterns" ]
       match => [ "filter_message", "%{HAPROXY}" ]
+    }
+  }
+  ### kea-dhcp4 ###
+  ### In-progress ###
+  if [log][syslog][appname] =~ /^kea-dhcp$/ {
+    mutate {
+      add_tag => [ "kea-dhcp", "dhcp4" ]
+      add_field => { "[event][dataset]" => "pfelk.kea-dhcp4" }
+      replace => { "[log][syslog][appname]" => "kea-dhcp" }
+    }
+    grok {
+      patterns_dir => [ "/etc/pfelk/patterns" ]
+      match => [ "filter_message", "%{KEADHCP4}"]
+    }
+  }
+  ### kea-dhcp6 ###
+  ### In-progress ###
+  if [log][syslog][appname] =~ /^kea-dhcp$/ {
+    mutate {
+      add_tag => [ "kea-dhcp", "dhcp6" ]
+      add_field => { "[event][dataset]" => "pfelk.kea-dhcp6" }
+      replace => { "[log][syslog][appname]" => "kea-dhcp" }
+    }
+    grok {
+      patterns_dir => [ "/etc/pfelk/patterns" ]
+      match => [ "filter_message", "%{KEADHCP6}"]
     }
   }
   ### nginx ###
