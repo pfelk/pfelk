@@ -50,10 +50,10 @@ HAPROXY %{IP:[client][ip]}:%{INT:[client][port]} \[%{HAPROXYDATE:[haproxy][times
 HAPROXY_TCP %{IP:[haproxy][client][ip]}:%{INT:[haproxy][client][port]} [%{HAPROXYDATE:haproxy_timestamp}] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]} %{INT:[haproxy][time_backend_response]}%{NOTSPACE:[haproxy][time_duration]}%{INT:[haproxy][http_status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][captured_request_cookie]}%{DATA:[haproxy][captured_response_cookie]} %{NOTSPACE:[haproxy][termination_state]}
 
 # KEA-DHCP
-KEADHCP4 %KEADHCP_INFO
-KEADHCP_INFO \[kea-%{WORD:[kea][type]}\.%{WORD:[kea][action]}\.%{BASE16NUM:[kea][id]}\]\s%{KEADHCP_TYPE}
-KEADHCP_TYPE (?<[kea][dhcp][operation]>ALLOC)|(?<[kea][dhcp][operation]>ADVERT)\s%{KEADHCP_LOG}
-KEADHCP_LOG \[hwtype=%{INT:[kea][dhcp][hardware_type]}\s%{MAC:[dhcp][client][mac]}\],\scid=\[%{GREEDYDATA:[kea][dhcp][id]}\]\,\stid=%{BASE16NUM:[kea][dhcp][lease][id]}\:\slease\s(%{IPV4:[kea][dhcp][client][ip]}|%{IPV6:[kea][dhcp][client][ip]}) has been allocated for %{NUMBER:[kea][dhcp][lease][duration]} seconds
+KEADHCP4 (%{KEADHCP_REBOOT}|%{KEADHCP_ADVERT}|%{KEADHCP_ALLOC})
+KEADHCP4_REBOOT (?<[kea][dhcp][operation]>REBOOT)\s\[hwtype=%{INT:[kea][dhcp][hardware_type]}\s%{MAC:[kea][dhcp][client][mac]}\],\scid=\[%{GREEDYDATA:[kea][dhcp][id]}\]\,\stid=%{BASE16NUM:[kea][dhcp][lease][id]}.*(%{IPV4:[kea][dhcp][client][ip]}|%{IPV6:[kea][dhcp][client][ip]})
+KEADHCP4_ADVERT (?<[kea][dhcp][operation]>ADVERT)\s\[hwtype=%{INT:[kea][dhcp][hardware_type]}\s%{MAC:[kea][dhcp][client][mac]}\],\scid=\[%{GREEDYDATA:[kea][dhcp][id]}\]\,\stid=%{BASE16NUM:[kea][dhcp][lease][id]}\:\slease\s(%{IPV4:[kea][dhcp][client][ip]}|%{IPV6:[kea][dhcp][client][ip]})
+KEADHCP4_ALLOC (?<[kea][dhcp][operation]>ALLOC)\s\[hwtype=%{INT:[kea][dhcp][hardware_type]}\s%{MAC:[kea][dhcp][client][mac]}\],\scid=\[%{GREEDYDATA:[kea][dhcp][id]}\]\,\stid=%{BASE16NUM:[kea][dhcp][lease][id]}\:\slease\s(%{IPV4:[kea][dhcp][client][ip]}|%{IPV6:[kea][dhcp][client][ip]}).*%{NUMBER:[kea][dhcp][lease][duration]} seconds 
 KEADHCP6 %{GREEDYDATA:filter_message}
 
 # NGINX
