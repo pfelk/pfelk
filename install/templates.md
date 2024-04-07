@@ -20,7 +20,7 @@
     - Index Templates
       - Click the green triangle after pasting the contents (one at a time) into the console
         - [pfelk-firewall](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-firewall)
-        - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-kea-dhcp) - Optional 
+        - [pfelk-kea-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-kea-dhcp) - Optional 
         - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-dhcp) - Depreciated
         - [pfelk-unbound](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-unbound) - Optional
         - [pfelk-other](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-other) - Optional
