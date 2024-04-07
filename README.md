@@ -42,7 +42,8 @@
 Supported entries include:
  - pfSense/OPNSense setups
  - TCP/UDP/ICMP protocols
- - DHCP (v4/v6) message types with dashboard
+ - KEA-DHCP (v4/v6) message types with dashboard - in development 
+ - DHCP (v4/v6) message types with dashboard - depreciated
  - IPv4/IPv6 mapping
  - pfSense CARP data
  - openVPN log parsing
