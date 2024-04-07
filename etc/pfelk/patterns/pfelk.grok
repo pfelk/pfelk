@@ -54,7 +54,7 @@ KEADHCP4 (%{KEADHCP_REBOOT}|%{KEADHCP_ADVERT}|%{KEADHCP_ALLOC}|%{KEADHCP_EXECUTE
 KEADHCP_REBOOT (?<[kea][dhcp][operation]>REBOOT)\s\[hwtype=%{INT:[kea][dhcp][hardware_type]}\s%{MAC:[kea][dhcp][client][mac]}\],\scid=\[%{GREEDYDATA:[kea][dhcp][id]}\]\,\stid=%{BASE16NUM:[kea][dhcp][lease][id]}.*(%{IPV4:[kea][dhcp][client][ip]}|%{IPV6:[kea][dhcp][client][ip]})
 KEADHCP_ADVERT (?<[kea][dhcp][operation]>ADVERT)\s\[hwtype=%{INT:[kea][dhcp][hardware_type]}\s%{MAC:[kea][dhcp][client][mac]}\],\scid=\[%{GREEDYDATA:[kea][dhcp][id]}\]\,\stid=%{BASE16NUM:[kea][dhcp][lease][id]}\:\slease\s(%{IPV4:[kea][dhcp][client][ip]}|%{IPV6:[kea][dhcp][client][ip]})
 KEADHCP_ALLOC (?<[kea][dhcp][operation]>ALLOC)\s\[hwtype=%{INT:[kea][dhcp][hardware_type]}\s%{MAC:[kea][dhcp][client][mac]}\],\scid=\[%{GREEDYDATA:[kea][dhcp][id]}\]\,\stid=%{BASE16NUM:[kea][dhcp][lease][id]}\:\slease\s(%{IPV4:[kea][dhcp][client][ip]}|%{IPV6:[kea][dhcp][client][ip]}).*%{NUMBER:[kea][dhcp][lease][duration]}
-KEADHCP4_EXECUTE (?<[kea][dhcp][operation]>EXECUTE)%{GREEDYDATA:[kea][message]}
+KEADHCP_EXECUTE (?<[kea][dhcp][operation]>EXECUTE)%{GREEDYDATA:[kea][message]}
 KEADHCP6 %{GREEDYDATA:filter_message}
 
 # NGINX
