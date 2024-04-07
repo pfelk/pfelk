@@ -1,0 +1,82 @@
+PUT _index_template/pfelk-kea
+{
+  "version": 2022,
+  "priority": 385,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        },
+        "number_of_shards": "1",
+        "auto_expand_replicas": "0-1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "properties": {
+        "kea": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "text"
+            },
+            "dhcp": {
+              "type": "object",
+              "properties": {
+                "hardware_type": {
+                  "type": "integer"
+                },
+                "client": {
+                  "type": "object",
+                  "properties": {
+                    "ip": {
+                      "type": "ip"
+                    },
+                    "mac": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "id": {
+                  "type": "keyword"
+                },
+                "lease": {
+                  "type": "object",
+                  "properties": {
+                    "duration": {
+                      "type": "long"
+                    },
+                    "id": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "operation": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "*-pfelk-kea-dhcp*"
+  ],
+  "data_stream": {
+    "hidden": false,
+    "allow_custom_routing": false
+  },
+  "composed_of": [
+    "data-streams-mappings",
+    "pfelk-settings",
+    "pfelk-mappings"
+  ],
+  "allow_auto_create": true,
+  "_meta": {
+    "description": "default pfelk indexes installed by pfelk",
+    "managed": true
+  }
+}
