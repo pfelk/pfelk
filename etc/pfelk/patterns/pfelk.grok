@@ -15,7 +15,7 @@ PFSENSE %{SYSLOGTIMESTAMP:[event][created]}\s(%{SYSLOGHOST:[log][syslog][hostnam
 OPNSENSE %{SYSLOGTIMESTAMP:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}\[%{POSINT:[log][syslog][procid]}\]\:\s%{GREEDYDATA:filter_message}
 
 # OPNsense||pfSense RFC5424
-RFC5424 (%{INT:[log][syslog][version]}\s*)%{TIMESTAMP_ISO8601:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}(\s%{POSINT:[log][syslog][procid]})?(\s\-\s\-\s(\-\s)?)?(\s\-\s\[meta\ssequenceId\=(\\)?\"%{NUMBER:[event][sequence]}(\\)?\"\])?\s%{GREEDYDATA:filter_message}
+RFC5424 (%{INT:[log][syslog][version]}\s*)%{TIMESTAMP_ISO8601:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}(\s%{POSINT:[log][syslog][procid]})?(\s\-\s\-\s?(\-\s)?)?(\s\-\s\[meta\ssequenceId\=(\\)?\"%{NUMBER:[event][sequence]}(\\)?\"\])?\s%{GREEDYDATA:filter_message}
 
 # CAPTIVE PORTAL (Optional)
 CAPTIVEPORTAL (%{CP_PFSENSE}|%{CP_OPNSENSE})
