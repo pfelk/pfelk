@@ -69,8 +69,7 @@ NGINX_EXT_US \s*us=(\"%{NUMBER:[nginx][ingress_controller][upstream][response][s
 NGINX_EXT_UT \s*ut=(\"%{NUMBER:[nginx][ingress_controller][upstream][response][time]}\"|"-")
 NGINX_EXT_UL \s*ul=(\"%{NUMBER:[nginx][ingress_controller][upstream][response][length]}\"|"-")
 
-# OPENVPN - Initial Filter
-OPENVPN (%{IP:[openvpn][user][ip]}.%{INT:[openvpn][user][port]})?(%{USERNAME:[openvpn][user]})?(.*\(tos\s*%{BASE16NUM:[openvpn][tos]},\s*ttl\s*%{INT:[openvpn][ttl]},\s*id\s*%{POSINT:[openvpn][process][ppid]},\s*offset\s*%{INT:[openvpn][offset]},\s*flags\s*\[%{WORD:[openvpn][flags]}\],\s*proto\s*%{WORD:[openvpn][protocol][type]}\s*\(%{INT:[openvpn][protocol][id]}\),\s*length\s*%{NUMBER:[openvpn][packet][length]}\)\s*%{IP:[openvpn][client][ip]}\.%{INT:[openvpn][client][port]}\s*>\s*%{IP:[openvpn][server][ip]}\.%{INT:[openvpn][server][port]}:\s*\[%{GREEDYDATA:[openvpn][checksum]}\]\s*%{WORD:[openvpn][network][transport]},\s*length\s*%{INT:[openvpn][transport][data_length]})?
+# OPENVPN (reference openvpn.grok)
 
 # PF
 PF_CARP_DATA (%{WORD:[pf][carp][type]}),(%{INT:[pf][carp][ttl]}),(%{INT:[pf][carp][vhid]}),(%{INT:[pf][carp][version]}),(%{INT:[pf][carp][advbase]}),(%{INT:[pf][carp][advskew]})
