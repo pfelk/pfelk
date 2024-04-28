@@ -1,7 +1,7 @@
-PUT _index_template/pfelk-other
+PUT _index_template/pfelk-snort
 {
   "version": 202405,
-  "priority": 399,
+  "priority": 379,
   "template": {
     "settings": {
       "index": {
@@ -14,21 +14,80 @@ PUT _index_template/pfelk-other
       }
     },
     "mappings": {
-      "_routing": {
-        "required": false
-      },
-      "_source": {
-        "excludes": [],
-        "includes": [],
-        "enabled": true
-      },
-      "dynamic": false,
-      "dynamic_templates": []
+      "properties": {
+        "destination": {
+          "type": "object",
+          "properties": {
+            "port": {
+              "type": "integer"
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "rule": {
+          "type": "object",
+          "properties": {
+            "reference": {
+              "type": "integer"
+            },
+            "uuid": {
+              "type": "integer"
+            },
+            "version": {
+              "type": "integer"
+            }
+          }
+        },
+        "vulnerability": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "keyword"
+            },
+            "classification": {
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "match_only_text"
+                }
+              }
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "port": {
+              "type": "integer"
+            },
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "severity": {
+              "type": "keyword"
+            }
+          }
+        },
+        "network": {
+          "type": "object",
+          "properties": {
+            "transport": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
     }
   },
   "index_patterns": [
-    "*-pfelk-captive*",
-    "*-pfelk-squid*"
+    "*-pfelk-snort*"
   ],
   "data_stream": {
     "hidden": false,
