@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 24.02
+# Version    | 24.05
 # Email      | https://github.com/pfelk/pfelk
 #
 ###################################################################################################################################################################################################
@@ -82,3 +82,6 @@ install_template index_template_pfelk-other _index_template
 
 ### pfelk-suricata
 # install_template pfelk-suricata _index_template
+
+### pfelk-snort
+# install_template pfelk-snort _index_template
