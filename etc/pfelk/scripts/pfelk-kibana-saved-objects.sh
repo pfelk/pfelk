@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 22.02
+# Version    | 24.05
 # Email      | https://github.com/pfelk/pfelk
 #
 ###################################################################################################################################################################################################
@@ -43,7 +43,8 @@ fi
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-captive.ndjson -P /tmp/pfELK/
-wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.02-dhcp.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.02-dhcp.ndjson -P /tmp/pfELK/ ##Depreciated/EoL and will be removed in the future
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.05-kea-dhcp.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.09-firewall.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-haproxy.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-nginx.ndjson -P /tmp/pfELK/
@@ -57,7 +58,8 @@ wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/2
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-captive.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
-curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/24.02-dhcp.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/24.02-dhcp.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE ##Depreciated/EoL and will be removed in the future
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/24.05-kea-dhcp.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/23.09-firewall.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-haproxy.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-nginx.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
