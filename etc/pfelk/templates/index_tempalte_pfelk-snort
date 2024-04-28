@@ -1,0 +1,47 @@
+PUT _index_template/pfelk-other
+{
+  "version": 202405,
+  "priority": 399,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        },
+        "number_of_shards": "1",
+        "auto_expand_replicas": "0-1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic": false,
+      "dynamic_templates": []
+    }
+  },
+  "index_patterns": [
+    "*-pfelk-captive*",
+    "*-pfelk-squid*"
+  ],
+  "data_stream": {
+    "hidden": false,
+    "allow_custom_routing": false
+  },
+  "composed_of": [
+    "data-streams-mappings",
+    "pfelk-settings",
+    "pfelk-mappings"
+  ],
+  "allow_auto_create": true,
+  "_meta": {
+    "description": "default pfelk indexes installed by pfelk",
+    "managed": true
+  }
+}
