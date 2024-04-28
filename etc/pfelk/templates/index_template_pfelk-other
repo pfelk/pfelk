@@ -1,6 +1,6 @@
 PUT _index_template/pfelk-other
 {
-  "version": 2024,
+  "version": 202405,
   "priority": 399,
   "template": {
     "settings": {
@@ -14,13 +14,13 @@ PUT _index_template/pfelk-other
       }
     },
     "mappings": {
+      "_routing": {
+        "required": false
+      },
       "_source": {
         "excludes": [],
         "includes": [],
         "enabled": true
-      },
-      "_routing": {
-        "required": false
       },
       "dynamic": false,
       "dynamic_templates": []
@@ -28,7 +28,6 @@ PUT _index_template/pfelk-other
   },
   "index_patterns": [
     "*-pfelk-captive*",
-    "*-pfelk-snort*",
     "*-pfelk-squid*"
   ],
   "data_stream": {
