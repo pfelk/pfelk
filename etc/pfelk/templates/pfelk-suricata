@@ -782,6 +782,12 @@ PUT _index_template/pfelk-suricata
     "hidden": false,
     "allow_custom_routing": false
   },
+  "composed_of": [
+    "data-streams-mappings",
+    "pfelk-settings",
+    "pfelk-mappings"
+  ],
+  "allow_auto_create": false,
   "_meta": {
     "description": "default suricata indexes installed by pfelk",
     "managed": true
