@@ -1,0 +1,99 @@
+PUT _index_template/pfelk-captive
+{
+  "version": 202406,
+  "priority": 398,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        },
+        "number_of_shards": "1",
+        "auto_expand_replicas": "0-1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic": false,
+      "dynamic_templates": [],
+      "properties": {
+        "observer": {
+          "type": "object",
+          "properties": {
+            "ingress": {
+              "type": "object",
+              "properties": {
+                "zone": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "interface": {
+              "type": "object",
+              "properties": {
+                "alias": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        },
+        "client": {
+          "type": "object",
+          "properties": {
+            "ip": {
+              "type": "ip"
+            },
+            "user": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "mac": {
+              "type": "keyword"
+            }
+          }
+        },
+        "event": {
+          "type": "object",
+          "properties": {
+            "reason": {
+              "type": "keyword"
+            },
+            "action": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "*-pfelk-captive*"
+  ],
+  "data_stream": {
+    "hidden": false,
+    "allow_custom_routing": false
+  },
+  "composed_of": [
+    "data-streams-mappings",
+    "pfelk-settings",
+    "pfelk-mappings"
+  ],
+  "allow_auto_create": true,
+  "_meta": {
+    "description": "default pfelk indexes installed by pfelk",
+    "managed": true
+  }
+}
