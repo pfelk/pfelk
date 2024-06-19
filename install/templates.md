@@ -16,18 +16,19 @@
     - :small_red_triangle: **NOTE** _Component Templates must be installed first and in sequential order (e.g. pfelk-settings, pfelk-mappings)_
       - [component_pfelk-mappings](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/component_template_pfelk-mappings) - Install First
       - [component_pfelk-settings](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/component_template_pfelk-settings) - Install Second
-      - [pfelk-ilm](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-ilm) - Install Third        
+      - [ilm-pfelk](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/ilm-pfelk) - Install Third        
     - Index Templates
       - Click the green triangle after pasting the contents (one at a time) into the console
         - [pfelk-firewall](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-firewall)
         - [pfelk-kea-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-kea-dhcp) - Optional 
         - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-dhcp) - Depreciated
         - [pfelk-unbound](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-unbound) - Optional
-        - [pfelk-other](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-other) - Optional
-        - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-haproxy) - Optional
-        - [pfelk-nginx](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-nginx) - Optional
-        - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-suricata) - Optional
-        - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/pfelk-snort) - Optional
+        - [pfelk-squid](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-squid) - Optional
+        - [pfelk-captive](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-captive) - Optional
+        - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-haproxy) - Optional
+        - [pfelk-nginx](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-nginx) - Optional
+        - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-suricata) - Optional
+        - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-snort) - Optional
   5. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=6)
 
