@@ -1,4 +1,4 @@
- PUT _index_template/pfelk-nginx
+PUT _index_template/pfelk-nginx
 {
   "version": 52024,
   "priority": 320,
@@ -303,7 +303,7 @@
     "pfelk-settings",
     "pfelk-mappings"
   ],
-  "allow_auto_create": false,
+  "allow_auto_create": true,
   "_meta": {
     "description": "default nginx indexes installed by pfelk",
     "managed": true
