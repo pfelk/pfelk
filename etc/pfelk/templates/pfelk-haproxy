@@ -11,62 +11,78 @@ PUT _index_template/pfelk-haproxy
       }
     },
     "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
       "_source": {
         "excludes": [],
         "includes": [],
         "enabled": true
       },
-      "_routing": {
-        "required": false
-      },
       "dynamic": true,
-      "numeric_detection": false,
-      "date_detection": false,
       "dynamic_templates": [],
+      "date_detection": false,
       "properties": {
         "haproxy": {
           "type": "object",
           "properties": {
+            "server_name": {
+              "eager_global_ordinals": false,
+              "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
+            },
+            "termination_state": {
+              "eager_global_ordinals": false,
+              "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "fields": {
+                "text": {
+                  "type": "text"
+                }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
+            },
+            "time_queue": {
+              "type": "long"
+            },
+            "bytes_read": {
+              "type": "long"
+            },
+            "mode": {
+              "type": "keyword"
+            },
+            "backend_queue": {
+              "type": "long"
+            },
             "backend_name": {
               "eager_global_ordinals": false,
               "norms": false,
               "index": true,
               "store": false,
               "type": "keyword",
-              "index_options": "docs",
-              "split_queries_on_whitespace": false,
-              "doc_values": true,
               "fields": {
                 "text": {
                   "type": "text"
                 }
-              }
-            },
-            "backend_queue": {
-              "type": "long"
-            },
-            "bytes_read": {
-              "type": "long"
-            },
-            "connections": {
-              "type": "object",
-              "properties": {
-                "active": {
-                  "type": "long"
-                },
-                "backend": {
-                  "type": "long"
-                },
-                "frontend": {
-                  "type": "long"
-                },
-                "retries": {
-                  "type": "long"
-                },
-                "server": {
-                  "type": "long"
-                }
-              }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
             },
             "frontend_name": {
               "eager_global_ordinals": false,
@@ -74,14 +90,14 @@ PUT _index_template/pfelk-haproxy
               "index": true,
               "store": false,
               "type": "keyword",
-              "index_options": "docs",
-              "split_queries_on_whitespace": false,
-              "doc_values": true,
               "fields": {
                 "text": {
                   "type": "text"
                 }
-              }
+              },
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
             },
             "http": {
               "type": "object",
@@ -109,52 +125,39 @@ PUT _index_template/pfelk-haproxy
                           "type": "keyword"
                         }
                       }
+                    },
+                    "status_code": {
+                      "type": "integer"
                     }
                   }
-                }
-              }
-            },
-            "mode": {
-              "type": "keyword"
-            },
-            "server_name": {
-              "eager_global_ordinals": false,
-              "norms": false,
-              "index": true,
-              "store": false,
-              "type": "keyword",
-              "index_options": "docs",
-              "split_queries_on_whitespace": false,
-              "doc_values": true,
-              "fields": {
-                "text": {
-                  "type": "text"
                 }
               }
             },
             "server_queue": {
               "type": "long"
             },
-            "termination_state": {
-              "eager_global_ordinals": false,
-              "norms": false,
-              "index": true,
-              "store": false,
-              "type": "keyword",
-              "index_options": "docs",
-              "split_queries_on_whitespace": false,
-              "doc_values": true,
-              "fields": {
-                "text": {
-                  "type": "text"
-                }
-              }
-            },
             "time_backend_connect": {
               "type": "long"
             },
-            "time_queue": {
-              "type": "long"
+            "connections": {
+              "type": "object",
+              "properties": {
+                "retries": {
+                  "type": "long"
+                },
+                "server": {
+                  "type": "long"
+                },
+                "active": {
+                  "type": "long"
+                },
+                "backend": {
+                  "type": "long"
+                },
+                "frontend": {
+                  "type": "long"
+                }
+              }
             },
             "timestamp": {
               "format": "strict_date_optional_time||epoch_millis||dd/MMM/yyyy:HH:mm:ss.SSS",
