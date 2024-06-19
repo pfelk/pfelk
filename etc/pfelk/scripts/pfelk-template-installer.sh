@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 24.05
+# Version    | 24.06
 # Email      | https://github.com/pfelk/pfelk
 #
 ###################################################################################################################################################################################################
@@ -54,19 +54,16 @@ install_template component_template_pfelk-settings _component_template
 install_template component_template_pfelk-mappings _component_template
 
 ### ilm>>pfelk
-install_template pfelk-ilm '_ilm/policy'
+install_template ilm-pfelk '_ilm/policy'
 
 ### index>>template>>pfelk-firewall
 install_template index_template_pfelk-firewall _index_template
 
 ### index>>template>>pfelk-dhcp
-install_template index_template_pfelk-dhcp _index_template
+install_template index_template_pfelk-kea-dhcp _index_template
 
 ### index>>template>>pfelk-unbound
 install_template index_template_pfelk-unbound _index_template
-
-### index>>template>>pfelk-other
-install_template index_template_pfelk-other _index_template
 
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
@@ -74,14 +71,22 @@ install_template index_template_pfelk-other _index_template
 #                                                                                                                                                                                                 #
 ###################################################################################################################################################################################################
 
+### pfelk-captive
+# install_template index_template_pfelk-captive _index_template
+
 ### index>>template>>pfelk-haproxy
-# install_template pfelk-haproxy _index_template
+# install_template index_template_pfelk-haproxy _index_template
 
 ### index>>template>>pfelk-nginx
-# install_template pfelk-nginx _index_template
+# install_template index_template_pfelk-nginx _index_template
 
 ### pfelk-suricata
-# install_template pfelk-suricata _index_template
+# install_template index_template_pfelk-suricata _index_template
 
 ### pfelk-snort
-# install_template pfelk-snort _index_template
+# install_template index_template_pfelk-snort _index_template
+
+### pfelk-squid
+# install_template index_template_pfelk-squid _index_template
+
+
