@@ -183,7 +183,7 @@ PUT _index_template/pfelk-haproxy
     "data-streams-mappings",
     "pfelk-mappings"
   ],
-  "allow_auto_create": false,
+  "allow_auto_create": true,
   "_meta": {
     "description": "default haproxy indexes installed by pfelk",
     "managed": true
