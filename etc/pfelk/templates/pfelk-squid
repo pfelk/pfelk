@@ -1,0 +1,128 @@
+PUT _index_template/pfelk-squid
+{
+  "version": 202406,
+  "priority": 396,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        },
+        "number_of_shards": "1",
+        "auto_expand_replicas": "0-1",
+        "number_of_replicas": "0"
+      }
+    },
+    "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic": false,
+      "dynamic_templates": [],
+      "properties": {
+        "destination": {
+          "type": "object",
+          "properties": {
+            "address": {
+              "type": "keyword"
+            }
+          }
+        },
+        "client": {
+          "type": "object",
+          "properties": {
+            "ip": {
+              "type": "ip"
+            }
+          }
+        },
+        "http": {
+          "type": "object",
+          "properties": {
+            "request": {
+              "type": "object",
+              "properties": {
+                "referrer": {
+                  "type": "text"
+                },
+                "method": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "response": {
+              "type": "object",
+              "properties": {
+                "mime_type": {
+                  "type": "keyword"
+                },
+                "bytes": {
+                  "type": "byte"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "url": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "text"
+            },
+            "port": {
+              "type": "integer"
+            }
+          }
+        },
+        "labels": {
+          "type": "object",
+          "properties": {
+            "request_status": {
+              "type": "keyword"
+            },
+            "hierarchy_status": {
+              "eager_global_ordinals": false,
+              "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "index_options": "docs",
+              "split_queries_on_whitespace": false,
+              "doc_values": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "*-pfelk-squid*"
+  ],
+  "data_stream": {
+    "hidden": false,
+    "allow_custom_routing": false
+  },
+  "composed_of": [
+    "data-streams-mappings",
+    "pfelk-settings",
+    "pfelk-mappings"
+  ],
+  "allow_auto_create": true,
+  "_meta": {
+    "description": "default pfelk indexes installed by pfelk",
+    "managed": true
+  }
+}
