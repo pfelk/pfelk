@@ -42,6 +42,9 @@ PUT _index_template/pfelk-haproxy
               "split_queries_on_whitespace": false,
               "doc_values": true
             },
+            "time_backend_response": {
+              "type": "integer"
+            },
             "termination_state": {
               "eager_global_ordinals": false,
               "norms": false,
@@ -69,6 +72,9 @@ PUT _index_template/pfelk-haproxy
             "backend_queue": {
               "type": "long"
             },
+            "time_request": {
+              "type": "integer"
+            },
             "backend_name": {
               "eager_global_ordinals": false,
               "norms": false,
@@ -83,6 +89,14 @@ PUT _index_template/pfelk-haproxy
               "index_options": "docs",
               "split_queries_on_whitespace": false,
               "doc_values": true
+            },
+            "client": {
+              "type": "object",
+              "properties": {
+                "port": {
+                  "type": "integer"
+                }
+              }
             },
             "frontend_name": {
               "eager_global_ordinals": false,
@@ -165,6 +179,57 @@ PUT _index_template/pfelk-haproxy
               "ignore_malformed": false,
               "store": false,
               "type": "date",
+              "doc_values": true
+            }
+          }
+        },
+        "http": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "eager_global_ordinals": false,
+              "index_phrases": false,
+              "fielddata": false,
+              "norms": true,
+              "index": true,
+              "store": false,
+              "type": "text",
+              "index_options": "positions"
+            },
+            "request": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": "keyword"
+                },
+                "captured_cookie": {
+                  "type": "text"
+                },
+                "referrer": {
+                  "type": "text"
+                },
+                "method": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "response": {
+              "type": "object",
+              "properties": {
+                "captured_cookie": {
+                  "type": "text"
+                },
+                "status_code": {
+                  "type": "integer"
+                }
+              }
+            },
+            "version": {
+              "coerce": true,
+              "index": true,
+              "ignore_malformed": false,
+              "store": false,
+              "type": "short",
               "doc_values": true
             }
           }
