@@ -188,13 +188,10 @@ PUT _index_template/pfelk-haproxy
           "properties": {
             "mode": {
               "eager_global_ordinals": false,
-              "index_phrases": false,
-              "fielddata": false,
               "norms": true,
               "index": true,
               "store": false,
-              "type": "text",
-              "index_options": "positions"
+              "type": "keyword"
             },
             "request": {
               "type": "object",

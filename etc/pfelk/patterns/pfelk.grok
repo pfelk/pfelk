@@ -1,6 +1,6 @@
 # pfelk.grok
 ################################################################################
-# Version: 24.04                                                               #
+# Version: 24.05                                                               #
 #                                                                              #
 #                                                                              #
 #                                                                              #
@@ -11,7 +11,7 @@
 PFELK (%{PFSENSE}|%{OPNSENSE}|%{RFC5424})
 
 # pfSense | OPNsense
-PFSENSE %{SYSLOGTIMESTAMP:[event][created]}\s(%{SYSLOGHOST:[log][syslog][hostname]}\s)?%{PROG:[log][syslog][appname]}(\[%{POSINT:[log][syslog][procid]}\])?\:\s%{GREEDYDATA:filter_message}
+PFSENSE %{SYSLOGTIMESTAMP:[event][created]}\s(%{SYSLOGHOST:[log][syslog][hostname]}\s)?%{PROG:[log][syslog][appname]}(\[%{POSINT:[log][syslog][procid]:int}\])?\:\s%{GREEDYDATA:filter_message}
 OPNSENSE %{SYSLOGTIMESTAMP:[event][created]}\s%{SYSLOGHOST:[log][syslog][hostname]}\s%{PROG:[log][syslog][appname]}\[%{POSINT:[log][syslog][procid]}\]\:\s%{GREEDYDATA:filter_message}
 
 # OPNsense||pfSense RFC5424
@@ -46,8 +46,8 @@ DHCPv6_REUSE (?<[dhcpv6][operation]>Reusing lease) for: %{IPV6:[dhcpv6][client][
 
 # HAPROXY
 HA_PROXY (%{HAPROXY}|%{HAPROXY_TCP})
-HAPROXY %{IP:[client][ip]}:%{INT:[client][port]} \[%{HAPROXYDATE:[haproxy][timestamp]}\] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]}/%{INT:[haproxy][time_backend_response]}/%{NOTSPACE:[host][uptime]} %{INT:[http][response][status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][http][request][captured_cookie]} %{DATA:[haproxy][http][response][captured_cookie]} %{NOTSPACE:[haproxy][termination_state]} %{INT:[haproxy][connections][active]}/%{INT:[haproxy][connections][frontend]}/%{INT:[haproxy][connections][backend]}/%{INT:[haproxy][connections][server]}/%{NOTSPACE:[haproxy][connections][retries]} %{INT:[haproxy][server_queue]}/%{INT:[haproxy][backend_queue]} (\{%{HAPROXYCAPTUREDREQUESTHEADERS}\})?( )?(\{%{HAPROXYCAPTUREDRESPONSEHEADERS}\})?( )?"(<BADREQ>|(%{WORD:[http][request][method]} (%{URIPROTO:[haproxy][mode]}://)?(?:%{USER:[user][name]}(?::[^@]*)?@)?(?:%{URIHOST:[http][request][referrer]})?(?:%{URIPATHPARAM:[http][mode]})?( HTTP/%{NUMBER:[http][version]})?))?"?
-HAPROXY_TCP %{IP:[haproxy][client][ip]}:%{INT:[haproxy][client][port]} [%{HAPROXYDATE:haproxy_timestamp}] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]} %{INT:[haproxy][time_backend_response]}%{NOTSPACE:[haproxy][time_duration]}%{INT:[haproxy][http_status_code]} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][captured_request_cookie]}%{DATA:[haproxy][captured_response_cookie]} %{NOTSPACE:[haproxy][termination_state]}
+HAPROXY %{IP:[client][ip]}:%{INT:[client][port]:int} \[%{HAPROXYDATE:[haproxy][timestamp]}\] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]}/%{INT:[haproxy][time_queue]}/%{INT:[haproxy][time_backend_connect]:int}/%{INT:[haproxy][time_backend_response]:int}/%{NOTSPACE:[host][uptime]} %{INT:[http][response][status_code]:int} %{NOTSPACE:[haproxy][bytes_read]:int} %{DATA:[haproxy][http][request][captured_cookie]} %{DATA:[haproxy][http][response][captured_cookie]} %{NOTSPACE:[haproxy][termination_state]} %{INT:[haproxy][connections][active]:int}/%{INT:[haproxy][connections][frontend]:int}/%{INT:[haproxy][connections][backend]:int}/%{INT:[haproxy][connections][server]:int}/%{NOTSPACE:[haproxy][connections][retries]:int} %{INT:[haproxy][server_queue]:int}/%{INT:[haproxy][backend_queue]:int} (\{%{HAPROXYCAPTUREDREQUESTHEADERS}\})?( )?(\{%{HAPROXYCAPTUREDRESPONSEHEADERS}\})?( )?"(<BADREQ>|(%{WORD:[http][request][method]} (%{URIPROTO:[haproxy][mode]}://)?(?:%{USER:[user][name]}(?::[^@]*)?@)?(?:%{URIHOST:[http][request][referrer]})?(?:%{URIPATHPARAM:[http][mode]})?( HTTP/%{NUMBER:[http][version]})?))?"?
+HAPROXY_TCP %{IP:[haproxy][client][ip]}:%{INT:[haproxy][client][port]:int} [%{HAPROXYDATE:haproxy_timestamp}] %{NOTSPACE:[haproxy][frontend_name]} %{NOTSPACE:[haproxy][backend_name]}/%{NOTSPACE:[haproxy][server_name]} %{INT:[haproxy][time_request]:int}/%{INT:[haproxy][time_queue]:int}/%{INT:[haproxy][time_backend_connect]:int} %{INT:[haproxy][time_backend_response]:int}%{NOTSPACE:[haproxy][time_duration]}%{INT:[haproxy][http_status_code]:int} %{NOTSPACE:[haproxy][bytes_read]} %{DATA:[haproxy][captured_request_cookie]}%{DATA:[haproxy][captured_response_cookie]} %{NOTSPACE:[haproxy][termination_state]}
 
 # KEA-DHCP
 KEADHCP4 (%{KEADHCP_REBOOT}|%{KEADHCP_ADVERT}|%{KEADHCP_ALLOC}|%{KEADHCP_EXECUTE})
