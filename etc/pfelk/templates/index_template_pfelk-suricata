@@ -1,6 +1,6 @@
 PUT _index_template/pfelk-suricata
 {
-  "version": 202405,
+  "version": 202407,
   "priority": 313,
   "template": {
     "settings": {
@@ -787,7 +787,7 @@ PUT _index_template/pfelk-suricata
     "pfelk-settings",
     "pfelk-mappings"
   ],
-  "allow_auto_create": false,
+  "allow_auto_create": true,
   "_meta": {
     "description": "default suricata indexes installed by pfelk",
     "managed": true
