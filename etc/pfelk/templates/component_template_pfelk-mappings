@@ -1,6 +1,6 @@
 PUT _component_template/pfelk-mappings
 {
-  "version": 2024,
+  "version": 202407,
   "template": {
     "mappings": {
       "_source": {
@@ -40,14 +40,14 @@ PUT _component_template/pfelk-mappings
               "type": "text"
             },
             "sequence": {
-              "type": "keyword",
-              "index": true,
-              "index_options": "docs",
               "eager_global_ordinals": false,
               "norms": false,
+              "index": true,
+              "store": false,
+              "type": "keyword",
+              "index_options": "docs",
               "split_queries_on_whitespace": false,
-              "doc_values": true,
-              "store": false
+              "doc_values": true
             }
           }
         },
@@ -100,14 +100,14 @@ PUT _component_template/pfelk-mappings
                   "type": "integer"
                 },
                 "procid": {
-                  "type": "keyword",
-                  "index": true,
-                  "index_options": "docs",
                   "eager_global_ordinals": false,
                   "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "index_options": "docs",
                   "split_queries_on_whitespace": false,
-                  "doc_values": true,
-                  "store": false
+                  "doc_values": true
                 },
                 "severity": {
                   "type": "object",
@@ -121,14 +121,14 @@ PUT _component_template/pfelk-mappings
                   }
                 },
                 "version": {
-                  "type": "keyword",
-                  "index": true,
-                  "index_options": "docs",
                   "eager_global_ordinals": false,
                   "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "index_options": "docs",
                   "split_queries_on_whitespace": false,
-                  "doc_values": true,
-                  "store": false
+                  "doc_values": true
                 }
               }
             }
@@ -241,6 +241,28 @@ PUT _component_template/pfelk-mappings
             },
             "ttl": {
               "type": "integer"
+            },
+            "app": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "keyword"
+                },
+                "action": {
+                  "type": "keyword"
+                },
+                "page": {
+                  "type": "text"
+                }
+              }
+            },
+            "remote": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                }
+              }
             }
           }
         },
@@ -262,7 +284,7 @@ PUT _component_template/pfelk-mappings
     }
   },
   "_meta": {
-    "managed": true,
-    "description": "default mappings for the pfelk index templates installed by pfelk"
+    "description": "default mappings for the pfelk index templates installed by pfelk",
+    "managed": true
   }
 }
