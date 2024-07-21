@@ -1,6 +1,6 @@
 PUT _index_template/pfelk-nginx
 {
-  "version": 52024,
+  "version": 202407,
   "priority": 320,
   "template": {
     "settings": {
@@ -11,66 +11,68 @@ PUT _index_template/pfelk-nginx
       }
     },
     "mappings": {
-      "_routing": {
-        "required": false
-      },
-      "numeric_detection": false,
       "_source": {
         "excludes": [],
         "includes": [],
         "enabled": true
       },
+      "_routing": {
+        "required": false
+      },
       "dynamic": true,
-      "dynamic_templates": [],
+      "numeric_detection": false,
       "date_detection": false,
+      "dynamic_templates": [],
       "properties": {
+        "client": {
+          "type": "object",
+          "properties": {
+            "as": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "long"
+                },
+                "organization": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "city_name": {
+              "type": "keyword"
+            },
+            "continent_code": {
+              "type": "keyword"
+            },
+            "continent_name": {
+              "type": "keyword"
+            },
+            "country_iso_code": {
+              "type": "keyword"
+            },
+            "location": {
+              "type": "geo_point"
+            },
+            "region_iso_code": {
+              "type": "keyword"
+            },
+            "region_name": {
+              "type": "keyword"
+            }
+          }
+        },
         "nginx": {
           "type": "object",
           "properties": {
             "access": {
               "type": "object",
               "properties": {
-                "referrer": {
-                  "type": "keyword"
-                },
                 "agent": {
-                  "type": "keyword"
-                },
-                "response_code": {
-                  "type": "long"
-                },
-                "geoip": {
-                  "dynamic": true,
-                  "type": "object",
-                  "enabled": true,
-                  "properties": {
-                    "continent_name": {
-                      "type": "keyword"
-                    },
-                    "region_iso_code": {
-                      "type": "keyword"
-                    },
-                    "city_name": {
-                      "type": "keyword"
-                    },
-                    "country_iso_code": {
-                      "type": "keyword"
-                    },
-                    "location": {
-                      "type": "geo_point"
-                    },
-                    "region_name": {
-                      "type": "keyword"
-                    }
-                  }
-                },
-                "method": {
-                  "type": "keyword"
-                },
-                "user_name": {
-                  "type": "keyword"
-                },
-                "http_version": {
                   "type": "keyword"
                 },
                 "body_sent": {
@@ -81,11 +83,23 @@ PUT _index_template/pfelk-nginx
                     }
                   }
                 },
+                "http_version": {
+                  "type": "keyword"
+                },
+                "method": {
+                  "type": "keyword"
+                },
+                "referrer": {
+                  "type": "keyword"
+                },
                 "remote_ip_list": {
                   "index": true,
                   "store": false,
                   "type": "ip",
                   "doc_values": true
+                },
+                "response_code": {
+                  "type": "long"
                 },
                 "url": {
                   "type": "wildcard"
@@ -93,22 +107,45 @@ PUT _index_template/pfelk-nginx
                 "user_agent": {
                   "type": "object",
                   "properties": {
+                    "device": {
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "type": "keyword"
+                    },
                     "original": {
                       "type": "keyword"
                     },
                     "os": {
                       "type": "keyword"
                     },
-                    "name": {
-                      "type": "keyword"
-                    },
                     "os_name": {
-                      "type": "keyword"
-                    },
-                    "device": {
                       "type": "keyword"
                     }
                   }
+                },
+                "user_name": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "error": {
+              "type": "object",
+              "properties": {
+                "connection_id": {
+                  "type": "long"
+                },
+                "level": {
+                  "type": "keyword"
+                },
+                "message": {
+                  "type": "text"
+                },
+                "process": {
+                  "type": "long"
+                },
+                "tid": {
+                  "type": "long"
                 }
               }
             },
@@ -118,19 +155,21 @@ PUT _index_template/pfelk-nginx
                 "agent": {
                   "type": "keyword"
                 },
-                "response_code": {
-                  "type": "long"
+                "body_sent": {
+                  "type": "object",
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
                 },
                 "geoip": {
                   "type": "object",
                   "properties": {
-                    "continent_name": {
-                      "type": "keyword"
-                    },
-                    "region_iso_code": {
-                      "type": "keyword"
-                    },
                     "city_name": {
+                      "type": "keyword"
+                    },
+                    "continent_name": {
                       "type": "keyword"
                     },
                     "country_iso_code": {
@@ -139,15 +178,65 @@ PUT _index_template/pfelk-nginx
                     "location": {
                       "type": "geo_point"
                     },
+                    "region_iso_code": {
+                      "type": "keyword"
+                    },
                     "region_name": {
                       "type": "keyword"
                     }
                   }
                 },
+                "http": {
+                  "type": "object",
+                  "properties": {
+                    "request": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "keyword"
+                        },
+                        "length": {
+                          "type": "long"
+                        },
+                        "time": {
+                          "type": "double"
+                        }
+                      }
+                    }
+                  }
+                },
+                "http_version": {
+                  "type": "keyword"
+                },
+                "method": {
+                  "type": "keyword"
+                },
+                "referrer": {
+                  "type": "keyword"
+                },
+                "remote_ip_list": {
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "index": true,
+                  "store": false,
+                  "type": "keyword",
+                  "index_options": "docs",
+                  "split_queries_on_whitespace": false,
+                  "doc_values": true
+                },
+                "response_code": {
+                  "type": "long"
+                },
                 "upstream": {
                   "type": "object",
                   "properties": {
                     "alternative_name": {
+                      "type": "keyword"
+                    },
+                    "ip": {
+                      "type": "ip"
+                    },
+                    "name": {
                       "type": "keyword"
                     },
                     "port": {
@@ -156,14 +245,14 @@ PUT _index_template/pfelk-nginx
                     "response": {
                       "type": "object",
                       "properties": {
-                        "status_code": {
-                          "type": "long"
-                        },
                         "length": {
                           "type": "long"
                         },
                         "length_list": {
                           "type": "keyword"
+                        },
+                        "status_code": {
+                          "type": "long"
                         },
                         "status_code_list": {
                           "type": "keyword"
@@ -180,109 +269,37 @@ PUT _index_template/pfelk-nginx
                           "type": "keyword"
                         }
                       }
-                    },
-                    "ip": {
-                      "type": "ip"
-                    },
-                    "name": {
-                      "type": "keyword"
                     }
                   }
-                },
-                "method": {
-                  "type": "keyword"
-                },
-                "user_name": {
-                  "type": "keyword"
-                },
-                "http_version": {
-                  "type": "keyword"
-                },
-                "remote_ip_list": {
-                  "eager_global_ordinals": false,
-                  "norms": false,
-                  "index": true,
-                  "store": false,
-                  "type": "keyword",
-                  "index_options": "docs",
-                  "split_queries_on_whitespace": false,
-                  "doc_values": true
-                },
-                "url": {
-                  "type": "wildcard"
-                },
-                "referrer": {
-                  "type": "keyword"
                 },
                 "upstream_address_list": {
                   "type": "keyword"
                 },
-                "http": {
-                  "type": "object",
-                  "properties": {
-                    "request": {
-                      "type": "object",
-                      "properties": {
-                        "length": {
-                          "type": "long"
-                        },
-                        "id": {
-                          "type": "keyword"
-                        },
-                        "time": {
-                          "type": "double"
-                        }
-                      }
-                    }
-                  }
-                },
-                "body_sent": {
-                  "type": "object",
-                  "properties": {
-                    "bytes": {
-                      "type": "long"
-                    }
-                  }
+                "url": {
+                  "type": "wildcard"
                 },
                 "user_agent": {
                   "type": "object",
                   "properties": {
+                    "device": {
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "type": "keyword"
+                    },
                     "original": {
                       "type": "keyword"
                     },
                     "os": {
                       "type": "keyword"
                     },
-                    "name": {
-                      "type": "keyword"
-                    },
                     "os_name": {
-                      "type": "keyword"
-                    },
-                    "device": {
                       "type": "keyword"
                     }
                   }
-                }
-              }
-            },
-            "error": {
-              "type": "object",
-              "properties": {
-                "process": {
-                  "type": "long"
                 },
-                "connection_id": {
-                  "type": "long"
-                },
-                "level": {
+                "user_name": {
                   "type": "keyword"
-                },
-                "message": {
-                  "type": "text"
-                },
-                "tid": {
-                  "type": "long"
                 }
               }
             }
