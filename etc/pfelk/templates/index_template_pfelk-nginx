@@ -1,6 +1,6 @@
 PUT _index_template/pfelk-nginx
 {
-  "version": 202407,
+  "version": 20240722,
   "priority": 320,
   "template": {
     "settings": {
@@ -43,26 +43,44 @@ PUT _index_template/pfelk-nginx
                 }
               }
             },
-            "city_name": {
-              "type": "keyword"
-            },
-            "continent_code": {
-              "type": "keyword"
-            },
-            "continent_name": {
-              "type": "keyword"
-            },
-            "country_iso_code": {
-              "type": "keyword"
-            },
-            "location": {
-              "type": "geo_point"
-            },
-            "region_iso_code": {
-              "type": "keyword"
-            },
-            "region_name": {
-              "type": "keyword"
+            "geo": {
+              "type": "object",
+              "properties": {
+                "city_name": {
+                  "type": "keyword"
+                },
+                "continent_code": {
+                  "type": "keyword"
+                },
+                "country_name": {
+                  "type": "keyword",
+                  "index": true,
+                  "eager_global_ordinals": false,
+                  "norms": false,
+                  "split_queries_on_whitespace": false,
+                  "doc_values": true,
+                  "store": false,
+                  "index_options": "docs"
+                },
+                "country_iso_code": {
+                  "type": "keyword"
+                },
+                "region_iso_code": {
+                  "type": "keyword"
+                },
+                "region_name": {
+                  "type": "keyword"
+                },
+                "location": {
+                  "type": "geo_point"
+                },
+                "timezone": {
+                  "type": "keyword"
+                },
+                "postal_code": {
+                  "type": "keyword"
+                }
+              }
             }
           }
         },
