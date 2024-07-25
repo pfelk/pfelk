@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Version    | 24.05
+# Version    | 24.07
 # Email      | https://github.com/pfelk/pfelk
 #
 ###################################################################################################################################################################################################
@@ -52,6 +52,9 @@ wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/2
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-squid.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-suricata.ndjson -P /tmp/pfELK/
 wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.08-unbound.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.07-firewall-drilldown.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.07-nginx.ndjson -P /tmp/pfELK/
+wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.07-unbound.ndjson -P /tmp/pfELK/
 ###################################################################################################################################################################################################
 #                                                                                                                                                                                                 #
 #                                                                                   pfELK - Installing Saved Objects                                                                              #
@@ -67,3 +70,6 @@ curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-squid.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/22.01-suricata.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
 curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/23.08-unbound.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/24.07-firewall-drilldown.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/24.07-nginx.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
+curl -X POST localhost:5601/api/saved_objects/_import -H "kbn-xsrf: true" --form file=@/tmp/pfELK/24.07-unbound.ndjson -H 'kbn-xsrf: true' -u elastic:PASSWORDGOESHERE
