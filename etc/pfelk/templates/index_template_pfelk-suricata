@@ -1,6 +1,6 @@
 PUT _index_template/pfelk-suricata
 {
-  "version": 202407,
+  "version": 202408,
   "priority": 313,
   "template": {
     "settings": {
@@ -28,6 +28,23 @@ PUT _index_template/pfelk-suricata
       "dynamic_templates": [],
       "date_detection": true,
       "properties": {
+        "destination": {
+          "dynamic": true,
+          "type": "object",
+          "enabled": true,
+          "properties": {
+            "geo": {
+              "dynamic": true,
+              "type": "object",
+              "enabled": true,
+              "properties": {
+                "location": {
+                  "type": "geo_point"
+                }
+              }
+            }
+          }
+        },
         "suricata": {
           "type": "object",
           "properties": {
@@ -771,6 +788,19 @@ PUT _index_template/pfelk-suricata
               }
             }
           }
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "geo": {
+              "type": "object",
+              "properties": {
+                "location": {
+                  "type": "geo_point"
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -789,7 +819,7 @@ PUT _index_template/pfelk-suricata
   ],
   "allow_auto_create": true,
   "_meta": {
-    "description": "default suricata indexes installed by pfelk",
-    "managed": true
+    "managed": true,
+    "description": "default suricata indexes installed by pfelk"
   }
 }
