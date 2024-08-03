@@ -1,6 +1,6 @@
 # 05-apps.pfelk
 ################################################################################
-# Version: 24.04                                                               #
+# Version: 24.09                                                               #
 # Required: True                                                               #
 # Description: Parses events based on process.name and further enriches events #
 #                                                                              #
@@ -104,12 +104,11 @@ filter {
       patterns_dir => [ "/etc/pfelk/patterns" ]
       match => [ "filter_message", "%{OPENVPN}" ]
     }
-#    if [openvpn_message] {
-#      grok {
-#        patterns_dir => [ "/etc/pfelk/patterns" ]
-#        match => [ "openvpn_message", "%{OPENVPN_RAW}" ]
-#      }
-#    }
+    if "openvpn" in [tags] {
+      mutate {
+        replace => [ "[log][syslog][appname]", "openvpn" ]
+      }
+    }
   }
   ### named ###
   if [log][syslog][appname] =~ /^named/ {
