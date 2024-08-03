@@ -1,21 +1,31 @@
 # 49-cleanup.pfelk
 ################################################################################
-# Version: 24.02                                                               #
-# Required: False - Optional                                                   #
+# Version: 24.09                                                               #
+# Required: False - Recommended                                                #
 # Description: Removed unwanted logs based on the process.pid field and        #
-# additional fields. Additionally, pf.tcp.options is split (multiple values)   #
+# additional fields. Additionally, pf.tcp.options is split (multiple values).  #
+# Ameneds log.syslog.appname for openvpn value based on tag to openvpn.        #
 ################################################################################
 #
-# Update as needed to remove unwanted logs based on the log.syslog.priority field
+# 
 filter {
+### Drops logs based on priority - amend as desired ###
 #  if [log][syslog][priority] in ["78", "46", "45", "43"] {
 #	drop { }
 #  }
+### Mutates log.syslog.appname value to openvpn based on openvpn tag allowing ###
+#  if "openvpn" in [tags] {
+#    mutate {
+#      replace => [ "[log][syslog][appname]", "openvpn" ]
+#    }
+#  }
+### Split multiple values witin pf.tcp.options ###
   mutate {
     remove_field => ["filter_message", "pfelk", "pfelk_csv"]
     split => { "[pf][tcp][options]" => ";" }
     rename => { "message" => "[event][original]" }
   }
+### Split multiple values wihtin pf.tcp.sequence_number ###
   ruby {
     code => '
       if event.get("[pf][tcp][sequence_number]")
