@@ -1,0 +1,95 @@
+PUT _index_template/pfelk-openvpn
+{
+  "version": 202409,
+  "priority": 406,
+  "template": {
+    "settings": {
+      "index": {
+        "lifecycle": {
+          "name": "pfelk"
+        }
+      }
+    },
+    "mappings": {
+      "_routing": {
+        "required": false
+      },
+      "numeric_detection": false,
+      "_source": {
+        "excludes": [],
+        "includes": [],
+        "enabled": true
+      },
+      "dynamic": true,
+      "dynamic_templates": [],
+      "date_detection": false,
+      "properties": {
+        "openvpn": {
+          "type": "object",
+          "properties": {
+            "server": {
+              "type": "keyword"
+            },
+            "client": {
+              "type": "object",
+              "properties": {
+                "port": {
+                  "type": "keyword"
+                },
+                "ip": {
+                  "type": "ip"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "keyword",
+                      "fields": {
+                        "text": {
+                          "type": "match_only_text"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "source": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                }
+              }
+            },
+            "event": {
+              "type": "object",
+              "properties": {
+                "original": {
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "index_patterns": [
+    "*-pfelk-openvpn*"
+  ],
+  "data_stream": {
+    "hidden": false,
+    "allow_custom_routing": false
+  },
+  "composed_of": [
+    "data-streams-mappings",
+    "pfelk-settings",
+    "pfelk-mappings"
+  ],
+  "allow_auto_create": true,
+  "_meta": {
+    "description": "default openvpn indexes installed by pfelk",
+    "managed": true
+  }
+}
