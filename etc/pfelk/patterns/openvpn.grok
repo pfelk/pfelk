@@ -1,6 +1,6 @@
 # openvpn.grok
 ################################################################################
-# Version: 24.04-beta                                                          #
+# Version: 24.09-beta                                                          #
 #                                                                              #
 # OPNsense/pfSense openvpn log grok pattern for pfELK                          #
 #                                                                              #
@@ -9,8 +9,8 @@
 # OPENVPN
 #
 OPENVPN %{OVPN_SER}|%{OVPN_ST}|%{OVPN_CLIENT}|%{OVPN_MULTI}
-OVPN_SER openvpn server '%{WORD:[openvpn][server]}' user '%{USER:[openvpn][client][user][name]}' address '%{IP:[openvpn][client][ip]}?(:%{NUMBER:[openvpn][client][port]})?' - %{WORD:[openvpn][message]}
-OVPN_ST user '%{USER:[openvpn][client][user][name]}' %{WORD:[openvpn][message]}
+OVPN_SER openvpn server '%{WORD:[openvpn][server]}' user '%{USER:[openvpn][client][user][name]}' address '%{IP:[openvpn][client][ip]}?(:%{NUMBER:[openvpn][client][port]})?' - %{WORD:[openvpn][event][original]}
+OVPN_ST user '%{USER:[openvpn][client][user][name]}' %{WORD:[openvpn][event][original]}
 OVPN_CLIENT %{OVPN_C1}|%{OVPN_C2}
 OVPN_C1 %{USER:[openvpn][client][user][name]}/%{IP:[openvpn][client][ip]}:%{NUMBER:[openvpn][client][port]} MULTI_sva: pool returned IPv4=(%{IP:[openvpn][source][ip]}|\(Not enabled\)), IPv6=(\(Not enabled\)|%{IP:[openvpn][source][ip]})
 OVPN_C2 %{USER:[openvpn][client][user][name]}/%{IP:[openvpn][client][ip]}:%{NUMBER:[openvpn][client][port]} MULTI: primary virtual IP for %{USER:[openvpn][client][user][name]}/%{IP:[openvpn][client][ip]}:%{NUMBER:[openvpn][client][port]}: %{IP:[openvpn][source][ip]}
