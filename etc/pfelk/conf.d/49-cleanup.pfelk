@@ -1,6 +1,6 @@
 # 49-cleanup.pfelk
 ################################################################################
-# Version: 24.09                                                               #
+# Version: 24.09a                                                              #
 # Required: False - Recommended                                                #
 # Description: Removed unwanted logs based on the process.pid field and        #
 # additional fields. Additionally, pf.tcp.options is split (multiple values).  #
@@ -23,6 +23,8 @@ filter {
   mutate {
     remove_field => ["filter_message", "pfelk", "pfelk_csv"]
     split => { "[pf][tcp][options]" => ";" }
+    split => { "[openvpn][client][sso]" => "," }
+    split => { "[openvpn][client][ciphers]" => ":" }
     rename => { "message" => "[event][original]" }
   }
 ### Split multiple values wihtin pf.tcp.sequence_number ###
