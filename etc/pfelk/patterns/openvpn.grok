@@ -8,7 +8,7 @@
 #
 # OPENVPN
 #
-OPENVPN %{OVPN_SER}|%{OVPN_ST}|%{OVPN_CLIENT}|%{OVPN_MULTI}
+OPENVPN %{OVPN_SER}|%{OVPN_ST}|%{OVPN_CLIENT}|%{OVPN_MULTI}|%{OVPN_ISQ}|%{OVPN_PH}|%OVPN_USER
 OVPN_SER openvpn server '%{WORD:[openvpn][server]}' user '%{USER:[openvpn][client][user][name]}' address '%{IP:[openvpn][client][ip]}?(:%{NUMBER:[openvpn][client][port]})?' - %{WORD:[openvpn][event][original]}
 OVPN_ST user '%{USER:[openvpn][client][user][name]}' %{WORD:[openvpn][event][original]}
 OVPN_CLIENT %{OVPN_C1}|%{OVPN_C2}
