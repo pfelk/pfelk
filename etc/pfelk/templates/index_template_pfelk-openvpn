@@ -11,33 +11,30 @@ PUT _index_template/pfelk-openvpn
       }
     },
     "mappings": {
-      "_routing": {
-        "required": false
-      },
-      "numeric_detection": false,
       "_source": {
         "excludes": [],
         "includes": [],
         "enabled": true
       },
+      "_routing": {
+        "required": false
+      },
       "dynamic": true,
-      "dynamic_templates": [],
+      "numeric_detection": false,
       "date_detection": false,
+      "dynamic_templates": [],
       "properties": {
         "openvpn": {
           "type": "object",
           "properties": {
-            "server": {
-              "type": "keyword"
-            },
             "client": {
               "type": "object",
               "properties": {
-                "port": {
-                  "type": "keyword"
-                },
                 "ip": {
                   "type": "ip"
+                },
+                "port": {
+                  "type": "keyword"
                 },
                 "user": {
                   "type": "object",
@@ -51,14 +48,39 @@ PUT _index_template/pfelk-openvpn
                       }
                     }
                   }
-                }
-              }
-            },
-            "source": {
-              "type": "object",
-              "properties": {
-                "ip": {
-                  "type": "ip"
+                },
+                "sso": {
+                  "type": "keyword"
+                },
+                "ciphers": {
+                  "type": "keyword"
+                },
+                "version": {
+                  "type": "keyword"
+                },
+                "gui_version": {
+                  "type": "keyword"
+                },
+                "comparison": {
+                  "type": "integer"
+                },
+                "base64": {
+                  "type": "integer"
+                },
+                "LZ0": {
+                  "type": "integer"
+                },
+                "LZ4v2": {
+                  "type": "integer"
+                },
+                "ncp": {
+                  "type": "integer"
+                },
+                "platform": {
+                  "type": "integer"
+                },
+                "TCPNL": {
+                  "type": "integer"
                 }
               }
             },
@@ -67,6 +89,25 @@ PUT _index_template/pfelk-openvpn
               "properties": {
                 "original": {
                   "type": "keyword"
+                },
+                "server": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "keyword"
+                    },
+                    "id": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "source": {
+              "type": "object",
+              "properties": {
+                "ip": {
+                  "type": "ip"
                 }
               }
             }
@@ -89,7 +130,7 @@ PUT _index_template/pfelk-openvpn
   ],
   "allow_auto_create": true,
   "_meta": {
-    "description": "default openvpn indexes installed by pfelk",
-    "managed": true
+    "managed": true,
+    "description": "default openvpn indexes installed by pfelk"
   }
 }
