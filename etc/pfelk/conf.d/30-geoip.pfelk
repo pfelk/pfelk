@@ -1,13 +1,13 @@
 # 30-geoip.pfelk
 ################################################################################
-# Version: 23.08                                                               #
+# Version: 24.09                                                               #
 # Required: False - Optional                                                   #
 # Description: Enriches source.ip and destination.ip fields with GeoIP data    #
 # For MaxMind, remove all instances of "#MMR#" or leave for built-in GeoIP     #
 ################################################################################
 #
 filter {
-  if "pfelk" in [tags] {
+  if "pfelk" in [tags] or "openvpn" in [tags] {
     if [source][ip] {
       ### Check if source.ip address is private
       cidr {
@@ -54,8 +54,8 @@ filter {
       }
     }
   }
-  ### PROXY ###
-  if "haproxy" in [tags] or "nginx" in [tags] {
+  ### PROXY / OPENVPN ###
+  if "haproxy" in [tags] or "nginx" in [tags] or "openvpn" in [tags] {
     if [client][ip] {
      # Check if client.ip address is private
       cidr {
