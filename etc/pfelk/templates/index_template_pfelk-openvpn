@@ -11,17 +11,18 @@ PUT _index_template/pfelk-openvpn
       }
     },
     "mappings": {
+      "dynamic": true,
+      "numeric_detection": false,
+      "date_detection": false,
       "_source": {
-        "excludes": [],
+        "enabled": true,
         "includes": [],
-        "enabled": true
+        "excludes": []
       },
       "_routing": {
         "required": false
       },
-      "dynamic": true,
-      "numeric_detection": false,
-      "date_detection": false,
+      "subobjects": true,
       "dynamic_templates": [],
       "properties": {
         "openvpn": {
@@ -49,38 +50,37 @@ PUT _index_template/pfelk-openvpn
                     }
                   }
                 },
-                "sso": {
-                  "type": "keyword"
-                },
-                "ciphers": {
-                  "type": "keyword"
-                },
-                "version": {
-                  "type": "keyword"
-                },
-                "gui_version": {
-                  "type": "keyword"
-                },
-                "comparison": {
-                  "type": "integer"
-                },
-                "base64": {
-                  "type": "integer"
-                },
-                "LZ0": {
-                  "type": "integer"
-                },
-                "LZ4v2": {
-                  "type": "integer"
-                },
-                "ncp": {
-                  "type": "integer"
-                },
-                "platform": {
-                  "type": "integer"
-                },
-                "TCPNL": {
-                  "type": "integer"
+                "geo": {
+                  "type": "object",
+                  "properties": {
+                    "city_name": {
+                      "type": "keyword"
+                    },
+                    "continent_code": {
+                      "type": "keyword"
+                    },
+                    "country_iso_code": {
+                      "type": "keyword"
+                    },
+                    "country_name": {
+                      "type": "keyword"
+                    },
+                    "location": {
+                      "type": "geo_point"
+                    },
+                    "postal_code": {
+                      "type": "keyword"
+                    },
+                    "region_iso_code": {
+                      "type": "keyword"
+                    },
+                    "region_name": {
+                      "type": "keyword"
+                    },
+                    "timezone": {
+                      "type": "keyword"
+                    }
+                  }
                 }
               }
             },
@@ -89,25 +89,49 @@ PUT _index_template/pfelk-openvpn
               "properties": {
                 "original": {
                   "type": "keyword"
-                },
-                "server": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "keyword"
-                    },
-                    "id": {
-                      "type": "integer"
-                    }
-                  }
                 }
               }
+            },
+            "server": {
+              "type": "keyword"
             },
             "source": {
               "type": "object",
               "properties": {
                 "ip": {
                   "type": "ip"
+                },
+                "geo": {
+                  "type": "object",
+                  "properties": {
+                    "city_name": {
+                      "type": "keyword"
+                    },
+                    "continent_code": {
+                      "type": "keyword"
+                    },
+                    "country_iso_code": {
+                      "type": "keyword"
+                    },
+                    "country_name": {
+                      "type": "keyword"
+                    },
+                    "location": {
+                      "type": "geo_point"
+                    },
+                    "postal_code": {
+                      "type": "keyword"
+                    },
+                    "region_iso_code": {
+                      "type": "keyword"
+                    },
+                    "region_name": {
+                      "type": "keyword"
+                    },
+                    "timezone": {
+                      "type": "keyword"
+                    }
+                  }
                 }
               }
             }
