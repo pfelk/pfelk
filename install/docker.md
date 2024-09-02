@@ -95,11 +95,13 @@ Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki pa
 # Configuration
 * Optional
 
-### 14. Configure Credentials | .env
+### 14. Configure Credentials
+
+#### a. Configuring .env Credentials
 ```
 sudo nano /etc/pfelk/docker/.env
 ```
-#### Amend `.env` Credentials as Desired
+#### b. Amend as Desired | .env
 ```
 ELASTIC_PASSWORD=changeme
 KIBANA_PASSWORD=changeme
@@ -107,11 +109,11 @@ LOGSTASH_PASSWORD=changeme
 LICENSE=basic
 ```
 
-### 15. Configure Credentials | 50-outputs.conf
+#### c. Configure 50-outputs.conf Credentials
 ```
 sudo nano /etc/pfelk/conf.d/50-outputs.pfelk
 ```
-#### Amend 50-outputs.conf Credentials as Desired
+#### d. Amend as Desired | 50-outputs.conf 
 ```
     cacert => '/usr/share/logstash/config/certs/ca/ca.crt'
     user => "elastic"
@@ -120,14 +122,24 @@ sudo nano /etc/pfelk/conf.d/50-outputs.pfelk
     password => "changeme"
 ```
 
+#### e. Configure `/etc/pfelk/logstash.yml` Credentials
+```
+sudo nano /etc/pfelk/config/logstash.yml
+```
+#### f. Amend as Desired | `/etc/pfelk/logstash.yml`
+```
+    xpack.monitoring.elasticsearch.username: elastic
+    xpack.monitoring.elasticsearch.password: changeme
+```
+
 # Services
 
-### 14. Navigate to Docker.yml File
+### 15. Navigate to Docker.yml File
 ```
 cd /etc/pfelk/docker/
 ```
 
-### 15. Start pfelk/docker
+### 16. Start pfelk/docker
 ```
 sudo docker-compose up
 ```
