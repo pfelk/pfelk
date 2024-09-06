@@ -1,45 +1,26 @@
-# 49-cleanup.pfelk
+# openvpn.grok
 ################################################################################
-# Version: 24.09a                                                              #
-# Required: False - Recommended                                                #
-# Description: Removed unwanted logs based on the process.pid field and        #
-# additional fields. Additionally, pf.tcp.options is split (multiple values).  #
-# Ameneds log.syslog.appname for openvpn value based on tag to openvpn.        #
+# Version: 24.09b                                                              #
+#                                                                              #
+# OPNsense/pfSense openvpn log grok pattern for pfELK                          #
+#                                                                              #
 ################################################################################
 #
-# 
-filter {
-### Drops logs based on priority - amend as desired ###
-#  if [log][syslog][priority] in ["78", "46", "45", "43"] {
-#	drop { }
-#  }
-### Mutates log.syslog.appname value to openvpn based on openvpn tag allowing ###
-#  if "openvpn" in [tags] {
-#    mutate {
-#      replace => [ "[log][syslog][appname]", "openvpn" ]
-#    }
-#  }
-### Split multiple values witin pf.tcp.options ###
-  mutate {
-    remove_field => ["filter_message", "pfelk", "pfelk_csv"]
-    split => { "[pf][tcp][options]" => ";" }
-    split => { "[openvpn][client][sso]" => "," }
-    split => { "[openvpn][client][ciphers]" => ":" }
-    rename => { "message" => "[event][original]" }
-  }
-### Split multiple values wihtin pf.tcp.sequence_number ###
-  ruby {
-    code => '
-      if event.get("[pf][tcp][sequence_number]")
-        sequence_number = event.get("[pf][tcp][sequence_number]")
-        if sequence_number.include?(":")
-          start_num, end_num = sequence_number.split(":")
-          event.set("[pf][tcp][sequence_number]", start_num.to_i)
-          event.set("[pf][tcp][sequence_number_range_end]", end_num.to_i)
-        else
-          event.set("[pf][tcp][sequence_number]", sequence_number.to_i)
-        end
-      end
-    '
-  }
-}
+# OPENVPN
+#
+OPENVPN %{OVPN_SER}|%{OVPN_ST}|%{OVPN_CLIENT}|%{OVPN_MULTI}|%{OVPN_ISQ}|%{OVPN_PH}|%OVPN_USER
+OVPN_SER openvpn server '%{WORD:[openvpn][server][name]}' user '%{USER:[openvpn][client][user][name]}' address '%{IP:[openvpn][client][ip]}?(:%{NUMBER:[openvpn][client][port]})?' - %{WORD:[openvpn][event][original]}
+OVPN_ST user '%{USER:[openvpn][client][user][name]}' %{WORD:[openvpn][event][original]}
+OVPN_CLIENT %{OVPN_C1}|%{OVPN_C2}
+OVPN_C1 %{USER:[openvpn][client][user][name]}/%{IP:[openvpn][client][ip]}:%{NUMBER:[openvpn][client][port]} MULTI_sva: pool returned IPv4=(%{IP:[openvpn][source][ip]}|\(Not enabled\)), IPv6=(\(Not enabled\)|%{IP:[openvpn][source][ip]})
+OVPN_C2 %{USER:[openvpn][client][user][name]}/%{IP:[openvpn][client][ip]}:%{NUMBER:[openvpn][client][port]} MULTI: primary virtual IP for %{USER:[openvpn][client][user][name]}/%{IP:[openvpn][client][ip]}:%{NUMBER:[openvpn][client][port]}: %{IP:[openvpn][source][ip]}
+OVPN_MULTI %{USER:[openvpn][client][user][name]}/%{IP:[openvpn][client][ip]}:%{NUMBER:[openvpn][client][port]} MULTI: Learn: %{IP:[openvpn][source][ip]} -> %{USER:[openvpn][client][user][name]}/%{IP:[openvpn][client][ip]}:%{NUMBER:[openvpn][client][port]}
+
+### OPENVPN Enhanced Log Parser ###
+OVPN_ISQ Initialization Sequence Completed
+OVPN_PH %{IP:[openvpn][client][ip]}:%{INT:[openvpn][client][port]}%OVPN_PINFOI
+OVPN_PINFOI peer info: %{OVPN_PINFO1}|%{OVPN_PINFO2}|%{OVPN_PINFO3}
+OVPN_PINFO1 IV_COMP_STUB=%{INT:[openvpn][client][comparision]}|IV_BS64DL=%{INT:[openvpn][client][base64]}|IV_LZO=%{INT:[openvpn][client][LZO]}|IV_LZ4v2=%{INT:[openvpn][client][LZ4v2]}|IV_NCP=%{INT:[openvpn][client][ncp]}|IV_PLAT=%{INT:[openvpn][client][platform]}|IV_PROTO=%{INT:[openvpn][client][base64]}|IV_TCPNL=%{INT:[openvpn][client][TCPNL]}
+OVPN_PINFO2 IV_VER=%{GREEDYDATA:[openvpn][client][version]})|(IV_GUI_VER=%{GREEDYDATA:[openvpn][client][gui_version]}
+OVPN_PINFO3 IV_SSO=%{GREEDYDATA:[openvpn][client][sso]}|IV_CIPHERS=%{GREEDYDATA:[openvpn][client][ciphers]}
+OVPN_USER Locate overwrite for '%{USERNAME:[openvpn][client][user][name]}' using server '%{INT:[openvpn][server][name]}' \(vpnid: %{INT:[openvpn][server][id]}\)
