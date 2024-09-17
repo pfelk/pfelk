@@ -46,7 +46,7 @@ Supported entries include:
  - DHCP (v4/v6) message types with dashboard - depreciated
  - IPv4/IPv6 mapping
  - pfSense CARP data
- - openVPN log parsing
+ - openVPN with dashboard
  - Unbound DNS Resolver with dashboard and Kibana SIEM compliance
  - Suricata IDS with dashboard and Kibana SIEM compliance
  - Snort IDS with dashboard and Kibana SIEM compliance 
