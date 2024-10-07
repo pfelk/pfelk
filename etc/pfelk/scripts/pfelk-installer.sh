@@ -1,5 +1,5 @@
 #!/bin/bash
-# Version    | 24.07
+# Version    | 24.10
 # Website    | https://github.com/pfelk/pfelk
 ########################################################
 #pfELK Installation Script                             #
@@ -9,6 +9,7 @@
 #          | Ubuntu Hirsute Hippo (21.04)
 #          | Ubuntu Impish Indri (21.10)
 #          | Ubuntu Jammy Jellyfish (22.04)
+#          | Ubuntu Noble Numbat (24.04)
 #          | Debian Bullseye ( 11 )
 #          | Debian Bookworm ( 12 )
 ########################################################
@@ -17,7 +18,7 @@
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
 # GeoIP        | 7.0.1
 # Elastic      | https://www.elastic.co/guide/en/elasticsearch/reference/current/es-release-notes.html
-# Elasticstack | 8.15.0
+# Elasticstack | 8.15.2
 ########################################################
 #Color Codes                                           #
 ########################################################
@@ -75,7 +76,7 @@ fi
 #Error...Abort Script
 abort() {
   if [[ "${set_lc_all}" == 'true' ]]; then unset LC_ALL; fi
-  echo -e "\\n\\n${RED}###############################################################################################${GREEN}23.03${RED}#${RESET}\\n"
+  echo -e "\\n\\n${RED}###############################################################################################${GREEN}24.10${RED}#${RESET}\\n"
   echo -e "${WHITE_R}#${RESET} An error occurred. Aborting script..."
   echo -e "${WHITE_R}#${RESET} Please open an issue (https://github.com/pfelk/pfelk) on github!\\n"
   echo -e "${WHITE_R}#${RESET} Creating support file..."
@@ -203,13 +204,14 @@ get_distro() {
   os_codename=$(lsb_release -cs | tr '[:upper:]' '[:lower:]')
   if [[ "${os_codename}" == 'n/a' ]]; then os_codename=$(lsb_release -is | tr '[:upper:]' '[:lower:]')
   fi
+  if [[ "${os_codename}" =~ (noble) ]]; then os_codename=noble; fi
   if [[ "${os_codename}" =~ (jammy) ]]; then os_codename=jammy; fi
   if [[ "${os_codename}" =~ (impish|hirsute) ]]; then os_codename=focal; fi
   fi
 }
 get_distro
 #Codenames
-if ! [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm)  ]]; then
+if ! [[ "${os_codename}" =~ (focal|jammy|noble|bullseye|bookworm)  ]]; then
   clear
   header_red
   echo -e "${WHITE_R}#${RESET} This script is not made for your OS."
@@ -419,7 +421,7 @@ port_5140_service=''
 port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
-elk_version=8.15.0
+elk_version=8.15.2
 maxmind_version=7.0.1
 ########################################################
 #Required Packages                                     #
@@ -441,7 +443,7 @@ if ! dpkg -l sudo 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   echo -e "${WHITE_R}#${RESET} Installing sudo..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install sudo &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install sudo in the first run...\\n"
-  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+  if [[ "${os_codename}" =~ (focal|jammy|noble) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -552,7 +554,7 @@ if ! dpkg -l lsb-release 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi";
   echo -e "${WHITE_R}#${RESET} Installing lsb-release..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install lsb-release &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install lsb-release in the first run...\\n"
-  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+  if [[ "${os_codename}" =~ (focal|jammy|noble) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${os_codename} main universe") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${os_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -573,7 +575,7 @@ if ! dpkg -l apt-transport-https 2> /dev/null | awk '{print $1}' | grep -iq "^ii
   echo -e "${WHITE_R}#${RESET} Installing apt-transport-https..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install apt-transport-https &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install apt-transport-https on first attempt...\\n"
-  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+  if [[ "${os_codename}" =~ (focal|jammy|noble) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main universe") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -594,7 +596,7 @@ if ! dpkg -l software-properties-common 2> /dev/null | awk '{print $1}' | grep -
   echo -e "${WHITE_R}#${RESET} Installing software-properties-common..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install software-properties-common &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install software-properties-common in the first run...\\n"
-  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+  if [[ "${os_codename}" =~ (focal|jammy|noble) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -615,7 +617,7 @@ if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   echo -e "${WHITE_R}#${RESET} Installing curl..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install curl &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install curl in the first run...\\n"
-  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+  if [[ "${os_codename}" =~ (focal|jammy|noble) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -636,7 +638,7 @@ if ! dpkg -l dirmngr 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; the
   echo -e "${WHITE_R}#${RESET} Installing dirmngr..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install dirmngr &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install dirmngr in the first run...\\n"
-  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+  if [[ "${os_codename}" =~ (focal|jammy|noble) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu/ ${os_codename} universe") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu/ ${os_codename} universe" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -660,7 +662,7 @@ if ! dpkg -l wget 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi"; then
   echo -e "${WHITE_R}#${RESET} Installing wget..."
   if ! DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' install wget &>> "${pfELK_dir}/logs/required.log"; then
   echo -e "${RED}#${RESET} Failed to install wget in the first run...\\n"
-  if [[ "${os_codename}" =~ (focal|jammy) ]]; then
+  if [[ "${os_codename}" =~ (focal|jammy|noble) ]]; then
     if [[ $(find /etc/apt/ -name "*.list" -type f -print0 | xargs -0 cat | grep -c "^deb http[s]*://[A-Za-z0-9]*.archive.ubuntu.com/ubuntu ${os_codename} main") -eq 0 ]]; then
     echo -e "deb http://us.archive.ubuntu.com/ubuntu ${os_codename} main" >>/etc/apt/sources.list.d/pfelk-install-script.list || abort
     fi
@@ -1070,7 +1072,7 @@ done
 #Finish                                                #
 ########################################################
 #Check if Elasticsearch service is enabled
-if [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm) ]]; then
+if [[ "${os_codename}" =~ (focal|jammy|noble|bullseye|bookworm) ]]; then
   SERVICE_ELASTIC=$(systemctl is-enabled elasticsearch)
   if [ "$SERVICE_ELASTIC" = 'disabled' ]; then
     systemctl enable elasticsearch 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Elasticsearch"; sleep 3; }
@@ -1085,14 +1087,14 @@ add_es_syslink() {
 }
 add_es_syslink
 #Check if Logstash service is enabled
-if [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm) ]]; then
+if [[ "${os_codename}" =~ (focal|jammy|noble|bullseye|bookworm) ]]; then
   SERVICE_LOGSTASH=$(systemctl is-enabled logstash)
   if [ "$SERVICE_LOGSTASH" = 'disabled' ]; then
     systemctl enable logstash 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Logstash"; sleep 3; }
   fi
 fi
 #Check if Kibana service is enabled
-if [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm) ]]; then
+if [[ "${os_codename}" =~ (focal|jammy|noble|bullseye|bookworm) ]]; then
   SERVICE_KIBANA=$(systemctl is-enabled kibana)
   if [ "$SERVICE_KIBANA" = 'disabled' ]; then
     systemctl enable kibana 2>/dev/null || { echo -e "${RED}#${RESET} Failed to enable service | Kibana"; sleep 3; }
@@ -1186,7 +1188,7 @@ install_kibana_saved_objects() {
 header
 script_logo
 echo -e "${GREEN}###############################################################................................(71%)"
-if [[ "${os_codename}" =~ (focal|jammy|bullseye|bookworm) ]]; then
+if [[ "${os_codename}" =~ (focal|jammy|noble|bullseye|bookworm) ]]; then
   SERVICE_KIBANA=$(systemctl is-active kibana)
   if ! [ "$SERVICE_KIBANA" = 'active' ]; then
      { echo -e "\\n${RED}#${RESET} Failed to Download pfELK - Kibana Saved Objects\\n\\n"; sleep 3; }
