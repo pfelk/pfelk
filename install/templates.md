@@ -20,16 +20,13 @@
     - Index Templates
       - Click the green triangle after pasting the contents (one at a time) into the console
         - [pfelk-firewall](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-firewall)
-        - [pfelk-firewall](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.07-firewall-drilldown.ndjson) - 🎯
         - [pfelk-kea-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-kea-dhcp) - Optional 
         - [pfelk-dhcp](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-dhcp) - Depreciated
         - [pfelk-unbound](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-unbound) - Optional
-        - [pfelk-unbound](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.07-unbound.ndjson) - 🎯
         - [pfelk-squid](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-squid) - Optional
         - [pfelk-captive](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-captive) - Optional
         - [pfelk-haproxy](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-haproxy) - Optional
         - [pfelk-nginx](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-nginx) - Optional
-        - [pfelk-nginx](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.07-nginx.ndjson) - 🎯
         - [pfelk-suricata](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-suricata) - Optional
         - [pfelk-snort](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/templates/index_template_pfelk-snort) - Optional
   5. :pushpin: References
@@ -44,15 +41,16 @@
   5. The dashboards are located in the [dashboard :file_folder:](https://github.com/pfelk/pfelk/tree/main/etc/pfelk/dashboard) and linked below
   6. Import one at a time by clicking the import button in the top-right corner
       - [Firewall Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.09-firewall.ndjson)
+      - [Firewall Dashboard - Alternative](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.07-firewall-drilldown.ndjson) 
       - [Captive Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-captive.ndjson) - Optional
       - [DHCP (isc) Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.02-dhcp.ndjson) - DHCPv4 & DHCPv6
       - [DHCP (Kea) Dashbaord](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.05-kea-dhcp.ndjson) - Kea DHCP (v4)
       - [HAProxy Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-haproxy.ndjson) - Optional
-      - [NGINX Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-nginx.ndjson) - Optional
+      - [NGINX Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.07-nginx.ndjson) - Optional
       - [Snort Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-snort.ndjson) - Optional
       - [Squid Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-squid.ndjson) - Optional
       - [Suricata Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/22.01-suricata.ndjson) - Optional
-      - [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/23.08-unbound.ndjson) - Optional
+      - [Unbound Dashboard](https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/dashboard/24.07-unbound.ndjson) - Optional
   8. :pushpin: References
       - [:movie_camera: YouTube Guide](https://youtu.be/KV27ouVUGuc?t=281)
 
