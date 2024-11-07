@@ -1,17 +1,17 @@
 # 45-enhanced_private.pfelk
 ################################################################################
-# Version: 24.11                                                               #
+# Version: 24.11a                                                              #
 # Required: False - Optional                                                   #
-# Description: Adds customized host.hostname via dictionary lookup with domain #
-# and adds cusotmiazed GeoIP data for local IP address                         #
+# Description: Adds customized kea.dhcp.client.subdomain via dictionary lookup #
+# with domain and adds cusotmiazed GeoIP data for local IP address             #
 ################################################################################
 #
 filter {
-  if "dhcp" in [tags] or "unbound" in [tags] or "squid" in [tags] or "kea-dhcp" in [tags] {
+  if "dhcp4" in [tags] or "dhcp6" in [tags] or "unbound" in [tags] or "squid" in [tags] or "kea-dhcp" in [tags] {
     if [client][ip] {
       translate {
         source => "[client][ip]"
-        target => "[host][hostname]"
+        target => "[client][subdomain]"
         ################################################################################
         ###             Edit referenced dictionary for local IP/Hostnames            ### 
         ################################################################################
@@ -31,8 +31,6 @@ filter {
         ################################################################################
         ###                Amend pfelk.dev to your own domain name                   ###
         ################################################################################
-        replace => { "[log][syslog][hostname]" => "%{[log][syslog][hostname]}.pfelk.dev" }
-        ################################################################################
         ###                  Amend the values below as desired                       ###
         ################################################################################
         add_field => {   
@@ -44,7 +42,7 @@ filter {
           "[client][geo][country_iso_code]" => "US"
         }
         ################################################################################
-        lowercase => [ "[host][hostname]" ]
+        lowercase => [ "[client][subdomain]" ]
         lowercase => [ "[log][syslog][hostname]" ]
       }
     }
