@@ -1,13 +1,13 @@
 # 45-enhanced_private.pfelk
 ################################################################################
-# Version: 23.08                                                               #
+# Version: 24.11                                                               #
 # Required: False - Optional                                                   #
 # Description: Adds customized host.hostname via dictionary lookup with domain #
 # and adds cusotmiazed GeoIP data for local IP address                         #
 ################################################################################
 #
 filter {
-  if "dhcp" in [tags] or "unbound" in [tags] or "squid" in [tags] {
+  if "dhcp" in [tags] or "unbound" in [tags] or "squid" in [tags] or "kea-dhcp" in [tags] {
     if [client][ip] {
       translate {
         source => "[client][ip]"
