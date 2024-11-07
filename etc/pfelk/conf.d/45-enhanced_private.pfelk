@@ -1,13 +1,13 @@
 # 45-enhanced_private.pfelk
 ################################################################################
-# Version: 24.11a                                                              #
+# Version: 24.11b                                                              #
 # Required: False - Optional                                                   #
 # Description: Adds customized kea.dhcp.client.subdomain via dictionary lookup #
 # with domain and adds cusotmiazed GeoIP data for local IP address             #
 ################################################################################
 #
 filter {
-  if "dhcp4" in [tags] or "dhcp6" in [tags] or "unbound" in [tags] or "squid" in [tags] or "kea-dhcp" in [tags] {
+  if "unbound" in [tags] or "squid" in [tags] {
     if [client][ip] {
       translate {
         source => "[client][ip]"
@@ -26,10 +26,51 @@ filter {
         add_tag => "Private_Client_IP"
       }     
     }
+  }
+    if "kea-dhcp" in [tags] {
+      if [kea][dhcp][client][ip] {
+        translate {
+          source => "[kea][dhcp][client][ip]"
+          target => "[client][subdomain]"
+          ################################################################################
+          ###             Edit referenced dictionary for local IP/Hostnames            ### 
+          ################################################################################
+          dictionary_path => "/etc/pfelk/databases/private-hostnames.csv"
+          refresh_interval => 600
+          refresh_behaviour => replace
+          fallback => "%{[kea][dhcp][client][ip]}"
+        }
+        cidr {
+          address => [ "%{[kea][dhcp][client][ip]}" ]
+          network => [ "0.0.0.0/32", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "fc00::/7", "127.0.0.0/8", "::1/128", "169.254.0.0/16", "fe80::/10", "224.0.0.0/4", "ff00::/8", "255.255.255.255/32", "::" ]
+          add_tag => "Private_Client_IP"
+        }     
+      }
+    }
+
+    if "dhcp" in [tags] {
+      if [dhcpv6][client][ip] {
+        translate {
+          source => "[dhcpv6][client][ip]"
+          target => "[client][subdomain]"
+          ################################################################################
+          ###             Edit referenced dictionary for local IP/Hostnames            ### 
+          ################################################################################
+          dictionary_path => "/etc/pfelk/databases/private-hostnames.csv"
+          refresh_interval => 600
+          refresh_behaviour => replace
+          fallback => "%{[dhcpv6][client][ip]}"
+        }
+        cidr {
+          address => [ "%{[dhcpv6][client][ip]}" ]
+          network => [ "0.0.0.0/32", "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "fc00::/7", "127.0.0.0/8", "::1/128", "169.254.0.0/16", "fe80::/10", "224.0.0.0/4", "ff00::/8", "255.255.255.255/32", "::" ]
+          add_tag => "Private_Client_IP"
+        }     
+      }
+    }
+
     if "Private_Client_IP" in [tags] {
       mutate {
-        ################################################################################
-        ###                Amend pfelk.dev to your own domain name                   ###
         ################################################################################
         ###                  Amend the values below as desired                       ###
         ################################################################################
@@ -43,11 +84,6 @@ filter {
         }
         ################################################################################
         lowercase => [ "[client][subdomain]" ]
-        lowercase => [ "[log][syslog][hostname]" ]
       }
     }
-    mutate {
-      remove_tag => [ "Private_Client_IP" ]
-    }
   }
-}
