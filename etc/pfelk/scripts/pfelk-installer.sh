@@ -1,5 +1,5 @@
 #!/bin/bash
-# Version    | 24.10
+# Version    | 25.01
 # Website    | https://github.com/pfelk/pfelk
 ########################################################
 #pfELK Installation Script                             #
@@ -16,9 +16,9 @@
 # Dependency Version                                   #
 ########################################################
 # MaxMind      | https://github.com/maxmind/geoipupdate/releases
-# GeoIP        | 7.0.1
+# GeoIP        | 7.1.0
 # Elastic      | https://www.elastic.co/guide/en/elasticsearch/reference/current/es-release-notes.html
-# Elasticstack | 8.15.2
+# Elasticstack | 8.17.1
 ########################################################
 #Color Codes                                           #
 ########################################################
@@ -76,7 +76,7 @@ fi
 #Error...Abort Script
 abort() {
   if [[ "${set_lc_all}" == 'true' ]]; then unset LC_ALL; fi
-  echo -e "\\n\\n${RED}###############################################################################################${GREEN}24.10${RED}#${RESET}\\n"
+  echo -e "\\n\\n${RED}###############################################################################################${GREEN}25.01${RED}#${RESET}\\n"
   echo -e "${WHITE_R}#${RESET} An error occurred. Aborting script..."
   echo -e "${WHITE_R}#${RESET} Please open an issue (https://github.com/pfelk/pfelk) on github!\\n"
   echo -e "${WHITE_R}#${RESET} Creating support file..."
@@ -421,8 +421,8 @@ port_5140_service=''
 port_5040_in_use=''
 port_5040_pid=''
 port_5040_service=''
-elk_version=8.15.2
-maxmind_version=7.0.1
+elk_version=8.17.1
+maxmind_version=7.1.0
 ########################################################
 #Required Packages                                     #
 ########################################################
