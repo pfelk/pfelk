@@ -32,7 +32,7 @@ sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --
 sudo apt install apt-transport-https
 ```
 
-### p6. Add Elasticsearch|Logstash|Kibana Repositories (version 8+)
+### p6. Add Elasticsearch|Logstash|Kibana Repositories (version 9+)
 ```
 echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/9.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-9.x.list
 ```
