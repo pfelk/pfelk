@@ -1,4 +1,4 @@
-![Version badge](https://img.shields.io/badge/ELK-8.17.0-blue.svg)
+![Version badge](https://img.shields.io/badge/ELK-9.0.0-blue.svg)
 
 [![](https://dcbadge.vercel.app/api/server/h3DJs2Kj8k)](https://discord.gg/h3DJs2Kj8k)
 
