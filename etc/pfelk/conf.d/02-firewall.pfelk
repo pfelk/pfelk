@@ -16,6 +16,7 @@ filter {
       copy => { "filter_message" => "pfelk_csv" }
     }
     mutate {
+      strip => "pfelk_csv"
       split => { "pfelk_csv" => "," }
     }
 
