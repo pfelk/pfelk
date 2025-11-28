@@ -1,6 +1,6 @@
 # 50-outputs.pfelk
 ################################################################################
-# Version: 25.12                                                               #
+# Version: 25.12a                                                              #
 # Required: True                                                               #
 # Description: Sends enriched logs to Elasticsearch.                           #
 #                                                                              #
@@ -42,11 +42,13 @@ output {
     data_stream_dataset => "pfelk"
     ### X-Pack Security Method ###
     #[DOCKER]# hosts => ["https://es01:9200"]
-    #[DOCKER]# ssl => true
-    #[DOCKER]# ssl_certificate_authorities => '/usr/share/logstash/config/certs/ca/ca.crt'
+    #[DOCKER]# ssl_enabled => true
+    #[DOCKER]# ssl_certificate_authorities => ["/usr/share/logstash/config/certs/ca/ca.crt"]
     hosts => ["https://localhost:9200"] #[Disable if using Docker]
-    ssl_certificate_authorities => '/etc/logstash/config/certs/http_ca.crt' #[Disable if using Docker]
     user => "elastic" 
     password => "changeme"
+    ssl_enabled => true
+    ssl_certificate_authorities => ["/etc/logstash/config/certs/http_ca.crt"] #[Disable if using Docker]
+    #[OPTIONAL]# ssl_verification_mode => full   # default; or 'certificate'/'none' (not recommended)
   }
 }
