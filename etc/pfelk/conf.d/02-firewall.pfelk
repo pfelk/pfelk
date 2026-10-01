@@ -1,14 +1,14 @@
 # 02-firewall.pfelk
 ################################################################################
-# Version: 23.09                                                               #
+# Version: 26.10                                                               #
 # Required: True                                                               #
-# Description: Enriches pf (firewall) logs (OPNsense/pfSense) 		       #
+# Description: Enriches pf (firewall) logs (OPNsense/pfSense) 		           #
 #                                                                              #
 ################################################################################
 #
 filter {
 ### filterlog ###
-  if [log][syslog][appname] =~ /^filterlog$/ {
+  if [log][syslog][appname] == "filterlog" {
     mutate {
       add_tag => "firewall"
       add_field => { "[event][dataset]" => "pfelk.firewall" }
