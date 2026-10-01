@@ -1,6 +1,6 @@
 # pfelk.grok
 ################################################################################
-# Version: 24.09                                                               #
+# Version: 26.10                                                               #
 #                                                                              #
 #                                                                              #
 #                                                                              #
@@ -92,7 +92,9 @@ SNORT \[%{INT:[rule][uuid]}\:%{INT:[rule][reference]}\:%{INT:[rule][version]}\].
 SQUID %{IPORHOST:[client][ip]} %{NOTSPACE:[labels][request_status]}/%{NUMBER:[http][response][body][status_code]} %{NUMBER:[http][response][bytes]} %{NOTSPACE:[http][request][method]} (%{URIPROTO:[url][scheme]}://)?(?<[url][domain]>\S+?)(:%{INT:[url][port]})?(/%{NOTSPACE:[url][path]})?\s+%{NOTSPACE:[http][request][referrer]}\s+%{NOTSPACE:[lables][hierarchy_status]}/%{NOTSPACE:[destination][address]}\s+%{NOTSPACE:[http][response][mime_type]}
 
 # UNBOUND
-UNBOUND %{INT:[process][pgid]}:%{INT:[process][thread][id]} %{LOGLEVEL:[log][level]}: %{IP:[client][ip]} %{GREEDYDATA:[dns][question][name]}\. %{WORD:[dns][question][type]} %{WORD:[dns][question][class]}
+# [OLD] UNBOUND %{INT:[process][pgid]}:%{INT:[process][thread][id]} %{LOGLEVEL:[log][level]}: %{IP:[client][ip]} %{GREEDYDATA:[dns][question][name]}\. %{WORD:[dns][question][type]} %{WORD:[dns][question][class]}
+UNBOUND_QUERY \[%{INT:[process][pid]}:%{INT:[process][thread][id]}\] query: %{IP:[client][ip]} %{DATA:[dns][question][name]}\. %{WORD:[dns][question][type]} %{WORD:[dns][question][class]}
+UNBOUND_REPLY \[%{INT:[process][pid]}:%{INT:[process][thread][id]}\] reply: %{IP:[client][ip]} %{DATA:[dns][question][name]}\. %{WORD:[dns][question][type]} %{WORD:[dns][question][class]} %{WORD:[dns][response_code]} %{GREEDYDATA:[unbound][response_details]}
 
 # [DEPRECIATED]
 # PF
