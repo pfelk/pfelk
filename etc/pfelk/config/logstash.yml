@@ -1,12 +1,12 @@
 # logstash.yml
 ################################################################################
-# Version: 23.08                                                               #
+# Version: 26.10                                                               #
 # Required: True (Docker)                                                      #
 # Description: This is a required file for a Docker installation               #
 #                                                                              #
 ################################################################################
 #
-http.host: "0.0.0.0"
+api.http.host: "127.0.0.1"
 #path.config: /usr/share/logstash/pipeline/pipelines.yml
 xpack.monitoring.elasticsearch.hosts: [ "https://es01:9200" ]
 xpack.monitoring.elasticsearch.username: elastic
@@ -15,3 +15,10 @@ xpack.monitoring.elasticsearch.ssl.certificate_authority: /usr/share/logstash/co
 
 ## X-Pack security credentials
 xpack.monitoring.enabled: true
+
+## Parameters (Persistent Queues and DLQs)
+queue.type: persisted
+queue.max_bytes: 2gb
+
+dead_letter_queue.enable: true
+dead_letter_queue.max_bytes: 1gb
