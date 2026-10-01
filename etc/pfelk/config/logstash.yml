@@ -21,4 +21,4 @@ queue.type: persisted
 queue.max_bytes: 2gb
 
 dead_letter_queue.enable: true
-dead_letter_queue.max_bytes: 1gb
+dead_letter_queue.max_bytes: ${PFELK_QUEUE_SIZE:2gb}
