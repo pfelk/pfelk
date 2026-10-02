@@ -1,88 +1,50 @@
-#Cluster
 services:
-  setup:
+  certs:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
-    container_name: pfelk-setup
+    container_name: pfelk-certs
+    user: "0"
     volumes:
       - certs:/usr/share/elasticsearch/config/certs
-    user: "0"
     command: >
-      bash -c '
-        if [ x${ELASTIC_PASSWORD} == x ]; then
-          echo "Set the ELASTIC_PASSWORD environment variable in the .env file";
-          exit 1;
-        elif [ x${KIBANA_PASSWORD} == x ]; then
-          echo "Set the KIBANA_PASSWORD environment variable in the .env file";
-          exit 1;
-        elif [ x${LOGSTASH_PASSWORD} == x ]; then
-          echo "Set the LOGSTASH_PASSWORD environment variable in the .env file";
-          exit 1;
-        fi;
-        if [ ! -f config/certs/ca.zip ]; then
-          echo "Creating CA";
+      bash -euc '
+        if [ ! -f config/certs/ca/ca.crt ]; then
+          echo "Creating pfELK certificate authority";
           bin/elasticsearch-certutil ca --silent --pem -out config/certs/ca.zip;
-          unzip config/certs/ca.zip -d config/certs;
+          unzip -q config/certs/ca.zip -d config/certs;
         fi;
-        if [ ! -f config/certs/certs.zip ]; then
-          echo "Creating certs";
-          echo -ne \
-          "instances:\n"\
-          "  - name: es01\n"\
-          "    dns:\n"\
-          "      - es01\n"\
-          "      - localhost\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "  - name: es02\n"\
-          "    dns:\n"\
-          "      - es02\n"\
-          "      - localhost\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          "  - name: es03\n"\
-          "    dns:\n"\
-          "      - es03\n"\
-          "      - localhost\n"\
-          "    ip:\n"\
-          "      - 127.0.0.1\n"\
-          > config/certs/instances.yml;
-          bin/elasticsearch-certutil cert --silent --pem -out config/certs/certs.zip --in config/certs/instances.yml --ca-cert config/certs/ca/ca.crt --ca-key config/certs/ca/ca.key;
-          unzip config/certs/certs.zip -d config/certs;
+        if [ ! -f config/certs/es01/es01.crt ]; then
+          cat > config/certs/instances.yml <<EOF
+        instances:
+          - name: es01
+            dns:
+              - es01
+              - localhost
+            ip:
+              - 127.0.0.1
+        EOF
+          bin/elasticsearch-certutil cert --silent --pem \
+            --in config/certs/instances.yml \
+            --out config/certs/certs.zip \
+            --ca-cert config/certs/ca/ca.crt \
+            --ca-key config/certs/ca/ca.key;
+          unzip -q config/certs/certs.zip -d config/certs;
         fi;
-        echo "Setting file permissions"
-        chown -R 1000:1000 config/certs;
-        find . -type d -exec chmod 750 \{\} \;;
-        find . -type f -exec chmod 640 \{\} \;;
-        echo "Waiting for Elasticsearch availability";
-        until curl -s --cacert config/certs/ca/ca.crt https://es01:9200 | grep -q "missing authentication credentials"; do sleep 30; done;
-        echo "Setting kibana_system password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u "elastic:${ELASTIC_PASSWORD}" -H "Content-Type: application/json" https://es01:9200/_security/user/kibana_system/_password -d "{\"password\":\"${KIBANA_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
-        echo "Setting logstash_system password";
-        until curl -s -X POST --cacert config/certs/ca/ca.crt -u "elastic:${ELASTIC_PASSWORD}" -H "Content-Type: application/json" https://es01:9200/_security/user/logstash_system/_password -d "{\"password\":\"${LOGSTASH_PASSWORD}\"}" | grep -q "^{}"; do sleep 10; done;
-        echo "All done!";
+        chown -R 0:0 config/certs;
+        find config/certs -type d -exec chmod 750 {} \;;
+        find config/certs -type f -exec chmod 640 {} \;;
       '
-    healthcheck:
-      test: ["CMD-SHELL", "[ -f config/certs/es01/es01.crt ]"]
-      interval: 1s
-      timeout: 5s
-      retries: 120
+    restart: "no"
 
   es01:
     depends_on:
-      setup:
-        condition: service_healthy
+      certs:
+        condition: service_completed_successfully
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
     container_name: pfelk-es01
-    volumes:
-      - certs:/usr/share/elasticsearch/config/certs
-      - esdata01:/usr/share/elasticsearch/data
-    ports:
-      - ${ES_PORT}:9200
     environment:
       - node.name=es01
       - cluster.name=${CLUSTER_NAME}
-      - cluster.initial_master_nodes=es01,es02,es03
-      - discovery.seed_hosts=es02,es03
+      - discovery.type=single-node
       - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
       - bootstrap.memory_lock=true
       - xpack.security.enabled=true
@@ -97,47 +59,12 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
       - xpack.security.transport.ssl.verification_mode=certificate
       - xpack.license.self_generated.type=${LICENSE}
-    mem_limit: ${ES_MEM_LIMIT}
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
-        ]
-      interval: 10s
-      timeout: 10s
-      retries: 120
-
-  es02:
-    depends_on:
-      - es01
-    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
-    container_name: pfelk-es02
+      - ES_JAVA_OPTS=${ES_JAVA_OPTS}
     volumes:
-      - certs:/usr/share/elasticsearch/config/certs
-      - esdata02:/usr/share/elasticsearch/data
-    environment:
-      - node.name=es02
-      - cluster.name=${CLUSTER_NAME}
-      - cluster.initial_master_nodes=es01,es02,es03
-      - discovery.seed_hosts=es01,es03
-      - bootstrap.memory_lock=true
-      - xpack.security.enabled=true
-      - xpack.security.http.ssl.enabled=true
-      - xpack.security.http.ssl.key=certs/es02/es02.key
-      - xpack.security.http.ssl.certificate=certs/es02/es02.crt
-      - xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt
-      - xpack.security.http.ssl.verification_mode=certificate
-      - xpack.security.transport.ssl.enabled=true
-      - xpack.security.transport.ssl.key=certs/es02/es02.key
-      - xpack.security.transport.ssl.certificate=certs/es02/es02.crt
-      - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
-      - xpack.security.transport.ssl.verification_mode=certificate
-      - xpack.license.self_generated.type=${LICENSE}
+      - certs:/usr/share/elasticsearch/config/certs:ro
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - "${ES_BIND}:${ES_PORT}:9200"
     mem_limit: ${ES_MEM_LIMIT}
     ulimits:
       memlock:
@@ -147,115 +74,126 @@ services:
       test:
         [
           "CMD-SHELL",
-          "curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
+          "curl -fsS --cacert config/certs/ca/ca.crt -u elastic:${ELASTIC_PASSWORD} https://localhost:9200/_cluster/health >/dev/null"
         ]
       interval: 10s
-      timeout: 10s
-      retries: 120
+      timeout: 5s
+      retries: 60
+      start_period: 20s
+    restart: unless-stopped
 
-  es03:
-    depends_on:
-      - es02
-    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
-    container_name: pfelk-es03
-    volumes:
-      - certs:/usr/share/elasticsearch/config/certs
-      - esdata03:/usr/share/elasticsearch/data
-    environment:
-      - node.name=es03
-      - cluster.name=${CLUSTER_NAME}
-      - cluster.initial_master_nodes=es01,es02,es03
-      - discovery.seed_hosts=es01,es02
-      - bootstrap.memory_lock=true
-      - xpack.security.enabled=true
-      - xpack.security.http.ssl.enabled=true
-      - xpack.security.http.ssl.key=certs/es03/es03.key
-      - xpack.security.http.ssl.certificate=certs/es03/es03.crt
-      - xpack.security.http.ssl.certificate_authorities=certs/ca/ca.crt
-      - xpack.security.http.ssl.verification_mode=certificate
-      - xpack.security.transport.ssl.enabled=true
-      - xpack.security.transport.ssl.key=certs/es03/es03.key
-      - xpack.security.transport.ssl.certificate=certs/es03/es03.crt
-      - xpack.security.transport.ssl.certificate_authorities=certs/ca/ca.crt
-      - xpack.security.transport.ssl.verification_mode=certificate
-      - xpack.license.self_generated.type=${LICENSE}
-    mem_limit: ${ES_MEM_LIMIT}
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "curl -s --cacert config/certs/ca/ca.crt https://localhost:9200 | grep -q 'missing authentication credentials'",
-        ]
-      interval: 10s
-      timeout: 10s
-      retries: 120
-
-  kibana:
+  setup:
     depends_on:
       es01:
         condition: service_healthy
-      es02:
-        condition: service_healthy
-      es03:
-        condition: service_healthy
+    image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}
+    container_name: pfelk-setup
+    volumes:
+      - certs:/usr/share/elasticsearch/config/certs:ro
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - KIBANA_PASSWORD=${KIBANA_PASSWORD}
+      - PFELK_ES_PASSWORD=${PFELK_ES_PASSWORD}
+    command: >
+      bash -euc '
+        ES="https://es01:9200";
+        CA="config/certs/ca/ca.crt";
+        AUTH="elastic:${ELASTIC_PASSWORD}";
+
+        echo "Setting kibana_system password";
+        curl -fsS --cacert "$${CA}" -u "$${AUTH}" \
+          -H "Content-Type: application/json" \
+          -X POST "$${ES}/_security/user/kibana_system/_password" \
+          -d "{\"password\":\"${KIBANA_PASSWORD}\"}" >/dev/null;
+
+        echo "Creating pfelk_writer role";
+        curl -fsS --cacert "$${CA}" -u "$${AUTH}" \
+          -H "Content-Type: application/json" \
+          -X PUT "$${ES}/_security/role/pfelk_writer" \
+          -d "{\"cluster\":[\"monitor\",\"manage_index_templates\",\"manage_ilm\",\"read_ilm\"],
+               \"indices\":[{\"names\":[\"logs-pfelk.*-*\"],
+               \"privileges\":[\"auto_configure\",\"create_doc\",\"write\",\"create\",\"create_index\",\"manage\",\"manage_ilm\",\"view_index_metadata\"]}]}" >/dev/null;
+
+        echo "Creating pfelk_writer user";
+        curl -fsS --cacert "$${CA}" -u "$${AUTH}" \
+          -H "Content-Type: application/json" \
+          -X POST "$${ES}/_security/user/pfelk_writer" \
+          -d "{\"password\":\"${PFELK_ES_PASSWORD}\",\"roles\":[\"pfelk_writer\"],
+               \"full_name\":\"pfELK Logstash Writer\"}" >/dev/null;
+
+        echo "Security bootstrap complete";
+      '
+    restart: "no"
+
+  kibana:
+    depends_on:
+      setup:
+        condition: service_completed_successfully
     image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
     container_name: pfelk-kibana
-    volumes:
-      - certs:/usr/share/kibana/config/certs
-      - kibanadata:/usr/share/kibana/data
-    ports:
-      - ${KIBANA_PORT}:5601
     environment:
-      - SERVERNAME=kibana
+      - SERVERNAME=pfelk-kibana
+      - SERVER_HOST=0.0.0.0
       - ELASTICSEARCH_HOSTS=https://es01:9200
       - ELASTICSEARCH_USERNAME=kibana_system
       - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt
+    volumes:
+      - certs:/usr/share/kibana/config/certs:ro
+      - kibanadata:/usr/share/kibana/data
+    ports:
+      - "${KIBANA_BIND}:${KIBANA_PORT}:5601"
     mem_limit: ${KB_MEM_LIMIT}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsSI http://localhost:5601/api/status >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 60
+      start_period: 30s
+    restart: unless-stopped
+
+  logstash:
+    depends_on:
+      setup:
+        condition: service_completed_successfully
+    image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+    container_name: pfelk-logstash
+    environment:
+      - PFELK_ES_HOSTS=https://es01:9200
+      - PFELK_ES_USER=${PFELK_ES_USER}
+      - PFELK_ES_PASSWORD=${PFELK_ES_PASSWORD}
+      - PFELK_CA_PATH=/usr/share/logstash/config/certs/ca/ca.crt
+      - PFELK_NAMESPACE=${PFELK_NAMESPACE}
+      - PFELK_TIMEZONE=${PFELK_TIMEZONE}
+      - PFELK_QUEUE_SIZE=${PFELK_QUEUE_SIZE}
+      - PFELK_DLQ_SIZE=${PFELK_DLQ_SIZE}
+      - LS_JAVA_OPTS=${LS_JAVA_OPTS}
+    volumes:
+      - certs:/usr/share/logstash/config/certs:ro
+      - ./etc/pfelk/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./etc/pfelk/config/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+      - ./etc/pfelk/conf.d:/etc/pfelk/conf.d:ro
+      - ./etc/pfelk/patterns:/etc/pfelk/patterns:ro
+      - ./etc/pfelk/databases:/etc/pfelk/databases:ro
+      - logstashdata:/usr/share/logstash/data
+    ports:
+      - "${SYSLOG_BIND}:${SYSLOG_PORT}:5140/udp"
+      - "${SYSLOG_BIND}:${SYSLOG_PORT}:5140/tcp"
+    mem_limit: ${LS_MEM_LIMIT}
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          "curl -s -I http://localhost:5601 | grep -q 'HTTP/1.1 302 Found'",
+          "curl -fsS http://localhost:9600/_node/pipelines/pfelk?pretty >/dev/null"
         ]
-      interval: 10s
-      timeout: 10s
-      retries: 120
-
-  logstash:
-    depends_on:
-      es01:
-        condition: service_healthy
-      es02:
-        condition: service_healthy
-      es03:
-        condition: service_healthy
-    image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
-    container_name: pfelk-logstash
-    volumes:
-      - certs:/usr/share/logstash/config/certs
-      - /etc/pfelk/config:/usr/share/logstash/config
-      - /etc/pfelk/conf.d:/etc/pfelk/conf.d:ro,Z
-      - /etc/pfelk/patterns:/etc/pfelk/patterns:ro,Z
-      - /etc/pfelk/databases:/etc/pfelk/databases:ro,Z
-    ports:
-      - 5140:5140/tcp
-      - 5140:5140/udp
-    mem_limit: ${LS_MEM_LIMIT}
+      interval: 15s
+      timeout: 5s
+      retries: 40
+      start_period: 30s
     restart: unless-stopped
 
 volumes:
   certs:
-    driver: local
-  esdata01:
-    driver: local
-  esdata02:
-    driver: local
-  esdata03:
-    driver: local
+  esdata:
   kibanadata:
-    driver: local
+  logstashdata:
