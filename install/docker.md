@@ -1,151 +1,101 @@
-## Custom Installation Guide (pfSense/OPNsense) + Elastic Stack 
+# Docker Compose installation (Elastic Stack 9.x)
 
-## Table of Contents
+This guide applies to the current pfELK source checkout. **Do not mix files
+from different branches or from an older upstream Docker guide.**
 
-- [Preparation](#preparation)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Services](#services)
+## Prerequisites
 
-# Preparation
+- A Linux host with Docker Engine and the **Compose v2 plugin** (`docker compose`).
+- At least 8 GiB RAM; 16 GiB or more is recommended for sustained ingestion.
+- Sufficient SSD storage for the planned event volume and retention.
+- A trusted LAN interface or private network where firewall syslog can reach port 5140.
+- A configured hostname for Kibana. The default `pfelk.local` must resolve on
+  client machines if used. TLS certificates are generated on first deployment.
 
-### 1. Disabling Swap
-Swapping should be disabled for performance and stability.
-```
-sudo swapoff -a
-```
-```
-sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
-```
+For Linux, set the Elasticsearch virtual-memory map allowance:
 
-### 2. Configuration Date/Time Zone
-The box running this configuration will reports firewall logs based on its clock.  The command below will set the timezone to Eastern Standard Time (EST).  To view available timezones type `sudo timedatectl list-timezones`
-```
-sudo timedatectl set-timezone EST
-```
-
-### 3. Configure Memory
-```
+```bash
 sudo sysctl -w vm.max_map_count=262144
+# To make it persistent on a dedicated host:
+echo 'vm.max_map_count=262144' | sudo tee /etc/sysctl.d/99-pfelk.conf
 ```
 
-# Installation
+## Install
 
-### 4. Download and Install Docker
-```
-sudo apt-get install docker
-```
-### 5. Download and Install Docker Compose
-```
-sudo apt-get install docker-compose
+```bash
+git clone https://github.com/4n6-monster/pfelk.git
+cd pfelk
+./etc/pfelk/scripts/pfelk-docker-init.sh
 ```
 
-### 6. Create Required Directories 
-```
-sudo mkdir -p /etc/pfelk/{conf.d,config,logs,databases,docker,patterns,scripts,templates}
+The script creates a private `.env` from `.env.example`, with three distinct
+random passwords and mode `0600`. It refuses to replace an existing `.env`.
+**Never commit `.env` or upload it with support logs.**
+
+Edit `.env` to match your system:
+
+- `KIBANA_SERVER_NAME`: DNS name clients use for the Kibana TLS certificate.
+- `KIBANA_BIND`: host interface for HTTPS Kibana (prefer loopback or trusted LAN).
+- `SYSLOG_BIND`: host LAN address receiving firewall syslog; protect with host ACLs.
+- `PFELK_TIMEZONE`: IANA timezone for RFC3164 records without a timezone.
+- `PFELK_RETENTION`, `PFELK_ERROR_RETENTION`: data-stream retention.
+- `ES_MEM_LIMIT`, `LS_MEM_LIMIT`, and JVM heap settings: available host RAM.
+
+```bash
+docker compose config --quiet
+docker compose up -d
+docker compose ps
+docker compose logs --tail=100 setup logstash
 ```
 
-### 7. (Required) Download the pfelk docker files
-```
-sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/.env -P /etc/pfelk/docker/
-sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/docker-compose.yml -P /etc/pfelk/docker/
-sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/config/logstash.yml -P /etc/pfelk/config/
-sudo wget -q https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/config/pipelines.yml -P /etc/pfelk/config/
+Access Kibana at `https://<KIBANA_SERVER_NAME>:5601`. The deployment generates
+a private certificate authority (CA). Import and trust the CA appropriately;
+do not disable certificate verification as a permanent workaround. To reach a
+loopback-only Kibana from another workstation, use an SSH tunnel or a secured
+reverse proxy that preserves TLS verification.
+
+## Firewall configuration
+
+Configure pfSense or OPNsense to forward selected logs to `<SYSLOG_BIND>:5140`.
+Both UDP and TCP inputs are supported by the supplied Logstash configuration.
+**Neither input has TLS enabled by default**; use only on an isolated/trusted
+network, apply firewall source-IP ACLs, or configure TCP TLS with proper server
+certificates and compatible clients. UDP can lose messages during congestion.
+See [firewall configuration](configuration.md) and [security](security.md).
+
+## Verify
+
+```bash
+docker compose ps
+docker compose logs --tail=100 logstash
+# Connect from an approved sender; then check the data streams in Kibana.
 ```
 
-### 8. (Required) Download the following configuration files
-```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/01-inputs.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/02-firewall.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/05-apps.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/30-geoip.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/49-cleanup.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/50-outputs.pfelk -P /etc/pfelk/conf.d/
-```
+The deployed stack uses dataset-oriented data streams such as
+`logs-pfelk.firewall-default` and `logs-pfelk.pipeline_error-default`.
+Check the latter when unexpected messages do not parse correctly. Container
+health checks alone do not prove end-to-end ingestion.
 
-### 9. (Optional) Download the following configuration files
-```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/20-interfaces.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/35-rules-desc.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/36-ports-desc.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/37-enhanced_user_agent.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/38-enhanced_url.pfelk -P /etc/pfelk/conf.d/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/conf.d/45-enhanced_private.pfelk -P /etc/pfelk/conf.d/
-```
+## Operations
 
-### 10. Download the grok pattern
-```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/pfelk.grok -P /etc/pfelk/patterns/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/patterns/openvpn.grok -P /etc/pfelk/patterns/
-```
+- Back up the generated CA and credentials using an encrypted secret manager.
+- Configure **off-host Elasticsearch snapshots** and test restoration; a Docker
+  volume alone is not a recoverable backup.
+- Monitor persistent queue size, DLQ growth, disk space, pipeline-error counts,
+  input throughput, and log arrival delays.
+- Pin a tested release or Git commit for production deployments.
+- Review upstream Elastic release notes before changing `STACK_VERSION`; take
+  a snapshot and document rollback procedures before upgrades.
+- Do not expose Elasticsearch or Kibana directly to the internet.
 
-### 11. (Optional) Download the Database(s)
-```
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/private-hostnames.csv -P /etc/pfelk/databases/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/rule-names.csv -P /etc/pfelk/databases/
-sudo wget https://raw.githubusercontent.com/pfelk/pfelk/main/etc/pfelk/databases/service-names-port-numbers.csv -P /etc/pfelk/databases/
-```
+### Troubleshooting
 
-### 12. (Optional) Configure Firewall Rule Database
-To configure pfSense/OPNsense to update the firewall rule database, follow [this reference](https://github.com/pfelk/pfelk/wiki/References:-Rule-Descriptions).
-
-### 13. (Optional) Amend 20-interfaces.pfelk as desired, to map/reference the interface.name, interface.alias and network.name fields. 
-Amend `interface.name`, `interface.alias` and `network.name` fields via [Wiki page](https://github.com/pfelk/pfelk/wiki/References:-Customized-Interface-Names)
-
-# Configuration
-* Optional
-
-### 14. Configure Credentials
-
-#### a. Configuring .env Credentials
-```
-sudo nano /etc/pfelk/docker/.env
-```
-#### b. Amend as Desired | .env
-```
-ELASTIC_PASSWORD=changeme
-KIBANA_PASSWORD=changeme
-LOGSTASH_PASSWORD=changeme
-LICENSE=basic
-```
-
-#### c. Configure 50-outputs.conf Credentials
-```
-sudo nano /etc/pfelk/conf.d/50-outputs.pfelk
-```
-#### d. Amend as Desired | 50-outputs.conf 
-```
-    cacert => '/usr/share/logstash/config/certs/ca/ca.crt'
-    user => "elastic"
-    # cacert => '/etc/logstash/config/certs/http_ca.crt' #[Disable if using Docker]
-    # user => "pfelk_logstash" #[Disable if using Docker]
-    password => "changeme"
-```
-
-#### e. Configure `/etc/pfelk/logstash.yml` Credentials
-```
-sudo nano /etc/pfelk/config/logstash.yml
-```
-#### f. Amend as Desired | `/etc/pfelk/logstash.yml`
-```
-    xpack.monitoring.elasticsearch.username: elastic
-    xpack.monitoring.elasticsearch.password: changeme
-```
-
-# Services
-
-### 15. Navigate to Docker.yml File
-```
-cd /etc/pfelk/docker/
-```
-
-### 16. Start pfelk/docker
-```
-sudo docker-compose up
-```
-or if you want to fund in the background
-```
-sudo docker-compose up -d
-```
-
-**[Install](docker.md)** • <sub>[Templates](templates.md)</sub> • <sub>[Configuration](configuration.md)</sub>
+- `Missing .env.example`: verify this is the updated checkout.
+- `.env already exists`: review the file; the initializer intentionally refuses
+  to replace credentials. Never regenerate passwords on an existing stack
+  without planning how the built-in users will be updated.
+- Kibana certificate error: ensure the hostname matches `KIBANA_SERVER_NAME`
+  and the generated CA is trusted. Changing the hostname after certificates
+  have been generated requires a deliberate certificate rotation.
+- Missing logs: verify source ACLs, listener port 5140, Logstash logs, parser
+  errors, writer privileges, and Elasticsearch data-stream mappings.

@@ -1,18 +1,43 @@
-# Security 
+# pfELK security and access
 
-  s1. Obtain the Enrollment token
-     - `sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token --scope kibana`
-       
-  s2. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
-     - 🅰️ Input Enrollment Token
-     - ![token](https://github.com/pfelk/pfelk/raw/main/Images/security/enrollment%20token.png)
-     - 🅱️ Input Kibana Verification Code
-     - `sudo /usr/share/kibana/bin/kibana-verification-code`
-     - ![code](https://github.com/pfelk/pfelk/raw/main/Images/security/kcode.png)
+## Docker deployment
 
-  s3. Navigate to the pfELK IP address (example: 192.168.0.1:5601)
-     - Input `elastic` as the user name and the password utilized to upgrade 50-outputs.pfelk in the [installation step, i2](https://github.com/pfelk/pfelk/blob/main/install/install.md#i2-%EF%B8%8F-obatin-and-note-built-in-superuser-password-%EF%B8%8F)
+- Run `pfelk-docker-init.sh` to create a private, mode-`0600` `.env` from
+  `.env.example`. Never commit, share, or put `.env` in diagnostics.
+- Elasticsearch listens on host loopback by default and uses TLS.
+- Kibana uses HTTPS with a local certificate authority. Restrict `KIBANA_BIND`
+  to approved networks and trust the issuing CA on client computers.
+- Firewall syslog arrives on UDP/TCP port 5140 **without transport encryption
+  by default**. Restrict source IPs and listener exposure; consider a TLS-enabled
+  TCP collector, VPN, or dedicated syslog relay where appropriate.
+- Logstash should use the restricted `pfelk_writer` identity, never `elastic`.
+- Back up Elasticsearch with snapshots stored outside the same host; regularly
+  test disaster recovery. A persistent queue is not a substitute for backups.
 
-# Proceed to Install ➡️ [Templates](templates.md)
+## Native Debian/Ubuntu deployment
 
-<sub>[Preparation](preparation.md)</sub> • <sub>[Install](install.md)</sub> • **[Security](security.md)** • <sub>[Templates](templates.md)</sub> • <sub>[Configuration](configuration.md)</sub>
+The native installer binds Kibana to `127.0.0.1:5601` by default to avoid
+exposing a plaintext browser session to the network. For remote administration,
+forward the port through SSH:
+
+```bash
+ssh -L 5601:127.0.0.1:5601 user@pfelk-host
+```
+
+Then visit `http://127.0.0.1:5601` in your browser. If access must be shared
+across a LAN, deploy a **TLS-secured reverse proxy** with access controls and
+proper certificate validation, or configure native Kibana TLS; change the
+binding only after confirming TLS terminates the browser connection.
+
+The Elastic superuser should only be used for initial setup/administration.
+Protect `/etc/pfelk/secrets` and the Logstash keystore, and avoid logging
+credentials. Native GeoLite2 updates should keep the downloaded `.mmdb` files
+readable by the Logstash process without exposing MaxMind license credentials.
+
+## Evidence handling and data privacy
+
+Network telemetry may contain addresses, hostnames, URLs and identifiers.
+Define an appropriate retention policy, restrict user access, protect backups,
+and avoid sharing `event.original` without reviewing sensitive content. For
+investigative or legal evidence handling, retain separately authenticated raw
+logs and hash manifests; Elasticsearch documents are not immutable evidence.
